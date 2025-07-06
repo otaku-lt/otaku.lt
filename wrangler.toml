@@ -9,7 +9,6 @@ compatibility_flags = ["nodejs_compat"]
 [assets]
 directory = "out"          # Next.js export output directory
 not_found_handling = "single-page-application"  # Enable SPA routing for Next.js
-binding = "ASSETS"         # Assets binding name
 
 # Environment variables
 [env.production.vars]

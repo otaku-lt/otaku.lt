@@ -26,6 +26,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Update wrangler to latest version
+        run: npm install --save-dev wrangler@latest
+
       - name: Build Next.js application
         run: npm run build
 
