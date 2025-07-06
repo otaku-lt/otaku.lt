@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Calendar, MapPin, Clock, Users, Filter, Search, Plus, ArrowLeft } from "lucide-react";
+import { Calendar, MapPin, Clock, Search, Plus, ArrowLeft } from "lucide-react";
 
 export default function EventsPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -17,7 +17,6 @@ export default function EventsPage() {
       location: "Vilnius, Compensa Concert Hall",
       category: "concert",
       description: "Our biggest summer concert featuring local and international performers",
-      attendees: 150,
       status: "upcoming",
       featured: true
     },
@@ -29,7 +28,6 @@ export default function EventsPage() {
       location: "Trakai National Park",
       category: "camping",
       description: "3-day camping experience with anime screenings, cosplay contests, and outdoor activities",
-      attendees: 80,
       status: "upcoming",
       featured: true
     },
@@ -41,7 +39,6 @@ export default function EventsPage() {
       location: "Kaunas, Cinema Hall",
       category: "screening",
       description: "Marathon screening of beloved Studio Ghibli films",
-      attendees: 45,
       status: "upcoming"
     },
     {
@@ -52,7 +49,6 @@ export default function EventsPage() {
       location: "Vilnius, Art Studio",
       category: "workshop",
       description: "Learn prop-making and makeup techniques from experienced cosplayers",
-      attendees: 25,
       status: "upcoming"
     },
     {
@@ -63,7 +59,6 @@ export default function EventsPage() {
       location: "Vilnius, Board Game Café",
       category: "gaming",
       description: "Competitive Yu-Gi-Oh! trading card game tournament",
-      attendees: 32,
       status: "upcoming"
     },
     {
@@ -74,7 +69,6 @@ export default function EventsPage() {
       location: "Kaunas, Music Club",
       category: "concert",
       description: "Live performance by Lithuania's favorite anime cover band",
-      attendees: 75,
       status: "upcoming"
     }
   ];
@@ -209,10 +203,6 @@ export default function EventsPage() {
                 <div className="flex items-center gap-2 text-gray-600">
                   <MapPin size={16} />
                   <span className="text-sm">{event.location}</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Users size={16} />
-                  <span className="text-sm">{event.attendees} attendees</span>
                 </div>
               </div>
 
