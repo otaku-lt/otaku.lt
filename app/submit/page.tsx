@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Calendar, MapPin, Users, Clock, Upload, Send, CheckCircle } from "lucide-react";
+import { ArrowLeft, Calendar, Send, CheckCircle } from "lucide-react";
 
 export default function SubmitEventPage() {
   const [formData, setFormData] = useState({
@@ -12,12 +12,10 @@ export default function SubmitEventPage() {
     time: "",
     location: "",
     category: "",
-    expectedAttendees: "",
-    contactEmail: "",
-    contactName: "",
-    organizerType: "",
-    website: "",
     ticketPrice: "",
+    sourceUrl: "",
+    sourceDescription: "",
+    contactEmail: "",
     additionalInfo: ""
   });
 
@@ -34,13 +32,6 @@ export default function SubmitEventPage() {
     { value: "meetup", label: "Meetups" },
     { value: "convention", label: "Conventions" },
     { value: "other", label: "Other" }
-  ];
-
-  const organizerTypes = [
-    { value: "individual", label: "Individual" },
-    { value: "group", label: "Group/Club" },
-    { value: "business", label: "Business" },
-    { value: "organization", label: "Organization" }
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -92,12 +83,10 @@ export default function SubmitEventPage() {
                   time: "",
                   location: "",
                   category: "",
-                  expectedAttendees: "",
-                  contactEmail: "",
-                  contactName: "",
-                  organizerType: "",
-                  website: "",
                   ticketPrice: "",
+                  sourceUrl: "",
+                  sourceDescription: "",
+                  contactEmail: "",
                   additionalInfo: ""
                 });
               }}
@@ -232,20 +221,6 @@ export default function SubmitEventPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Expected Attendees
-                </label>
-                <input
-                  type="number"
-                  name="expectedAttendees"
-                  value={formData.expectedAttendees}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-4 focus:ring-pink-200 focus:border-pink-500 focus:outline-none"
-                  placeholder="e.g., 50"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Ticket Price
                 </label>
                 <input
@@ -277,29 +252,46 @@ export default function SubmitEventPage() {
 
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
             <h2 className="text-2xl font-bold mb-6 text-gray-800 flex items-center gap-2">
-              <Users className="text-purple-600" size={24} />
-              Organizer Information
+              <Send className="text-blue-600" size={24} />
+              Event Source & Contact
             </h2>
             
             <div className="grid md:grid-cols-2 gap-6">
-              <div>
+              <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Contact Name *
+                  Event Source URL *
                 </label>
                 <input
-                  type="text"
-                  name="contactName"
-                  value={formData.contactName}
+                  type="url"
+                  name="sourceUrl"
+                  value={formData.sourceUrl}
                   onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-4 focus:ring-pink-200 focus:border-pink-500 focus:outline-none"
-                  placeholder="Your name or organization name"
+                  placeholder="https://facebook.com/events/123... or https://instagram.com/p/... or Discord link"
+                />
+                <p className="text-sm text-gray-500 mt-1">
+                  Link to the original event source (Facebook, Instagram, Discord announcement, website, etc.)
+                </p>
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Source Description
+                </label>
+                <input
+                  type="text"
+                  name="sourceDescription"
+                  value={formData.sourceDescription}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-4 focus:ring-pink-200 focus:border-pink-500 focus:outline-none"
+                  placeholder="e.g., Official Facebook event, Organizer's website, Discord announcement..."
                 />
               </div>
 
-              <div>
+              <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Contact Email *
+                  Your Contact Email *
                 </label>
                 <input
                   type="email"
@@ -310,38 +302,9 @@ export default function SubmitEventPage() {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-4 focus:ring-pink-200 focus:border-pink-500 focus:outline-none"
                   placeholder="your.email@example.com"
                 />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Organizer Type *
-                </label>
-                <select
-                  name="organizerType"
-                  value={formData.organizerType}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-4 focus:ring-pink-200 focus:border-pink-500 focus:outline-none"
-                >
-                  <option value="">Select organizer type</option>
-                  {organizerTypes.map(type => (
-                    <option key={type.value} value={type.value}>{type.label}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Website/Social Media
-                </label>
-                <input
-                  type="url"
-                  name="website"
-                  value={formData.website}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-4 focus:ring-pink-200 focus:border-pink-500 focus:outline-none"
-                  placeholder="https://your-website.com"
-                />
+                <p className="text-sm text-gray-500 mt-1">
+                  We'll contact you if we need clarification about the event submission
+                </p>
               </div>
 
               <div className="md:col-span-2">
@@ -364,10 +327,10 @@ export default function SubmitEventPage() {
           <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6">
             <h3 className="text-lg font-semibold mb-3 text-blue-800">Submission Guidelines</h3>
             <ul className="text-sm text-blue-700 space-y-2">
-              <li>• All events must be related to anime, manga, Japanese culture, or otaku interests</li>
+              <li>• All events must be related to anime, manga, Japanese pop culture, or otaku interests</li>
+              <li>• We focus on modern Japanese pop culture, not traditional cultural events</li>
               <li>• Events will be reviewed within 24-48 hours</li>
               <li>• We reserve the right to edit event descriptions for clarity</li>
-              <li>• Commercial events are welcome but should benefit the community</li>
               <li>• Please provide accurate and up-to-date information</li>
             </ul>
           </div>
