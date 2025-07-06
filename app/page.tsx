@@ -53,19 +53,20 @@ export default function HomePage() {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-8">
               {[
-                { href: "/", label: "Home" },
-                { href: "/events", label: "Events" },
-                { href: "/idol-stage", label: "Idol Stage" },
-                { href: "/yurucamp", label: "YuruCamp" },
-                { href: "/korniha-band", label: "Korniha Band" },
-                { href: "/communities", label: "Communities" },
-                { href: "/contact", label: "Contact" }
+                { href: "/", label: "Home", icon: "🏠" },
+                { href: "/events", label: "Events", icon: "🎌" },
+                { href: "/idol-stage", label: "Idol Stage", icon: "🎤" },
+                { href: "/yurucamp", label: "YuruCamp", icon: "⛺" },
+                { href: "/korniha-band", label: "Korniha Band", icon: "🎸" },
+                { href: "/communities", label: "Communities", icon: "👥" },
+                { href: "/contact", label: "Contact", icon: "📧" }
               ].map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-gray-700 hover:text-pink-600 transition-colors relative group"
+                  className="text-gray-700 hover:text-pink-600 transition-colors relative group flex items-center gap-1"
                 >
+                  <span>{item.icon}</span>
                   {item.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 transition-all group-hover:w-full"></span>
                 </Link>
@@ -86,20 +87,21 @@ export default function HomePage() {
             <nav className="md:hidden mt-4 py-4 border-t border-pink-200">
               <div className="flex flex-col space-y-3">
                 {[
-                  { href: "/", label: "Home" },
-                  { href: "/events", label: "Events" },
-                  { href: "/idol-stage", label: "Idol Stage" },
-                  { href: "/yurucamp", label: "YuruCamp" },
-                  { href: "/korniha-band", label: "Korniha Band" },
-                  { href: "/communities", label: "Communities" },
-                  { href: "/contact", label: "Contact" }
+                  { href: "/", label: "Home", icon: "🏠" },
+                  { href: "/events", label: "Events", icon: "🎌" },
+                  { href: "/idol-stage", label: "Idol Stage", icon: "🎤" },
+                  { href: "/yurucamp", label: "YuruCamp", icon: "⛺" },
+                  { href: "/korniha-band", label: "Korniha Band", icon: "🎸" },
+                  { href: "/communities", label: "Communities", icon: "👥" },
+                  { href: "/contact", label: "Contact", icon: "📧" }
                 ].map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="text-gray-700 hover:text-pink-600 transition-colors py-2"
+                    className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
                     onClick={() => setMobileMenuOpen(false)}
                   >
+                    <span>{item.icon}</span>
                     {item.label}
                   </Link>
                 ))}

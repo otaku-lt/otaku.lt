@@ -94,7 +94,7 @@ export default function KornihaBandPage() {
                 className="w-10 h-10"
               />
               <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Korniha Band
+                🎸 Korniha Band
               </span>
             </div>
           </div>

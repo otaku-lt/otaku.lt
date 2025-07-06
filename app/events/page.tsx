@@ -106,7 +106,7 @@ export default function EventsPage() {
                 className="w-10 h-10"
               />
               <span className="text-xl font-bold bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">
-                Events
+                🎌 Events
               </span>
             </div>
           </div>

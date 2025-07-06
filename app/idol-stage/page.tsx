@@ -63,7 +63,7 @@ export default function IdolStagePage() {
                 className="w-10 h-10"
               />
               <span className="text-xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                Idol Stage
+                🎤 Idol Stage
               </span>
             </div>
           </div>

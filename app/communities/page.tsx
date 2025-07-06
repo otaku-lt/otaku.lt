@@ -151,7 +151,7 @@ export default function CommunitiesPage() {
                 className="w-10 h-10"
               />
               <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Communities
+                👥 Communities
               </span>
             </div>
           </div>
