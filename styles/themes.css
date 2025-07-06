@@ -1,0 +1,86 @@
+/* Theme System - Centralized Color Management */
+
+:root {
+  /* Current Theme: Pink/Purple/Blue Gradient Theme */
+  
+  /* Primary Colors */
+  --theme-primary-50: 252 231 243;    /* pink-50 */
+  --theme-primary-100: 251 207 232;   /* pink-100 */
+  --theme-primary-200: 251 182 206;   /* pink-200 */
+  --theme-primary-300: 249 168 212;   /* pink-300 */
+  --theme-primary-400: 244 114 182;   /* pink-400 */
+  --theme-primary-500: 236 72 153;    /* pink-500 */
+  --theme-primary-600: 219 39 119;    /* pink-600 */
+  --theme-primary-700: 190 24 93;     /* pink-700 */
+
+  /* Secondary Colors */
+  --theme-secondary-50: 250 245 255;  /* purple-50 */
+  --theme-secondary-100: 243 232 255; /* purple-100 */
+  --theme-secondary-200: 233 213 255; /* purple-200 */
+  --theme-secondary-300: 196 181 253; /* purple-300 */
+  --theme-secondary-400: 168 85 247;  /* purple-400 */
+  --theme-secondary-500: 147 51 234;  /* purple-500 */
+  --theme-secondary-600: 124 58 237;  /* purple-600 */
+  --theme-secondary-700: 109 40 217;  /* purple-700 */
+
+  /* Accent Colors */
+  --theme-accent-50: 239 246 255;     /* blue-50 */
+  --theme-accent-100: 219 234 254;    /* blue-100 */
+  --theme-accent-200: 191 219 254;    /* blue-200 */
+  --theme-accent-300: 147 197 253;    /* blue-300 */
+  --theme-accent-400: 96 165 250;     /* blue-400 */
+  --theme-accent-500: 59 130 246;     /* blue-500 */
+  --theme-accent-600: 37 99 235;      /* blue-600 */
+  --theme-accent-700: 29 78 216;      /* blue-700 */
+
+  /* Supporting Colors */
+  --theme-success-50: 240 253 244;    /* green-50 */
+  --theme-success-100: 220 252 231;   /* green-100 */
+  --theme-success-200: 187 247 208;   /* green-200 */
+  --theme-success-500: 34 197 94;     /* green-500 */
+  --theme-success-600: 22 163 74;     /* green-600 */
+  --theme-success-700: 21 128 61;     /* green-700 */
+
+  --theme-warning-200: 254 240 138;   /* yellow-200 */
+  --theme-warning-500: 234 179 8;     /* yellow-500 */
+  --theme-warning-600: 202 138 4;     /* yellow-600 */
+
+  --theme-error-100: 254 226 226;     /* red-100 */
+  --theme-error-500: 239 68 68;       /* red-500 */
+  --theme-error-600: 220 38 38;       /* red-600 */
+
+  /* Indigo for special cases */
+  --theme-indigo-600: 79 70 229;      /* indigo-600 */
+}
+
+/* Alternative Lithuanian Flag Theme (commented out for now) */
+/*
+:root {
+  --theme-primary-50: 255 248 220;
+  --theme-primary-100: 254 240 138;
+  --theme-primary-200: 253 224 71;
+  --theme-primary-300: 250 204 21;
+  --theme-primary-400: 234 179 8;
+  --theme-primary-500: 202 138 4;
+  --theme-primary-600: 161 98 7;
+  --theme-primary-700: 133 77 14;
+
+  --theme-secondary-50: 240 253 244;
+  --theme-secondary-100: 220 252 231;
+  --theme-secondary-200: 187 247 208;
+  --theme-secondary-300: 134 239 172;
+  --theme-secondary-400: 74 222 128;
+  --theme-secondary-500: 34 197 94;
+  --theme-secondary-600: 22 163 74;
+  --theme-secondary-700: 21 128 61;
+
+  --theme-accent-50: 254 242 242;
+  --theme-accent-100: 254 226 226;
+  --theme-accent-200: 254 202 202;
+  --theme-accent-300: 252 165 165;
+  --theme-accent-400: 248 113 113;
+  --theme-accent-500: 239 68 68;
+  --theme-accent-600: 220 38 38;
+  --theme-accent-700: 185 28 28;
+}
+*/

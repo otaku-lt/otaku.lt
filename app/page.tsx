@@ -34,7 +34,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50">
+    <div className="bg-theme-gradient-light min-h-screen">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 py-4">
@@ -45,7 +45,7 @@ export default function HomePage() {
                 alt="Otaku.lt Logo" 
                 className="w-12 h-12 group-hover:scale-105 transition-transform"
               />
-              <span className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="text-theme-gradient-primary text-2xl font-bold">
                 Otaku.lt
               </span>
             </Link>

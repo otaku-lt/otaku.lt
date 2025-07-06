@@ -1,0 +1,91 @@
+/* Theme Utility Classes */
+
+@layer utilities {
+  /* Background utilities */
+  .bg-theme-gradient-primary {
+    @apply bg-gradient-to-r from-theme-primary-500 to-theme-primary-600;
+  }
+  
+  .bg-theme-gradient-secondary {
+    @apply bg-gradient-to-r from-theme-secondary-500 to-theme-secondary-600;
+  }
+  
+  .bg-theme-gradient-primary-secondary {
+    @apply bg-gradient-to-r from-theme-primary-500 to-theme-secondary-500;
+  }
+  
+  .bg-theme-gradient-primary-accent {
+    @apply bg-gradient-to-r from-theme-primary-600 to-theme-accent-600;
+  }
+  
+  .bg-theme-gradient-light {
+    @apply bg-gradient-to-br from-theme-primary-50 to-theme-accent-50;
+  }
+
+  /* Hover utilities */
+  .hover-theme-gradient-primary {
+    @apply hover:from-theme-primary-600 hover:to-theme-primary-700;
+  }
+  
+  .hover-theme-gradient-secondary {
+    @apply hover:from-theme-secondary-600 hover:to-theme-secondary-700;
+  }
+  
+  .hover-theme-gradient-primary-secondary {
+    @apply hover:from-theme-primary-600 hover:to-theme-secondary-600;
+  }
+
+  /* Text utilities */
+  .text-theme-gradient-primary {
+    @apply bg-gradient-to-r from-theme-primary-600 to-theme-accent-600 bg-clip-text text-transparent;
+  }
+  
+  .text-theme-gradient-secondary {
+    @apply bg-gradient-to-r from-theme-primary-600 to-theme-secondary-600 bg-clip-text text-transparent;
+  }
+
+  /* Focus utilities */
+  .focus-theme-primary {
+    @apply focus:ring-4 focus:ring-theme-primary-200 focus:border-theme-primary-500 focus:outline-none;
+  }
+
+  /* Button utilities */
+  .btn-theme-primary {
+    @apply bg-theme-gradient-primary text-white rounded-full hover-theme-gradient-primary transition-all shadow-lg;
+  }
+  
+  .btn-theme-secondary {
+    @apply bg-theme-gradient-secondary text-white rounded-full hover-theme-gradient-secondary transition-all shadow-lg;
+  }
+  
+  .btn-theme-outline-primary {
+    @apply border-2 border-theme-primary-500 text-theme-primary-600 rounded-full hover:bg-theme-primary-50 transition-all;
+  }
+
+  /* Icon circle utilities */
+  .icon-theme-primary {
+    @apply bg-gradient-to-r from-theme-primary-400 to-theme-secondary-400 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform;
+  }
+  
+  .icon-theme-secondary {
+    @apply bg-gradient-to-r from-theme-secondary-400 to-theme-accent-400 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform;
+  }
+
+  /* Feature card utilities */
+  .feature-card-theme {
+    @apply ring-theme-primary-300;
+  }
+  
+  .featured-badge-theme {
+    @apply bg-gradient-to-r from-theme-primary-500 to-theme-secondary-500 text-white text-xs px-3 py-1 rounded-full;
+  }
+
+  /* Navigation utilities */
+  .nav-link-theme {
+    @apply text-gray-700 hover:text-theme-primary-600 transition-colors relative group;
+  }
+  
+  .nav-underline-theme {
+    @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-theme-primary-600 transition-all group-hover:w-full;
+  }
+}

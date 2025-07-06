@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import centralized theme system */
+@import '../styles/themes.css';
+
+/* Theme Utility Classes */
+@layer utilities {
+  /* Background utilities */
+  .bg-theme-gradient-primary {
+    @apply bg-gradient-to-r from-theme-primary-500 to-theme-primary-600;
+  }
+  
+  .bg-theme-gradient-secondary {
+    @apply bg-gradient-to-r from-theme-secondary-500 to-theme-secondary-600;
+  }
+  
+  .bg-theme-gradient-primary-secondary {
+    @apply bg-gradient-to-r from-theme-primary-500 to-theme-secondary-500;
+  }
+  
+  .bg-theme-gradient-primary-accent {
+    @apply bg-gradient-to-r from-theme-primary-600 to-theme-accent-600;
+  }
+  
+  .bg-theme-gradient-light {
+    @apply bg-gradient-to-br from-theme-primary-50 to-theme-accent-50;
+  }
+
+  /* Text utilities */
+  .text-theme-gradient-primary {
+    @apply bg-gradient-to-r from-theme-primary-600 to-theme-accent-600 bg-clip-text text-transparent;
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
