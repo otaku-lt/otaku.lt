@@ -117,14 +117,11 @@ export default function HomePage() {
           <div className="text-center mb-16">
             <div className="flex justify-center mb-8">
               <img 
-                src="/otaku_lt.png" 
-                alt="Otaku.lt Character" 
-                className="w-32 h-32 md:w-48 md:h-48 hover:scale-105 transition-transform duration-300"
+                src="/otaku_lt_banner.png" 
+                alt="Otaku.lt Banner" 
+                className="w-full max-w-4xl h-auto hover:scale-105 transition-transform duration-300 rounded-lg shadow-lg"
               />
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
-              Otaku.lt
-            </h1>
             <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
               Your central hub for anime, cosplay, J-pop, karaoke, and otaku culture in Lithuania. 
               Powered by community, love for Japan, and good vibes. 🌸
