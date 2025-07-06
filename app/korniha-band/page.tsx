@@ -88,9 +88,11 @@ export default function KornihaBandPage() {
               Back to Home
             </Link>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold">
-                K
-              </div>
+              <img 
+                src="/otaku_lt.png" 
+                alt="Otaku.lt Logo" 
+                className="w-10 h-10"
+              />
               <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                 Korniha Band
               </span>

@@ -121,9 +121,11 @@ export default function SubmitEventPage() {
               Back to Home
             </Link>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center text-white font-bold">
-                S
-              </div>
+              <img 
+                src="/otaku_lt.png" 
+                alt="Otaku.lt Logo" 
+                className="w-10 h-10"
+              />
               <span className="text-xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
                 Submit Event
               </span>

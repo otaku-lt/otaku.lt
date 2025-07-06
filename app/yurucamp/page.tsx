@@ -100,9 +100,11 @@ export default function YuruCampPage() {
               Back to Home
             </Link>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-blue-400 rounded-full flex items-center justify-center text-white font-bold">
-                Y
-              </div>
+              <img 
+                src="/otaku_lt.png" 
+                alt="Otaku.lt Logo" 
+                className="w-10 h-10"
+              />
               <span className="text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
                 YuruCamp
               </span>
