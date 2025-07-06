@@ -120,7 +120,7 @@ export default function EventsPage() {
             Otaku Events 🎌
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Discover amazing anime, cosplay, and Japanese culture events happening across Lithuania
+            Discover amazing anime, cosplay, and Japanese pop culture events happening across Lithuania
           </p>
         </div>
 
