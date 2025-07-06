@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:preview": "npm run build && wrangler deploy --env preview",
+    "wrangler:dev": "wrangler dev",
+    "wrangler:login": "wrangler auth login"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -67,5 +71,8 @@
     "typescript": "5.2.2",
     "vaul": "^0.9.9",
     "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "wrangler": "^3.78.0"
   }
 }

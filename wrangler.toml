@@ -1,0 +1,34 @@
+# Cloudflare Workers configuration for otaku.lt
+# Migrated from Pages to Workers following official migration guide
+
+name = "otaku-lt"
+compatibility_date = "2024-01-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Static assets configuration (replaces Pages)
+[assets]
+directory = "out"          # Next.js export output directory
+not_found_handling = "single-page-application"  # Enable SPA routing for Next.js
+binding = "ASSETS"         # Assets binding name
+
+# Environment variables
+[env.production.vars]
+NODE_ENV = "production"
+NEXT_TELEMETRY_DISABLED = "1"
+
+[env.preview.vars]
+NODE_ENV = "development"
+NEXT_TELEMETRY_DISABLED = "1"
+
+# Routes for custom domains (managed by Cloudflare zones)
+[[routes]]
+pattern = "otaku.lt/*"
+zone_name = "otaku.lt"
+
+[[routes]]
+pattern = "www.otaku.lt/*"
+zone_name = "otaku.lt"
+
+# Development routes for preview deployments
+[[env.preview.routes]]
+pattern = "*.otaku-lt.workers.dev/*"
