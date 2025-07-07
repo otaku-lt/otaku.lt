@@ -106,7 +106,7 @@ export default function EventsPage() {
                 className="w-10 h-10"
               />
               <span className="text-xl font-bold bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">
-                🎌 Events
+                🎌 Event Calendar
               </span>
             </div>
           </div>
@@ -117,7 +117,7 @@ export default function EventsPage() {
         {/* Page Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">
-            Otaku Events 🎌
+            Event Calendar 🎌
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Discover amazing anime, cosplay, and Japanese pop culture events happening across Lithuania
