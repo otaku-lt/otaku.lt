@@ -16,14 +16,15 @@ services:
     networks:
       - traefik
 
-  app:
+  otaku-lt:
     build:
       context: ..
       dockerfile: .devcontainer/Dockerfile
     volumes:
       - ../..:/workspaces:cached
       - otaku-node-modules:/workspaces/otaku.lt/node_modules
-    command: sleep infinity
+    working_dir: /workspaces/otaku.lt
+    command: npm run dev
     ports:
       - "3000:3000"
       - "3001:3001"

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Calendar, MapPin, Users, Star, ArrowRight, Menu, X } from "lucide-react";
+import { Calendar, MapPin, Users, Star, ArrowRight, Menu, X, ChevronDown } from "lucide-react";
 
 export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -52,25 +52,78 @@ export default function HomePage() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-8">
-              {[
-                { href: "/", label: "Home", icon: "🏠" },
-                { href: "/events", label: "Events", icon: "🎌" },
-                { href: "/idol-stage", label: "Idol Stage", icon: "🎤" },
-                { href: "/yurucamp", label: "YuruCamp", icon: "⛺" },
-                { href: "/korniha-band", label: "Korniha Band", icon: "🎸" },
-                { href: "/communities", label: "Communities", icon: "👥" },
-                { href: "/contact", label: "Contact", icon: "📧" }
-              ].map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-gray-700 hover:text-pink-600 transition-colors relative group flex items-center gap-1"
-                >
-                  <span>{item.icon}</span>
-                  {item.label}
+              <Link
+                href="/"
+                className="text-gray-700 hover:text-pink-600 transition-colors relative group flex items-center gap-1"
+              >
+                <span>🏠</span>
+                Home
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 transition-all group-hover:w-full"></span>
+              </Link>
+              
+              <Link
+                href="/events"
+                className="text-gray-700 hover:text-pink-600 transition-colors relative group flex items-center gap-1"
+              >
+                <span>🎌</span>
+                Events
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 transition-all group-hover:w-full"></span>
+              </Link>
+
+              <Link
+                href="/communities"
+                className="text-gray-700 hover:text-pink-600 transition-colors relative group flex items-center gap-1"
+              >
+                <span>👥</span>
+                Communities
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 transition-all group-hover:w-full"></span>
+              </Link>
+
+              {/* Events Dropdown */}
+              <div className="relative group">
+                <button className="text-gray-700 hover:text-pink-600 transition-colors relative flex items-center gap-1">
+                  <span>🎭</span>
+                  Our Events
+                  <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 transition-all group-hover:w-full"></span>
-                </Link>
-              ))}
+                </button>
+                
+                {/* Dropdown Menu */}
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-2">
+                    <Link
+                      href="/idol-stage"
+                      className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors"
+                    >
+                      <span>🎤</span>
+                      Idol Stage
+                    </Link>
+                    <Link
+                      href="/yurucamp"
+                      className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors"
+                    >
+                      <span>⛺</span>
+                      YuruCamp
+                    </Link>
+                    <Link
+                      href="/korniha-band"
+                      className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors"
+                    >
+                      <span>🎸</span>
+                      Korniha Band
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <Link
+                href="/contact"
+                className="text-gray-700 hover:text-pink-600 transition-colors relative group flex items-center gap-1"
+              >
+                <span>📧</span>
+                Contact
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 transition-all group-hover:w-full"></span>
+              </Link>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -86,25 +139,73 @@ export default function HomePage() {
           {mobileMenuOpen && (
             <nav className="md:hidden mt-4 py-4 border-t border-pink-200">
               <div className="flex flex-col space-y-3">
-                {[
-                  { href: "/", label: "Home", icon: "🏠" },
-                  { href: "/events", label: "Events", icon: "🎌" },
-                  { href: "/idol-stage", label: "Idol Stage", icon: "🎤" },
-                  { href: "/yurucamp", label: "YuruCamp", icon: "⛺" },
-                  { href: "/korniha-band", label: "Korniha Band", icon: "🎸" },
-                  { href: "/communities", label: "Communities", icon: "👥" },
-                  { href: "/contact", label: "Contact", icon: "📧" }
-                ].map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <span>{item.icon}</span>
-                    {item.label}
-                  </Link>
-                ))}
+                <Link
+                  href="/"
+                  className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span>🏠</span>
+                  Home
+                </Link>
+                <Link
+                  href="/events"
+                  className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span>🎌</span>
+                  Events
+                </Link>
+                <Link
+                  href="/communities"
+                  className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span>👥</span>
+                  Communities
+                </Link>
+                
+                {/* Our Events Section */}
+                <div className="py-2">
+                  <div className="text-gray-500 text-sm font-medium mb-2 flex items-center gap-2">
+                    <span>🎭</span>
+                    Our Events
+                  </div>
+                  <div className="ml-4 space-y-2">
+                    <Link
+                      href="/idol-stage"
+                      className="text-gray-700 hover:text-pink-600 transition-colors py-1 flex items-center gap-2 text-sm"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <span>🎤</span>
+                      Idol Stage
+                    </Link>
+                    <Link
+                      href="/yurucamp"
+                      className="text-gray-700 hover:text-pink-600 transition-colors py-1 flex items-center gap-2 text-sm"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <span>⛺</span>
+                      YuruCamp
+                    </Link>
+                    <Link
+                      href="/korniha-band"
+                      className="text-gray-700 hover:text-pink-600 transition-colors py-1 flex items-center gap-2 text-sm"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <span>🎸</span>
+                      Korniha Band
+                    </Link>
+                  </div>
+                </div>
+                
+                <Link
+                  href="/contact"
+                  className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span>📧</span>
+                  Contact
+                </Link>
               </div>
             </nav>
           )}
