@@ -66,7 +66,7 @@ export default function HomePage() {
                 className="text-gray-700 hover:text-pink-600 transition-colors relative group flex items-center gap-1"
               >
                 <span>🎌</span>
-                Events
+                Event Calendar
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 transition-all group-hover:w-full"></span>
               </Link>
 
@@ -83,7 +83,7 @@ export default function HomePage() {
               <div className="relative group">
                 <button className="text-gray-700 hover:text-pink-600 transition-colors relative flex items-center gap-1">
                   <span>🎭</span>
-                  Our Events
+                  Otaku.lt Events
                   <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 transition-all group-hover:w-full"></span>
                 </button>
@@ -153,7 +153,7 @@ export default function HomePage() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <span>🎌</span>
-                  Events
+                  Event Calendar
                 </Link>
                 <Link
                   href="/communities"
@@ -164,11 +164,11 @@ export default function HomePage() {
                   Communities
                 </Link>
                 
-                {/* Our Events Section */}
+                {/* Otaku.lt Events Section */}
                 <div className="py-2">
                   <div className="text-gray-500 text-sm font-medium mb-2 flex items-center gap-2">
                     <span>🎭</span>
-                    Our Events
+                    Otaku.lt Events
                   </div>
                   <div className="ml-4 space-y-2">
                     <Link
@@ -373,18 +373,17 @@ export default function HomePage() {
             <div>
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/events" className="hover:text-pink-400">Events</Link></li>
-                <li><Link href="/idol-stage" className="hover:text-pink-400">Idol Stage</Link></li>
-                <li><Link href="/yurucamp" className="hover:text-pink-400">YuruCamp</Link></li>
-                <li><Link href="/korniha-band" className="hover:text-pink-400">Korniha Band</Link></li>
+                <li><Link href="/events" className="hover:text-pink-400">Event Calendar</Link></li>
                 <li><Link href="/communities" className="hover:text-pink-400">Communities</Link></li>
+                <li><Link href="/submit" className="hover:text-pink-400">Submit Event</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Events</h4>
+              <h4 className="font-semibold mb-4">Otaku.lt Events</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/submit" className="hover:text-pink-400">Submit Event</Link></li>
-                <li><Link href="/events" className="hover:text-pink-400">Event Calendar</Link></li>
+                <li><Link href="/idol-stage" className="hover:text-pink-400">Idol Stage</Link></li>
+                <li><Link href="/yurucamp" className="hover:text-pink-400">YuruCamp</Link></li>
+                <li><Link href="/korniha-band" className="hover:text-pink-400">Korniha Band</Link></li>
               </ul>
             </div>
             <div>
