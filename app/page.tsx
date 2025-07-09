@@ -380,17 +380,18 @@ export default function HomePage() {
             <div>
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/events" className="hover:text-pink-400 flex items-center gap-2"><Calendar size={16} className="text-white" />Event Calendar</Link></li>
-                <li><Link href="/communities" className="hover:text-pink-400 flex items-center gap-2"><Users size={16} className="text-white" />Communities</Link></li>
-                <li><Link href="/submit" className="hover:text-pink-400 flex items-center gap-2"><UserPlus size={16} className="text-white" />Submit Event</Link></li>
+                <li><Link href="/" className="hover:text-pink-400 flex items-center gap-2">🏠 Home</Link></li>
+                <li><Link href="/events" className="hover:text-pink-400 flex items-center gap-2">🎌 Event Calendar</Link></li>
+                <li><Link href="/communities" className="hover:text-pink-400 flex items-center gap-2">👥 Communities</Link></li>
+                <li><Link href="/submit" className="hover:text-pink-400 flex items-center gap-2">➕ Submit Event</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Otaku.lt Events</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/idol-stage" className="hover:text-pink-400 flex items-center gap-2"><Star size={16} className="text-white" />Idol Stage</Link></li>
-                <li><Link href="/yurucamp" className="hover:text-pink-400 flex items-center gap-2"><MapPin size={16} className="text-white" />YuruCamp</Link></li>
-                <li><Link href="/korniha-band" className="hover:text-pink-400 flex items-center gap-2"><Users size={16} className="text-white" />Korniha Band</Link></li>
+                <li><Link href="/idol-stage" className="hover:text-pink-400 flex items-center gap-2">🎤 Idol Stage</Link></li>
+                <li><Link href="/yurucamp" className="hover:text-pink-400 flex items-center gap-2">⛺ YuruCamp</Link></li>
+                <li><Link href="/korniha-band" className="hover:text-pink-400 flex items-center gap-2">🎸 Korniha Band</Link></li>
               </ul>
             </div>
             <div>
