@@ -25,27 +25,73 @@
   }
   
   .bg-theme-gradient-light {
-    @apply bg-gradient-to-br from-theme-primary-50 to-theme-accent-50;
+    @apply bg-gradient-to-br from-theme-primary-900 via-theme-background to-theme-accent-900;
   }
 
   /* Text utilities */
   .text-theme-gradient-primary {
-    @apply bg-gradient-to-r from-theme-primary-600 to-theme-accent-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-theme-primary-400 to-theme-accent-400 bg-clip-text text-transparent;
   }
 }
 
 :root {
+  /* Light theme - not used but kept for reference */
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* Dark theme - VSCode inspired bluish dark theme */
+:root {
+  /* Base colors */
+  --color-background: 222 47% 11%;     /* Deep blue-gray */
+  --color-foreground: 213 31% 91%;     /* Light blue-white */
+  --color-card: 222 47% 14%;           /* Slightly lighter than background */
+  --color-muted: 215 16% 47%;          /* Muted text */
+  --color-border: 216 34% 17%;         /* Border color */
+  
+  /* Theme colors */
+  --color-primary: 217 91% 60%;        /* Blue */
+  --color-primary-foreground: 210 40% 98%;
+  
+  --color-secondary: 262 83% 58%;      /* Purple */
+  --color-secondary-foreground: 210 40% 98%;
+  
+  --color-accent: 327 73% 56%;         /* Pink */
+  --color-accent-foreground: 210 40% 98%;
+  
+  /* State colors */
+  --color-destructive: 0 84% 60%;      /* Red */
+  --color-success: 142 76% 36%;        /* Green */
+  --color-warning: 38 92% 50%;         /* Yellow */
+}
+
+/* Apply dark theme by default */
+:root {
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+  --card: var(--color-card);
+  --muted: var(--color-muted);
+  --border: var(--color-border);
+  
+  --primary: var(--color-primary);
+  --primary-foreground: var(--color-primary-foreground);
+  
+  --secondary: var(--color-secondary);
+  --secondary-foreground: var(--color-secondary-foreground);
+  
+  --accent: var(--color-accent);
+  --accent-foreground: var(--color-accent-foreground);
+  
+  --destructive: var(--color-destructive);
+  --success: var(--color-success);
+  --warning: var(--color-warning);
+}
+
+/* Base styles */
+body {
+  @apply bg-background text-foreground;
+  font-feature-settings: 'rlig' 1, 'calt' 1;
 }
 
 @layer base {
