@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Calendar, MapPin, Clock, Search, Plus, ArrowLeft, LayoutGrid } from "lucide-react";
+import { Calendar, MapPin, Clock, Search, Plus, LayoutGrid } from "lucide-react";
 import EventCalendar from "../../components/Calendar";
+import { Header } from "@/components/layout/Header";
 
 export default function EventsPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -380,28 +381,20 @@ export default function EventsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-pink-600 transition-colors">
-              <ArrowLeft size={20} />
-              Back to Home
-            </Link>
-            <div className="flex items-center gap-3">
-              <img 
-                src="/otaku_lt.png" 
-                alt="Otaku.lt Logo" 
-                className="w-10 h-10"
-              />
-              <span className="text-xl font-bold bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">
-                🎌 Event Calendar
-              </span>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <Header
+        title="🎌 Event Calendar"
+        showBackButton
+        actions={
+          <Link
+            href="/submit"
+            className="flex items-center gap-2 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-full transition-colors"
+          >
+            <Plus size={18} />
+            <span className="hidden sm:inline">Submit Event</span>
+          </Link>
+        }
+      />
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Page Header */}
@@ -409,7 +402,7 @@ export default function EventsPage() {
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">
             Event Calendar 🎌
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Discover amazing anime, cosplay, and Japanese pop culture events happening across Lithuania
           </p>
         </div>
@@ -476,83 +469,83 @@ export default function EventsPage() {
 
         {/* List View */}
         {viewMode === 'list' && (
-          <>
+          <div>
             {/* Category Filters */}
             <div className="flex flex-wrap gap-2 mb-8">
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                selectedCategory === category.id
-                  ? 'bg-pink-500 text-white shadow-lg'
-                  : 'bg-white/80 text-gray-700 hover:bg-pink-100'
-              }`}
-            >
-              {category.label} ({category.count})
-            </button>
-          ))}
-        </div>
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                    selectedCategory === category.id
+                      ? 'bg-pink-500 text-white shadow-lg'
+                      : 'bg-card/80 text-muted-foreground hover:bg-pink-100/50'
+                  }`}
+                >
+                  {category.label} ({category.count})
+                </button>
+              ))}
+            </div>
 
-        {/* Events Grid */}
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {filteredEvents.map((event) => (
-            <div
-              key={event.id}
-              className={`bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-105 ${
-                event.featured ? 'ring-2 ring-pink-300' : ''
-              }`}
-            >
-              {event.featured && (
-                <div className="flex justify-between items-start mb-4">
-                  <span className="bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs px-3 py-1 rounded-full">
-                    Featured
-                  </span>
-                  <div className="text-2xl">
-                    {getCategoryEmoji(event.category)}
+            {/* Events Grid */}
+            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {filteredEvents.map((event) => (
+                <div
+                  key={event.id}
+                  className={`bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-105 ${
+                    event.featured ? 'ring-2 ring-pink-300' : ''
+                  }`}
+                >
+                  {event.featured && (
+                    <div className="flex justify-between items-start mb-4">
+                      <span className="bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs px-3 py-1 rounded-full">
+                        Featured
+                      </span>
+                      <div className="text-2xl">
+                        {getCategoryEmoji(event.category)}
+                      </div>
+                    </div>
+                  )}
+
+                  <h3 className="text-xl font-bold mb-3 text-foreground">{event.title}</h3>
+                  
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <Calendar size={16} />
+                      <span className="text-sm">{event.date}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <Clock size={16} />
+                      <span className="text-sm">{event.time}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <MapPin size={16} />
+                      <span className="text-sm">{event.location}</span>
+                    </div>
+                  </div>
+
+                  <p className="text-muted-foreground text-sm mb-4">{event.description}</p>
+
+                  <div className="flex items-center justify-between">
+                    <span className={`text-xs px-2 py-1 rounded-full ${getCategoryColors(event.category)}`}>
+                      {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
+                    </span>
+                    <button className="text-pink-600 hover:text-pink-700 font-medium text-sm">
+                      Learn More →
+                    </button>
                   </div>
                 </div>
-              )}
-
-              <h3 className="text-xl font-bold mb-3 text-gray-800">{event.title}</h3>
-              
-              <div className="space-y-2 mb-4">
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Calendar size={16} />
-                  <span className="text-sm">{event.date}</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Clock size={16} />
-                  <span className="text-sm">{event.time}</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <MapPin size={16} />
-                  <span className="text-sm">{event.location}</span>
-                </div>
-              </div>
-
-              <p className="text-gray-600 text-sm mb-4">{event.description}</p>
-
-              <div className="flex items-center justify-between">
-                <span className={`text-xs px-2 py-1 rounded-full ${getCategoryColors(event.category)}`}>
-                  {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
-                </span>
-                <button className="text-pink-600 hover:text-pink-700 font-medium text-sm">
-                  Learn More →
-                </button>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
 
             {filteredEvents.length === 0 && (
-              <div className="text-center py-12">
+              <div className="text-center py-12 col-span-full">
                 <div className="text-6xl mb-4">🔍</div>
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">No events found</h3>
-                <p className="text-gray-500">Try adjusting your search or filters</p>
+                <h3 className="text-xl font-semibold text-muted-foreground mb-2">No events found</h3>
+                <p className="text-muted-foreground/80">Try adjusting your search or filters</p>
               </div>
             )}
-          </>
+          </div>
         )}
       </div>
     </div>
