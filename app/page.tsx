@@ -41,9 +41,9 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="bg-theme-gradient-light min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-primary/20 via-background to-accent/20">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
+      <header className="bg-card/80 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-border/40">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <Link href="/" className="flex items-center gap-3 group">
