@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Calendar, MapPin, Clock, Search, Plus, LayoutGrid } from "lucide-react";
+import Image from "next/image";
+import { Calendar, MapPin, Clock, Search, Plus, LayoutGrid, ArrowLeft } from "lucide-react";
 import EventCalendar from "../../components/Calendar";
-import { Header } from "@/components/layout/Header";
 
 export default function EventsPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -381,29 +381,40 @@ export default function EventsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <Header
-        title="🎌 Event Calendar"
-        showBackButton
-        actions={
-          <Link
-            href="/submit"
-            className="flex items-center gap-2 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-full transition-colors"
-          >
-            <Plus size={18} />
-            <span className="hidden sm:inline">Submit Event</span>
-          </Link>
-        }
-      />
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+      {/* Header */}
+      <header className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-4 py-4">
+          <div className="flex items-center gap-4">
+            <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors">
+              <ArrowLeft size={20} />
+              Back to Home
+            </Link>
+            <div className="flex items-center gap-3">
+              <Image 
+                src="/otaku_lt.png" 
+                alt="Otaku.lt Logo" 
+                width={40}
+                height={40}
+                className="w-10 h-10"
+              />
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                🎌 Event Calendar
+              </span>
+            </div>
+          </div>
+        </div>
+      </header>
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">
-            Event Calendar 🎌
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Otaku Event Calendar 🎌
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Discover amazing anime, cosplay, and Japanese pop culture events happening across Lithuania
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Discover anime, cosplay, and Japanese culture events across Lithuania. 
+            Find your next otaku adventure or submit your own event to our calendar.
           </p>
         </div>
 
