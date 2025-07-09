@@ -136,36 +136,27 @@ export default function CommunitiesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+    <div className="min-h-screen bg-background text-foreground">
       <ContentPageHeader 
-        title="👥 Communities"
-        showBackButton={true}
+        title="Communities"
         backHref="/"
         backText="Back to Home"
       />
-
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Page Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Otaku Communities 👥
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Connect with fellow otaku across Lithuania! Join Discord servers, Facebook groups, 
-            YouTube channels, and more to share your passion for anime and Japanese culture.
-          </p>
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-2">Communities</h1>
+          <p className="text-muted-foreground">Connect with like-minded anime and Japanese culture enthusiasts in Lithuania.</p>
         </div>
-
-        {/* Category Filters */}
-        <div className="flex flex-wrap gap-2 mb-8 justify-center">
+        {/* Category Filter */}
+        <div className="mb-8 flex flex-wrap gap-2">
           {categories.map((category) => (
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.id)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 selectedCategory === category.id
-                  ? 'bg-blue-500 text-white shadow-lg'
-                  : 'bg-white/80 text-gray-700 hover:bg-blue-100'
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-card hover:bg-accent/10 text-muted-foreground"
               }`}
             >
               {category.label} ({category.count})
@@ -173,108 +164,83 @@ export default function CommunitiesPage() {
           ))}
         </div>
 
-        {/* Featured Communities */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 flex items-center gap-2">
-            <Star className="text-yellow-500" size={24} />
-            Featured Communities
-          </h2>
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {filteredCommunities.slice(0, 3).map((community) => (
-              <div key={community.id} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl ring-2 ring-yellow-200">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center">
-                    {getIcon(community.type)}
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-800">{community.name}</h3>
-                    <span className={`text-xs px-2 py-1 rounded-full ${getActivityColor(community.activity)}`}>
-                      {community.activity}
-                    </span>
-                  </div>
+        {/* Communities Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredCommunities.map((community) => (
+            <div key={community.id} className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02] border border-border/40">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-xl font-bold">{community.name}</h3>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-muted-foreground">{community.members}+</span>
+                  <Users className="w-4 h-4 text-muted-foreground" />
                 </div>
-                <p className="text-gray-600 text-sm mb-4">{community.description}</p>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-1 text-gray-600">
-                    <Users size={16} />
-                    <span className="text-sm">{community.members.toLocaleString()} members</span>
-                  </div>
-                  <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
-                    {community.category}
+              </div>
+
+              <p className="text-muted-foreground mb-4">{community.description}</p>
+
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-sm font-medium">Activity:</span>
+                <div className="flex items-center">
+                  {[1, 2, 3].map((i) => (
+                    <Star
+                      key={i}
+                      className={`w-4 h-4 ${
+                        i <= (community.activity === "Very Active" ? 3 : 2)
+                          ? "text-yellow-400 fill-yellow-400"
+                          : "text-muted-foreground/30"
+                      }`}
+                    />
+                  ))}
+                  <span className="ml-2 text-sm text-muted-foreground">
+                    {community.activity}
                   </span>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <h4 className="text-sm font-medium text-muted-foreground mb-2">Features:</h4>
+                <div className="flex flex-wrap gap-2">
+                  {community.features.map((feature, i) => (
+                    <span
+                      key={i}
+                      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary-foreground"
+                    >
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center mt-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-muted-foreground">
+                    {community.type === "discord" ? "Discord" : community.type === "facebook" ? "Facebook" : "YouTube"}
+                  </span>
+                  {getIcon(community.type)}
                 </div>
                 <a
                   href={community.link}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full hover:from-blue-600 hover:to-purple-600 transition-all text-sm"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/50 transition-colors"
                 >
-                  <ExternalLink size={16} />
-                  Join Community
+                  Join
+                  <ExternalLink className="ml-2 w-4 h-4" />
                 </a>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
-        {/* All Communities */}
-        <div>
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">All Communities</h2>
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {filteredCommunities.map((community) => (
-              <div key={community.id} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-105">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
-                    {getIcon(community.type)}
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-800">{community.name}</h3>
-                    <span className={`text-xs px-2 py-1 rounded-full ${getActivityColor(community.activity)}`}>
-                      {community.activity}
-                    </span>
-                  </div>
-                </div>
-
-                <p className="text-gray-600 text-sm mb-4">{community.description}</p>
-
-                <div className="space-y-2 mb-4">
-                  {community.features.slice(0, 2).map((feature, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      <span className="text-sm text-gray-600">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4 text-sm text-gray-600">
-                    <div className="flex items-center gap-1">
-                      <Users size={14} />
-                      <span>{community.members.toLocaleString()}</span>
-                    </div>
-                    <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
-                      {community.category}
-                    </span>
-                  </div>
-                  <a
-                    href={community.link}
-                    className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center gap-1"
-                  >
-                    Join <ExternalLink size={14} />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Create Community CTA */}
-        <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl p-8 text-white text-center mt-12">
-          <h3 className="text-3xl font-bold mb-4">Start Your Own Community</h3>
-          <p className="text-xl mb-6 max-w-2xl mx-auto">
-            Have an idea for a new otaku community? We'd love to help you get started and feature it here!
+        {/* CTA Section */}
+        <div className="mt-16 bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-primary-foreground text-center">
+          <h3 className="text-2xl font-bold mb-4">Can't find your community?</h3>
+          <p className="mb-6 text-primary-foreground/80 max-w-2xl mx-auto">
+            Don't see a community that matches your interests? Start your own and connect with others who share your passion for anime and Japanese culture in Lithuania.
           </p>
-          <Link
+          <Link 
             href="/contact"
-            className="inline-block px-8 py-3 bg-white text-blue-600 rounded-full hover:bg-blue-50 transition-colors font-semibold text-lg"
+            className="inline-block px-8 py-3 bg-background text-foreground rounded-full hover:bg-background/90 transition-colors font-semibold text-lg"
           >
             Get in Touch
           </Link>
