@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, MessageCircle, Users, Youtube, Instagram, Facebook, ExternalLink, Star } from "lucide-react";
+import { MessageCircle, Users, Youtube, Instagram, Facebook, ExternalLink, Star } from "lucide-react";
+import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 
 export default function CommunitiesPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -136,27 +137,12 @@ export default function CommunitiesPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors">
-              <ArrowLeft size={20} />
-              Back to Home
-            </Link>
-            <div className="flex items-center gap-3">
-              <img 
-                src="/otaku_lt.png" 
-                alt="Otaku.lt Logo" 
-                className="w-10 h-10"
-              />
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                👥 Communities
-              </span>
-            </div>
-          </div>
-        </div>
-      </header>
+      <ContentPageHeader 
+        title="👥 Communities"
+        showBackButton={true}
+        backHref="/"
+        backText="Back to Home"
+      />
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Page Header */}

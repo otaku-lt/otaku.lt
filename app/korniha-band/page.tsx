@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Music, Play, Calendar, MapPin, Users, Award, ExternalLink } from "lucide-react";
+import { Music, Youtube, Instagram, Facebook, Music2, Calendar, MapPin, Users, Mic2, Disc, Play, Pause, Volume2, VolumeX, Award, ExternalLink } from "lucide-react";
+import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 
 export default function KornihaBandPage() {
   const [activeTab, setActiveTab] = useState("about");
@@ -79,27 +80,12 @@ export default function KornihaBandPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors">
-              <ArrowLeft size={20} />
-              Back to Home
-            </Link>
-            <div className="flex items-center gap-3">
-              <img 
-                src="/otaku_lt.png" 
-                alt="Otaku.lt Logo" 
-                className="w-10 h-10"
-              />
-              <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                🎸 Korniha Band
-              </span>
-            </div>
-          </div>
-        </div>
-      </header>
+      <ContentPageHeader 
+        title="🎸 Korniha Band"
+        showBackButton={true}
+        backHref="/"
+        backText="Back to Home"
+      />
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Page Header */}

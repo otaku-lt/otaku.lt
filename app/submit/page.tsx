@@ -1,10 +1,9 @@
 "use client";
 
-"use client";
-
 import React, { useState, useRef, ChangeEvent } from "react";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Send, CheckCircle, Image as ImageIcon, Upload, X } from "lucide-react";
+import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import Image from "next/image";
 
 export default function SubmitEventPage() {
@@ -273,29 +272,12 @@ export default function SubmitEventPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-pink-600 transition-colors">
-              <ArrowLeft size={20} />
-              Back to Home
-            </Link>
-            <div className="flex items-center gap-3">
-              <Image 
-                src="/otaku_lt.png" 
-                alt="Otaku.lt Logo" 
-                width={40}
-                height={40}
-                className="w-10 h-10"
-              />
-              <span className="text-xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                📅 Submit Event
-              </span>
-            </div>
-          </div>
-        </div>
-      </header>
+      <ContentPageHeader 
+        title="📅 Submit Event"
+        showBackButton={true}
+        backHref="/"
+        backText="Back to Home"
+      />
 
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Page Header */}

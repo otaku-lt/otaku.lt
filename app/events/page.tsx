@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Calendar, MapPin, Clock, Search, Plus, LayoutGrid, ArrowLeft } from "lucide-react";
+import { Calendar, MapPin, Clock, Search, Plus, LayoutGrid } from "lucide-react";
+import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import EventCalendar from "../../components/Calendar";
 
 export default function EventsPage() {
@@ -382,29 +383,12 @@ export default function EventsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors">
-              <ArrowLeft size={20} />
-              Back to Home
-            </Link>
-            <div className="flex items-center gap-3">
-              <Image 
-                src="/otaku_lt.png" 
-                alt="Otaku.lt Logo" 
-                width={40}
-                height={40}
-                className="w-10 h-10"
-              />
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                🎌 Event Calendar
-              </span>
-            </div>
-          </div>
-        </div>
-      </header>
+      <ContentPageHeader 
+        title="🎌 Event Calendar"
+        showBackButton={true}
+        backHref="/"
+        backText="Back to Home"
+      />
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Page Header */}
