@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Mail, Facebook, Youtube } from 'lucide-react';
+import { Mail, Facebook, Youtube, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 
 // Discord icon component
@@ -11,29 +11,28 @@ const DiscordIcon = ({ size = 16, className = "" }) => (
   </svg>
 );
 
-export function Footer() {
+export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-card border-t border-border/40 py-12">
+      <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <Image 
-                src="/otaku_lt.png" 
-                alt="Otaku.lt Logo" 
-                width={40}
-                height={40}
-                className="w-10 h-10 filter brightness-0 invert"
-              />
-              <span className="text-xl font-bold">Otaku.lt</span>
+          {/* Logo and Description */}
+          <div className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center">
+                <Sparkles className="h-5 w-5 text-primary-foreground" />
+              </div>
+              <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                otaku.lt
+              </span>
             </div>
-            <p className="text-gray-400">
+            <p className="text-muted-foreground text-sm">
               Lithuania's premier hub for otaku culture, bringing together anime fans, cosplayers, and Japanese pop culture enthusiasts.
             </p>
           </div>
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-gray-400">
+            <ul className="space-y-2 text-muted-foreground">
               <li><Link href="/" className="hover:text-pink-400 flex items-center gap-2">🏠 Home</Link></li>
               <li><Link href="/events" className="hover:text-pink-400 flex items-center gap-2">🎌 Event Calendar</Link></li>
               <li><Link href="/communities" className="hover:text-pink-400 flex items-center gap-2">👥 Communities</Link></li>
