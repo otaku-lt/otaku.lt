@@ -359,56 +359,6 @@ export default function HomePage() {
           </form>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <img 
-                  src="/otaku_lt.png" 
-                  alt="Otaku.lt Logo" 
-                  className="w-10 h-10 filter brightness-0 invert"
-                />
-                <span className="text-xl font-bold">Otaku.lt</span>
-              </div>
-              <p className="text-gray-400">
-                Lithuania's premier hub for otaku culture, bringing together anime fans, cosplayers, and Japanese pop culture enthusiasts.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/" className="hover:text-pink-400 flex items-center gap-2">🏠 Home</Link></li>
-                <li><Link href="/events" className="hover:text-pink-400 flex items-center gap-2">🎌 Event Calendar</Link></li>
-                <li><Link href="/communities" className="hover:text-pink-400 flex items-center gap-2">👥 Communities</Link></li>
-                <li><Link href="/submit" className="hover:text-pink-400 flex items-center gap-2">➕ Submit Event</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Otaku.lt Events</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/idol-stage" className="hover:text-pink-400 flex items-center gap-2">🎤 Idol Stage</Link></li>
-                <li><Link href="/yurucamp" className="hover:text-pink-400 flex items-center gap-2">⛺ YuruCamp</Link></li>
-                <li><Link href="/korniha-band" className="hover:text-pink-400 flex items-center gap-2">🎸 Korniha Band</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Connect</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/contact" className="hover:text-pink-400 flex items-center gap-2"><Mail size={16} className="text-white" />Contact Us</Link></li>
-                <li><a href="#" className="hover:text-pink-400 flex items-center gap-2"><DiscordIcon size={16} className="text-white" />Discord</a></li>
-                <li><a href="#" className="hover:text-pink-400 flex items-center gap-2"><Facebook size={16} className="text-white" />Facebook</a></li>
-                <li><a href="#" className="hover:text-pink-400 flex items-center gap-2"><Youtube size={16} className="text-white" />YouTube</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Otaku.lt. Made with 💖 for Lithuania's otaku community.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
