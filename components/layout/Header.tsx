@@ -88,8 +88,8 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
                 href={link.href}
                 className={`px-4 py-2 rounded-md text-sm font-medium flex items-center space-x-2 transition-colors ${
                   pathname === link.href
-                    ? "text-foreground bg-accent/20"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
+                    ? "text-white bg-pink-600/90"
+                    : "text-gray-200 hover:text-white hover:bg-pink-500/20"
                 }`}
               >
                 {link.icon}
@@ -126,9 +126,10 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden transition-all duration-300 ease-in-out bg-card/95 backdrop-blur-lg ${
+        className={`md:hidden transition-all duration-300 ease-in-out bg-gray-900 ${
           isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
         }`}
+        style={{ backgroundColor: '#111827' }}
       >
         <div className="px-2 pt-2 pb-6 space-y-1 sm:px-3 border-t border-border/50">
           {navLinks.map((link) => (
@@ -137,28 +138,29 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
               href={link.href}
               className={`flex items-center px-4 py-3 rounded-lg text-base font-medium transition-colors ${
                 pathname === link.href
-                  ? "text-foreground bg-accent/20"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
+                  ? "text-white bg-pink-600/90"
+                  : "text-white hover:bg-pink-500/20 hover:text-white"
               }`}
+              style={{ color: '#ffffff' }}
             >
-              <span className="mr-3">{link.icon}</span>
+              <span className="mr-3">{React.cloneElement(link.icon, { className: 'w-5 h-5 text-current' })}</span>
               {link.name}
             </Link>
           ))}
           {/* Additional mobile-only links */}
-          <div className="pt-2 mt-2 border-t border-border/30">
+          <div className="pt-2 mt-2 border-t border-pink-500/20">
             <Link
               href="/communities"
-              className="flex items-center px-4 py-3 rounded-lg text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent/10 transition-colors"
+              className="flex items-center px-4 py-3 rounded-lg text-base font-medium text-gray-100 hover:bg-pink-500/20 hover:text-white transition-colors"
             >
-              <span className="mr-3"><User className="w-5 h-5" /></span>
+              <User className="w-5 h-5 mr-3 text-current" />
               Communities
             </Link>
             <a
               href="#"
-              className="flex items-center px-4 py-3 rounded-lg text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent/10 transition-colors"
+              className="flex items-center px-4 py-3 rounded-lg text-base font-medium text-gray-100 hover:bg-pink-500/20 hover:text-white transition-colors"
             >
-              <span className="mr-3"><LogIn className="w-5 h-5" /></span>
+              <LogIn className="w-5 h-5 mr-3 text-current" />
               Sign In
             </a>
           </div>

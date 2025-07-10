@@ -60,8 +60,8 @@ export default function SiteHeader() {
                 href={link.href}
                 className={`px-4 py-2 rounded-md text-sm font-medium flex items-center space-x-2 transition-colors ${
                   pathname === link.href
-                    ? "text-foreground bg-accent/20"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
+                    ? "text-white bg-pink-600/90"
+                    : "text-gray-200 hover:text-white hover:bg-pink-500/20"
                 }`}
               >
                 {link.icon}

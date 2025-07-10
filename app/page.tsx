@@ -100,38 +100,38 @@ export default function HomePage() {
             <nav className="hidden md:flex space-x-8">
               <Link
                 href="/"
-                className="text-gray-700 hover:text-pink-600 transition-colors relative group flex items-center gap-1"
+                className="text-foreground/90 hover:text-pink-400 transition-colors relative group flex items-center gap-1"
               >
                 <span>🏠</span>
                 Home
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 transition-all group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
               </Link>
               
               <Link
                 href="/events"
-                className="text-gray-700 hover:text-pink-600 transition-colors relative group flex items-center gap-1"
+                className="text-foreground/90 hover:text-pink-400 transition-colors relative group flex items-center gap-1"
               >
                 <span>🎌</span>
                 Event Calendar
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 transition-all group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
               </Link>
 
               <Link
                 href="/communities"
-                className="text-gray-700 hover:text-pink-600 transition-colors relative group flex items-center gap-1"
+                className="text-foreground/90 hover:text-pink-400 transition-colors relative group flex items-center gap-1"
               >
                 <span>👥</span>
                 Communities
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 transition-all group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
               </Link>
 
               {/* Events Dropdown */}
               <div className="relative group">
-                <button className="text-gray-700 hover:text-pink-600 transition-colors relative flex items-center gap-1">
+                <button className="text-foreground/90 hover:text-pink-400 transition-colors relative flex items-center gap-1">
                   <span>🎭</span>
                   Otaku.lt Events
                   <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 transition-all group-hover:w-full"></span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
                 </button>
                 
                 {/* Dropdown Menu */}
@@ -164,11 +164,11 @@ export default function HomePage() {
 
               <Link
                 href="/contact"
-                className="text-gray-700 hover:text-pink-600 transition-colors relative group flex items-center gap-1"
+                className="text-foreground/90 hover:text-pink-400 transition-colors relative group flex items-center gap-1"
               >
                 <span>📧</span>
-                Contact
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 transition-all group-hover:w-full"></span>
+                Contact Us
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
               </Link>
             </nav>
 
