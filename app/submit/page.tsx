@@ -69,12 +69,26 @@ export default function SubmitEventPage() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target as HTMLInputElement;
+    const target = e.target as HTMLInputElement;
     
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
-      ...(name === 'isAllDay' && (e.target as HTMLInputElement).checked ? { startTime: '00:00' } : {})
-    }));
+    setFormData(prev => {
+      // Handle checkbox state
+      if (type === 'checkbox') {
+        const isChecked = target.checked;
+        return {
+          ...prev,
+          [name]: isChecked,
+          // When enabling all-day, set start time to 00:00
+          ...(name === 'isAllDay' && isChecked ? { startTime: '00:00' } : {})
+        };
+      }
+      
+      // Handle regular input changes
+      return {
+        ...prev,
+        [name]: value
+      };
+    });
   };
   
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -416,8 +430,8 @@ export default function SubmitEventPage() {
                     </div>
                   </div>
                   
-                  {/* Start Time - Only show if not all-day */}
-                  {!formData.isAllDay && (
+                  {/* Start Time - Only show if not all-day and not multi-day */}
+                  {!formData.isAllDay && !formData.isMultiDay && (
                     <div>
                       <label className="block text-xs font-medium text-muted-foreground mb-1">
                         Start Time *
@@ -429,9 +443,20 @@ export default function SubmitEventPage() {
                           value={formData.startTime}
                           onChange={handleInputChange}
                           required
-                          className="w-full pl-4 pr-10 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
+                          className="w-full pl-4 pr-10 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors appearance-none [&::-webkit-calendar-picker-indicator]:hidden"
                         />
-                        <Clock className="w-5 h-5 text-muted-foreground absolute right-3 bottom-2.5 pointer-events-none" />
+                        <button 
+                          type="button" 
+                          onClick={(e) => {
+                            e.preventDefault();
+                            const input = document.querySelector('input[name="startTime"]') as HTMLInputWithPicker | null;
+                            input?.showPicker?.();
+                          }}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                          aria-label="Open time picker"
+                        >
+                          <Clock className="w-5 h-5" />
+                        </button>
                       </div>
                     </div>
                   )}
