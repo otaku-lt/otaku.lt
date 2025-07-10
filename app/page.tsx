@@ -275,7 +275,7 @@ export default function HomePage() {
               Your central hub for anime, cosplay, J-pop, karaoke, and otaku culture in Lithuania. 
               Powered by community, love for Japan, and good vibes. 🌸
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Link
                 href="/events"
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-full hover:from-pink-600 hover:to-pink-700 transition-all hover:scale-105 shadow-lg"
