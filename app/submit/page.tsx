@@ -9,8 +9,12 @@ import Image from "next/image";
 type FormData = {
   title: string;
   description: string;
-  date: string;
-  time: string;
+  startDate: string;
+  startTime: string;
+  endDate: string;
+  endTime: string;
+  isAllDay: boolean;
+  isMultiDay: boolean;
   location: string;
   category: string;
   ticketPrice: string;
@@ -38,8 +42,12 @@ export default function SubmitEventPage() {
   const [formData, setFormData] = useState<FormData>({
     title: "",
     description: "",
-    date: "",
-    time: "",
+    startDate: "",
+    startTime: "12:00",
+    endDate: "",
+    endTime: "13:00",
+    isAllDay: false,
+    isMultiDay: false,
     location: "",
     category: "",
     ticketPrice: "",
@@ -126,8 +134,12 @@ export default function SubmitEventPage() {
     setFormData({
       title: "",
       description: "",
-      date: "",
-      time: "",
+      startDate: "",
+      startTime: "12:00",
+      endDate: "",
+      endTime: "13:00",
+      isAllDay: false,
+      isMultiDay: false,
       location: "",
       category: "",
       ticketPrice: "",
@@ -277,32 +289,161 @@ export default function SubmitEventPage() {
                 </select>
               </div>
               
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Date *
-                </label>
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Time *
-                </label>
-                <input
-                  type="time"
-                  name="time"
-                  value={formData.time}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
-                />
+              <div className="md:col-span-2">
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-sm font-medium text-foreground">
+                    Event Date & Time *
+                  </label>
+                  <div className="flex items-center space-x-4">
+                    <label className="flex items-center space-x-2 cursor-pointer group">
+                      <div className="relative flex items-center">
+                        <input
+                          type="checkbox"
+                          name="isAllDay"
+                          checked={formData.isAllDay}
+                          onChange={(e) => {
+                            setFormData(prev => ({
+                              ...prev,
+                              isAllDay: e.target.checked,
+                              startTime: e.target.checked ? "00:00" : prev.startTime,
+                              endTime: e.target.checked ? "23:59" : prev.endTime
+                            }));
+                          }}
+                          className="h-5 w-5 appearance-none rounded border-2 border-input bg-background transition-all duration-200 ease-in-out 
+                          checked:bg-primary checked:border-primary
+                          focus:ring-2 focus:ring-primary/50 focus:ring-offset-0 focus:outline-none
+                          group-hover:border-primary/50 relative"
+                        />
+                        {formData.isAllDay && (
+                          <svg
+                            className="w-3.5 h-3.5 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white pointer-events-none"
+                            fill="none"
+                            viewBox="0 0 20 20"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                        )}
+                      </div>
+                      <span className="text-sm text-foreground group-hover:text-primary transition-colors">All day</span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer group">
+                      <div className="relative flex items-center">
+                        <input
+                          type="checkbox"
+                          name="isMultiDay"
+                          checked={formData.isMultiDay}
+                          onChange={(e) => {
+                            const isMultiDay = e.target.checked;
+                            setFormData(prev => ({
+                              ...prev,
+                              isMultiDay,
+                              endDate: isMultiDay ? prev.startDate || "" : prev.startDate
+                            }));
+                          }}
+                          className="h-5 w-5 appearance-none rounded border-2 border-input bg-background transition-all duration-200 ease-in-out 
+                          checked:bg-primary checked:border-primary
+                          focus:ring-2 focus:ring-primary/50 focus:ring-offset-0 focus:outline-none
+                          group-hover:border-primary/50 relative"
+                        />
+                        {formData.isMultiDay && (
+                          <svg
+                            className="w-3.5 h-3.5 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white pointer-events-none"
+                            fill="none"
+                            viewBox="0 0 20 20"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                        )}
+                      </div>
+                      <span className="text-sm text-foreground group-hover:text-primary transition-colors">Multiple days</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-medium text-muted-foreground mb-1">
+                      Start Date *
+                    </label>
+                    <input
+                      type="date"
+                      name="startDate"
+                      value={formData.startDate}
+                      onChange={(e) => {
+                        setFormData(prev => ({
+                          ...prev,
+                          startDate: e.target.value,
+                          endDate: !prev.isMultiDay ? e.target.value : prev.endDate
+                        }));
+                      }}
+                      required
+                      className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
+                    />
+                  </div>
+                  
+                  {!formData.isAllDay && (
+                    <div>
+                      <label className="block text-xs font-medium text-muted-foreground mb-1">
+                        Start Time *
+                      </label>
+                      <input
+                        type="time"
+                        name="startTime"
+                        value={formData.startTime}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
+                      />
+                    </div>
+                  )}
+
+                  {formData.isMultiDay && (
+                    <>
+                      <div>
+                        <label className="block text-xs font-medium text-muted-foreground mb-1">
+                          End Date *
+                        </label>
+                        <input
+                          type="date"
+                          name="endDate"
+                          value={formData.endDate}
+                          min={formData.startDate}
+                          onChange={handleInputChange}
+                          required
+                          className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
+                        />
+                      </div>
+                      
+                      {!formData.isAllDay && (
+                        <div>
+                          <label className="block text-xs font-medium text-muted-foreground mb-1">
+                            End Time *
+                          </label>
+                          <input
+                            type="time"
+                            name="endTime"
+                            value={formData.endTime}
+                            onChange={handleInputChange}
+                            required
+                            className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
+                          />
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
               
               <div className="md:col-span-2">
