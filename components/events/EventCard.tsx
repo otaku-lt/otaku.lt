@@ -73,7 +73,7 @@ export function EventCard({
             <span className={`text-xs px-2 py-1 rounded-full ${getCategoryColors(category)}`}>
               {category.charAt(0).toUpperCase() + category.slice(1)}
             </span>
-            <span className="text-primary text-sm font-medium hover:underline">
+            <span className="text-primary text-sm font-medium hover:underline leading-normal pb-0.5">
               Learn More →
             </span>
           </div>

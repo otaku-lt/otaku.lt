@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, Search, Calendar, User, Home, LogIn, LogOut, ArrowLeft } from "lucide-react";
+import { Menu, X, Search, Calendar, User, Home, LogIn, LogOut, ArrowLeft, Plus } from "lucide-react";
 import { useState, useEffect, ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -36,7 +36,13 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
   const navLinks = [
     { name: "Home", href: "/", icon: <Home className="w-5 h-5" /> },
     { name: "Events", href: "/events", icon: <Calendar className="w-5 h-5" /> },
-    { name: "Submit Event", href: "/submit", icon: <LogIn className="w-5 h-5" /> },
+    { 
+      name: "Submit Event", 
+      href: "/submit", 
+      icon: <span className="flex items-center gap-1">
+              Submit Event <Plus className="w-4 h-4 ml-1" />
+            </span>
+    },
   ];
 
   return (

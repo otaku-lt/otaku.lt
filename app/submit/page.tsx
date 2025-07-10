@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, ChangeEvent } from "react";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, Send, CheckCircle, Image as ImageIcon, Upload, X } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Send, CheckCircle, Image as ImageIcon, Upload, X, Plus } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import Image from "next/image";
 
@@ -241,29 +241,28 @@ export default function SubmitEventPage() {
         backText="Back to Events"
       />
 
-      {/* Submission Guidelines */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-6">
-        <div className="bg-card/80 backdrop-blur-sm rounded-xl border border-border/40 p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Submission Guidelines</h2>
-          <ul className="space-y-2 text-sm text-muted-foreground list-disc pl-5">
-            <li>All events must be related to anime, manga, cosplay, or Japanese pop culture.</li>
-            <li>We focus on modern Japanese pop culture, not traditional cultural events</li>
-            <li>Provide accurate event details including date, time, and location.</li>
-            <li>For multi-day events, check the "Multiple days" option.</li>
-            <li>Use a high-quality image that represents your event (max 5MB).</li>
-            <li>Your submission will be reviewed before being published.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-            Submit Your Event 
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Submit an Event <Plus className="w-8 h-8 inline-block align-middle" />
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Share your otaku event with the Lithuanian community! All submissions are reviewed before publication.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+            Share your anime, cosplay, or otaku-related event with the community
           </p>
+          
+          
+          {/* Submission Guidelines */}
+          <div className="bg-card/80 backdrop-blur-sm rounded-xl border border-border/40 p-6 mb-12 max-w-4xl mx-auto">
+            <h2 className="text-xl font-semibold mb-4 text-foreground">Submission Guidelines</h2>
+            <ul className="space-y-2 text-sm text-muted-foreground list-disc pl-5 text-left max-w-3xl mx-auto">
+              <li>All events must be related to anime, manga, cosplay, or Japanese pop culture.</li>
+              <li>We focus on modern Japanese pop culture, not traditional cultural events</li>
+              <li>Provide accurate event details including date, time, and location.</li>
+              <li>For multi-day events, check the "Multiple days" option.</li>
+              <li>Use a high-quality image that represents your event (max 5MB).</li>
+              <li>Your submission will be reviewed before being published.</li>
+            </ul>
+          </div>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-8">
