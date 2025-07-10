@@ -62,17 +62,14 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
             
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className="flex items-center space-x-2">
-                <Image
-                  src="/otaku_lt.png"
-                  alt="Otaku.lt Logo"
-                  width={40}
-                  height={40}
-                  className="w-10 h-10"
-                  priority
+                <img 
+                  src="/otaku_lt.png" 
+                  alt="Otaku.lt Logo" 
+                  className="w-8 h-8 group-hover:scale-105 transition-transform dark:invert"
                 />
-                <span className="text-xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-                  {title || 'otaku.lt'}
-                </span>
+              <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                {title || 'otaku.lt'}
+              </span>
               </Link>
             </div>
           </div>
@@ -123,16 +120,16 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden transition-all duration-300 ease-in-out ${
-          isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+        className={`md:hidden transition-all duration-300 ease-in-out bg-card/95 backdrop-blur-lg ${
+          isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
         }`}
       >
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-border/50">
+        <div className="px-2 pt-2 pb-6 space-y-1 sm:px-3 border-t border-border/50">
           {navLinks.map((link) => (
             <Link
               key={`mobile-${link.name}`}
               href={link.href}
-              className={`flex items-center px-3 py-3 rounded-md text-base font-medium ${
+              className={`flex items-center px-4 py-3 rounded-lg text-base font-medium transition-colors ${
                 pathname === link.href
                   ? "text-foreground bg-accent/20"
                   : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
@@ -142,6 +139,23 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
               {link.name}
             </Link>
           ))}
+          {/* Additional mobile-only links */}
+          <div className="pt-2 mt-2 border-t border-border/30">
+            <Link
+              href="/communities"
+              className="flex items-center px-4 py-3 rounded-lg text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent/10 transition-colors"
+            >
+              <span className="mr-3"><User className="w-5 h-5" /></span>
+              Communities
+            </Link>
+            <a
+              href="#"
+              className="flex items-center px-4 py-3 rounded-lg text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent/10 transition-colors"
+            >
+              <span className="mr-3"><LogIn className="w-5 h-5" /></span>
+              Sign In
+            </a>
+          </div>
         </div>
       </div>
     </header>

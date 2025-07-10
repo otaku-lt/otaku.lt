@@ -19,12 +19,20 @@ export default function Footer() {
           {/* Logo and Description */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center">
-                <Sparkles className="h-5 w-5 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                otaku.lt
-              </span>
+              <Link href="/" className="flex items-center space-x-2">
+                <div className="w-8 h-8 relative">
+                  <Image
+                    src="/otaku_lt.png"
+                    alt="Otaku.lt Logo"
+                    width={32}
+                    height={32}
+                    className="w-8 h-8 dark:invert"
+                  />
+                </div>
+                <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  otaku.lt
+                </span>
+              </Link>
             </div>
             <p className="text-muted-foreground text-sm">
               Lithuania's premier hub for otaku culture, bringing together anime fans, cosplayers, and Japanese pop culture enthusiasts.
