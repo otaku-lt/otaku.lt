@@ -2,9 +2,13 @@
 
 import React, { useState, useRef, ChangeEvent } from "react";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Send, CheckCircle, Image as ImageIcon, Upload, X } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Send, CheckCircle, Image as ImageIcon, Upload, X } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import Image from "next/image";
+
+type HTMLInputWithPicker = HTMLInputElement & {
+  showPicker: () => void;
+};
 
 type FormData = {
   title: string;
@@ -77,13 +81,11 @@ export default function SubmitEventPage() {
     const file = e.target.files?.[0];
     if (!file) return;
     
-    // Check if file is an image
     if (!file.type.startsWith('image/')) {
       alert('Please upload an image file (JPEG, PNG, etc.)');
       return;
     }
     
-    // Check file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       alert('Image size should be less than 5MB');
       return;
@@ -92,10 +94,9 @@ export default function SubmitEventPage() {
     setFormData(prev => ({
       ...prev,
       imageFile: file,
-      imageUrl: '' // Clear URL if file is selected
+      imageUrl: ''
     }));
     
-    // Create preview
     const reader = new FileReader();
     reader.onloadend = () => {
       setImagePreview(reader.result as string);
@@ -108,7 +109,7 @@ export default function SubmitEventPage() {
     setFormData(prev => ({
       ...prev,
       imageUrl: url,
-      imageFile: null // Clear file if URL is entered
+      imageFile: null
     }));
     
     if (url) {
@@ -163,7 +164,6 @@ export default function SubmitEventPage() {
     try {
       const formDataToSend = new FormData();
       
-      // Add all form data to FormData
       Object.entries(formData).forEach(([key, value]) => {
         if (value !== null && value !== undefined) {
           if (key === 'imageFile' && value instanceof File) {
@@ -174,15 +174,7 @@ export default function SubmitEventPage() {
         }
       });
       
-      // Simulate API call with form data
       console.log('Submitting form data:', Object.fromEntries(formDataToSend));
-      
-      // In a real app, you would send this to your API endpoint
-      // const response = await fetch('/api/events', {
-      //   method: 'POST',
-      //   body: formDataToSend,
-      // });
-      // const result = await response.json();
       
       await new Promise(resolve => setTimeout(resolve, 1500));
       setIsSubmitted(true);
@@ -231,9 +223,10 @@ export default function SubmitEventPage() {
     <div className="min-h-screen bg-background text-foreground">
       <ContentPageHeader 
         title="Submit an Event"
-        icon={Send}
         className="bg-card"
-      />
+      >
+        <Send className="w-6 h-6" />
+      </ContentPageHeader>
       
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-center mb-12">
@@ -373,77 +366,132 @@ export default function SubmitEventPage() {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
+                  {/* Start Date */}
                   <div>
                     <label className="block text-xs font-medium text-muted-foreground mb-1">
                       Start Date *
                     </label>
-                    <input
-                      type="date"
-                      name="startDate"
-                      value={formData.startDate}
-                      onChange={(e) => {
-                        setFormData(prev => ({
-                          ...prev,
-                          startDate: e.target.value,
-                          endDate: !prev.isMultiDay ? e.target.value : prev.endDate
-                        }));
-                      }}
-                      required
-                      className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
-                    />
+                    <div className="relative">
+                      <div className="relative flex items-center">
+                        <input
+                          type="date"
+                          name="startDate"
+                          value={formData.startDate}
+                          onChange={(e) => {
+                            setFormData(prev => ({
+                              ...prev,
+                              startDate: e.target.value,
+                              endDate: !prev.isMultiDay ? e.target.value : prev.endDate
+                            }));
+                          }}
+                          required
+                          className="w-full pl-4 pr-10 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-inner-spin-button]:hidden [&::-webkit-clear-button]:hidden"
+                        />
+                        <button 
+                          type="button" 
+                          onClick={(e) => {
+                            e.preventDefault();
+                            const input = document.querySelector('input[name="startDate"]') as HTMLInputWithPicker | null;
+                            input?.showPicker?.();
+                          }}
+                          className="absolute right-3 text-muted-foreground hover:text-foreground transition-colors"
+                          aria-label="Open date picker"
+                        >
+                          <Calendar className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                   
+                  {/* Start Time - Only show if not all-day */}
                   {!formData.isAllDay && (
                     <div>
                       <label className="block text-xs font-medium text-muted-foreground mb-1">
                         Start Time *
                       </label>
-                      <input
-                        type="time"
-                        name="startTime"
-                        value={formData.startTime}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
-                      />
-                    </div>
-                  )}
-
-                  {formData.isMultiDay && (
-                    <>
-                      <div>
-                        <label className="block text-xs font-medium text-muted-foreground mb-1">
-                          End Date *
-                        </label>
+                      <div className="relative">
                         <input
-                          type="date"
-                          name="endDate"
-                          value={formData.endDate}
-                          min={formData.startDate}
+                          type="time"
+                          name="startTime"
+                          value={formData.startTime}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
+                          className="w-full pl-4 pr-10 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
                         />
+                        <Clock className="w-5 h-5 text-muted-foreground absolute right-3 bottom-2.5 pointer-events-none" />
                       </div>
-                      
-                      {!formData.isAllDay && (
-                        <div>
-                          <label className="block text-xs font-medium text-muted-foreground mb-1">
-                            End Time *
-                          </label>
+                    </div>
+                  )}
+                  
+                  {/* End Date - Only show for multi-day events */}
+                  {formData.isMultiDay && (
+                    <div>
+                      <label className="block text-xs font-medium text-muted-foreground mb-1">
+                        End Date *
+                      </label>
+                      <div className="relative">
+                        <div className="relative flex items-center">
                           <input
-                            type="time"
-                            name="endTime"
-                            value={formData.endTime}
+                            type="date"
+                            name="endDate"
+                            value={formData.endDate}
+                            min={formData.startDate}
                             onChange={handleInputChange}
                             required
-                            className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
+                            className="w-full pl-4 pr-10 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-inner-spin-button]:hidden [&::-webkit-clear-button]:hidden"
                           />
+                          <button 
+                            type="button" 
+                            onClick={(e) => {
+                              e.preventDefault();
+                              const input = document.querySelector('input[name="endDate"]') as HTMLInputWithPicker | null;
+                              input?.showPicker?.();
+                            }}
+                            className="absolute right-3 text-muted-foreground hover:text-foreground transition-colors"
+                            aria-label="Open date picker"
+                          >
+                            <Calendar className="w-5 h-5" />
+                          </button>
                         </div>
-                      )}
-                    </>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* End Time - Only show if not all-day and not multi-day */}
+                  {!formData.isAllDay && !formData.isMultiDay && (
+                    <div>
+                      <label className="block text-xs font-medium text-muted-foreground mb-1">
+                        End Time *
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="time"
+                          name="endTime"
+                          value={formData.endTime}
+                          onChange={handleInputChange}
+                          required
+                          className="w-full pl-4 pr-10 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
+                        />
+                        <Clock className="w-5 h-5 text-muted-foreground absolute right-3 bottom-2.5 pointer-events-none" />
+                      </div>
+                    </div>
                   )}
                 </div>
+              </div>
+              
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Description *
+                </label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  required
+                  rows={5}
+                  className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
+                  placeholder="Tell us about your event..."
+                />
               </div>
               
               <div className="md:col-span-2">
@@ -457,40 +505,27 @@ export default function SubmitEventPage() {
                   onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
-                  placeholder="e.g., Vilnius, Cinema Hall or Online Event"
+                  placeholder="e.g., Vilnius Tech Park, Vilnius"
                 />
               </div>
               
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Ticket Price
+                  Ticket Price (if any)
                 </label>
-                <input
-                  type="text"
-                  name="ticketPrice"
-                  value={formData.ticketPrice}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
-                  placeholder="e.g., Free, €15, €10-20"
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    name="ticketPrice"
+                    value={formData.ticketPrice}
+                    onChange={handleInputChange}
+                    className="w-full pl-10 pr-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
+                    placeholder="Free or €0.00"
+                  />
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">€</span>
+                </div>
               </div>
               
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Event Description *
-                </label>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  required
-                  rows={4}
-                  className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
-                  placeholder="Describe your event, what attendees can expect, any special features..."
-                />
-              </div>
-              
-              {/* Image Upload Section */}
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Event Cover Image
@@ -590,7 +625,7 @@ export default function SubmitEventPage() {
             </div>
           </div>
           
-          {/* Contact & Source Section */}
+          {/* Source & Contact Section */}
           <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg border border-border/50">
             <h2 className="text-2xl font-bold mb-6 text-foreground flex items-center gap-2">
               <Send className="text-blue-600" size={24} />
@@ -692,7 +727,7 @@ export default function SubmitEventPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full md:w-auto px-8 py-4 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-full hover:opacity-90 transition-all flex items-center justify-center gap-2 font-medium text-lg disabled:opacity-70 disabled:cursor-not-allowed"
+              className={`w-full md:w-auto px-8 py-4 rounded-full font-medium text-lg flex items-center justify-center gap-2 transition-all ${isSubmitting ? 'bg-primary/80' : 'bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 hover:shadow-lg hover:shadow-pink-500/20'}`}
             >
               {isSubmitting ? 'Submitting...' : 'Submit Event'}
               {!isSubmitting && <Send size={20} className="text-primary-foreground" />}
