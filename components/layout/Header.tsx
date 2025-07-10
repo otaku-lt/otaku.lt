@@ -39,10 +39,9 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
     { 
       name: "Submit Event", 
       href: "/submit", 
-      icon: <span className="flex items-center gap-1">
-              Submit Event <Plus className="w-4 h-4 ml-1" />
-            </span>
+      icon: <Plus className="w-5 h-5" />
     },
+    { name: "Contact Us", href: "/contact", icon: <Mail className="w-5 h-5" /> },
   ];
 
   return (
@@ -82,20 +81,24 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`px-4 py-2 rounded-md text-sm font-medium flex items-center space-x-2 transition-colors ${
-                  pathname === link.href
-                    ? "text-white bg-pink-600/90"
-                    : "text-gray-200 hover:text-white hover:bg-pink-500/20"
-                }`}
-              >
-                {link.icon}
-                <span>{link.name}</span>
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href || 
+                             (link.href !== '/' && pathname.startsWith(link.href));
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md'
+                      : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                  }`}
+                >
+                  {link.icon}
+                  {link.name}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Actions and Mobile Menu */}

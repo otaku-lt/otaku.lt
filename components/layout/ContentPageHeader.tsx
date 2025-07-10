@@ -18,13 +18,13 @@ export function ContentPageHeader({
   backText = 'Back to Home',
 }: ContentPageHeaderProps) {
   return (
-    <header className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
+    <header className="bg-card/80 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-border/40">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex items-center gap-4">
           {showBackButton && (
             <Link 
               href={backHref} 
-              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors"
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft size={20} />
               {backText}
@@ -36,9 +36,9 @@ export function ContentPageHeader({
               alt="Otaku.lt Logo" 
               width={40}
               height={40}
-              className="w-10 h-10"
+              className="w-10 h-10 dark:invert"
             />
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               {title}
             </span>
           </div>

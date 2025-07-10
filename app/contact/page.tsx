@@ -6,6 +6,14 @@ import { Mail, MessageCircle, MapPin, Send, CheckCircle, X } from "lucide-react"
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 
 export default function ContactPage() {
+  // Add dark theme class to html element
+  React.useEffect(() => {
+    document.documentElement.classList.add('dark');
+    return () => {
+      document.documentElement.classList.remove('dark');
+    };
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -48,8 +56,9 @@ export default function ContactPage() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center">
-        <div className="max-w-md mx-auto text-center p-8">
+      <div className="min-h-screen bg-background text-foreground">
+        <ContentPageHeader title="Contact Us" />
+        <div className="max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle className="text-green-600" size={48} />
           </div>
@@ -60,7 +69,7 @@ export default function ContactPage() {
           <div className="space-y-3">
             <Link
               href="/"
-              className="block px-6 py-3 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-full hover:from-green-600 hover:to-blue-600 transition-all"
+              className="w-full bg-gradient-to-r from-primary to-accent text-white font-medium py-3 px-6 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
             >
               Back to Home
             </Link>
@@ -87,34 +96,28 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50">
-      <ContentPageHeader 
-        title="📧 Contact"
-        showBackButton={true}
-        backHref="/"
-        backText="Back to Home"
-      />
-
-      <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-background text-foreground">
+      <ContentPageHeader title="Contact Us" />
+      <div className="max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         {/* Page Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">
-            Get in Touch 📬
+            Get in Touch 
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Have questions, ideas, or want to collaborate? We'd love to hear from you!
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">Send us a Message</h2>
+          <div className="bg-card rounded-2xl shadow-xl p-8 border border-border/40">
+            <h2 className="text-2xl font-bold text-foreground mb-6">Send us a message</h2>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-foreground/80 mb-1">
                     Your Name *
                   </label>
                   <input
@@ -123,13 +126,13 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-4 focus:ring-pink-200 focus:border-pink-500 focus:outline-none"
+                    className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/50 focus:border-transparent text-foreground"
                     placeholder="Your name"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-foreground/80 mb-1">
                     Email Address *
                   </label>
                   <input
@@ -138,14 +141,14 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-4 focus:ring-pink-200 focus:border-pink-500 focus:outline-none"
+                    className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/50 focus:border-transparent text-foreground"
                     placeholder="your.email@example.com"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-foreground/80 mb-1">
                   Inquiry Type *
                 </label>
                 <select
@@ -153,7 +156,7 @@ export default function ContactPage() {
                   value={formData.type}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-4 focus:ring-pink-200 focus:border-pink-500 focus:outline-none"
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/50 focus:border-transparent text-foreground"
                 >
                   <option value="">Select inquiry type</option>
                   {contactTypes.map(type => (
@@ -163,7 +166,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-foreground/80 mb-1">
                   Subject *
                 </label>
                 <input
@@ -172,13 +175,13 @@ export default function ContactPage() {
                   value={formData.subject}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-4 focus:ring-pink-200 focus:border-pink-500 focus:outline-none"
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/50 focus:border-transparent text-foreground"
                   placeholder="Brief description of your inquiry"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-foreground/80 mb-1">
                   Message *
                 </label>
                 <textarea
@@ -187,7 +190,7 @@ export default function ContactPage() {
                   onChange={handleInputChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-4 focus:ring-pink-200 focus:border-pink-500 focus:outline-none"
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/50 focus:border-transparent text-foreground"
                   placeholder="Tell us more about your inquiry..."
                 />
               </div>
@@ -195,7 +198,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-blue-500 text-white rounded-full hover:from-pink-600 hover:to-blue-600 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
+                className="w-full bg-gradient-to-r from-primary to-accent text-white font-medium py-3 px-6 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>
@@ -212,37 +215,36 @@ export default function ContactPage() {
             </form>
           </div>
 
-          {/* Contact Information */}
-          <div className="space-y-6">
-            {/* Quick Contact */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-              <h3 className="text-xl font-bold mb-4 text-gray-800">Quick Contact</h3>
+          {/* Contact Info */}
+          <div className="space-y-8">
+            <div className="bg-card rounded-2xl shadow-xl p-8 border border-border/40">
+              <h3 className="text-xl font-bold mb-4 text-foreground">Quick Contact</h3>
               <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
-                    <Mail className="text-pink-600" size={20} />
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-lg">
+                    <Mail className="h-6 w-6 text-primary" />
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Email</p>
-                    <p className="font-semibold">info@otaku.lt</p>
+                  <div className="ml-4">
+                    <h3 className="text-sm font-medium text-muted-foreground">Email</h3>
+                    <p className="mt-1 text-base text-foreground">contact@otaku.lt</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                    <MessageCircle className="text-blue-600" size={20} />
+                <div className="flex items-start mt-6">
+                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-lg">
+                    <MessageCircle className="h-6 w-6 text-primary" />
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Discord</p>
-                    <p className="font-semibold">@otaku_lithuania</p>
+                  <div className="ml-4">
+                    <h3 className="text-sm font-medium text-muted-foreground">Discord</h3>
+                    <p className="mt-1 text-base text-foreground">Join our community</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                     <MapPin className="text-purple-600" size={20} />
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Location</p>
-                    <p className="font-semibold">Lithuania</p>
+                  <div className="ml-4">
+                    <h3 className="text-sm font-medium text-muted-foreground">Location</h3>
+                    <p className="mt-1 text-base text-foreground">Vilnius, Lithuania</p>
                   </div>
                 </div>
               </div>
@@ -250,7 +252,7 @@ export default function ContactPage() {
 
             {/* Organizations */}
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-              <h3 className="text-xl font-bold mb-4 text-gray-800">Our Organizations</h3>
+              <h2 className="text-2xl font-bold text-foreground mb-6">Contact Information</h2>
               <div className="space-y-4">
                 <div className="p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg">
                   <h4 className="font-semibold text-gray-800">Idol Stage Baltics</h4>
