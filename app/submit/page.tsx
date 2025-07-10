@@ -16,7 +16,6 @@ type FormData = {
   startDate: string;
   startTime: string;
   endDate: string;
-  endTime: string;
   isAllDay: boolean;
   isMultiDay: boolean;
   location: string;
@@ -49,7 +48,6 @@ export default function SubmitEventPage() {
     startDate: "",
     startTime: "12:00",
     endDate: "",
-    endTime: "13:00",
     isAllDay: false,
     isMultiDay: false,
     location: "",
@@ -138,7 +136,6 @@ export default function SubmitEventPage() {
       startDate: "",
       startTime: "12:00",
       endDate: "",
-      endTime: "13:00",
       isAllDay: false,
       isMultiDay: false,
       location: "",
@@ -299,7 +296,7 @@ export default function SubmitEventPage() {
                               ...prev,
                               isAllDay: e.target.checked,
                               startTime: e.target.checked ? "00:00" : prev.startTime,
-                              endTime: e.target.checked ? "23:59" : prev.endTime
+                              // Removed endTime
                             }));
                           }}
                           className="h-5 w-5 appearance-none rounded border-2 border-input bg-background transition-all duration-200 ease-in-out 
@@ -457,25 +454,7 @@ export default function SubmitEventPage() {
                     </div>
                   )}
                   
-                  {/* End Time - Only show if not all-day and not multi-day */}
-                  {!formData.isAllDay && !formData.isMultiDay && (
-                    <div>
-                      <label className="block text-xs font-medium text-muted-foreground mb-1">
-                        End Time *
-                      </label>
-                      <div className="relative">
-                        <input
-                          type="time"
-                          name="endTime"
-                          value={formData.endTime}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full pl-4 pr-10 py-3 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none transition-colors"
-                        />
-                        <Clock className="w-5 h-5 text-muted-foreground absolute right-3 bottom-2.5 pointer-events-none" />
-                      </div>
-                    </div>
-                  )}
+                  {/* End time removed as per requirements */}
                 </div>
               </div>
               
