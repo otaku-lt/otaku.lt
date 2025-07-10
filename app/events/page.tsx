@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { Calendar, MapPin, Clock, Search, Plus, LayoutGrid } from "lucide-react";
+import React, { useState, useMemo } from "react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
-import EventCalendar from "../../components/Calendar";
+import { EventTabs } from "@/components/events/EventTabs";
+import { EventCard } from "@/components/events/EventCard";
+import EventCalendar from "@/components/Calendar";
+import { Calendar, MapPin } from "lucide-react";
 
 export default function EventsPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -31,17 +31,17 @@ export default function EventsPage() {
   // Helper function to get category colors
   const getCategoryColors = (category: string): string => {
     const colorMap: { [key: string]: string } = {
-      'concert': 'bg-pink-100 text-pink-600',
-      'camping': 'bg-green-100 text-green-600',
-      'convention': 'bg-indigo-100 text-indigo-600',
-      'screening': 'bg-blue-100 text-blue-600',
-      'workshop': 'bg-purple-100 text-purple-600',
-      'gaming': 'bg-orange-100 text-orange-600',
-      'competition': 'bg-yellow-100 text-yellow-600',
-      'meetup': 'bg-teal-100 text-teal-600',
-      'special': 'bg-rose-100 text-rose-600'
+      'concert': 'bg-pink-500/10 text-pink-400',
+      'camping': 'bg-green-500/10 text-green-400',
+      'convention': 'bg-indigo-500/10 text-indigo-400',
+      'screening': 'bg-blue-500/10 text-blue-400',
+      'workshop': 'bg-purple-500/10 text-purple-400',
+      'gaming': 'bg-orange-500/10 text-orange-400',
+      'competition': 'bg-yellow-500/10 text-yellow-400',
+      'meetup': 'bg-teal-500/10 text-teal-400',
+      'special': 'bg-rose-500/10 text-rose-400'
     };
-    return colorMap[category] || 'bg-gray-100 text-gray-600';
+    return colorMap[category] || 'bg-gray-500/10 text-gray-400';
   };
 
   const events = [
@@ -338,16 +338,18 @@ export default function EventsPage() {
     { id: "special", label: "Special Events", count: events.filter(e => e.category === "special").length }
   ];
 
-  const filteredEvents = events.filter(event => {
-    const matchesCategory = selectedCategory === "all" || event.category === selectedCategory;
-    const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         event.location.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const filteredEvents = useMemo(() => {
+    return events.filter(event => {
+      const matchesCategory = selectedCategory === "all" || event.category === selectedCategory;
+      const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          event.location.toLowerCase().includes(searchTerm.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [events, selectedCategory, searchTerm]);
 
   // Convert event data to calendar format
-  const convertToCalendarEvents = (events: any[]) => {
-    return events.map(event => {
+  const calendarEvents = useMemo(() => {
+    return filteredEvents.map(event => {
       // Parse date and time
       const eventDate = new Date(event.date);
       const [hours, minutes] = event.time === "All day" ? [0, 0] : event.time.split(':').map(Number);
@@ -372,9 +374,7 @@ export default function EventsPage() {
         description: event.description,
       };
     });
-  };
-
-  const calendarEvents = convertToCalendarEvents(filteredEvents);
+  }, [filteredEvents]);
 
   const handleEventClick = (event: any) => {
     // Navigate to event details or show modal
@@ -382,7 +382,7 @@ export default function EventsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+    <div className="min-h-screen bg-background">
       <ContentPageHeader 
         title="🎌 Event Calendar"
         showBackButton={true}
@@ -393,66 +393,26 @@ export default function EventsPage() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Otaku Event Calendar 🎌
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Discover anime, cosplay, and Japanese culture events across Lithuania. 
             Find your next otaku adventure or submit your own event to our calendar.
           </p>
         </div>
 
-        {/* Controls */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-8">
-          {/* Search */}
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-            <input
-              type="text"
-              placeholder="Search events..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 rounded-full border-0 bg-white/80 backdrop-blur-sm shadow-lg focus:ring-4 focus:ring-pink-200 focus:outline-none"
-            />
-          </div>
-
-          {/* Submit Event Button */}
-          <Link
-            href="/submit"
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-full hover:from-pink-600 hover:to-pink-700 transition-all shadow-lg"
-          >
-            <Plus size={20} />
-            Submit Event
-          </Link>
-        </div>
-
-        {/* View Toggle */}
-        <div className="flex justify-center mb-6">
-          <div className="bg-white/80 backdrop-blur-sm rounded-full p-1 shadow-lg">
-            <button
-              onClick={() => setViewMode('calendar')}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
-                viewMode === 'calendar'
-                  ? 'bg-theme-primary-500 text-white shadow-sm'
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              <Calendar size={16} className="inline mr-2" />
-              Calendar View
-            </button>
-            <button
-              onClick={() => setViewMode('list')}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
-                viewMode === 'list'
-                  ? 'bg-theme-primary-500 text-white shadow-sm'
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              <LayoutGrid size={16} className="inline mr-2" />
-              List View
-            </button>
-          </div>
-        </div>
+        {/* Event Tabs */}
+        <EventTabs
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategoryChange={setSelectedCategory}
+          viewMode={viewMode}
+          onViewModeChange={setViewMode}
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          className="mb-8"
+        />
 
         {/* Calendar View */}
         {viewMode === 'calendar' && (
@@ -465,71 +425,23 @@ export default function EventsPage() {
         {/* List View */}
         {viewMode === 'list' && (
           <div>
-            {/* Category Filters */}
-            <div className="flex flex-wrap gap-2 mb-8">
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                    selectedCategory === category.id
-                      ? 'bg-pink-500 text-white shadow-lg'
-                      : 'bg-card/80 text-muted-foreground hover:bg-pink-100/50'
-                  }`}
-                >
-                  {category.label} ({category.count})
-                </button>
-              ))}
-            </div>
-
-            {/* Events Grid */}
+                {/* Events Grid */}
             <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredEvents.map((event) => (
-                <div
+                <EventCard
                   key={event.id}
-                  className={`bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-105 ${
-                    event.featured ? 'ring-2 ring-pink-300' : ''
-                  }`}
-                >
-                  {event.featured && (
-                    <div className="flex justify-between items-start mb-4">
-                      <span className="bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs px-3 py-1 rounded-full">
-                        Featured
-                      </span>
-                      <div className="text-2xl">
-                        {getCategoryEmoji(event.category)}
-                      </div>
-                    </div>
-                  )}
-
-                  <h3 className="text-xl font-bold mb-3 text-foreground">{event.title}</h3>
-                  
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Calendar size={16} />
-                      <span className="text-sm">{event.date}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Clock size={16} />
-                      <span className="text-sm">{event.time}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <MapPin size={16} />
-                      <span className="text-sm">{event.location}</span>
-                    </div>
-                  </div>
-
-                  <p className="text-muted-foreground text-sm mb-4">{event.description}</p>
-
-                  <div className="flex items-center justify-between">
-                    <span className={`text-xs px-2 py-1 rounded-full ${getCategoryColors(event.category)}`}>
-                      {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
-                    </span>
-                    <button className="text-pink-600 hover:text-pink-700 font-medium text-sm">
-                      Learn More →
-                    </button>
-                  </div>
-                </div>
+                  id={event.id}
+                  title={event.title}
+                  date={event.date}
+                  time={event.time}
+                  location={event.location}
+                  category={event.category}
+                  description={event.description}
+                  featured={event.featured}
+                  getCategoryEmoji={getCategoryEmoji}
+                  getCategoryColors={getCategoryColors}
+                  href={`/events/${event.id}`}
+                />
               ))}
             </div>
 

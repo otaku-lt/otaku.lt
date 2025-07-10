@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Calendar, MapPin, Users, Star, ArrowRight, Menu, X, ChevronDown, Mail, Facebook, Youtube, UserPlus } from "lucide-react";
+import { EventCard } from "@/components/events/EventCard";
 
 export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -19,26 +20,64 @@ export default function HomePage() {
       id: 1,
       title: "Idol Stage: Summer Edition",
       date: "August 17, 2025",
-      location: "Vilnius",
-      type: "Concert",
+      time: "18:00",
+      location: "Vilnius, Compensa Concert Hall",
+      category: "concert",
+      description: "Our biggest summer concert featuring local and international performers",
       featured: true
     },
     {
       id: 2,
       title: "YuruCamp: Weeb Camping Adventure",
       date: "September 5-7, 2025",
-      location: "Trakai",
-      type: "Camping",
+      time: "All day",
+      location: "Trakai National Park",
+      category: "camping",
+      description: "3-day camping experience with anime screenings, cosplay contests, and outdoor activities",
       featured: true
     },
     {
       id: 3,
       title: "Anime Night: Studio Ghibli Marathon",
       date: "July 20, 2025",
-      location: "Kaunas",
-      type: "Screening"
+      time: "19:00",
+      location: "Kaunas, Cinema Hall",
+      category: "screening",
+      description: "Marathon screening of beloved Studio Ghibli films"
     }
   ];
+
+  // Helper function to get category emoji
+  const getCategoryEmoji = (category: string): string => {
+    const emojiMap: { [key: string]: string } = {
+      'concert': '🎤',
+      'camping': '⛺',
+      'convention': '🏢',
+      'screening': '🎬',
+      'workshop': '🎨',
+      'gaming': '🎮',
+      'competition': '🏆',
+      'meetup': '👥',
+      'special': '✨'
+    };
+    return emojiMap[category] || '🎌';
+  };
+
+  // Helper function to get category colors
+  const getCategoryColors = (category: string): string => {
+    const colorMap: { [key: string]: string } = {
+      'concert': 'bg-pink-500/10 text-pink-400',
+      'camping': 'bg-green-500/10 text-green-400',
+      'convention': 'bg-indigo-500/10 text-indigo-400',
+      'screening': 'bg-blue-500/10 text-blue-400',
+      'workshop': 'bg-purple-500/10 text-purple-400',
+      'gaming': 'bg-orange-500/10 text-orange-400',
+      'competition': 'bg-yellow-500/10 text-yellow-400',
+      'meetup': 'bg-teal-500/10 text-teal-400',
+      'special': 'bg-rose-500/10 text-rose-400'
+    };
+    return colorMap[category] || 'bg-gray-500/10 text-gray-400';
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/20 via-background to-accent/20">
@@ -253,36 +292,37 @@ export default function HomePage() {
           </div>
 
           {/* Featured Events */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-            {upcomingEvents.map((event) => (
-              <div
-                key={event.id}
-                className={`bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-105 ${
-                  event.featured ? 'ring-2 ring-pink-300' : ''
-                }`}
+          <div className="mb-16">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Upcoming Events
+              </h2>
+              <Link 
+                href="/events" 
+                className="text-sm font-medium text-primary hover:text-accent flex items-center gap-1 transition-colors"
               >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-pink-500 rounded-full"></div>
-                    <span className="text-sm font-medium text-pink-600">{event.type}</span>
-                  </div>
-                  {event.featured && (
-                    <span className="bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs px-3 py-1 rounded-full">
-                      Featured
-                    </span>
-                  )}
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-gray-800">{event.title}</h3>
-                <div className="flex items-center gap-2 text-gray-600 mb-2">
-                  <Calendar size={16} />
-                  <span className="text-sm">{event.date}</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <MapPin size={16} />
-                  <span className="text-sm">{event.location}</span>
-                </div>
-              </div>
-            ))}
+                View all events <ArrowRight size={16} />
+              </Link>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {upcomingEvents.map((event) => (
+                <EventCard
+                  key={event.id}
+                  id={event.id}
+                  title={event.title}
+                  date={event.date}
+                  time={event.time}
+                  location={event.location}
+                  category={event.category}
+                  description={event.description}
+                  featured={event.featured}
+                  getCategoryEmoji={getCategoryEmoji}
+                  getCategoryColors={getCategoryColors}
+                  href={`/events/${event.id}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
