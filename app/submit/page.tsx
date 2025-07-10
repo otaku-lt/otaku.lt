@@ -68,10 +68,12 @@ export default function SubmitEventPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target as HTMLInputElement;
+    
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+      ...(name === 'isAllDay' && (e.target as HTMLInputElement).checked ? { startTime: '00:00' } : {})
     }));
   };
   
@@ -218,13 +220,28 @@ export default function SubmitEventPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <ContentPageHeader 
+      <ContentPageHeader
         title="Submit an Event"
-        className="bg-card"
-      >
-        <Send className="w-6 h-6" />
-      </ContentPageHeader>
-      
+        showBackButton={true}
+        backHref="/events"
+        backText="Back to Events"
+      />
+
+      {/* Submission Guidelines */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-6">
+        <div className="bg-card/80 backdrop-blur-sm rounded-xl border border-border/40 p-6 mb-8">
+          <h2 className="text-xl font-semibold mb-4">Submission Guidelines</h2>
+          <ul className="space-y-2 text-sm text-muted-foreground list-disc pl-5">
+            <li>All events must be related to anime, manga, cosplay, or Japanese pop culture.</li>
+            <li>We focus on modern Japanese pop culture, not traditional cultural events</li>
+            <li>Provide accurate event details including date, time, and location.</li>
+            <li>For multi-day events, check the "Multiple days" option.</li>
+            <li>Use a high-quality image that represents your event (max 5MB).</li>
+            <li>Your submission will be reviewed before being published.</li>
+          </ul>
+        </div>
+      </div>
+
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
@@ -296,7 +313,6 @@ export default function SubmitEventPage() {
                               ...prev,
                               isAllDay: e.target.checked,
                               startTime: e.target.checked ? "00:00" : prev.startTime,
-                              // Removed endTime
                             }));
                           }}
                           className="h-5 w-5 appearance-none rounded border-2 border-input bg-background transition-all duration-200 ease-in-out 
@@ -453,8 +469,6 @@ export default function SubmitEventPage() {
                       </div>
                     </div>
                   )}
-                  
-                  {/* End time removed as per requirements */}
                 </div>
               </div>
               
@@ -676,29 +690,6 @@ export default function SubmitEventPage() {
                 />
               </div>
             </div>
-          </div>
-          
-          {/* Guidelines Section */}
-          <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg border border-border/50">
-            <h3 className="text-lg font-semibold mb-4 text-foreground">Submission Guidelines</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2">
-                <span className="text-pink-500 mt-1">•</span>
-                <span className="text-muted-foreground">All events must be related to anime, manga, Japanese pop culture, or otaku interests</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-pink-500 mt-1">•</span>
-                <span className="text-muted-foreground">We focus on modern Japanese pop culture, not traditional cultural events</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-pink-500 mt-1">•</span>
-                <span className="text-muted-foreground">Events will be reviewed within 24-48 hours</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-pink-500 mt-1">•</span>
-                <span className="text-muted-foreground">We reserve the right to edit event descriptions for clarity</span>
-              </li>
-            </ul>
           </div>
           
           {/* Submit Button */}
