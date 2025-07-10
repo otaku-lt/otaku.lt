@@ -80,7 +80,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/20 via-background to-accent/20">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
       <header className="bg-card/80 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-border/40">
         <div className="max-w-6xl mx-auto px-4 py-4">
@@ -259,17 +259,19 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 px-4">
+      <section className="relative overflow-hidden py-20 px-4 bg-background">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <div className="flex justify-center mb-8">
-              <img 
-                src="/otaku_lt_banner.png" 
-                alt="Otaku.lt Banner" 
-                className="w-full max-w-4xl h-auto hover:scale-105 transition-transform duration-300 rounded-lg shadow-lg"
-              />
+              <div className="relative w-full max-w-4xl overflow-hidden rounded-lg shadow-lg bg-card">
+                <img 
+                  src="/otaku_lt_banner.png" 
+                  alt="Otaku.lt Banner" 
+                  className="w-full h-auto hover:scale-105 transition-transform duration-300"
+                />
+              </div>
             </div>
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
               Your central hub for anime, cosplay, J-pop, karaoke, and otaku culture in Lithuania. 
               Powered by community, love for Japan, and good vibes. 🌸
             </p>
@@ -287,21 +289,6 @@ export default function HomePage() {
               >
                 <Star className="mr-2" size={20} />
                 Submit Event
-              </Link>
-            </div>
-          </div>
-
-          {/* Featured Events */}
-          <div className="mb-16">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Upcoming Events
-              </h2>
-              <Link 
-                href="/events" 
-                className="text-sm font-medium text-primary hover:text-accent flex items-center gap-1 transition-colors"
-              >
-                View all events <ArrowRight size={16} />
               </Link>
             </div>
             
@@ -346,57 +333,60 @@ export default function HomePage() {
       </section>
 
       {/* Quick Actions */}
-      <section className="py-16 px-4 bg-white/50">
+      <section className="py-16 px-4 bg-card">
         <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Join Our Community
+          </h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center group cursor-pointer">
-              <div className="w-20 h-20 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <Users className="text-white" size={32} />
+            <Link href="/communities" className="block">
+              <div className="text-center group cursor-pointer p-6 rounded-xl hover:bg-accent/10 transition-colors">
+                <div className="w-20 h-20 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <Users className="text-white" size={32} />
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-foreground">Join Communities</h3>
+                <p className="text-muted-foreground">Connect with fellow otaku on Discord, Facebook, and more</p>
               </div>
-              <h3 className="text-xl font-bold mb-2">Join Communities</h3>
-              <p className="text-gray-600">Connect with fellow otaku on Discord, Facebook, and more</p>
-            </div>
-            <div className="text-center group cursor-pointer">
-              <div className="w-20 h-20 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <Calendar className="text-white" size={32} />
+            </Link>
+            <Link href="/events" className="block">
+              <div className="text-center group cursor-pointer p-6 rounded-xl hover:bg-accent/10 transition-colors">
+                <div className="w-20 h-20 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <Calendar className="text-white" size={32} />
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-foreground">Discover Events</h3>
+                <p className="text-muted-foreground">From cons to camping, find your next otaku adventure</p>
               </div>
-              <h3 className="text-xl font-bold mb-2">Discover Events</h3>
-              <p className="text-gray-600">From cons to camping, find your next otaku adventure</p>
-            </div>
-            <div className="text-center group cursor-pointer">
-              <div className="w-20 h-20 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <Star className="text-white" size={32} />
+            </Link>
+            <Link href="/submit" className="block">
+              <div className="text-center group cursor-pointer p-6 rounded-xl hover:bg-accent/10 transition-colors">
+                <div className="w-20 h-20 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <Star className="text-white" size={32} />
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-foreground">Share Your Event</h3>
+                <p className="text-muted-foreground">Help grow the community by sharing your otaku events</p>
               </div>
-              <h3 className="text-xl font-bold mb-2">Share Your Event</h3>
-              <p className="text-gray-600">Help grow the community by sharing your otaku events</p>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Newsletter */}
-      <section className="py-16 px-4 bg-gradient-to-r from-pink-500 to-purple-600">
+      <section className="py-16 px-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Stay in the Loop! 📬
-          </h2>
-          <p className="text-xl text-pink-100 mb-8 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4">Stay in the Loop! 📬</h2>
+          <p className="text-pink-100 mb-8 text-lg">
             Get monthly updates on anime events, cosplay contests, and community happenings across Lithuania.
           </p>
-          <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
             <input
               type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-6 py-4 rounded-full border-0 focus:ring-4 focus:ring-pink-200 focus:outline-none"
+              placeholder="Your email address"
+              className="flex-1 px-6 py-3 rounded-full border-0 bg-white/20 text-white placeholder-pink-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-pink-500"
             />
-            <button
-              type="submit"
-              className="px-8 py-4 bg-white text-pink-600 rounded-full hover:bg-pink-50 transition-colors font-semibold flex items-center justify-center gap-2"
-            >
+            <button className="px-8 py-3 bg-white text-pink-600 rounded-full hover:bg-opacity-90 transition-opacity font-medium">
               Subscribe
-              <ArrowRight size={18} />
             </button>
-          </form>
+          </div>
         </div>
       </section>
     </div>
