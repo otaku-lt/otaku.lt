@@ -135,27 +135,27 @@ export default function HomePage() {
                 </button>
                 
                 {/* Dropdown Menu */}
-                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                  <div className="py-2">
+                <div className="absolute top-full left-0 mt-2 w-48 bg-gray-800/95 backdrop-blur-sm rounded-lg shadow-xl border border-gray-700/50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+                  <div className="py-1">
                     <Link
                       href="/idol-stage"
-                      className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors"
+                      className="flex items-center gap-3 px-4 py-2.5 text-gray-200 hover:bg-pink-600/30 hover:text-white transition-colors"
                     >
-                      <span>🎤</span>
+                      <span className="text-pink-400">🎤</span>
                       Idol Stage
                     </Link>
                     <Link
                       href="/yurucamp"
-                      className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors"
+                      className="flex items-center gap-3 px-4 py-2.5 text-gray-200 hover:bg-pink-600/30 hover:text-white transition-colors"
                     >
-                      <span>⛺</span>
+                      <span className="text-pink-400">⛺</span>
                       YuruCamp
                     </Link>
                     <Link
                       href="/korniha-band"
-                      className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-colors"
+                      className="flex items-center gap-3 px-4 py-2.5 text-gray-200 hover:bg-pink-600/30 hover:text-white transition-colors"
                     >
-                      <span>🎸</span>
+                      <span className="text-pink-400">🎸</span>
                       Korniha Band
                     </Link>
                   </div>
