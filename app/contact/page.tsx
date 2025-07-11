@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Mail, MessageCircle, MapPin, Send, CheckCircle, X } from "lucide-react";
+import { Mail, MessageCircle, MapPin, Send, CheckCircle, X, Users } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 
 export default function ContactPage() {
@@ -57,7 +57,12 @@ export default function ContactPage() {
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-background text-foreground">
-        <ContentPageHeader title="Contact Us" />
+        <ContentPageHeader title={
+          <>
+            <MessageCircle className="w-6 h-6 inline-block mr-2" />
+            Contact Us
+          </>
+        } />
         <div className="max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle className="text-green-600" size={48} />
@@ -97,13 +102,24 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <ContentPageHeader title="Contact Us" />
+      <ContentPageHeader title={
+        <>
+          <MessageCircle className="w-6 h-6 inline-block mr-2" />
+          Contact Us
+        </>
+      } />
       <div className="max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         {/* Page Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">
-            Get in Touch 
-          </h1>
+          <div className="mb-8 text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Get in Touch
+            </h1>
+            <p className="text-lg text-muted-foreground flex items-center justify-center gap-2">
+              <MessageCircle className="w-5 h-5" />
+              Stay in touch with our community
+            </p>
+          </div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Have questions, ideas, or want to collaborate? We'd love to hear from you!
           </p>
@@ -218,7 +234,10 @@ export default function ContactPage() {
           {/* Contact Info */}
           <div className="space-y-8">
             <div className="bg-card rounded-2xl shadow-xl p-8 border border-border/40">
-              <h3 className="text-xl font-bold mb-4 text-foreground">Quick Contact</h3>
+              <h3 className="text-2xl font-bold mb-6 text-foreground flex items-center gap-2">
+                <MessageCircle className="w-6 h-6" />
+                Quick Contact
+              </h3>
               <div className="space-y-3">
                 <div className="flex items-start">
                   <div className="flex-shrink-0 bg-primary/10 p-3 rounded-lg">
@@ -238,9 +257,9 @@ export default function ContactPage() {
                     <p className="mt-1 text-base text-foreground">Join our community</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                    <MapPin className="text-purple-600" size={20} />
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-lg">
+                    <MapPin className="h-6 w-6 text-primary" />
                   </div>
                   <div className="ml-4">
                     <h3 className="text-sm font-medium text-muted-foreground">Location</h3>
@@ -251,20 +270,23 @@ export default function ContactPage() {
             </div>
 
             {/* Organizations */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-              <h2 className="text-2xl font-bold text-foreground mb-6">Contact Information</h2>
+            <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-8 border border-border/40 shadow-xl">
+              <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+                <Users className="w-6 h-6" />
+                Our Organizations
+              </h2>
               <div className="space-y-4">
-                <div className="p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg">
-                  <h4 className="font-semibold text-gray-800">Idol Stage Baltics</h4>
-                  <p className="text-sm text-gray-600">Premium otaku concerts and events</p>
+                <div className="p-4 bg-gradient-to-r from-card to-card-foreground/5 rounded-lg border border-border/30">
+                  <h4 className="font-semibold text-foreground">Idol Stage Baltics</h4>
+                  <p className="text-sm text-muted-foreground mt-1">J-Pop & K-Pop dance community</p>
                 </div>
-                <div className="p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg">
-                  <h4 className="font-semibold text-gray-800">Y.M.C.A</h4>
-                  <p className="text-sm text-gray-600">Yuru Mobile Camping Assembly</p>
+                <div className="p-4 bg-gradient-to-r from-card to-card-foreground/5 rounded-lg border border-border/30 mt-4">
+                  <h4 className="font-semibold text-foreground">Otaku Gaming LT</h4>
+                  <p className="text-sm text-muted-foreground mt-1">Anime gaming community</p>
                 </div>
-                <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-                  <h4 className="font-semibold text-gray-800">Korniha Band</h4>
-                  <p className="text-sm text-gray-600">Anime music covers and originals</p>
+                <div className="p-4 bg-gradient-to-r from-card to-card-foreground/5 rounded-lg border border-border/30 mt-4">
+                  <h4 className="font-semibold text-foreground">Korniha Band</h4>
+                  <p className="text-sm text-muted-foreground mt-1">Anime music rock band</p>
                 </div>
               </div>
             </div>

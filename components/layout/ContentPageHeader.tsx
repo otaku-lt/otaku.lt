@@ -5,10 +5,11 @@ import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 
 interface ContentPageHeaderProps {
-  title: string;
+  title: React.ReactNode;
   showBackButton?: boolean;
   backHref?: string;
   backText?: string;
+  icon?: React.ReactNode;
 }
 
 export function ContentPageHeader({
@@ -16,6 +17,7 @@ export function ContentPageHeader({
   showBackButton = true,
   backHref = '/',
   backText = 'Back to Home',
+  icon,
 }: ContentPageHeaderProps) {
   return (
     <header className="bg-card/80 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-border/40">
@@ -37,8 +39,10 @@ export function ContentPageHeader({
               width={40}
               height={40}
               className="w-10 h-10 dark:invert"
+              priority
             />
-            <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent flex items-center gap-2">
+              {icon && <span className="text-foreground">{icon}</span>}
               {title}
             </span>
           </div>

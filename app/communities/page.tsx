@@ -6,6 +6,14 @@ import { MessageCircle, Users, Youtube, Instagram, Facebook, ExternalLink, Star 
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 
 export default function CommunitiesPage() {
+  // Add dark theme class to html element
+  React.useEffect(() => {
+    document.documentElement.classList.add('dark');
+    return () => {
+      document.documentElement.classList.remove('dark');
+    };
+  }, []);
+
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const communities = [
@@ -138,14 +146,26 @@ export default function CommunitiesPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <ContentPageHeader 
-        title="Communities"
+        title={
+          <>
+            <Users className="w-6 h-6 inline-block mr-2" />
+            Communities
+          </>
+        } 
         backHref="/"
         backText="Back to Home"
+        icon={<Users className="w-6 h-6" />}
       />
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2">Communities</h1>
-          <p className="text-muted-foreground">Connect with like-minded anime and Japanese culture enthusiasts in Lithuania.</p>
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        {/* Page Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Communities 🤝
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Connect with like-minded anime and Japanese culture enthusiasts in Lithuania. 
+            Find your next otaku community or submit your own group to our directory.
+          </p>
         </div>
         {/* Category Filter */}
         <div className="mb-8 flex flex-wrap gap-2">

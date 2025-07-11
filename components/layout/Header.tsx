@@ -41,6 +41,7 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
       href: "/submit", 
       icon: <Plus className="w-5 h-5" />
     },
+    { name: "Communities", href: "/communities", icon: <span className="text-lg">🤝</span> },
     { name: "Contact Us", href: "/contact", icon: <Mail className="w-5 h-5" /> },
   ];
 
@@ -67,14 +68,16 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
             
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className="flex items-center space-x-2">
-                <img 
-                  src="/otaku_lt.png" 
-                  alt="Otaku.lt Logo" 
-                  className="w-8 h-8 group-hover:scale-105 transition-transform dark:invert"
+                <Image
+                  src="/otaku_lt.png"
+                  alt="Otaku.lt Logo"
+                  width={32}
+                  height={32}
+                  className="h-8 w-auto dark:invert"
                 />
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                {title || 'otaku.lt'}
-              </span>
+                <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  {title || 'otaku.lt'}
+                </span>
               </Link>
             </div>
           </div>
@@ -156,7 +159,7 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
               href="/communities"
               className="flex items-center px-4 py-3 rounded-lg text-base font-medium text-gray-100 hover:bg-pink-500/20 hover:text-white transition-colors"
             >
-              <User className="w-5 h-5 mr-3 text-current" />
+              <span className="w-5 h-5 mr-3 text-current text-lg">🤝</span>
               Communities
             </Link>
             <a
