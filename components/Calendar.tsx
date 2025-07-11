@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import FullCalendar from '@fullcalendar/react';
+import type { CalendarApi } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import { format } from 'date-fns';
+import { Tag, MapPin, Calendar as CalendarIcon, Download, ExternalLink, X } from 'lucide-react';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
-import { Calendar as CalendarIcon, Download, ExternalLink } from 'lucide-react';
 import './Calendar.css';
 
 interface CalendarEvent {
@@ -76,6 +78,7 @@ const downloadICS = (event: CalendarEvent) => {
 
 export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: EventCalendarProps) {
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+  const calendarRef = useRef<FullCalendar>(null);
 
   // Convert events to FullCalendar format
   const fullCalendarEvents = events.map(event => ({
@@ -128,18 +131,18 @@ export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: E
   return (
     <div className="space-y-6">
       {/* Header with export all functionality */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg border border-pink-200 p-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-card/80 backdrop-blur-sm rounded-2xl shadow-lg border border-border/40 p-6">
         <div className="flex items-center gap-3">
-          <CalendarIcon className="text-pink-600" size={24} />
+          <CalendarIcon className="text-primary" size={24} />
           <div>
-            <h2 className="text-xl font-bold bg-gradient-to-r from-pink-600 to-blue-600 bg-clip-text text-transparent">
+            <h2 className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Event Calendar
             </h2>
-            <p className="text-sm text-gray-600">{events.length} events</p>
+            <p className="text-sm text-muted-foreground">{events.length} events</p>
           </div>
         </div>
         
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             onClick={() => {
               // Generate ICS for all events
@@ -154,7 +157,7 @@ export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: E
               document.body.removeChild(link);
               window.URL.revokeObjectURL(url);
             }}
-            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-lg hover:from-pink-600 hover:to-pink-700 transition-all shadow-md"
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg hover:opacity-90 transition-all shadow-md"
           >
             <Download size={16} />
             Export All (.ics)
@@ -165,7 +168,7 @@ export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: E
               const googleCalendarUrl = `https://calendar.google.com/calendar/render?cid=otaku.lt`;
               window.open(googleCalendarUrl, '_blank');
             }}
-            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all shadow-md"
+            className="flex items-center gap-2 px-4 py-2 bg-muted text-foreground rounded-lg hover:bg-muted/80 transition-all shadow-md border border-border"
           >
             <ExternalLink size={16} />
             Google Calendar
@@ -174,16 +177,17 @@ export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: E
       </div>
 
       {/* FullCalendar */}
-      <div className="otaku-fullcalendar bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-pink-200">
+      <div className="otaku-fullcalendar bg-card/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-border/40 p-4">
         <FullCalendar
+          ref={calendarRef}
           plugins={[dayGridPlugin, listPlugin, interactionPlugin]}
+          initialView="dayGridMonth"
           headerToolbar={{
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,listYear'
+            right: 'dayGridMonth,listWeek'
           }}
-          initialView='dayGridMonth'
-          height='auto'
+          height="auto"
           events={fullCalendarEvents}
           eventClick={handleEventClick}
           select={handleDateSelect}
@@ -196,52 +200,31 @@ export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: E
           displayEventTime={false}
           dayMaxEventRows={3}
           moreLinkClick='popover'
+          // Styling for dark theme
+          themeSystem='standard'
+          eventClassNames="bg-card border-l-4 border-primary hover:bg-accent/50 transition-colors"
+          dayHeaderClassNames="text-foreground/80 font-medium"
+          dayCellClassNames="hover:bg-accent/20"
+          buttonText={{
+            today: 'Today',
+            month: 'Month',
+            list: 'List'
+          }}
+
           eventContent={(eventInfo) => {
             const event = eventInfo.event;
-            const isAllDay = event.allDay;
-            const title = event.title;
-            const isListView = eventInfo.view.type.includes('list');
-            
-            // Show time in list view always, or in month view only when multiple events on same day
-            let showTime = false;
-            if (isListView) {
-              showTime = !isAllDay;
-            } else if (eventInfo.view.type === 'dayGridMonth') {
-              // Check if there are multiple events on the same day
-              const dayEvents = eventInfo.view.calendar.getEvents().filter(e => {
-                const eventDate = e.start?.toDateString();
-                const currentDate = event.start?.toDateString();
-                return eventDate === currentDate;
-              });
-              showTime = !isAllDay && dayEvents.length > 1;
-            }
+            const timeText = eventInfo.timeText;
             
             return (
               <div className="fc-event-main-frame">
+                {timeText && (
+                  <div className="fc-event-time text-xs opacity-80 mr-1">
+                    {timeText}
+                  </div>
+                )}
                 <div className="fc-event-title-container">
-                  <div className="fc-event-title fc-sticky">
-                    {showTime && (
-                      <span 
-                        className="fc-event-time text-xs opacity-75 mr-1"
-                        style={isListView ? { 
-                          color: 'white', 
-                          textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
-                          opacity: 0.9 
-                        } : {}}
-                      >
-                        {eventInfo.timeText}
-                      </span>
-                    )}
-                    <span 
-                      className={`fc-event-title-text ${isListView ? 'list-view-title' : ''}`}
-                      style={isListView ? { 
-                        color: 'white', 
-                        fontWeight: '600',
-                        textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)' 
-                      } : {}}
-                    >
-                      {title}
-                    </span>
+                  <div className="fc-event-title text-sm font-medium">
+                    {event.title}
                   </div>
                 </div>
               </div>
@@ -249,11 +232,11 @@ export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: E
           }}
           expandRows={true}
           stickyHeaderDates={true}
-          eventMouseEnter={(info) => {
+          eventMouseEnter={(info: any) => {
             info.el.style.transform = 'scale(1.02)';
             info.el.style.zIndex = '10';
           }}
-          eventMouseLeave={(info) => {
+          eventMouseLeave={(info: any) => {
             info.el.style.transform = 'scale(1)';
             info.el.style.zIndex = '1';
           }}
@@ -262,55 +245,84 @@ export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: E
 
       {/* Event Details Modal */}
       {selectedEvent && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl max-w-md w-full border border-pink-200">
-            <div className="bg-gradient-to-r from-pink-600 to-blue-600 text-white p-6 rounded-t-2xl">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl max-w-md w-full border border-border/40 overflow-hidden">
+            <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground p-6">
               <h3 className="text-xl font-bold">{selectedEvent.title}</h3>
               {selectedEvent.location && (
-                <p className="text-pink-100 mt-2">📍 {selectedEvent.location}</p>
+                <p className="opacity-90 mt-2 flex items-center gap-2">
+                  <MapPin className="w-4 h-4" />
+                  <span>{selectedEvent.location}</span>
+                </p>
               )}
             </div>
             
-            <div className="p-6">
+            <div className="p-6 space-y-4">
               <div className="space-y-4">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Date & Time</p>
-                  <p className="text-gray-900">
-                    {selectedEvent.start.toLocaleDateString()} at {selectedEvent.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                  </p>
+                <div className="flex items-start">
+                  <CalendarIcon className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">When</p>
+                    <p className="text-foreground">
+                      {format(selectedEvent.start, 'MMMM d, yyyy h:mm a')}
+                      {selectedEvent.end && ` - ${format(selectedEvent.end, 'h:mm a')}`}
+                    </p>
+                  </div>
                 </div>
                 
+                {selectedEvent.location && (
+                  <div className="flex items-start">
+                    <MapPin className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Location</p>
+                      <p className="text-foreground">{selectedEvent.location}</p>
+                    </div>
+                  </div>
+                )}
+                
+                {selectedEvent.category && (
+                  <div className="flex items-start">
+                    <Tag className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Category</p>
+                      <p className="text-foreground">{selectedEvent.category}</p>
+                    </div>
+                  </div>
+                )}
+                
                 {selectedEvent.description && (
-                  <div>
-                    <p className="text-sm font-medium text-gray-600">Description</p>
-                    <p className="text-gray-900">{selectedEvent.description}</p>
+                  <div className="pt-4 mt-2 border-t border-border/40">
+                    <p className="text-sm font-medium text-muted-foreground mb-2">Description</p>
+                    <p className="text-foreground whitespace-pre-line">{selectedEvent.description}</p>
                   </div>
                 )}
               </div>
               
-              <div className="flex gap-3 mt-6">
-                <button
-                  onClick={() => window.open(generateGoogleCalendarUrl(selectedEvent), '_blank')}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-lg hover:from-pink-600 hover:to-pink-700 transition-all"
-                >
-                  <ExternalLink size={16} />
-                  Google Calendar
-                </button>
-                
+              <div className="flex flex-col sm:flex-row justify-end gap-3 pt-6">
                 <button
                   onClick={() => downloadICS(selectedEvent)}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all"
+                  className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-border hover:bg-accent/50 transition-colors"
                 >
                   <Download size={16} />
                   Download .ics
                 </button>
+                <a
+                  href={generateGoogleCalendarUrl(selectedEvent)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity"
+                >
+                  <ExternalLink size={16} />
+                  Google Calendar
+                </a>
               </div>
               
               <button
                 onClick={() => setSelectedEvent(null)}
-                className="w-full mt-4 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                className="absolute top-4 right-4 p-1 rounded-full text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+                aria-label="Close"
               >
-                Close
+                <X className="w-5 h-5" />
               </button>
             </div>
           </div>

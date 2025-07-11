@@ -1,51 +1,184 @@
-/* FullCalendar Custom Styles - Otaku.lt Theme */
+/* FullCalendar Custom Styles - Otaku.lt VSCode Dark Theme */
+
+:root {
+  --fc-border-color: hsl(216, 28%, 20%);
+  --fc-button-bg-color: hsl(216, 28%, 14%);
+  --fc-button-hover-bg-color: hsl(216, 28%, 20%);
+  --fc-button-active-bg-color: hsl(216, 28%, 24%);
+  --fc-button-text-color: hsl(213, 31%, 91%);
+  --fc-button-border-color: hsl(216, 28%, 20%);
+  --fc-button-hover-border-color: hsl(216, 28%, 30%);
+  --fc-button-active-border-color: hsl(216, 28%, 30%);
+  --fc-today-bg-color: hsl(216, 28%, 20%);
+  --fc-now-indicator-color: hsl(217, 100%, 70%);
+  --fc-highlight-color: rgba(99, 102, 241, 0.2);
+  --fc-neutral-bg-color: hsl(216, 28%, 12%);
+  --fc-list-event-hover-bg-color: hsl(216, 28%, 20%);
+  --fc-page-bg-color: hsl(216, 28%, 10%);
+  --fc-event-bg-color: hsl(216, 28%, 25%);
+  --fc-event-border-color: hsl(216, 28%, 30%);
+  --fc-event-text-color: white;
+  --fc-more-link-bg-color: hsl(216, 28%, 14%);
+  --fc-more-link-text-color: hsl(213, 31%, 91%);
+}
 
 .otaku-fullcalendar {
   font-family: inherit;
+  --fc-page-bg-color: var(--color-card);
+  --fc-border-color: var(--color-border);
+  --fc-neutral-bg-color: var(--color-background);
+  --fc-today-bg-color: var(--color-accent-900);
+  --fc-now-indicator-color: var(--color-accent-500);
+  --fc-highlight-color: var(--color-accent-900);
+  --fc-list-event-hover-bg-color: var(--color-accent-900);
+  --fc-event-bg-color: var(--color-primary-700);
+  --fc-event-border-color: var(--color-primary-600);
+  --fc-event-text-color: white;
+  --fc-more-link-bg-color: var(--color-card);
+  --fc-more-link-text-color: var(--color-foreground);
 }
 
 /* Header styling */
 .otaku-fullcalendar .fc-header-toolbar {
-  background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
-  padding: 20px;
-  border-radius: 16px 16px 0 0;
-  border-bottom: 2px solid rgba(236, 72, 153, 0.2);
+  background: var(--color-card);
+  padding: 1rem;
+  margin: 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .otaku-fullcalendar .fc-toolbar-title {
-  font-size: 1.75rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, rgb(236 72 153) 0%, rgb(59 130 246) 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-foreground);
 }
 
 /* Button styling */
 .otaku-fullcalendar .fc-button {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(252, 231, 243, 0.5) 100%) !important;
-  border: 2px solid transparent !important;
-  color: rgb(75 85 99) !important;
-  padding: 8px 16px !important;
-  border-radius: 12px !important;
-  font-weight: 600 !important;
-  transition: all 0.3s ease !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
-  margin: 0 4px !important;
+  background: var(--color-card) !important;
+  border: 1px solid var(--color-border) !important;
+  color: var(--color-foreground) !important;
+  padding: 0.4rem 1rem !important;
+  border-radius: 0.375rem !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  transition: all 0.2s ease !important;
+  box-shadow: none !important;
+  margin: 0 0.25rem !important;
+  text-transform: none !important;
 }
 
 .otaku-fullcalendar .fc-button:hover {
-  background: linear-gradient(135deg, rgb(236 72 153) 0%, rgb(147 51 234) 100%) !important;
+  background: var(--color-accent-900) !important;
+  border-color: var(--color-accent-600) !important;
   color: white !important;
-  transform: translateY(-1px) !important;
-  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3) !important;
 }
 
-.otaku-fullcalendar .fc-button-active {
-  background: linear-gradient(135deg, rgb(236 72 153) 0%, rgb(147 51 234) 100%) !important;
+.otaku-fullcalendar .fc-button-active,
+.otaku-fullcalendar .fc-button:active,
+.otaku-fullcalendar .fc-button:focus {
+  background: var(--color-accent-900) !important;
+  border-color: var(--color-accent-600) !important;
   color: white !important;
-  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3) !important;
+  outline: none !important;
+}
+
+.otaku-fullcalendar .fc-button-primary:not(:disabled).fc-button-active:focus,
+.otaku-fullcalendar .fc-button-primary:not(:disabled):active:focus {
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3) !important;
+}
+
+/* Today button */
+.otaku-fullcalendar .fc-today-button {
+  background: var(--color-accent-900) !important;
+  border-color: var(--color-accent-600) !important;
+  color: white !important;
+}
+
+/* View buttons */
+.otaku-fullcalendar .fc-button-group .fc-button {
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+.otaku-fullcalendar .fc-button-group .fc-button:first-child {
+  border-top-left-radius: 0.375rem !important;
+  border-bottom-left-radius: 0.375rem !important;
+}
+
+.otaku-fullcalendar .fc-button-group .fc-button:last-child {
+  border-top-right-radius: 0.375rem !important;
+  border-bottom-right-radius: 0.375rem !important;
+}
+
+/* Calendar cells */
+.otaku-fullcalendar .fc-daygrid-day {
+  border: 1px solid var(--color-border);
+}
+
+.otaku-fullcalendar .fc-day-today {
+  background-color: var(--fc-today-bg-color) !important;
+}
+
+.otaku-fullcalendar .fc-daygrid-day-number {
+  color: var(--color-foreground);
+  padding: 0.5rem;
+}
+
+.otaku-fullcalendar .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+  color: white;
+  font-weight: 600;
+}
+
+/* Event styling */
+.otaku-fullcalendar .fc-event {
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.25rem;
+  font-size: 0.75rem;
+  border: none;
+  background: var(--fc-event-bg-color);
+  color: white;
+}
+
+.otaku-fullcalendar .fc-event:hover {
+  opacity: 0.9;
+}
+
+/* List view */
+.otaku-fullcalendar .fc-list-day-cushion {
+  background-color: var(--color-card);
+  color: var(--color-foreground);
+}
+
+.otaku-fullcalendar .fc-list-event:hover td {
+  background-color: var(--fc-list-event-hover-bg-color);
+}
+
+.otaku-fullcalendar .fc-list-event-time,
+.otaku-fullcalendar .fc-list-event-title {
+  color: var(--color-foreground);
+}
+
+/* Popover */
+.otaku-fullcalendar .fc-popover {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.otaku-fullcalendar .fc-popover-header {
+  background: var(--color-card);
+  color: var(--color-foreground);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.otaku-fullcalendar .fc-popover-close {
+  color: var(--color-foreground);
+  opacity: 0.7;
+}
+
+.otaku-fullcalendar .fc-popover-close:hover {
+  opacity: 1;
 }
 
 .otaku-fullcalendar .fc-button:disabled {
