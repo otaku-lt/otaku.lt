@@ -155,13 +155,6 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
           ))}
           {/* Additional mobile-only links */}
           <div className="pt-2 mt-2 border-t border-pink-500/20">
-            <Link
-              href="/communities"
-              className="flex items-center px-4 py-3 rounded-lg text-base font-medium text-gray-100 hover:bg-pink-500/20 hover:text-white transition-colors"
-            >
-              <span className="w-5 h-5 mr-3 text-current text-lg">🤝</span>
-              Communities
-            </Link>
             <a
               href="#"
               className="flex items-center px-4 py-3 rounded-lg text-base font-medium text-gray-100 hover:bg-pink-500/20 hover:text-white transition-colors"
