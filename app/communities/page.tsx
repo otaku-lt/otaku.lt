@@ -148,13 +148,13 @@ export default function CommunitiesPage() {
       <ContentPageHeader 
         title={
           <>
-            <Users className="w-6 h-6 inline-block mr-2" />
+            <span className="inline-block mr-2">🤝</span>
             Communities
           </>
         } 
         backHref="/"
         backText="Back to Home"
-        icon={<Users className="w-6 h-6" />}
+        icon={<span className="text-xl">🤝</span>}
       />
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Page Header */}
