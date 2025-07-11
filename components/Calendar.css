@@ -1,184 +1,418 @@
 /* FullCalendar Custom Styles - Otaku.lt VSCode Dark Theme */
 
 :root {
-  --fc-border-color: hsl(216, 28%, 20%);
-  --fc-button-bg-color: hsl(216, 28%, 14%);
-  --fc-button-hover-bg-color: hsl(216, 28%, 20%);
-  --fc-button-active-bg-color: hsl(216, 28%, 24%);
-  --fc-button-text-color: hsl(213, 31%, 91%);
-  --fc-button-border-color: hsl(216, 28%, 20%);
-  --fc-button-hover-border-color: hsl(216, 28%, 30%);
-  --fc-button-active-border-color: hsl(216, 28%, 30%);
-  --fc-today-bg-color: hsl(216, 28%, 20%);
-  --fc-now-indicator-color: hsl(217, 100%, 70%);
-  --fc-highlight-color: rgba(99, 102, 241, 0.2);
-  --fc-neutral-bg-color: hsl(216, 28%, 12%);
-  --fc-list-event-hover-bg-color: hsl(216, 28%, 20%);
-  --fc-page-bg-color: hsl(216, 28%, 10%);
-  --fc-event-bg-color: hsl(216, 28%, 25%);
-  --fc-event-border-color: hsl(216, 28%, 30%);
-  --fc-event-text-color: white;
-  --fc-more-link-bg-color: hsl(216, 28%, 14%);
-  --fc-more-link-text-color: hsl(213, 31%, 91%);
+  /* Base colors from VSCode dark theme */
+  --vscode-editor-background: #1e1e1e;
+  --vscode-sideBar-background: #252526;
+  --vscode-editor-foreground: #d4d4d4;
+  --vscode-editor-selectionBackground: #264f78;
+  --vscode-editor-lineHighlightBackground: #2a2d2e;
+  --vscode-button-background: #0e639c;
+  --vscode-button-hoverBackground: #1177bb;
+  --vscode-button-foreground: #ffffff;
+  --vscode-input-background: #3c3c3c;
+  --vscode-input-foreground: #cccccc;
+  --vscode-widget-border: #454545;
+  
+  /* Calendar specific variables */
+  --fc-border-color: var(--vscode-widget-border);
+  --fc-button-bg-color: var(--vscode-button-background);
+  --fc-button-hover-bg-color: var(--vscode-button-hoverBackground);
+  --fc-button-active-bg-color: #0a4b7a;
+  --fc-button-text-color: var(--vscode-button-foreground);
+  --fc-button-border-color: transparent;
+  --fc-button-hover-border-color: transparent;
+  --fc-button-active-border-color: transparent;
+  --fc-today-bg-color: rgba(30, 126, 222, 0.1);
+  --fc-now-indicator-color: #0078d7;
+  --fc-highlight-color: rgba(14, 99, 156, 0.3);
+  --fc-neutral-bg-color: var(--vscode-sideBar-background);
+  --fc-list-event-hover-bg-color: #2a2d2e;
+  --fc-page-bg-color: var(--vscode-editor-background);
+  --fc-event-bg-color: #2a2d2e;
+  --fc-event-border-color: #3c3c3c;
+  --fc-event-text-color: var(--vscode-editor-foreground);
+  --fc-more-link-bg-color: var(--vscode-sideBar-background);
+  --fc-more-link-text-color: var(--vscode-editor-foreground);
 }
 
 .otaku-fullcalendar {
-  font-family: inherit;
-  --fc-page-bg-color: var(--color-card);
-  --fc-border-color: var(--color-border);
-  --fc-neutral-bg-color: var(--color-background);
-  --fc-today-bg-color: var(--color-accent-900);
-  --fc-now-indicator-color: var(--color-accent-500);
-  --fc-highlight-color: var(--color-accent-900);
-  --fc-list-event-hover-bg-color: var(--color-accent-900);
-  --fc-event-bg-color: var(--color-primary-700);
-  --fc-event-border-color: var(--color-primary-600);
-  --fc-event-text-color: white;
-  --fc-more-link-bg-color: var(--color-card);
-  --fc-more-link-text-color: var(--color-foreground);
+  font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--vscode-editor-background);
+  color: var(--vscode-editor-foreground);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  
+  /* Calendar specific overrides */
+  --fc-page-bg-color: var(--vscode-editor-background);
+  --fc-border-color: var(--vscode-widget-border);
+  --fc-neutral-bg-color: var(--vscode-sideBar-background);
+  --fc-today-bg-color: var(--vscode-editor-lineHighlightBackground);
+  --fc-now-indicator-color: var(--vscode-button-hoverBackground);
+  --fc-highlight-color: var(--vscode-editor-selectionBackground);
+  --fc-list-event-hover-bg-color: var(--vscode-editor-lineHighlightBackground);
+  --fc-event-bg-color: var(--vscode-sideBar-background);
+  --fc-event-border-color: var(--vscode-widget-border);
+  --fc-event-text-color: var(--vscode-editor-foreground);
+  --fc-more-link-bg-color: var(--vscode-sideBar-background);
+  --fc-more-link-text-color: var(--vscode-editor-foreground);
 }
 
 /* Header styling */
 .otaku-fullcalendar .fc-header-toolbar {
-  background: var(--color-card);
-  padding: 1rem;
+  background: var(--vscode-sideBar-background);
+  padding: 1rem 1.5rem;
   margin: 0;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--vscode-widget-border);
+  display: flex;
+  align-items: center;
+  min-height: 64px;
 }
 
 .otaku-fullcalendar .fc-toolbar-title {
   font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--color-foreground);
+  font-weight: 500;
+  color: var(--vscode-editor-foreground);
+  margin: 0 1.5rem;
+  letter-spacing: 0.3px;
 }
 
 /* Button styling */
 .otaku-fullcalendar .fc-button {
-  background: var(--color-card) !important;
-  border: 1px solid var(--color-border) !important;
-  color: var(--color-foreground) !important;
+  background: var(--vscode-button-background) !important;
+  border: none !important;
+  color: var(--vscode-button-foreground) !important;
   padding: 0.4rem 1rem !important;
-  border-radius: 0.375rem !important;
+  border-radius: 2px !important;
   font-weight: 500 !important;
-  font-size: 0.875rem !important;
-  transition: all 0.2s ease !important;
+  font-size: 0.8125rem !important;
+  transition: background-color 0.2s ease, transform 0.1s ease !important;
   box-shadow: none !important;
   margin: 0 0.25rem !important;
   text-transform: none !important;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
 .otaku-fullcalendar .fc-button:hover {
-  background: var(--color-accent-900) !important;
-  border-color: var(--color-accent-600) !important;
-  color: white !important;
+  background: var(--vscode-button-hoverBackground) !important;
+  transform: translateY(-1px);
+}
+
+.otaku-fullcalendar .fc-button:active {
+  transform: translateY(0);
+  transition: none !important;
+}
+
+.otaku-fullcalendar .fc-button:focus {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+  z-index: 1;
 }
 
 .otaku-fullcalendar .fc-button-active,
 .otaku-fullcalendar .fc-button:active,
 .otaku-fullcalendar .fc-button:focus {
-  background: var(--color-accent-900) !important;
-  border-color: var(--color-accent-600) !important;
-  color: white !important;
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3) !important;
+  background: var(--vscode-button-hoverBackground) !important;
+  box-shadow: 0 0 0 2px rgba(14, 99, 156, 0.3) !important;
   outline: none !important;
-}
-
-.otaku-fullcalendar .fc-button-primary:not(:disabled).fc-button-active:focus,
-.otaku-fullcalendar .fc-button-primary:not(:disabled):active:focus {
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3) !important;
 }
 
 /* Today button */
 .otaku-fullcalendar .fc-today-button {
-  background: var(--color-accent-900) !important;
-  border-color: var(--color-accent-600) !important;
-  color: white !important;
+  background: var(--vscode-button-background) !important;
+  border: none !important;
+  color: var(--vscode-button-foreground) !important;
+  margin-left: 1rem !important;
 }
 
 /* View buttons */
+.otaku-fullcalendar .fc-button-group {
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--vscode-widget-border);
+  background: var(--vscode-sideBar-background);
+}
+
 .otaku-fullcalendar .fc-button-group .fc-button {
   margin: 0 !important;
   border-radius: 0 !important;
-}
-
-.otaku-fullcalendar .fc-button-group .fc-button:first-child {
-  border-top-left-radius: 0.375rem !important;
-  border-bottom-left-radius: 0.375rem !important;
+  border-right: 1px solid var(--vscode-widget-border) !important;
+  background: transparent !important;
+  color: var(--vscode-editor-foreground) !important;
 }
 
 .otaku-fullcalendar .fc-button-group .fc-button:last-child {
-  border-top-right-radius: 0.375rem !important;
-  border-bottom-right-radius: 0.375rem !important;
+  border-right: none !important;
+}
+
+.otaku-fullcalendar .fc-button-group .fc-button-active {
+  background: var(--vscode-editor-selectionBackground) !important;
+  color: white !important;
+}
+
+.otaku-fullcalendar .fc-button-group .fc-button:first-child {
+  border-top-left-radius: 2px !important;
+  border-bottom-left-radius: 2px !important;
+}
+
+.otaku-fullcalendar .fc-button-group .fc-button:last-child {
+  border-top-right-radius: 2px !important;
+  border-bottom-right-radius: 2px !important;
+  border-right: none !important;
 }
 
 /* Calendar cells */
 .otaku-fullcalendar .fc-daygrid-day {
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--vscode-widget-border);
+  background: var(--vscode-editor-background);
+  transition: background 0.2s ease;
 }
 
 .otaku-fullcalendar .fc-day-today {
-  background-color: var(--fc-today-bg-color) !important;
+  background: var(--vscode-editor-lineHighlightBackground) !important;
+  position: relative;
+}
+
+.otaku-fullcalendar .fc-day-today::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 4px;
+  height: 4px;
+  background: var(--vscode-button-background);
+  border-radius: 2px;
 }
 
 .otaku-fullcalendar .fc-daygrid-day-number {
-  color: var(--color-foreground);
-  padding: 0.5rem;
+  color: var(--vscode-editor-foreground);
+  font-weight: 500;
+  padding: 6px 8px;
+  transition: color 0.2s ease;
 }
 
 .otaku-fullcalendar .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
-  color: white;
   font-weight: 600;
+  color: var(--vscode-button-foreground);
 }
 
-/* Event styling */
+.otaku-fullcalendar .fc-day-other .fc-daygrid-day-number {
+  color: var(--vscode-disabledForeground);
+  opacity: 0.7;
+}
+
+/* Events */
 .otaku-fullcalendar .fc-event {
-  border-radius: 0.25rem;
-  padding: 0.125rem 0.25rem;
-  font-size: 0.75rem;
-  border: none;
-  background: var(--fc-event-bg-color);
-  color: white;
+  border: 1px solid var(--vscode-widget-border);
+  background: var(--vscode-sideBar-background);
+  color: var(--vscode-editor-foreground);
+  border-radius: 2px;
+  padding: 3px 6px;
+  margin: 2px 4px;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  border-left: 3px solid var(--vscode-button-background);
 }
 
 .otaku-fullcalendar .fc-event:hover {
-  opacity: 0.9;
+  background: var(--vscode-editor-selectionBackground);
+  border-color: var(--vscode-focusBorder);
+  transform: translateX(2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.otaku-fullcalendar .fc-event .fc-event-main {
+  padding: 2px 0;
+  display: flex;
+  align-items: center;
+}
+
+.otaku-fullcalendar .fc-event-time {
+  font-weight: 500;
+  margin-right: 6px;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  color: var(--vscode-descriptionForeground);
+}
+
+.otaku-fullcalendar .fc-event-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+/* Event category colors */
+.otaku-fullcalendar .fc-event-concert {
+  border-left-color: #ec4899;
+}
+
+.otaku-fullcalendar .fc-event-camping {
+  border-left-color: #22c55e;
+}
+
+.otaku-fullcalendar .fc-event-convention {
+  border-left-color: #6366f1;
+}
+
+.otaku-fullcalendar .fc-event-screening {
+  border-left-color: #3b82f6;
+}
+
+.otaku-fullcalendar .fc-event-workshop {
+  border-left-color: #9333ea;
+}
+
+.otaku-fullcalendar .fc-event-gaming {
+  border-left-color: #f97316;
+}
+
+.otaku-fullcalendar .fc-event-competition {
+  border-left-color: #f59e0b;
+}
+
+.otaku-fullcalendar .fc-event-meetup {
+  border-left-color: #14b8a6;
+}
+
+.otaku-fullcalendar .fc-event-special {
+  border-left-color: #f43f5e;
 }
 
 /* List view */
-.otaku-fullcalendar .fc-list-day-cushion {
-  background-color: var(--color-card);
-  color: var(--color-foreground);
+.otaku-fullcalendar .fc-list {
+  border: none;
+  background: var(--vscode-editor-background);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.otaku-fullcalendar .fc-list-event:hover td {
-  background-color: var(--fc-list-event-hover-bg-color);
+.otaku-fullcalendar .fc-list-day-cushion {
+  background: var(--vscode-sideBar-background);
+  color: var(--vscode-editor-foreground);
+  padding: 0.75rem 1.25rem;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  border-bottom: 1px solid var(--vscode-widget-border);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.otaku-fullcalendar .fc-list-event {
+  background: var(--vscode-editor-background);
+  border-left: 3px solid var(--vscode-button-background);
+  margin: 0;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid var(--vscode-widget-border);
+}
+
+.otaku-fullcalendar .fc-list-event:last-child {
+  border-bottom: none;
+}
+
+.otaku-fullcalendar .fc-list-event:hover {
+  background: var(--vscode-editor-lineHighlightBackground);
+  transform: translateX(2px);
 }
 
 .otaku-fullcalendar .fc-list-event-time,
 .otaku-fullcalendar .fc-list-event-title {
-  color: var(--color-foreground);
+  color: var(--vscode-editor-foreground);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9375rem;
+}
+
+.otaku-fullcalendar .fc-list-event-time {
+  color: var(--vscode-descriptionForeground);
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  min-width: 80px;
+  display: inline-block;
+}
+
+.otaku-fullcalendar .fc-list-event-dot {
+  border-color: var(--vscode-button-background);
+  margin-left: 1.25rem;
 }
 
 /* Popover */
 .otaku-fullcalendar .fc-popover {
-  background: var(--color-card);
-  border: 1px solid var(--color-border);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  background: var(--vscode-sideBar-background);
+  border: 1px solid var(--vscode-widget-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 1000;
 }
 
 .otaku-fullcalendar .fc-popover-header {
-  background: var(--color-card);
-  color: var(--color-foreground);
-  border-bottom: 1px solid var(--color-border);
+  background: var(--vscode-editor-lineHighlightBackground);
+  color: var(--vscode-editor-foreground);
+  padding: 0.75rem 1.25rem;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--vscode-widget-border);
 }
 
 .otaku-fullcalendar .fc-popover-close {
-  color: var(--color-foreground);
+  color: var(--vscode-editor-foreground);
   opacity: 0.7;
+  transition: all 0.2s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .otaku-fullcalendar .fc-popover-close:hover {
   opacity: 1;
+  background: var(--vscode-button-hoverBackground);
+  color: white;
+}
+
+.otaku-fullcalendar .fc-popover-body {
+  padding: 0.75rem 1.25rem;
+  background: var(--vscode-sideBar-background);
+}
+
+/* Scrollbar styling */
+.otaku-fullcalendar ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.otaku-fullcalendar ::-webkit-scrollbar-track {
+  background: var(--vscode-scrollbarSlider-background);
+  border-radius: 4px;
+}
+
+.otaku-fullcalendar ::-webkit-scrollbar-thumb {
+  background: var(--vscode-scrollbarSlider-activeBackground);
+  border-radius: 4px;
+}
+
+.otaku-fullcalendar ::-webkit-scrollbar-thumb:hover {
+  background: var(--vscode-scrollbarSlider-hoverBackground);
 }
 
 .otaku-fullcalendar .fc-button:disabled {
@@ -530,16 +764,70 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .otaku-fullcalendar .fc-toolbar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.75rem;
+  }
+  
+  .otaku-fullcalendar .fc-toolbar-chunk {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
   .otaku-fullcalendar .fc-toolbar-title {
-    font-size: 1.25rem;
+    margin: 0.5rem 0;
+    text-align: center;
+    order: -1;
+    width: 100%;
   }
   
   .otaku-fullcalendar .fc-button {
-    padding: 6px 12px !important;
-    font-size: 0.875rem !important;
+    padding: 0.35rem 0.75rem !important;
+    font-size: 0.8125rem !important;
   }
   
-  .otaku-fullcalendar .fc-header-toolbar {
-    padding: 16px;
+  .otaku-fullcalendar .fc-today-button {
+    margin-left: 0 !important;
   }
+}
+
+/* Animation for better interactivity */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.otaku-fullcalendar .fc-event {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+/* Loading state */
+.otaku-fullcalendar .fc-loading {
+  opacity: 0.7;
+  pointer-events: none;
+  position: relative;
+}
+
+.otaku-fullcalendar .fc-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  z-index: 1;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
