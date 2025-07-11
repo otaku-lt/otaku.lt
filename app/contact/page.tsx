@@ -104,7 +104,7 @@ export default function ContactPage() {
     <div className="min-h-screen bg-background text-foreground">
       <ContentPageHeader title={
         <>
-          <MessageCircle className="w-6 h-6 inline-block mr-2" />
+          <span className="inline-block mr-2">📫</span>
           Contact Us
         </>
       } />
@@ -113,10 +113,9 @@ export default function ContactPage() {
         <div className="text-center mb-12">
           <div className="mb-8 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Get in Touch
+              Get in Touch 📫
             </h1>
-            <p className="text-lg text-muted-foreground flex items-center justify-center gap-2">
-              <MessageCircle className="w-5 h-5" />
+            <p className="text-lg text-muted-foreground">
               Stay in touch with our community
             </p>
           </div>
