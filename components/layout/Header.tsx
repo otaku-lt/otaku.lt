@@ -34,23 +34,19 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
   }, [pathname]);
 
   const navLinks = [
-    { name: "Home", href: "/", icon: <Home className="w-5 h-5" /> },
-    { name: "Events", href: "/events", icon: <Calendar className="w-5 h-5" /> },
-    { 
-      name: "Submit Event", 
-      href: "/submit", 
-      icon: <Plus className="w-5 h-5" />
-    },
-    { name: "Communities", href: "/communities", icon: <span className="inline-flex items-center justify-center w-5 h-5 text-lg">🤝</span> },
-    { name: "Contact Us", href: "/contact", icon: <span className="inline-flex items-center justify-center w-5 h-5 text-lg">📫</span> },
+    { name: "Home", href: "/", icon: <Home className="w-4 h-4" /> },
+    { name: "Events", href: "/events", icon: <Calendar className="w-4 h-4" /> },
+    { name: "Submit Event", href: "/submit", icon: <Plus className="w-4 h-4" /> },
+    { name: "Communities", href: "/communities", icon: <span className="inline-flex items-center justify-center w-4 h-4 text-base">🤝</span> },
+    { name: "Contact Us", href: "/contact", icon: <span className="inline-flex items-center justify-center w-4 h-4 text-base">📫</span> },
   ];
 
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? "bg-card/90 backdrop-blur-md border-b border-border/50 shadow-lg" 
-          : "bg-card/80 backdrop-blur-sm border-b border-transparent"
+          ? "bg-[#1e1e1e]/95 backdrop-blur-md border-b border-border/30 shadow-lg" 
+          : "bg-[#1e1e1e]/90 backdrop-blur-sm border-b border-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -59,10 +55,10 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
             {showBackButton && (
               <button 
                 onClick={() => router.back()}
-                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                className="p-2 rounded-full hover:bg-foreground/10 transition-colors text-foreground/80 hover:text-foreground"
                 aria-label="Go back"
               >
-                <ArrowLeft className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                <ArrowLeft className="w-5 h-5" />
               </button>
             )}
             
@@ -91,10 +87,10 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md'
-                      : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                      ? 'bg-foreground/10 text-foreground shadow-sm border border-foreground/10'
+                      : 'text-muted-foreground hover:bg-foreground/5 hover:text-foreground/90'
                   }`}
                 >
                   {link.icon}
@@ -115,7 +111,7 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
             <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-pink-500"
+              className="inline-flex items-center justify-center p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-foreground/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-foreground/20 transition-colors"
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
@@ -132,10 +128,9 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden transition-all duration-300 ease-in-out bg-gray-900 ${
+        className={`md:hidden transition-all duration-300 ease-in-out ${
           isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
-        }`}
-        style={{ backgroundColor: '#111827' }}
+        } bg-[#1e1e1e] backdrop-blur-lg border-t border-foreground/10`}
       >
         <div className="px-2 pt-2 pb-6 space-y-1 sm:px-3 border-t border-border/50">
           {navLinks.map((link) => (
@@ -144,12 +139,11 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
               href={link.href}
               className={`flex items-center px-4 py-3 rounded-lg text-base font-medium transition-colors ${
                 pathname === link.href
-                  ? "text-white bg-pink-600/90"
-                  : "text-white hover:bg-pink-500/20 hover:text-white"
+                  ? "text-foreground bg-foreground/10"
+                  : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
               }`}
-              style={{ color: '#ffffff' }}
             >
-              <span className="mr-3">{React.cloneElement(link.icon, { className: 'w-5 h-5 text-current' })}</span>
+              <span className="mr-3 text-foreground/80">{React.cloneElement(link.icon, { className: 'w-4 h-4' })}</span>
               {link.name}
             </Link>
           ))}
