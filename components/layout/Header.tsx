@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
       href: "/submit", 
       icon: <Plus className="w-5 h-5" />
     },
-    { name: "Communities", href: "/communities", icon: <span className="text-lg">🤝</span> },
+    { name: "Communities", href: "/communities", icon: <span className="inline-flex items-center justify-center w-5 h-5 text-lg">🤝</span> },
     { name: "Contact Us", href: "/contact", icon: <Mail className="w-5 h-5" /> },
   ];
 
