@@ -177,6 +177,7 @@
 /* Today button */
 .otaku-fullcalendar .fc-today-button {
   background: linear-gradient(135deg, rgb(236 72 153) 0%, rgb(147 51 234) 100%) !important;
+  background-color: transparent !important;
   border: none !important;
   color: white !important;
   margin-left: 1rem !important;
@@ -184,16 +185,38 @@
   font-weight: 500 !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease !important;
+  opacity: 1 !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.otaku-fullcalendar .fc-today-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgb(236 72 153) 0%, rgb(147 51 234) 100%);
+  z-index: -1;
+  border-radius: 3px;
 }
 
 .otaku-fullcalendar .fc-today-button:hover {
   transform: translateY(-1px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  opacity: 1 !important;
 }
 
 .otaku-fullcalendar .fc-today-button:active {
   transform: translateY(0);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  opacity: 1 !important;
+}
+
+.otaku-fullcalendar .fc-today-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.4) !important;
 }
 
 /* Calendar cells */
