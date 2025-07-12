@@ -223,12 +223,55 @@
 .otaku-fullcalendar .fc-daygrid-day {
   border: 1px solid var(--vscode-widget-border);
   background: var(--vscode-editor-background);
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+/* Day cell base styles */
+.otaku-fullcalendar .fc-daygrid-day {
+  background: var(--vscode-editor-background);
+  border-color: var(--vscode-widget-border) !important;
+}
+
+/* Today's cell */
+.otaku-fullcalendar .fc-day-today {
+  background: var(--vscode-editor-lineHighlightBackground) !important;
+  position: relative;
+}
+
+/* Today's indicator dot */
+.otaku-fullcalendar .fc-day-today::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 4px;
+  height: 4px;
+  background: var(--vscode-button-background);
+  border-radius: 2px;
+}
+
+/* Selected cell - match calendar background */
+.otaku-fullcalendar .fc-highlight,
+.otaku-fullcalendar .fc-highlight:hover {
+  background: var(--vscode-editor-background) !important;
+}
+
+/* Remove all hover effects */
+.otaku-fullcalendar .fc-daygrid-day {
+  background: var(--vscode-editor-background);
+  cursor: default !important;
 }
 
 .otaku-fullcalendar .fc-day-today {
   background: var(--vscode-editor-lineHighlightBackground) !important;
+  cursor: default !important;
   position: relative;
+}
+
+.otaku-fullcalendar .fc-daygrid-day:hover,
+.otaku-fullcalendar .fc-day-today:hover {
+  background: inherit !important;
+  cursor: default !important;
 }
 
 .otaku-fullcalendar .fc-day-today::after {
