@@ -3,6 +3,11 @@ import path from 'path';
 import yaml from 'js-yaml';
 import { NextResponse } from 'next/server';
 
+// This route can be statically exported
+// It will be revalidated every hour (3600 seconds)
+export const revalidate = 3600; // 1 hour
+
+
 interface SetlistDay {
   day?: number;
   type: 'Japanese' | 'Lithuanian';
