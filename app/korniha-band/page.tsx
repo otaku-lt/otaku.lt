@@ -10,28 +10,22 @@ export default function KornihaBandPage() {
 
   const bandMembers = [
     {
-      name: "Alex",
-      role: "Lead Vocals & Guitar",
-      description: "Passionate about anime OSTs and Japanese rock",
-      favorite: "Attack on Titan themes"
+      name: "Korniha",
+      role: "Vocals",
+      description: "A free spirit with an ethereal voice that can go from whisper to war cry in a heartbeat. Like Aurora's music, her energy is both powerful and dreamy, filling the room with an otherworldly presence.",
+      favorite: "Carrying You (Laputa: Castle in the Sky)"
     },
     {
-      name: "Mika",
-      role: "Bass Guitar",
-      description: "Groove master with love for J-pop rhythms",
-      favorite: "Your Name soundtrack"
+      name: "Holms",
+      role: "Guitar",
+      description: "The resident grump with a heart of gold and an encyclopedic knowledge of JDM cars. His guitar riffs are as precise as a well-tuned engine, and his love for Japanese pop culture runs as deep as his collection of rare anime figures.",
+      favorite: "Dango Daikazoku (Clannad)"
     },
     {
-      name: "Ryuu",
-      role: "Drums",
-      description: "Energetic drummer inspired by anime openings",
-      favorite: "Demon Slayer OPs"
-    },
-    {
-      name: "Yuki",
-      role: "Keyboard & Backing Vocals",
-      description: "Melodic genius behind our anime arrangements",
-      favorite: "Studio Ghibli songs"
+      name: "Tdude",
+      role: "Percussion",
+      description: "The rhythm keeper who believes everything is a drum if you hit it right. His sticks are an extension of his arms, and his energy is as infectious as the beats he creates.",
+      favorite: "Kokoro Pyon Pyon (Is the Order a Rabbit?)"
     }
   ];
 
