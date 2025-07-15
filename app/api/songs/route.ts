@@ -1,3 +1,7 @@
+// This route needs to be statically generated at build time
+export const dynamic = 'force-static';
+export const revalidate = 3600; // Revalidate every hour
+
 import { promises as fs } from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';

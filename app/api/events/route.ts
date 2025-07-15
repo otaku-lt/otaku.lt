@@ -1,11 +1,13 @@
+// This route needs to be statically generated at build time
+export const dynamic = 'force-static';
+// This route can be statically exported
+// It will be revalidated every hour (3600 seconds)
+export const revalidate = 3600; // 1 hour
+
 import { promises as fs } from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 import { NextResponse } from 'next/server';
-
-// This route can be statically exported
-// It will be revalidated every hour (3600 seconds)
-export const revalidate = 3600; // 1 hour
 
 
 interface SetlistDay {
