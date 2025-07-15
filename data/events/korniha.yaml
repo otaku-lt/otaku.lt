@@ -10,19 +10,3 @@
       type: "Japanese"
     - day: 2
       type: "Lithuanian"
-
-- id: 2
-  title: "Anime Night Vilnius"
-  date: "2025-09-15"
-  location: "Loftas, Vilnius"
-  description: "Evening of anime music and culture"
-  featured: false
-  setlist: "Lithuanian"
-
-- id: 3
-  title: "Kaifas Festival"
-  date: "2025-10-05"
-  location: "Žalgirio Arena, Kaunas"
-  description: "Biggest anime convention in the Baltics"
-  featured: false
-  setlist: "Japanese"
