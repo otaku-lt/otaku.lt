@@ -1,12 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Music, Youtube, Instagram, Facebook as FacebookIcon, Mail, Music2, Calendar, MapPin, Users, Mic2, Disc, Play, Pause, Volume2, VolumeX, Award, ExternalLink } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
+import { getKornihaEvents, getFeaturedEvent, type Event } from "@/lib/events";
 
 export default function KornihaBandPage() {
   const [activeTab, setActiveTab] = useState("about");
+  const [events, setEvents] = useState<Event[]>([]);
+  const [featuredEvent, setFeaturedEvent] = useState<Event | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log('Fetching events data...');
+        const [eventsData, featuredEventData] = await Promise.all([
+          getKornihaEvents(),
+          getFeaturedEvent()
+        ]);
+        console.log('Events data:', eventsData);
+        console.log('Featured event:', featuredEventData);
+        setEvents(eventsData);
+        setFeaturedEvent(featuredEventData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const bandMembers = [
     {
@@ -29,40 +55,6 @@ export default function KornihaBandPage() {
     }
   ];
 
-  const upcomingGigs = [
-    {
-      title: "Korniha Live at Idol Stage",
-      date: "August 12, 2025",
-      venue: "Kaunas Music Club",
-      type: "Solo Concert",
-      description: "Full concert featuring our best anime covers and original songs"
-    },
-    {
-      title: "Anime Night Performance",
-      date: "July 25, 2025",
-      venue: "Vilnius Underground",
-      type: "Guest Performance",
-      description: "Special guest performance at monthly anime night"
-    }
-  ];
-
-  const pastGigs = [
-    {
-      title: "Idol Stage Winter Edition",
-      date: "December 15, 2024",
-      venue: "Vilnius Palace of Culture",
-      attendance: 180,
-      highlights: ["Crowd favorite: Unravel (Tokyo Ghoul)", "Special acoustic set"]
-    },
-    {
-      title: "Comic Con Vilnius",
-      date: "October 2024",
-      venue: "Litexpo",
-      attendance: 300,
-      highlights: ["Opening ceremony performance", "Meet & greet with fans"]
-    }
-  ];
-
   const songList = [
     { title: "Unravel", anime: "Tokyo Ghoul", type: "Cover", popularity: "Fan Favorite" },
     { title: "Guren no Yumiya", anime: "Attack on Titan", type: "Cover", popularity: "High Energy" },
@@ -71,6 +63,17 @@ export default function KornihaBandPage() {
     { title: "Weeb Dreams", anime: "Original", type: "Original", popularity: "Unique" },
     { title: "Lithuania Otaku", anime: "Original", type: "Original", popularity: "Local Pride" }
   ];
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-900 dark:to-gray-800">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-300">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-900 dark:to-gray-800">
@@ -96,32 +99,58 @@ export default function KornihaBandPage() {
         </div>
 
         {/* Hero Section */}
-        <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-8 text-white mb-8 shadow-lg">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="md:w-2/3">
-              <h2 className="text-3xl font-bold mb-4">Next Live Performance</h2>
-              <div className="space-y-2 text-lg">
-                <div className="flex items-center gap-2">
-                  <Calendar size={20} />
-                  <span>August 29-30, 2025</span>
+        {featuredEvent && (
+          <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-8 text-white mb-8 shadow-lg">
+            <div className="flex flex-col md:flex-row items-center justify-between">
+              <div className="md:w-2/3">
+                <h2 className="text-3xl font-bold mb-4">Next Live Performance</h2>
+                <div className="space-y-2 text-lg">
+                  <div className="flex items-center gap-2">
+                    <Calendar size={20} />
+                    <span>
+                      {new Date(featuredEvent.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                      {featuredEvent.endDate && ` - ${new Date(featuredEvent.endDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}`}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MapPin size={20} />
+                    <span>{featuredEvent.location}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Music2 size={20} />
+                    <span>{featuredEvent.description}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <MapPin size={20} />
-                  <span>YuruCamp 2025, "Bražuolės stovyklavietė"</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Music size={20} />
-                  <span>JP and LT setlists per both days</span>
-                </div>
+                <button className="mt-6 bg-white text-purple-600 hover:bg-purple-50 px-6 py-2 rounded-full font-medium flex items-center gap-2 transition-colors">
+                  <Calendar size={16} />
+                  Add to Calendar
+                </button>
               </div>
-            </div>
-            <div className="mt-6 md:mt-0">
-              <button className="px-8 py-3 bg-white text-purple-600 rounded-full hover:bg-purple-50 transition-colors font-semibold text-lg">
-                Get Tickets
-              </button>
+              {featuredEvent.setlist.length > 0 && (
+                <div className="mt-8 md:mt-0">
+                  <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl border border-white/20">
+                    <h3 className="font-bold mb-3 text-lg">Setlist{featuredEvent.setlist.length > 1 ? 's' : ''}</h3>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      {featuredEvent.setlist.map((day, index) => (
+                        <div key={index}>
+                          <h4 className="font-semibold mb-2 flex items-center gap-2">
+                            <span className={`w-2 h-2 ${index % 2 === 0 ? 'bg-pink-300' : 'bg-purple-300'} rounded-full`}></span>
+                            {day.day ? `Day ${day.day} - ` : ''}{day.title}
+                          </h4>
+                          <ul className="space-y-1 text-sm">
+                            {day.songs.map((song, songIndex) => (
+                              <li key={songIndex}>• {song}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-        </div>
+        )}
 
         {/* Tab Navigation */}
         <div className="flex flex-wrap gap-2 mb-8 justify-center">
@@ -263,75 +292,49 @@ export default function KornihaBandPage() {
           )}
 
           {activeTab === "gigs" && (
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-bold mb-6 text-gray-800">Upcoming Gigs</h3>
+            <div className="space-y-6">
+              <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+                <h3 className="text-xl font-bold mb-4">Upcoming Shows</h3>
                 <div className="space-y-4">
-                  {upcomingGigs.map((gig, index) => (
-                    <div key={index} className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                        <div>
-                          <h4 className="text-xl font-bold text-gray-800 dark:text-white mb-2">{gig.title}</h4>
-                          <div className="flex items-center gap-4 text-gray-600 dark:text-gray-300 mb-2">
-                            <div className="flex items-center gap-1">
-                              <Calendar size={16} />
-                              <span>{gig.date}</span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <MapPin size={16} />
-                              <span>{gig.venue}</span>
-                            </div>
+                  {events
+                    .filter(event => new Date(event.date) >= new Date())
+                    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                    .map((event, index) => (
+                      <div 
+                        key={event.id} 
+                        className={`p-4 rounded-xl ${event.featured ? 'bg-purple-50 dark:bg-gray-700/50' : 'bg-white/50 dark:bg-gray-800/30'}`}
+                      >
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <h4 className="font-bold text-lg">{event.title}</h4>
+                            <p className="text-gray-600 dark:text-gray-300">
+                              {new Date(event.date).toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric' 
+                              })}
+                              {event.endDate && ` - ${new Date(event.endDate).toLocaleDateString('en-US', { 
+                                month: 'long', 
+                                day: 'numeric' 
+                              })}`}
+                            </p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">{event.location}</p>
                           </div>
-                          <p className="text-gray-600 dark:text-gray-300">{gig.description}</p>
-                        </div>
-                        <div className="mt-4 md:mt-0">
-                          <button className="px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full hover:from-purple-600 hover:to-pink-600 transition-all">
-                            Get Tickets
+                          <button 
+                            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                              event.featured 
+                                ? 'bg-purple-600 text-white hover:bg-purple-700' 
+                                : 'bg-purple-100 dark:bg-gray-700 text-purple-700 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-gray-600'
+                            }`}
+                          >
+                            More Info
                           </button>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
-
-              <div>
-                <h3 className="text-2xl font-bold mb-6 text-gray-800">Past Performances</h3>
-                <div className="space-y-4">
-                  {pastGigs.map((gig, index) => (
-                    <div key={index} className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                        <div>
-                          <h4 className="text-xl font-bold text-gray-800 mb-2">{gig.title}</h4>
-                          <div className="flex items-center gap-4 text-gray-600">
-                            <div className="flex items-center gap-1">
-                              <Calendar size={16} />
-                              <span>{gig.date}</span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <MapPin size={16} />
-                              <span>{gig.venue}</span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Users size={16} />
-                              <span>{gig.attendance} people</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        {gig.highlights.map((highlight, hIndex) => (
-                          <div key={hIndex} className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                            <span className="text-gray-600 dark:text-gray-300">{highlight}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
           )}
         </div>
 
