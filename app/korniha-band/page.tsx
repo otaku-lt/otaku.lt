@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { Music, Youtube, Instagram, Facebook as FacebookIcon, Mail, Music2, Calendar, MapPin, Users, Mic2, Disc, Play, Pause, Volume2, VolumeX, Award, ExternalLink } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
@@ -69,7 +69,7 @@ export default function KornihaBandPage() {
     }
   ];
 
-  // Song data from API
+  // Song data and sorting state
   const [songs, setSongs] = useState<Array<{
     title: string;
     original: string;
@@ -78,6 +78,46 @@ export default function KornihaBandPage() {
     languages: ('jp' | 'lt' | 'en')[];
     alt_title?: string;
   }>>([]);
+  
+  const [sortConfig, setSortConfig] = useState<{ key: 'title' | 'type' | 'languages'; direction: 'asc' | 'desc' }>({
+    key: 'title',
+    direction: 'asc'
+  });
+  
+  // Sort songs based on sortConfig
+  const sortedSongs = useMemo(() => {
+    const sortableItems = [...songs];
+    if (!sortConfig.key) return sortableItems;
+    
+    sortableItems.sort((a, b) => {
+      // Handle language arrays by joining them for comparison
+      if (sortConfig.key === 'languages') {
+        const aValue = a[sortConfig.key].join(',');
+        const bValue = b[sortConfig.key].join(',');
+        return sortConfig.direction === 'asc' 
+          ? aValue.localeCompare(bValue) 
+          : bValue.localeCompare(aValue);
+      }
+      
+      // Handle regular string comparisons
+      const aValue = String(a[sortConfig.key] || '');
+      const bValue = String(b[sortConfig.key] || '');
+      
+      return sortConfig.direction === 'asc' 
+        ? aValue.localeCompare(bValue)
+        : bValue.localeCompare(aValue);
+    });
+    
+    return sortableItems;
+  }, [songs, sortConfig]);
+  
+  const requestSort = (key: 'title' | 'type' | 'languages') => {
+    let direction: 'asc' | 'desc' = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
 
   // Fetch songs data
   useEffect(() => {
@@ -104,12 +144,27 @@ export default function KornihaBandPage() {
   };
 
   // Song type labels and colors
-  const typeConfig: Record<string, { label: string; color: string }> = {
-    ost: { label: 'Anime OST', color: 'bg-pink-500/20 text-pink-400' },
-    game: { label: 'Game Music', color: 'bg-purple-500/20 text-purple-400' },
-    citypop: { label: 'City Pop', color: 'bg-blue-500/20 text-blue-400' },
-    jpop: { label: 'J-Pop', color: 'bg-red-500/20 text-red-400' },
-    vocaloid: { label: 'Vocaloid', color: 'bg-green-500/20 text-green-400' },
+  const typeConfig = {
+    ost: { 
+      label: 'Anime', 
+      color: 'bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400' 
+    },
+    game: { 
+      label: 'Game', 
+      color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' 
+    },
+    citypop: { 
+      label: 'City Pop', 
+      color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400' 
+    },
+    jpop: { 
+      label: 'J-Pop', 
+      color: 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400' 
+    },
+    vocaloid: { 
+      label: 'Vocaloid', 
+      color: 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' 
+    },
   };
 
   if (isLoading) {
@@ -354,13 +409,49 @@ export default function KornihaBandPage() {
                 <table className="w-full">
                   <thead>
                     <tr className="text-left text-sm text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
-                      <th className="pb-3 font-medium">Song</th>
-                      <th className="pb-3 font-medium text-center">Type</th>
-                      <th className="pb-3 font-medium text-center">Languages</th>
+                      <th 
+                        className="pb-3 font-medium cursor-pointer hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                        onClick={() => requestSort('title')}
+                      >
+                        <div className="flex items-center">
+                          Song
+                          {sortConfig.key === 'title' && (
+                            <span className="ml-1">
+                              {sortConfig.direction === 'asc' ? '↑' : '↓'}
+                            </span>
+                          )}
+                        </div>
+                      </th>
+                      <th 
+                        className="pb-3 font-medium text-center cursor-pointer hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                        onClick={() => requestSort('type')}
+                      >
+                        <div className="flex items-center justify-center">
+                          Type
+                          {sortConfig.key === 'type' && (
+                            <span className="ml-1">
+                              {sortConfig.direction === 'asc' ? '↑' : '↓'}
+                            </span>
+                          )}
+                        </div>
+                      </th>
+                      <th 
+                        className="pb-3 font-medium text-center cursor-pointer hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                        onClick={() => requestSort('languages')}
+                      >
+                        <div className="flex items-center justify-center">
+                          Languages
+                          {sortConfig.key === 'languages' && (
+                            <span className="ml-1">
+                              {sortConfig.direction === 'asc' ? '↑' : '↓'}
+                            </span>
+                          )}
+                        </div>
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                    {songs.map((song, index) => (
+                    {sortedSongs.map((song, index) => (
                       <tr 
                         key={index} 
                         className="hover:bg-white/30 dark:hover:bg-gray-700/30 transition-colors"
@@ -385,7 +476,7 @@ export default function KornihaBandPage() {
                               <span 
                                 key={lang} 
                                 title={languageFlags[lang]?.title} 
-                                className="text-sm"
+                                className="text-xl mx-0.5 transform hover:scale-125 transition-transform"
                                 aria-label={languageFlags[lang]?.title}
                               >
                                 {languageFlags[lang]?.emoji}
