@@ -3,9 +3,13 @@
   date: "2025-08-29"
   endDate: "2025-08-30"
   location: "Bražuolės stovyklavietė, Lithuania"
-  description: "Weekend festival of Japanese culture, anime, and music"
+  description: "Weekend camping festival celebrating Japanese pop culture, anime, music, and cosplay fandom"
   featured: true
-  setlist: "Japanese"  # Can be "Japanese" or "Lithuanian"
+  setlist:
+    - day: 1
+      type: "Japanese"
+    - day: 2
+      type: "Lithuanian"
 
 - id: 2
   title: "Anime Night Vilnius"

@@ -131,8 +131,16 @@ export default function KornihaBandPage() {
                 <span>{featuredEvent.location}</span>
               </div>
               <div className="flex items-center">
-                <Music2 className="mr-2 h-5 w-5" />
-                <span>Setlist: {featuredEvent.setlist}</span>
+                <Music2 className="mr-2 h-5 w-5 text-purple-500 dark:text-purple-400" />
+                <span className="text-sm text-gray-500 dark:text-gray-400">
+                  {featuredEvent.setlist ? (
+                    Array.isArray(featuredEvent.setlist) ? (
+                      `Setlist: ${featuredEvent.setlist.map(day => `Day ${day.day} (${day.type})`).join(', ')}`
+                    ) : (
+                      `Setlist: ${featuredEvent.setlist}`
+                    )
+                  ) : 'Setlist TBA'}
+                </span>
               </div>
             </div>
             <div className="mt-6 flex flex-wrap gap-4">
@@ -224,36 +232,39 @@ export default function KornihaBandPage() {
             <div className="grid md:grid-cols-2 gap-6">
               {bandMembers.map((member, index) => (
                 <div key={index} className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-                  <div className="flex items-center gap-4 mb-4">
-                    {['Holms', 'Korniha'].includes(member.name) ? (
-                      <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-purple-400">
-                        <img 
-                          src={`/images/band/${member.name.toLowerCase()}.${member.name === 'Holms' ? 'png' : 'jpg'}`}
-                          alt={member.name}
-                          className="w-full h-full object-cover"
-                        />
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      {['Holms', 'Korniha'].includes(member.name) ? (
+                        <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-purple-400">
+                          <img 
+                            src={`/images/band/${member.name.toLowerCase()}.${member.name === 'Holms' ? 'png' : 'jpg'}`}
+                            alt={member.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                          {member.name[0]}
+                        </div>
+                      )}
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-800 dark:text-white">{member.name}</h3>
+                        <p className="text-purple-600 dark:text-purple-400 font-medium">{member.role}</p>
                       </div>
-                    ) : (
-                      <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                        {member.name[0]}
-                      </div>
-                    )}
-                    <div>
-                      <h3 className="text-xl font-bold text-gray-800 dark:text-white">{member.name}</h3>
-                      <p className="text-purple-600 dark:text-purple-400 font-medium">{member.role}</p>
                     </div>
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-300 mb-3">{member.description}</p>
-                  <div className="bg-purple-50 dark:bg-gray-700/50 rounded-lg p-3">
-                    <span className="text-sm font-medium text-purple-600 dark:text-purple-400">Favorite: </span>
-                    <span className="text-sm text-gray-700 dark:text-gray-200">{member.favorite}</span>
+                    <p className="text-gray-600 dark:text-gray-300">{member.description}</p>
+                    <div className="bg-purple-50 dark:bg-gray-700/50 rounded-lg p-3">
+                      <span className="text-sm font-medium text-purple-600 dark:text-purple-400">Favorite: </span>
+                      <span className="text-sm text-gray-700 dark:text-gray-200">{member.favorite}</span>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           )}
 
-          {activeTab === "songs" && (
+        {activeTab === "songs" && (
+          <div className="space-y-6">
             <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
               <h3 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Our Repertoire</h3>
               <div className="space-y-3">
@@ -285,51 +296,72 @@ export default function KornihaBandPage() {
                 ))}
               </div>
             </div>
-          )}
+          </div>
+        )}
 
-          {activeTab === "gigs" && (
-            <div className="space-y-6">
-              <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-                <h3 className="text-xl font-bold mb-4">Upcoming Shows</h3>
-                <div className="space-y-4">
-                  {upcomingEvents.map((event: Event) => (
-                    <div 
-                      key={event.id} 
-                      className={`p-4 rounded-xl ${event.featured ? 'bg-purple-50 dark:bg-gray-700/50' : 'bg-white/50 dark:bg-gray-800/30'}`}
-                    >
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <h4 className="font-bold text-lg">{event.title}</h4>
-                          <p className="text-gray-600 dark:text-gray-300">
-                            {new Date(event.date).toLocaleDateString('en-US', { 
-                              year: 'numeric', 
-                              month: 'long', 
-                              day: 'numeric' 
-                            })}
-                            {event.endDate && ` - ${new Date(event.endDate).toLocaleDateString('en-US', { 
-                              month: 'long', 
-                              day: 'numeric' 
-                            })}`}
-                          </p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">{event.location}</p>
-                        </div>
-                          <button 
-                            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                              event.featured 
-                                ? 'bg-purple-600 text-white hover:bg-purple-700' 
-                                : 'bg-purple-100 dark:bg-gray-700 text-purple-700 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-gray-600'
-                            }`}
-                          >
-                            More Info
-                          </button>
+        {activeTab === "gigs" && (
+          <div className="space-y-6">
+            <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+              <h3 className="text-xl font-bold mb-4">Upcoming Shows</h3>
+              <div className="space-y-4">
+                {upcomingEvents.map((event: Event) => (
+                  <div 
+                    key={event.id} 
+                    className={`p-4 rounded-xl ${event.featured ? 'bg-purple-50 dark:bg-gray-700/50' : 'bg-white/50 dark:bg-gray-800/30'}`}
+                  >
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1">
+                        <h4 className="font-bold text-lg">{event.title}</h4>
+                        <p className="text-gray-600 dark:text-gray-300">
+                          {new Date(event.date).toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                          })}
+                          {event.endDate && ` - ${new Date(event.endDate).toLocaleDateString('en-US', { 
+                            month: 'long', 
+                            day: 'numeric' 
+                          })}`}
+                        </p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{event.location}</p>
+                        <div className="mt-2">
+                          <span className="inline-flex items-center text-sm text-purple-600 dark:text-purple-400">
+                            <Music2 className="mr-1 h-4 w-4" />
+                            {Array.isArray(event.setlist) ? (
+                              event.setlist.map((day, i) => (
+                                <span key={i} className="mr-2">
+                                  {i > 0 && ' • '}
+                                  Day {day.day}: {day.type}
+                                </span>
+                              ))
+                            ) : (
+                              <span>Setlist: {event.setlist}</span>
+                            )}
+                          </span>
                         </div>
                       </div>
-                    ))}
+                      {event.link && (
+                        <a
+                          href={event.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
+                            event.featured 
+                              ? 'bg-purple-600 text-white hover:bg-purple-700' 
+                              : 'bg-purple-100 dark:bg-gray-700 text-purple-700 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-gray-600'
+                          }`}
+                        >
+                          More Info
+                          <ExternalLink className="ml-1 h-3 w-3" />
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-          )}
-        </div>
+            </div>
+          </div>
+        )}
 
         {/* Contact Section */}
         <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-8 text-white text-center mt-12 shadow-lg">
@@ -363,6 +395,7 @@ export default function KornihaBandPage() {
               <FacebookIcon size={20} />
               Facebook
             </a>
+          </div>
           </div>
         </div>
       </div>
