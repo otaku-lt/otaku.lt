@@ -1,5 +1,7 @@
-// Define the Event type locally
-export interface Event {
+// Client-side events management for the korniha-band page
+
+// Define the Event type
+export type Event = {
   id: string;
   title: string;
   date: string;
@@ -8,66 +10,47 @@ export interface Event {
   description: string;
   featured: boolean;
   link?: string;
-  setlist: {
-    days: Array<{
-      day?: number;
-      type: 'Japanese' | 'Lithuanian';
-      songs: string[];
-    }>;
-  };
-}
+  setlist?: any; // Can be a string or a more complex object
+};
 
 // In-memory cache for events
-let cachedEvents: Event[] | null = null;
+let eventsCache: Event[] | null = null;
 
-// Function to load events from YAML file at build time
-async function loadEventsFromYaml(): Promise<Event[]> {
+// Function to fetch events from the API (client-side only)
+export async function fetchEventsFromApi(): Promise<Event[]> {
   try {
-    // Using dynamic import to avoid including fs in the client bundle
-    const fs = await import('fs/promises');
-    const path = await import('path');
-    const yaml = await import('js-yaml');
-    
-    const filePath = path.join(process.cwd(), 'data/events/korniha.yaml');
-    const fileContents = await fs.readFile(filePath, 'utf8');
-    const events = yaml.load(fileContents) as Event[];
-    
-    // Sort events by date
-    return events.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    const response = await fetch('/api/events');
+    if (!response.ok) {
+      throw new Error('Failed to fetch events');
+    }
+    const data = await response.json();
+    return data.events || [];
   } catch (error) {
-    console.error('Error loading events from YAML:', error);
+    console.error('Error fetching events from API:', error);
     return [];
   }
 }
 
+// Get all events (client-side only)
 export async function getKornihaEvents(): Promise<Event[]> {
-  // If we're in a browser environment, try to fetch from the API
-  if (typeof window !== 'undefined') {
-    try {
-      const response = await fetch('/api/events');
-      if (response.ok) {
-        const data = await response.json();
-        cachedEvents = data;
-        return data;
-      }
-      console.warn('Failed to fetch events from API, using fallback data');
-    } catch (error) {
-      console.warn('Error fetching events from API:', error);
-    }
+  // If we're not in a browser, return empty array
+  if (typeof window === 'undefined') {
+    return [];
   }
-  
-  // If we're in a server environment or API fetch failed, use the cached events or load from YAML
-  if (cachedEvents) {
-    return cachedEvents;
+
+  // If we already have cached events, return them
+  if (eventsCache) {
+    return eventsCache;
   }
   
   try {
-    cachedEvents = await loadEventsFromYaml();
-    return cachedEvents;
+    eventsCache = await fetchEventsFromApi();
   } catch (error) {
-    console.error('Error loading events:', error);
-    return [];
+    console.error('Error getting events:', error);
+    eventsCache = [];
   }
+
+  return eventsCache || [];
 }
 
 export async function getFeaturedEvent(): Promise<Event | null> {

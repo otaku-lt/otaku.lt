@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Music, Youtube, Instagram, Facebook as FacebookIcon, Mail, Music2, Calendar, MapPin, Users, Mic2, Disc, Play, Pause, Volume2, VolumeX, Award, ExternalLink } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import { getKornihaEvents, getFeaturedEvent } from "@/lib/events";
-import type { Event } from "@/lib/events";
 
 // Define types for the setlist
 type SetlistDay = {
@@ -16,6 +15,19 @@ type SetlistDay = {
 
 type EventSetlist = {
   days: SetlistDay[];
+};
+
+// Define the Event type
+type Event = {
+  id: string;
+  title: string;
+  date: string;
+  endDate?: string;
+  location: string;
+  description: string;
+  featured: boolean;
+  link?: string;
+  setlist?: EventSetlist | string;
 };
 
 export default function KornihaBandPage() {

@@ -28,6 +28,13 @@ export interface Event {
 }
 
 export async function GET() {
+  // Set CORS headers
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET',
+    'Content-Type': 'application/json',
+  };
+
   try {
     console.log('Reading events from YAML file...');
     const filePath = path.join(process.cwd(), 'data/events/korniha.yaml');
@@ -43,12 +50,40 @@ export async function GET() {
       throw new Error('Invalid events data format');
     }
     
-    return NextResponse.json(events);
+    return new NextResponse(
+      JSON.stringify({
+        success: true,
+        events: events || []
+      }),
+      { 
+        status: 200,
+        headers
+      }
+    );
   } catch (error) {
     console.error('Error reading events:', error);
-    return NextResponse.json(
-      { error: 'Failed to load events', details: error instanceof Error ? error.message : 'Unknown error' },
-      { status: 500 }
+    return new NextResponse(
+      JSON.stringify({
+        success: false,
+        error: 'Failed to load events'
+      }),
+      {
+        status: 500,
+        headers
+      }
     );
   }
+}
+
+// Handle OPTIONS method for CORS preflight
+// This is necessary for some browsers and environments
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  });
 }
