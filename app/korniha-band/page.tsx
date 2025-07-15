@@ -112,39 +112,65 @@ export default function KornihaBandPage() {
           </p>
         </div>
 
-        {/* Hero Section */}
+        {/* Hero Section - Next Performance */}
         {featuredEvent && (
-          <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-8 text-white mb-8 shadow-lg">
-            <h2 className="text-3xl font-bold mb-2">Next Performance</h2>
-            <h3 className="text-2xl font-semibold mb-1">{featuredEvent.title}</h3>
-            <p className="text-purple-100 mb-4">{featuredEvent.description}</p>
-            <div className="flex flex-wrap gap-4 text-sm">
-              <div className="flex items-center">
-                <Calendar className="mr-2 h-5 w-5" />
-                <span>{new Date(featuredEvent.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
-                {featuredEvent.endDate && (
-                  <span className="mx-1">- {new Date(featuredEvent.endDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</span>
-                )}
+          <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-6 md:p-8 text-white mb-8 shadow-lg transform transition-all hover:shadow-xl hover:-translate-y-0.5">
+            <div className="mb-4">
+              <h2 className="text-2xl md:text-3xl font-bold mb-1">Next Performance</h2>
+              <h3 className="text-xl md:text-2xl font-semibold text-white/95">{featuredEvent.title}</h3>
+            </div>
+            
+            <p className="text-purple-100 mb-5 text-sm md:text-base">{featuredEvent.description}</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div className="flex items-start space-x-2 bg-white/10 p-3 rounded-lg">
+                <Calendar className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-white/80">When</p>
+                  <p className="text-white">
+                    {new Date(featuredEvent.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+                    {featuredEvent.endDate && (
+                      <span> - {new Date(featuredEvent.endDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                    )}
+                  </p>
+                </div>
               </div>
-              <div className="flex items-center">
-                <MapPin className="mr-2 h-5 w-5" />
-                <span>{featuredEvent.location}</span>
+              
+              <div className="flex items-start space-x-2 bg-white/10 p-3 rounded-lg">
+                <MapPin className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-white/80">Where</p>
+                  <p className="text-white">{featuredEvent.location}</p>
+                </div>
               </div>
-              <div className="flex items-center">
-                <Music2 className="mr-2 h-5 w-5 text-purple-500 dark:text-purple-400" />
-                <span className="text-sm text-gray-500 dark:text-gray-400">
-                  {featuredEvent.setlist ? (
-                    Array.isArray(featuredEvent.setlist) ? (
-                      `Setlist: ${featuredEvent.setlist.map(day => `Day ${day.day} (${day.type})`).join(', ')}`
-                    ) : (
-                      `Setlist: ${featuredEvent.setlist}`
-                    )
-                  ) : 'Setlist TBA'}
-                </span>
+              
+              <div className="flex items-start space-x-2 bg-white/10 p-3 rounded-lg">
+                <Music2 className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-white/80">Setlist</p>
+                  <p className="text-white">
+                    {featuredEvent.setlist ? (
+                      Array.isArray(featuredEvent.setlist) ? (
+                        <span className="flex flex-wrap gap-1">
+                          {featuredEvent.setlist.map((day, i) => (
+                            <span key={i} className="inline-flex items-center px-2 py-0.5 rounded bg-white/20 text-xs">
+                              Day {day.day}: {day.type}
+                            </span>
+                          ))}
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded bg-white/20 text-xs">
+                          {featuredEvent.setlist}
+                        </span>
+                      )
+                    ) : 'TBA'}
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="mt-6 flex flex-wrap gap-4">
-              <button className="px-6 py-3 bg-white text-purple-600 rounded-full font-medium hover:bg-purple-100 transition-colors flex items-center">
+            
+            <div className="flex flex-wrap gap-3">
+              <button className="px-5 py-2.5 bg-white text-purple-600 rounded-full font-medium hover:bg-purple-50 transition-all flex items-center text-sm md:text-base">
                 <Calendar className="mr-2 h-4 w-4" />
                 Add to Calendar
               </button>
