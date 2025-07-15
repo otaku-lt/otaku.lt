@@ -69,14 +69,48 @@ export default function KornihaBandPage() {
     }
   ];
 
-  const songList = [
-    { title: "Unravel", anime: "Tokyo Ghoul", type: "Cover", popularity: "Fan Favorite" },
-    { title: "Guren no Yumiya", anime: "Attack on Titan", type: "Cover", popularity: "High Energy" },
-    { title: "Pretender", anime: "Your Name", type: "Cover", popularity: "Emotional" },
-    { title: "Kimetsu no Yaiba", anime: "Demon Slayer", type: "Cover", popularity: "Epic" },
-    { title: "Weeb Dreams", anime: "Original", type: "Original", popularity: "Unique" },
-    { title: "Lithuania Otaku", anime: "Original", type: "Original", popularity: "Local Pride" }
-  ];
+  // Song data from API
+  const [songs, setSongs] = useState<Array<{
+    title: string;
+    original: string;
+    artist?: string;
+    type: 'ost' | 'game' | 'citypop' | 'jpop' | 'vocaloid';
+    languages: ('jp' | 'lt' | 'en')[];
+    alt_title?: string;
+  }>>([]);
+
+  // Fetch songs data
+  useEffect(() => {
+    const fetchSongs = async () => {
+      try {
+        const response = await fetch('/api/songs');
+        if (response.ok) {
+          const data = await response.json();
+          setSongs(data);
+        }
+      } catch (error) {
+        console.error('Error fetching songs:', error);
+      }
+    };
+
+    fetchSongs();
+  }, []);
+
+  // Language flag components
+  const languageFlags: Record<string, { emoji: string; title: string }> = {
+    jp: { emoji: '🇯🇵', title: 'Japanese' },
+    lt: { emoji: '🇱🇹', title: 'Lithuanian' },
+    en: { emoji: '🇬🇧', title: 'English' },
+  };
+
+  // Song type labels and colors
+  const typeConfig: Record<string, { label: string; color: string }> = {
+    ost: { label: 'Anime OST', color: 'bg-pink-500/20 text-pink-400' },
+    game: { label: 'Game Music', color: 'bg-purple-500/20 text-purple-400' },
+    citypop: { label: 'City Pop', color: 'bg-blue-500/20 text-blue-400' },
+    jpop: { label: 'J-Pop', color: 'bg-red-500/20 text-red-400' },
+    vocaloid: { label: 'Vocaloid', color: 'bg-green-500/20 text-green-400' },
+  };
 
   if (isLoading) {
     return (
@@ -114,15 +148,19 @@ export default function KornihaBandPage() {
 
         {/* Hero Section - Next Performance */}
         {featuredEvent && (
-          <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-6 md:p-8 text-white mb-8 shadow-lg transform transition-all hover:shadow-xl hover:-translate-y-0.5">
-            <div className="mb-4">
-              <h2 className="text-2xl md:text-3xl font-bold mb-1">Next Performance</h2>
-              <h3 className="text-xl md:text-2xl font-semibold text-white/95">{featuredEvent.title}</h3>
+          <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-6 md:p-8 text-white mb-8 shadow-lg transform transition-all hover:shadow-xl hover:-translate-y-0.5 relative overflow-hidden">
+            {/* Widget Label */}
+            <div className="absolute top-0 left-0 bg-white/10 px-4 py-1.5 rounded-br-lg text-sm font-medium text-white/80 backdrop-blur-sm">
+              Next Performance
             </div>
             
-            <p className="text-purple-100 mb-5 text-sm md:text-base">{featuredEvent.description}</p>
+            <div className="pt-6 mb-4">
+              <h3 className="text-xl md:text-2xl font-semibold text-white/95 text-center">{featuredEvent.title}</h3>
+            </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <p className="text-purple-100 mb-6 text-center text-sm md:text-base max-w-3xl mx-auto">{featuredEvent.description}</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 max-w-5xl mx-auto">
               <div className="flex items-start space-x-2 bg-white/10 p-3 rounded-lg">
                 <Calendar className="h-5 w-5 flex-shrink-0 mt-0.5" />
                 <div>
@@ -169,15 +207,34 @@ export default function KornihaBandPage() {
               </div>
             </div>
             
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap justify-center gap-3">
               <button className="px-5 py-2.5 bg-white text-purple-600 rounded-full font-medium hover:bg-purple-50 transition-all flex items-center text-sm md:text-base">
                 <Calendar className="mr-2 h-4 w-4" />
                 Add to Calendar
               </button>
-              <button className="px-6 py-3 border-2 border-white text-white rounded-full font-medium hover:bg-white/10 transition-colors flex items-center">
-                <ExternalLink className="mr-2 h-4 w-4" />
-                More Info
-              </button>
+              {featuredEvent.link ? (
+                <a 
+                  href={featuredEvent.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="px-5 py-2.5 border-2 border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-all flex items-center text-sm md:text-base"
+                >
+                  <ExternalLink className="mr-2 h-4 w-4" />
+                  More Info
+                </a>
+              ) : (
+                <button 
+                  disabled
+                  className="px-5 py-2.5 border-2 border-white/10 text-white/50 rounded-full font-medium flex items-center text-sm md:text-base cursor-not-allowed"
+                  title="More information will be available soon"
+                >
+                  <span className="relative flex h-3 w-3 mr-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/40"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-white/70"></span>
+                  </span>
+                  More Info Coming Soon
+                </button>
+              )}
             </div>
           </div>
         )}
@@ -293,30 +350,41 @@ export default function KornihaBandPage() {
           <div className="space-y-6">
             <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
               <h3 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Our Repertoire</h3>
-              <div className="space-y-3">
-                {songList.map((song, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 bg-purple-50 dark:bg-gray-700/50 rounded-lg hover:bg-purple-100 dark:hover:bg-gray-700 transition-colors">
-                    <div className="flex items-center gap-4">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                      <div>
-                        <h4 className="font-semibold text-gray-800 dark:text-white">{song.title}</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">{song.anime}</p>
+              <div className="grid gap-3">
+                {songs.map((song, index) => (
+                  <div key={index} className="group p-4 bg-white/50 dark:bg-gray-700/50 rounded-lg hover:bg-purple-50/70 dark:hover:bg-gray-700 transition-colors border border-white/30 dark:border-gray-600/30">
+                    <div className="flex justify-between items-start gap-4">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-gray-800 dark:text-white truncate">
+                          {song.alt_title || song.title}
+                        </h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 truncate">
+                          {song.original}
+                          {song.artist && ` · ${song.artist}`}
+                        </p>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        song.type === 'Original' 
-                          ? 'bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400' 
-                          : 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400'
-                      }`}>
-                        {song.type}
-                      </span>
-                      <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
-                        {song.popularity}
-                      </span>
-                      <button className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300">
-                        <Play size={16} />
-                      </button>
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <span className={`text-xs px-2 py-1 rounded-full ${typeConfig[song.type]?.color || 'bg-gray-200/70 dark:bg-gray-600/50 text-gray-700 dark:text-gray-300'}`}>
+                          {typeConfig[song.type]?.label || song.type}
+                        </span>
+                        <div className="flex gap-1">
+                          {song.languages.map((lang) => (
+                            <span 
+                              key={lang} 
+                              title={languageFlags[lang]?.title} 
+                              className="text-sm leading-none"
+                            >
+                              {languageFlags[lang]?.emoji}
+                            </span>
+                          ))}
+                        </div>
+                        <button 
+                          className="opacity-0 group-hover:opacity-100 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-opacity"
+                          title="Play preview"
+                        >
+                          <Play size={16} />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
