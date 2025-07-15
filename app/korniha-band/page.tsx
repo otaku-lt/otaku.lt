@@ -5,12 +5,32 @@ import Link from "next/link";
 import { Music, Youtube, Instagram, Facebook as FacebookIcon, Mail, Music2, Calendar, MapPin, Users, Mic2, Disc, Play, Pause, Volume2, VolumeX, Award, ExternalLink } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import { getKornihaEvents, getFeaturedEvent } from "@/lib/events";
-import type { Event } from "@/app/api/events/route";
+import type { Event } from "@/lib/events";
+
+// This function tells Next.js which pages to generate at build time
+export async function generateStaticParams() {
+  // Return an array of all the paths you want to pre-render
+  return [
+    { slug: ['korniha-band'] },
+  ];
+}
 
 export default function KornihaBandPage() {
   const [activeTab, setActiveTab] = useState("about");
   const [events, setEvents] = useState<Event[]>([]);
-  const [featuredEvent, setFeaturedEvent] = useState<Event | null>(null);
+  // Define a type for the setlist day
+  type SetlistDay = {
+    day?: number;
+    type: 'Japanese' | 'Lithuanian';
+    songs: string[];
+  };
+
+  // Define a type for the setlist
+  type EventSetlist = {
+    days: SetlistDay[];
+  };
+
+  const [featuredEvent, setFeaturedEvent] = useState<Event & { setlist?: EventSetlist | string | null } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   
   // Filter events
@@ -260,17 +280,17 @@ export default function KornihaBandPage() {
                   <p className="text-sm font-medium text-white/80">Setlist</p>
                   <p className="text-white">
                     {featuredEvent.setlist ? (
-                      Array.isArray(featuredEvent.setlist) ? (
-                        <span className="flex flex-wrap gap-1">
-                          {featuredEvent.setlist.map((day, i) => (
-                            <span key={i} className="inline-flex items-center px-2 py-0.5 rounded bg-white/20 text-xs">
-                              Day {day.day}: {day.type}
-                            </span>
-                          ))}
-                        </span>
-                      ) : (
+                      typeof featuredEvent.setlist === 'string' ? (
                         <span className="inline-flex items-center px-2 py-0.5 rounded bg-white/20 text-xs">
                           {featuredEvent.setlist}
+                        </span>
+                      ) : (
+                        <span className="flex flex-wrap gap-1">
+                          {featuredEvent.setlist.days.map((day, i) => (
+                            <span key={i} className="inline-flex items-center px-2 py-0.5 rounded bg-white/20 text-xs">
+                              {day.day ? `Day ${day.day}: ` : ''}{day.type}
+                            </span>
+                          ))}
                         </span>
                       )
                     ) : 'TBA'}
@@ -515,7 +535,7 @@ export default function KornihaBandPage() {
             <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
               <h3 className="text-xl font-bold mb-4">Upcoming Shows</h3>
               <div className="space-y-4">
-                {upcomingEvents.map((event: Event) => (
+                {upcomingEvents.map((event: { id: string; title: string; date: string; endDate?: string; location: string; setlist?: { days: { day?: number; type: string }[] } | string; link?: string; featured?: boolean }) => (
                   <div 
                     key={event.id} 
                     className={`p-4 rounded-xl ${event.featured ? 'bg-purple-50 dark:bg-gray-700/50' : 'bg-white/50 dark:bg-gray-800/30'}`}
@@ -538,15 +558,15 @@ export default function KornihaBandPage() {
                         <div className="mt-2">
                           <span className="inline-flex items-center text-sm text-purple-600 dark:text-purple-400">
                             <Music2 className="mr-1 h-4 w-4" />
-                            {Array.isArray(event.setlist) ? (
-                              event.setlist.map((day, i) => (
+                            {event.setlist && typeof event.setlist !== 'string' ? (
+                              event.setlist.days.map((day, i) => (
                                 <span key={i} className="mr-2">
                                   {i > 0 && ' • '}
-                                  Day {day.day}: {day.type}
+                                  {day.day ? `Day ${day.day}: ` : ''}{day.type}
                                 </span>
                               ))
                             ) : (
-                              <span>Setlist: {event.setlist}</span>
+                              <span>{event.setlist ? `Setlist: ${event.setlist}` : 'No setlist available'}</span>
                             )}
                           </span>
                         </div>
