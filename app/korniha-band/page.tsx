@@ -90,16 +90,32 @@ export default function KornihaBandPage() {
     if (!sortConfig.key) return sortableItems;
     
     sortableItems.sort((a, b) => {
-      // Handle language arrays by joining them for comparison
+      // Special handling for language sorting
       if (sortConfig.key === 'languages') {
-        const aValue = a[sortConfig.key].join(',');
-        const bValue = b[sortConfig.key].join(',');
-        return sortConfig.direction === 'asc' 
-          ? aValue.localeCompare(bValue) 
-          : bValue.localeCompare(aValue);
+        const aLangs = a.languages;
+        const bLangs = b.languages;
+        
+        // If both have multiple languages, sort by number of languages (descending)
+        if (aLangs.length > 1 || bLangs.length > 1) {
+          // If one has more languages, it comes first
+          if (aLangs.length !== bLangs.length) {
+            return sortConfig.direction === 'asc' 
+              ? bLangs.length - aLangs.length 
+              : aLangs.length - bLangs.length;
+          }
+          // If same number of languages, sort alphabetically by first language
+          return sortConfig.direction === 'asc'
+            ? aLangs[0].localeCompare(bLangs[0])
+            : bLangs[0].localeCompare(aLangs[0]);
+        }
+        
+        // For single language, sort by language code
+        return sortConfig.direction === 'asc'
+          ? aLangs[0]?.localeCompare(bLangs[0] || '') || 0
+          : bLangs[0]?.localeCompare(aLangs[0] || '') || 0;
       }
       
-      // Handle regular string comparisons
+      // For other columns, use standard string comparison
       const aValue = String(a[sortConfig.key] || '');
       const bValue = String(b[sortConfig.key] || '');
       
@@ -462,7 +478,7 @@ export default function KornihaBandPage() {
                           </div>
                           <div className="text-sm text-gray-600 dark:text-gray-400">
                             {song.original}
-                            {song.artist && ` · ${song.artist}`}
+                            {song.artist && <span className="">{song.artist}</span>}
                           </div>
                         </td>
                         <td className="py-3 px-4 text-center">
