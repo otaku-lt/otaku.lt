@@ -350,44 +350,53 @@ export default function KornihaBandPage() {
           <div className="space-y-6">
             <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
               <h3 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Our Repertoire</h3>
-              <div className="grid gap-3">
-                {songs.map((song, index) => (
-                  <div key={index} className="group p-4 bg-white/50 dark:bg-gray-700/50 rounded-lg hover:bg-purple-50/70 dark:hover:bg-gray-700 transition-colors border border-white/30 dark:border-gray-600/30">
-                    <div className="flex justify-between items-start gap-4">
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-gray-800 dark:text-white truncate">
-                          {song.alt_title || song.title}
-                        </h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-300 truncate">
-                          {song.original}
-                          {song.artist && ` · ${song.artist}`}
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        <span className={`text-xs px-2 py-1 rounded-full ${typeConfig[song.type]?.color || 'bg-gray-200/70 dark:bg-gray-600/50 text-gray-700 dark:text-gray-300'}`}>
-                          {typeConfig[song.type]?.label || song.type}
-                        </span>
-                        <div className="flex gap-1">
-                          {song.languages.map((lang) => (
-                            <span 
-                              key={lang} 
-                              title={languageFlags[lang]?.title} 
-                              className="text-sm leading-none"
-                            >
-                              {languageFlags[lang]?.emoji}
-                            </span>
-                          ))}
-                        </div>
-                        <button 
-                          className="opacity-0 group-hover:opacity-100 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-opacity"
-                          title="Play preview"
-                        >
-                          <Play size={16} />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="text-left text-sm text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
+                      <th className="pb-3 font-medium">Song</th>
+                      <th className="pb-3 font-medium text-center">Type</th>
+                      <th className="pb-3 font-medium text-center">Languages</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                    {songs.map((song, index) => (
+                      <tr 
+                        key={index} 
+                        className="hover:bg-white/30 dark:hover:bg-gray-700/30 transition-colors"
+                      >
+                        <td className="py-3 pr-4">
+                          <div className="font-medium text-gray-800 dark:text-white">
+                            {song.alt_title || song.title}
+                          </div>
+                          <div className="text-sm text-gray-600 dark:text-gray-400">
+                            {song.original}
+                            {song.artist && ` · ${song.artist}`}
+                          </div>
+                        </td>
+                        <td className="py-3 px-4 text-center">
+                          <span className={`inline-block text-xs px-2 py-1 rounded-full ${typeConfig[song.type]?.color || 'bg-gray-200/70 dark:bg-gray-600/50'}`}>
+                            {typeConfig[song.type]?.label || song.type}
+                          </span>
+                        </td>
+                        <td className="py-3 px-4 text-center">
+                          <div className="flex justify-center gap-1">
+                            {song.languages.map((lang) => (
+                              <span 
+                                key={lang} 
+                                title={languageFlags[lang]?.title} 
+                                className="text-sm"
+                                aria-label={languageFlags[lang]?.title}
+                              >
+                                {languageFlags[lang]?.emoji}
+                              </span>
+                            ))}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
