@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, Search, Calendar, User, Home, LogIn, LogOut, ArrowLeft, Plus } from "lucide-react";
