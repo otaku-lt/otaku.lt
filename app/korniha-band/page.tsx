@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Music, Youtube, Instagram, Facebook, Music2, Calendar, MapPin, Users, Mic2, Disc, Play, Pause, Volume2, VolumeX, Award, ExternalLink } from "lucide-react";
+import { Music, Youtube, Instagram, Facebook as FacebookIcon, Mail, Music2, Calendar, MapPin, Users, Mic2, Disc, Play, Pause, Volume2, VolumeX, Award, ExternalLink } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 
 export default function KornihaBandPage() {
@@ -107,15 +107,15 @@ export default function KornihaBandPage() {
               <div className="space-y-2 text-lg">
                 <div className="flex items-center gap-2">
                   <Calendar size={20} />
-                  <span>August 12, 2025</span>
+                  <span>August 29-30, 2025</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin size={20} />
-                  <span>Kaunas Music Club</span>
+                  <span>YuruCamp 2025, "Bražuolės stovyklavietė"</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Music size={20} />
-                  <span>Solo Concert - Full Setlist</span>
+                  <span>JP and LT setlists per both days</span>
                 </div>
               </div>
             </div>
@@ -161,12 +161,12 @@ export default function KornihaBandPage() {
                     those incredible soundtracks to life. We're a group of Lithuanian musicians who grew up 
                     loving anime and wanted to share that love through music.
                   </p>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-gray-600 dark:text-gray-200 mb-4">
                     From epic opening themes to emotional ending songs, we carefully arrange and perform 
                     both classic and modern anime music. Our goal is to create an authentic experience 
                     that captures the spirit and emotion of the original compositions.
                   </p>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-200">
                     Whether you're a long-time anime fan or just discovering this amazing music, 
                     we invite you to join us for an unforgettable musical journey through the world of anime.
                   </p>
@@ -178,22 +178,22 @@ export default function KornihaBandPage() {
                   <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Music className="text-purple-600" size={32} />
                   </div>
-                  <h4 className="text-lg font-bold mb-2 dark:text-white">50+ Songs</h4>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm">Extensive repertoire of anime covers and originals</p>
+                  <h4 className="text-lg font-bold mb-2 dark:text-white">30+ Songs</h4>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">Performing anime covers in both Japanese and Lithuanian</p>
                 </div>
                 <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl text-center">
                   <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Users className="text-pink-600" size={32} />
                   </div>
-                  <h4 className="text-lg font-bold mb-2 dark:text-white">500+ Fans</h4>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm">Growing community of anime music lovers</p>
+                  <h4 className="text-lg font-bold mb-2 dark:text-white">20+ Events</h4>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">Performing at cons and events across the Baltic states</p>
                 </div>
                 <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl text-center">
                   <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Award className="text-purple-600" size={32} />
                   </div>
-                  <h4 className="text-lg font-bold mb-2 dark:text-white">3 Years</h4>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm">Performing at events across Lithuania</p>
+                  <h4 className="text-lg font-bold mb-2 dark:text-white">1 Year</h4>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">Passionately performing since 2024</p>
                 </div>
               </div>
             </div>
@@ -335,17 +335,32 @@ export default function KornihaBandPage() {
           <p className="text-xl mb-6 max-w-2xl mx-auto">
             Want us to perform at your event? We'd love to bring anime music to your audience!
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="px-8 py-3 bg-white dark:bg-gray-100 text-purple-600 rounded-full hover:bg-purple-50 dark:hover:bg-gray-200 transition-colors font-semibold text-lg"
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a
+              href="mailto:korniha.band@korniha.lt"
+              className="px-8 py-3 bg-white dark:bg-gray-100 text-purple-600 rounded-full hover:bg-purple-50 dark:hover:bg-gray-200 transition-colors font-semibold text-lg flex items-center justify-center gap-2 flex-1 sm:flex-none"
             >
+              <Mail size={20} />
               Contact Us
-            </Link>
-            <button className="px-8 py-3 border-2 border-white text-white rounded-full hover:bg-white hover:text-purple-600 transition-colors font-semibold text-lg flex items-center justify-center gap-2">
-              <ExternalLink size={20} />
-              Listen on Spotify
-            </button>
+            </a>
+            <a 
+              href="https://www.youtube.com/@KornihaBand" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 border-2 border-white text-white rounded-full hover:bg-white hover:text-red-600 transition-colors font-semibold text-lg flex items-center justify-center gap-2 flex-1 sm:flex-none"
+            >
+              <Youtube size={20} />
+              YouTube
+            </a>
+            <a 
+              href="https://www.facebook.com/kornihaband" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 border-2 border-white text-white rounded-full hover:bg-white hover:text-blue-600 transition-colors font-semibold text-lg flex items-center justify-center gap-2 flex-1 sm:flex-none"
+            >
+              <FacebookIcon size={20} />
+              Facebook
+            </a>
           </div>
         </div>
       </div>
