@@ -19,17 +19,17 @@ export default function Footer() {
           {/* Logo and Description */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <Link href="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 relative">
+              <Link href="/" className="flex items-center space-x-3">
+                <div className="w-16 h-16 relative">
                   <Image
                     src="/otaku_lt.png"
                     alt="Otaku.lt Logo"
-                    width={32}
-                    height={32}
-                    className="w-8 h-8 dark:invert"
+                    width={64}
+                    height={64}
+                    className="w-16 h-16 dark:invert"
                   />
                 </div>
-                <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                <span className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                   otaku.lt
                 </span>
               </Link>
