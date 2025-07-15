@@ -3,12 +3,6 @@ import path from 'path';
 import yaml from 'js-yaml';
 import { NextResponse } from 'next/server';
 
-interface EventDay {
-  day?: number;
-  title: string;
-  songs: string[];
-}
-
 export interface Event {
   id: string;
   title: string;
@@ -17,7 +11,7 @@ export interface Event {
   location: string;
   description: string;
   featured: boolean;
-  setlist: EventDay[];
+  setlist: 'Japanese' | 'Lithuanian';
 }
 
 export async function GET() {

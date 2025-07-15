@@ -5,19 +5,7 @@
   location: "Bražuolės stovyklavietė, Lithuania"
   description: "Weekend festival of Japanese culture, anime, and music"
   featured: true
-  setlist:
-    - day: 1
-      title: "Japanese Setlist"
-      songs:
-        - "Gurenge (Demon Slayer)"
-        - "Redo (Re:Zero)"
-        - "Kick Back (Chainsaw Man)"
-    - day: 2
-      title: "Lithuanian Setlist"
-      songs:
-        - "Lietuviški Anime Hitai"
-        - "Originalios Dainos"
-        - "J-Pop Koveriai"
+  setlist: "Japanese"  # Can be "Japanese" or "Lithuanian"
 
 - id: 2
   title: "Anime Night Vilnius"
@@ -25,21 +13,12 @@
   location: "Loftas, Vilnius"
   description: "Evening of anime music and culture"
   featured: false
-  setlist:
-    - title: "Evening Performance"
-      songs:
-        - "Mixed Set of Anime Favorites"
-        - "Special Guest Appearances"
+  setlist: "Lithuanian"
 
 - id: 3
   title: "Kaifas Festival"
   date: "2025-10-05"
   location: "Žalgirio Arena, Kaunas"
   description: "Biggest anime convention in the Baltics"
-  featured: true
-  setlist:
-    - title: "Main Stage Performance"
-      songs:
-        - "Anime Opening Medley"
-        - "Fan Favorites"
-        - "Surprise Covers"
+  featured: false
+  setlist: "Japanese"

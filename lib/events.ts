@@ -1,26 +1,4 @@
-import path from 'path';
-import yaml from 'js-yaml';
-
-export interface EventDay {
-  day?: number;
-  title: string;
-  songs: string[];
-}
-
-export interface Event {
-  id: string;
-  title: string;
-  date: string;
-  endDate?: string;
-  location: string;
-  description: string;
-  featured: boolean;
-  setlist: Array<{
-    day?: number;
-    title: string;
-    songs: string[];
-  }>;
-}
+import type { Event } from '@/app/api/events/route';
 
 export async function getKornihaEvents(): Promise<Event[]> {
   try {

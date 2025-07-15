@@ -4,26 +4,40 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Music, Youtube, Instagram, Facebook as FacebookIcon, Mail, Music2, Calendar, MapPin, Users, Mic2, Disc, Play, Pause, Volume2, VolumeX, Award, ExternalLink } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
-import { getKornihaEvents, getFeaturedEvent, type Event } from "@/lib/events";
+import { getKornihaEvents, getFeaturedEvent } from "@/lib/events";
+import type { Event } from "@/app/api/events/route";
 
 export default function KornihaBandPage() {
   const [activeTab, setActiveTab] = useState("about");
   const [events, setEvents] = useState<Event[]>([]);
   const [featuredEvent, setFeaturedEvent] = useState<Event | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Filter events
+  const now = new Date();
+  const upcomingEvents = events.filter(event => new Date(event.date) >= now);
+  const pastEvents = events.filter(event => new Date(event.date) < now);
+  const featured = [...events]
+    .filter(event => event.featured)
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())[0] || null;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         console.log('Fetching events data...');
-        const [eventsData, featuredEventData] = await Promise.all([
-          getKornihaEvents(),
-          getFeaturedEvent()
-        ]);
+        const eventsData = await getKornihaEvents();
         console.log('Events data:', eventsData);
-        console.log('Featured event:', featuredEventData);
-        setEvents(eventsData);
-        setFeaturedEvent(featuredEventData);
+        
+        if (eventsData && Array.isArray(eventsData)) {
+          setEvents(eventsData);
+          
+          // Find the first featured event
+          const featured = eventsData
+            .filter(event => event.featured)
+            .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())[0] || null;
+          
+          setFeaturedEvent(featured);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -101,53 +115,35 @@ export default function KornihaBandPage() {
         {/* Hero Section */}
         {featuredEvent && (
           <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-8 text-white mb-8 shadow-lg">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="md:w-2/3">
-                <h2 className="text-3xl font-bold mb-4">Next Live Performance</h2>
-                <div className="space-y-2 text-lg">
-                  <div className="flex items-center gap-2">
-                    <Calendar size={20} />
-                    <span>
-                      {new Date(featuredEvent.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                      {featuredEvent.endDate && ` - ${new Date(featuredEvent.endDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}`}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin size={20} />
-                    <span>{featuredEvent.location}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Music2 size={20} />
-                    <span>{featuredEvent.description}</span>
-                  </div>
-                </div>
-                <button className="mt-6 bg-white text-purple-600 hover:bg-purple-50 px-6 py-2 rounded-full font-medium flex items-center gap-2 transition-colors">
-                  <Calendar size={16} />
-                  Add to Calendar
-                </button>
+            <h2 className="text-3xl font-bold mb-2">Next Performance</h2>
+            <h3 className="text-2xl font-semibold mb-1">{featuredEvent.title}</h3>
+            <p className="text-purple-100 mb-4">{featuredEvent.description}</p>
+            <div className="flex flex-wrap gap-4 text-sm">
+              <div className="flex items-center">
+                <Calendar className="mr-2 h-5 w-5" />
+                <span>{new Date(featuredEvent.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                {featuredEvent.endDate && (
+                  <span className="mx-1">- {new Date(featuredEvent.endDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</span>
+                )}
               </div>
-              {featuredEvent.setlist.length > 0 && (
-                <div className="mt-8 md:mt-0">
-                  <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl border border-white/20">
-                    <h3 className="font-bold mb-3 text-lg">Setlist{featuredEvent.setlist.length > 1 ? 's' : ''}</h3>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      {featuredEvent.setlist.map((day, index) => (
-                        <div key={index}>
-                          <h4 className="font-semibold mb-2 flex items-center gap-2">
-                            <span className={`w-2 h-2 ${index % 2 === 0 ? 'bg-pink-300' : 'bg-purple-300'} rounded-full`}></span>
-                            {day.day ? `Day ${day.day} - ` : ''}{day.title}
-                          </h4>
-                          <ul className="space-y-1 text-sm">
-                            {day.songs.map((song, songIndex) => (
-                              <li key={songIndex}>• {song}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
+              <div className="flex items-center">
+                <MapPin className="mr-2 h-5 w-5" />
+                <span>{featuredEvent.location}</span>
+              </div>
+              <div className="flex items-center">
+                <Music2 className="mr-2 h-5 w-5" />
+                <span>Setlist: {featuredEvent.setlist}</span>
+              </div>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-4">
+              <button className="px-6 py-3 bg-white text-purple-600 rounded-full font-medium hover:bg-purple-100 transition-colors flex items-center">
+                <Calendar className="mr-2 h-4 w-4" />
+                Add to Calendar
+              </button>
+              <button className="px-6 py-3 border-2 border-white text-white rounded-full font-medium hover:bg-white/10 transition-colors flex items-center">
+                <ExternalLink className="mr-2 h-4 w-4" />
+                More Info
+              </button>
             </div>
           </div>
         )}
@@ -296,30 +292,27 @@ export default function KornihaBandPage() {
               <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
                 <h3 className="text-xl font-bold mb-4">Upcoming Shows</h3>
                 <div className="space-y-4">
-                  {events
-                    .filter(event => new Date(event.date) >= new Date())
-                    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-                    .map((event, index) => (
-                      <div 
-                        key={event.id} 
-                        className={`p-4 rounded-xl ${event.featured ? 'bg-purple-50 dark:bg-gray-700/50' : 'bg-white/50 dark:bg-gray-800/30'}`}
-                      >
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <h4 className="font-bold text-lg">{event.title}</h4>
-                            <p className="text-gray-600 dark:text-gray-300">
-                              {new Date(event.date).toLocaleDateString('en-US', { 
-                                year: 'numeric', 
-                                month: 'long', 
-                                day: 'numeric' 
-                              })}
-                              {event.endDate && ` - ${new Date(event.endDate).toLocaleDateString('en-US', { 
-                                month: 'long', 
-                                day: 'numeric' 
-                              })}`}
-                            </p>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">{event.location}</p>
-                          </div>
+                  {upcomingEvents.map((event: Event) => (
+                    <div 
+                      key={event.id} 
+                      className={`p-4 rounded-xl ${event.featured ? 'bg-purple-50 dark:bg-gray-700/50' : 'bg-white/50 dark:bg-gray-800/30'}`}
+                    >
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="font-bold text-lg">{event.title}</h4>
+                          <p className="text-gray-600 dark:text-gray-300">
+                            {new Date(event.date).toLocaleDateString('en-US', { 
+                              year: 'numeric', 
+                              month: 'long', 
+                              day: 'numeric' 
+                            })}
+                            {event.endDate && ` - ${new Date(event.endDate).toLocaleDateString('en-US', { 
+                              month: 'long', 
+                              day: 'numeric' 
+                            })}`}
+                          </p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">{event.location}</p>
+                        </div>
                           <button 
                             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                               event.featured 
