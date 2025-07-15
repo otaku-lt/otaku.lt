@@ -205,11 +205,13 @@ export default function KornihaBandPage() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Band Image */}
         <div className="flex flex-col items-center mb-12 text-center">
-          <img 
-            src="/images/band/band.png" 
-            alt="Korniha Band - Anime music cover band performing your favorite Japanese songs in Lithuanian and original language"
-            className="w-full max-w-4xl rounded-2xl shadow-xl mb-6"
-          />
+          <div className="w-full max-w-4xl rounded-2xl shadow-xl mb-6 overflow-hidden">
+            <img 
+              src="/images/band/band.png" 
+              alt="Korniha Band - Anime music cover band performing your favorite Japanese songs in Lithuanian and original language"
+              className="w-full h-auto transition-transform duration-500 hover:scale-105"
+            />
+          </div>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl">
             Lithuania's favorite anime cover band bringing your beloved anime songs to life 
             with passion, energy, and authentic sound.
@@ -302,7 +304,7 @@ export default function KornihaBandPage() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/40"></span>
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-white/70"></span>
                   </span>
-                  More Info Coming Soon
+                  More Info (coming soon)
                 </button>
               )}
             </div>
