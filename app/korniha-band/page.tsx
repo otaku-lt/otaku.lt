@@ -12,13 +12,13 @@ export default function KornihaBandPage() {
     {
       name: "Korniha",
       role: "Vocals",
-      description: "A free spirit with an ethereal voice that can go from whisper to war cry in a heartbeat. Like Aurora's music, her energy is both powerful and dreamy, filling the room with an otherworldly presence.",
+      description: "A free spirit with an ethereal voice that can go from whisper to war cry in a heartbeat. Her energy is both powerful and dreamy, filling the room with an otherworldly presence.",
       favorite: "Carrying You (Laputa: Castle in the Sky)"
     },
     {
       name: "Holms",
       role: "Guitar",
-      description: "The resident grump with a heart of gold and an encyclopedic knowledge of JDM cars. His guitar riffs are as precise as a well-tuned engine, and his love for Japanese pop culture runs as deep as his collection of rare anime figures.",
+      description: "Grumpy cultured weeb with an encyclopedic knowledge of JDM cars. His guitar riffs are as precise as a well-tuned engine, and his love for Japanese pop culture runs as deep as his collection of rare anime figures.",
       favorite: "Dango Daikazoku (Clannad)"
     },
     {
