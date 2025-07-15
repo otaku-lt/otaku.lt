@@ -15,13 +15,7 @@ const nextConfig = {
     serverActions: {
       bodySizeLimit: '2mb',
     },
-  },
-  // Generate static pages for all routes
-  generateStaticParams: async function() {
-    return {
-      // This will be handled by the App Router's generateStaticParams
-    };
-  },
+  }
 };
 
 module.exports = nextConfig;

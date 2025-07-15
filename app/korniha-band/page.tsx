@@ -7,13 +7,16 @@ import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import { getKornihaEvents, getFeaturedEvent } from "@/lib/events";
 import type { Event } from "@/lib/events";
 
-// This function tells Next.js which pages to generate at build time
-export async function generateStaticParams() {
-  // Return an array of all the paths you want to pre-render
-  return [
-    { slug: ['korniha-band'] },
-  ];
-}
+// Define types for the setlist
+type SetlistDay = {
+  day?: number;
+  type: 'Japanese' | 'Lithuanian';
+  songs: string[];
+};
+
+type EventSetlist = {
+  days: SetlistDay[];
+};
 
 export default function KornihaBandPage() {
   const [activeTab, setActiveTab] = useState("about");
