@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Calendar, MapPin, Users, Star, ArrowRight, Menu, X, ChevronDown, Mail, Facebook, Youtube, UserPlus } from "lucide-react";
 import { EventCard } from "@/components/events/EventCard";
 
@@ -86,10 +87,12 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <Link href="/" className="flex items-center gap-3 group">
-              <img 
-                src="/otaku_lt.png" 
-                alt="Otaku.lt Logo" 
-                className="w-12 h-12 group-hover:scale-105 transition-transform"
+              <Image
+                src="/otaku_lt.png"
+                alt="Otaku.lt Logo"
+                width={48}
+                height={48}
+                className="w-12 h-12 dark:invert group-hover:scale-105 transition-transform"
               />
               <span className="text-theme-gradient-primary text-2xl font-bold">
                 Otaku.lt

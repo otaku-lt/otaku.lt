@@ -42,7 +42,7 @@ export default function SiteHeader() {
                   alt="Otaku.lt Logo"
                   width={40}
                   height={40}
-                  className="w-10 h-10"
+                  className="w-10 h-10 dark:invert"
                   priority
                 />
                 <span className="text-xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">

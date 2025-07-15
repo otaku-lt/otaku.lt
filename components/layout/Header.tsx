@@ -64,12 +64,13 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
             
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className="flex items-center space-x-2">
-                <Image
-                  src="/otaku_lt.png"
-                  alt="Otaku.lt Logo"
-                  width={32}
-                  height={32}
-                  className="h-8 w-auto dark:invert"
+                <Image 
+                  src="/otaku_lt.png" 
+                  alt="Otaku.lt Logo" 
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 dark:invert"
+                  priority
                 />
                 <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                   {title || 'otaku.lt'}
