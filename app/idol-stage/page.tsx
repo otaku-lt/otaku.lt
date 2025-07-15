@@ -48,7 +48,7 @@ export default function IdolStagePage() {
   const currentEdition = editions.find(e => e.id === selectedEdition);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
       <ContentPageHeader 
         title="🎤 Idol Stage"
         showBackButton={true}
@@ -59,10 +59,10 @@ export default function IdolStagePage() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
             Idol Stage 🎤
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Premium otaku concerts bringing together amazing performers, cosplayers, and fans. 
             Organized by Idol Stage Baltics - where passion meets performance.
           </p>
@@ -77,7 +77,7 @@ export default function IdolStagePage() {
               className={`px-6 py-3 rounded-full text-sm font-medium transition-all ${
                 selectedEdition === edition.id
                   ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
-                  : 'bg-white/80 text-gray-700 hover:bg-pink-100'
+                  : 'bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-200 hover:bg-pink-100 dark:hover:bg-gray-700'
               }`}
             >
               {edition.title}
@@ -92,14 +92,14 @@ export default function IdolStagePage() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Info */}
           <div className="lg:col-span-2">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl mb-8">
+            <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl mb-8">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-16 h-16 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center text-white text-2xl">
                   🎌
                 </div>
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-800">{currentEdition?.title}</h2>
-                  <div className="flex items-center gap-4 mt-2 text-gray-600">
+                  <h2 className="text-3xl font-bold text-gray-800 dark:text-white">{currentEdition?.title}</h2>
+                  <div className="flex items-center gap-4 mt-2 text-gray-600 dark:text-gray-300">
                     <div className="flex items-center gap-1">
                       <Calendar size={16} />
                       <span>{currentEdition?.date}</span>
@@ -112,14 +112,14 @@ export default function IdolStagePage() {
                 </div>
               </div>
 
-              <p className="text-gray-600 text-lg mb-6">{currentEdition?.description}</p>
+              <p className="text-gray-600 dark:text-gray-300 text-lg mb-6">{currentEdition?.description}</p>
 
               {/* Highlights */}
               <div className="grid md:grid-cols-2 gap-4 mb-6">
                 {currentEdition?.highlights.map((highlight, index) => (
-                  <div key={index} className="flex items-center gap-3 p-3 bg-pink-50 rounded-lg">
+                  <div key={index} className="flex items-center gap-3 p-3 bg-pink-50 dark:bg-gray-700/50 rounded-lg">
                     <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
-                    <span className="text-gray-700">{highlight}</span>
+                    <span className="text-gray-700 dark:text-gray-200">{highlight}</span>
                   </div>
                 ))}
               </div>
@@ -132,7 +132,7 @@ export default function IdolStagePage() {
                       <Calendar size={20} />
                       Get Tickets ({currentEdition.ticketPrice})
                     </button>
-                    <button className="flex items-center gap-2 px-6 py-3 border-2 border-pink-500 text-pink-600 rounded-full hover:bg-pink-50 transition-all">
+                    <button className="flex items-center gap-2 px-6 py-3 border-2 border-pink-500 text-pink-600 dark:text-pink-400 rounded-full hover:bg-pink-50 dark:hover:bg-gray-700 transition-all">
                       <Users size={20} />
                       Join Waiting List
                     </button>
@@ -144,7 +144,7 @@ export default function IdolStagePage() {
                       <Image size={20} />
                       View Photos ({currentEdition.photos})
                     </button>
-                    <button className="flex items-center gap-2 px-6 py-3 border-2 border-pink-500 text-pink-600 rounded-full hover:bg-pink-50 transition-all">
+                    <button className="flex items-center gap-2 px-6 py-3 border-2 border-pink-500 text-pink-600 dark:text-pink-400 rounded-full hover:bg-pink-50 dark:hover:bg-gray-700 transition-all">
                       <Play size={20} />
                       Watch Videos ({currentEdition.videos})
                     </button>
@@ -155,11 +155,11 @@ export default function IdolStagePage() {
 
             {/* Previous Events Gallery */}
             {currentEdition?.status === 'completed' && (
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
-                <h3 className="text-2xl font-bold mb-6 text-gray-800">Event Highlights</h3>
+              <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
+                <h3 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Event Highlights</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   {[...Array(4)].map((_, index) => (
-                    <div key={index} className="aspect-video bg-gradient-to-br from-pink-200 to-purple-200 rounded-lg flex items-center justify-center hover:scale-105 transition-transform cursor-pointer">
+                    <div key={index} className="aspect-video bg-gradient-to-br from-pink-200 to-purple-200 dark:from-pink-900/30 dark:to-purple-900/30 rounded-lg flex items-center justify-center hover:scale-105 transition-transform cursor-pointer">
                       <Play size={32} className="text-white" />
                     </div>
                   ))}
@@ -171,38 +171,38 @@ export default function IdolStagePage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Stats */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-              <h3 className="text-xl font-bold mb-4 text-gray-800">Event Stats</h3>
+            <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+              <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">Event Stats</h3>
               <div className="space-y-4">
                 {currentEdition?.status === 'upcoming' && (
                   <>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Tickets Available</span>
-                      <span className="font-semibold text-green-600">Yes</span>
+                      <span className="text-gray-600 dark:text-gray-300">Tickets Available</span>
+                      <span className="font-semibold text-green-600 dark:text-green-400">Yes</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Expected Attendance</span>
-                      <span className="font-semibold">200+</span>
+                      <span className="text-gray-600 dark:text-gray-300">Expected Attendance</span>
+                      <span className="font-semibold dark:text-white">200+</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Price Range</span>
-                      <span className="font-semibold">{currentEdition.ticketPrice}</span>
+                      <span className="text-gray-600 dark:text-gray-300">Price Range</span>
+                      <span className="font-semibold dark:text-white">{currentEdition.ticketPrice}</span>
                     </div>
                   </>
                 )}
                 {currentEdition?.status === 'completed' && (
                   <>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Total Attendance</span>
-                      <span className="font-semibold">{currentEdition.attendance}</span>
+                      <span className="text-gray-600 dark:text-gray-300">Total Attendance</span>
+                      <span className="font-semibold dark:text-white">{currentEdition.attendance}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Photos Taken</span>
-                      <span className="font-semibold">{currentEdition.photos}</span>
+                      <span className="text-gray-600 dark:text-gray-300">Photos Taken</span>
+                      <span className="font-semibold dark:text-white">{currentEdition.photos}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Videos Recorded</span>
-                      <span className="font-semibold">{currentEdition.videos}</span>
+                      <span className="text-gray-600 dark:text-gray-300">Videos Recorded</span>
+                      <span className="font-semibold dark:text-white">{currentEdition.videos}</span>
                     </div>
                   </>
                 )}
@@ -210,24 +210,24 @@ export default function IdolStagePage() {
             </div>
 
             {/* About Idol Stage Baltics */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-              <h3 className="text-xl font-bold mb-4 text-gray-800">About Idol Stage Baltics</h3>
-              <p className="text-gray-600 mb-4">
+            <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+              <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">About Idol Stage Baltics</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
                 We're passionate about bringing the best of Japanese pop culture to Lithuania through 
                 high-quality events that celebrate music, cosplay, and community.
               </p>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <Award className="text-pink-500" size={16} />
-                  <span className="text-sm text-gray-600">Premium Event Organization</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-300">Premium Event Organization</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="text-pink-500" size={16} />
-                  <span className="text-sm text-gray-600">Community-Focused</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-300">Community-Focused</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Calendar className="text-pink-500" size={16} />
-                  <span className="text-sm text-gray-600">Regular Events</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-300">Regular Events</span>
                 </div>
               </div>
             </div>
@@ -240,7 +240,7 @@ export default function IdolStagePage() {
               </p>
               <Link
                 href="/contact"
-                className="inline-block px-4 py-2 bg-white text-pink-600 rounded-full hover:bg-pink-50 transition-colors font-semibold"
+                className="inline-block px-4 py-2 bg-white dark:bg-gray-100 text-pink-600 rounded-full hover:bg-pink-50 dark:hover:bg-gray-200 transition-colors font-semibold"
               >
                 Contact Us
               </Link>
