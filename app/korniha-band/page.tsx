@@ -75,19 +75,21 @@ export default function KornihaBandPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-900 dark:to-gray-800">
       <ContentPageHeader 
-        title="🎸 Korniha Band"
+        title=""
         showBackButton={true}
         backHref="/"
         backText="Back to Home"
       />
-
+      
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Page Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-            Korniha Band 🎸
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        {/* Band Image */}
+        <div className="flex flex-col items-center mb-12 text-center">
+          <img 
+            src="/images/band/band.png" 
+            alt="Korniha Band - Anime music cover band performing your favorite Japanese songs in Lithuanian and original language"
+            className="w-full max-w-4xl rounded-2xl shadow-xl mb-6"
+          />
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl">
             Lithuania's favorite anime cover band bringing your beloved anime songs to life 
             with passion, energy, and authentic sound.
           </p>
@@ -198,9 +200,19 @@ export default function KornihaBandPage() {
               {bandMembers.map((member, index) => (
                 <div key={index} className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                      {member.name[0]}
-                    </div>
+                    {['Holms', 'Korniha'].includes(member.name) ? (
+                      <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-purple-400">
+                        <img 
+                          src={`/images/band/${member.name.toLowerCase()}.${member.name === 'Holms' ? 'png' : 'jpg'}`}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                        {member.name[0]}
+                      </div>
+                    )}
                     <div>
                       <h3 className="text-xl font-bold text-gray-800 dark:text-white">{member.name}</h3>
                       <p className="text-purple-600 dark:text-purple-400 font-medium">{member.role}</p>
