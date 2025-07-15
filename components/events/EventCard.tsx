@@ -34,10 +34,10 @@ export function EventCard({
   getCategoryColors = () => 'bg-primary/10 text-primary',
 }: EventCardProps) {
   const cardContent = (
-    <div className={`h-full flex flex-col bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02] border border-border/40 ${className}`}>
+    <div className={`h-full flex flex-col bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all hover:scale-[1.01] border border-border/40 hover:border-primary/30 ${className}`}>
       {featured && (
         <div className="flex justify-between items-start mb-4">
-          <span className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs px-3 py-1 rounded-full">
+          <span className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-medium px-3 py-1 rounded-full">
             Featured
           </span>
           {showCategory && (

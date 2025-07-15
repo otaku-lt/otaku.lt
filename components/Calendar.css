@@ -256,22 +256,14 @@
   background: var(--vscode-editor-background) !important;
 }
 
-/* Remove all hover effects */
-.otaku-fullcalendar .fc-daygrid-day {
-  background: var(--vscode-editor-background);
-  cursor: default !important;
-}
-
-.otaku-fullcalendar .fc-day-today {
-  background: var(--vscode-editor-lineHighlightBackground) !important;
-  cursor: default !important;
-  position: relative;
-}
-
+/* Consistent cell styling - no hover or today highlight */
+.otaku-fullcalendar .fc-daygrid-day,
+.otaku-fullcalendar .fc-day-today,
 .otaku-fullcalendar .fc-daygrid-day:hover,
 .otaku-fullcalendar .fc-day-today:hover {
-  background: inherit !important;
+  background: var(--vscode-editor-background) !important;
   cursor: default !important;
+  position: relative;
 }
 
 .otaku-fullcalendar .fc-day-today::after {

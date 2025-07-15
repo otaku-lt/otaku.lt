@@ -382,9 +382,16 @@ export default function EventsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <ContentPageHeader 
-        title="🎌 Event Calendar"
+        title={
+          <>
+            <span className="inline-block mr-2">🎌</span>
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Otaku Event Calendar
+            </span>
+          </>
+        } 
         showBackButton={true}
         backHref="/"
         backText="Back to Home"
