@@ -35,7 +35,7 @@
   title: "AnimeSub"
   description: "Stipriausia, didžiausia, ir geriausia anime vertėjų komanda Lietuvoje."
   category: "anime"
-  featured: true
+  featured: false
   links:
     - type: "facebook"
       url: "https://www.facebook.com/animesublt/"
