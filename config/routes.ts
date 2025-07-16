@@ -24,6 +24,12 @@ export const routes: RouteConfig[] = [
     label: 'Korniha Band',
     isEnabled: true,
   },
+  {
+    path: '/yurucamp',
+    label: 'YuruCamp',
+    isProtected: true, // Hidden in production
+    isEnabled: true,
+  },
   // Add more routes here as needed
 ];
 
