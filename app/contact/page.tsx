@@ -244,7 +244,7 @@ export default function ContactPage() {
                   </div>
                   <div className="ml-4">
                     <h3 className="text-sm font-medium text-muted-foreground">Email</h3>
-                    <p className="mt-1 text-base text-foreground">contact@otaku.lt</p>
+                    <p className="mt-1 text-base text-foreground">otaku@otaku.lt</p>
                   </div>
                 </div>
                 <div className="flex items-start mt-6">
