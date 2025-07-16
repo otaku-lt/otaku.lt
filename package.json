@@ -80,6 +80,7 @@
     "zod": "^4.0.0"
   },
   "devDependencies": {
-    "wrangler": "^4.23.0"
+    "wrangler": "^4.23.0",
+    "yaml-loader": "^0.8.1"
   }
 }

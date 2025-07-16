@@ -104,10 +104,7 @@ export default function CommunitiesPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
-        <ContentPageHeader 
-          title="Otaku Communities" 
-          description="Connect with fellow otaku across Lithuania! Join Discord servers, Facebook groups, and more to share your passion for anime and Japanese culture."
-        />
+        <ContentPageHeader title="Otaku Communities" />
         <div className="container mx-auto px-4 py-12">
           <div className="animate-pulse space-y-8">
             {/* Search and Filter Skeleton */}
@@ -149,12 +146,12 @@ export default function CommunitiesPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
-      <ContentPageHeader 
-        title="Otaku Communities"
-        description="Connect with fellow otaku across Lithuania! Join Discord servers, Facebook groups, and more to share your passion for anime and Japanese culture."
-      />
+      <ContentPageHeader title="Otaku Communities" />
       
       <div className="container mx-auto px-4 py-12">
+        <p className="text-center text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+          Connect with fellow otaku across Lithuania! Join Discord servers, Facebook groups, and more to share your passion for anime and Japanese culture.
+        </p>
         {/* Search Bar */}
         <div className="max-w-2xl mx-auto mb-8">
           <div className="relative">

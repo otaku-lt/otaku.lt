@@ -15,13 +15,8 @@ const nextConfig = {
     serverActions: {
       bodySizeLimit: '2mb',
     },
-  }
+  },
+  // Webpack configuration can be added here if needed
 };
-
-module.exports = nextConfig;
-  }
-};
-
-module.exports = nextConfig;
 
 module.exports = nextConfig;
