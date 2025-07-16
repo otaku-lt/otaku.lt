@@ -277,15 +277,15 @@ export default function ContactPage() {
               <div className="space-y-4">
                 <div className="p-4 bg-gradient-to-r from-card to-card-foreground/5 rounded-lg border border-border/30">
                   <h4 className="font-semibold text-foreground">Idol Stage Baltics</h4>
-                  <p className="text-sm text-muted-foreground mt-1">J-Pop & K-Pop dance community</p>
+                  <p className="text-sm text-muted-foreground mt-1">Live performance and J-pop culture activities</p>
                 </div>
                 <div className="p-4 bg-gradient-to-r from-card to-card-foreground/5 rounded-lg border border-border/30 mt-4">
-                  <h4 className="font-semibold text-foreground">Otaku Gaming LT</h4>
-                  <p className="text-sm text-muted-foreground mt-1">Anime gaming community</p>
+                  <h4 className="font-semibold text-foreground">Yuru Camp Mobile Assembly</h4>
+                  <p className="text-sm text-muted-foreground mt-1">Weeb oriented events</p>
                 </div>
                 <div className="p-4 bg-gradient-to-r from-card to-card-foreground/5 rounded-lg border border-border/30 mt-4">
                   <h4 className="font-semibold text-foreground">Korniha Band</h4>
-                  <p className="text-sm text-muted-foreground mt-1">Anime music rock band</p>
+                  <p className="text-sm text-muted-foreground mt-1">Anime music acoustic band</p>
                 </div>
               </div>
             </div>
