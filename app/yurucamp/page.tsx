@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Calendar, MapPin, Users, Tent, TreePine, Mountain, Camera, ArrowRight, ArrowUpRight, Star } from "lucide-react";
+import { Calendar, MapPin, Users, Tent, TreePine, Mountain, Camera, ArrowRight, ArrowUpRight, Star, Music } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 
 export default function YuruCampPage() {
@@ -15,19 +15,19 @@ export default function YuruCampPage() {
       description: "Traditional camping with modern amenities and otaku-themed activities"
     },
     {
-      icon: <TreePine className="text-green-600" size={24} />,
-      title: "Nature & Anime",
-      description: "Perfect blend of outdoor adventure and anime culture"
+      icon: <Music className="text-green-600" size={24} />,
+      title: "Live Performances",
+      description: "Korniha band on stage and karaoke nights under the stars"
     },
     {
       icon: <Camera className="text-green-600" size={24} />,
-      title: "Photo Opportunities",
-      description: "Stunning locations for cosplay photography and memories"
+      title: "Cosplay Events",
+      description: "Wet cosplay photoshoots and cosplay masquerade competition"
     },
     {
-      icon: <Star className="text-green-600" size={24} />,
-      title: "Unique Experience",
-      description: "First-of-its-kind otaku camping event in Lithuania"
+      icon: <Users className="text-green-600" size={24} />,
+      title: "Community & Activities",
+      description: "Fandom meetups, games, and outdoor anime screenings"
     }
   ];
 
@@ -114,26 +114,54 @@ export default function YuruCampPage() {
           </div>
         </div>
 
-        {/* Event Banner */}
-        <div className="bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl p-8 text-white mb-8">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div>
-              <h2 className="text-3xl font-bold mb-2">YuruCamp 2025</h2>
-              <div className="flex items-center gap-4 text-lg text-muted-foreground-dark">
-                <div className="flex items-center gap-1">
-                  <Calendar size={18} />
-                  <span>August 29-31</span>
+        {/* Event Banner with Poster and Description */}
+        <div className="bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl p-8 text-white mb-8 overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <div className="mb-6">
+                <h2 className="text-3xl font-bold mb-2">What is YuruCamp?</h2>
+                <p className="text-muted-foreground-dark text-lg mb-4">
+                  YuruCamp is a unique otaku camping experience that brings together anime fans for an unforgettable weekend in nature. 
+                  It's a celebration of Japanese pop culture under the open sky, where you can enjoy your favorite hobbies while 
+                  surrounded by beautiful Lithuanian forests and lakes. Whether you're into cosplay, anime, or just want to meet fellow 
+                  fans in a relaxed outdoor setting, YuruCamp has something special for you.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 text-lg text-muted-foreground-dark mb-4">
+                  <div className="flex items-center gap-1">
+                    <Calendar size={18} />
+                    <span>August 29-31</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <MapPin size={18} />
+                    <span>Brazuolės stovyklavietė</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-1">
-                  <MapPin size={18} />
-                  <span>Brazuolės stovyklavietė</span>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <a 
+                    href="https://www.facebook.com/events/1288618732795259" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-[#1877F2] text-white rounded-full hover:bg-[#166FE5] transition-colors font-semibold text-center flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                      <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.563V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+                    </svg>
+                    Facebook Event
+                  </a>
+                  <button className="px-8 py-3 bg-white text-green-600 rounded-full hover:bg-green-50 transition-colors font-semibold hover:scale-105 transform">
+                    Register Now
+                  </button>
                 </div>
               </div>
             </div>
-            <div className="mt-4 md:mt-0">
-              <button className="px-8 py-3 bg-white text-green-600 rounded-full hover:bg-green-50 transition-colors font-semibold text-lg hover:scale-105 transform">
-                Register Now
-              </button>
+            <div className="lg:col-span-1">
+              <div className="h-full overflow-hidden rounded-2xl shadow-2xl border-2 border-white/20">
+                <img 
+                  src="/images/yurucamp/2025_poster.png" 
+                  alt="YuruCamp 2025 Official Poster" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -177,20 +205,22 @@ export default function YuruCampPage() {
                 ))}
               </div>
 
-              {/* Detailed Description */}
+              {/* Event Highlights */}
               <div className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-border-dark/50">
-                <h3 className="text-2xl font-bold mb-6 text-foreground">What is YuruCamp?</h3>
+                <h3 className="text-2xl font-bold mb-6 text-foreground">Event Highlights</h3>
                 <div className="prose prose-invert max-w-none">
                   <p className="text-muted-foreground mb-4">
-                    YuruCamp is Lithuania's first otaku camping event, inspired by the beloved anime series. 
-                    It's a unique opportunity to connect with nature while celebrating our shared love for 
-                    anime, manga, and Japanese pop culture.
+                    Join us for an unforgettable weekend where anime culture meets outdoor adventure. Our carefully 
+                    curated program includes something for every fan:
                   </p>
-                  <p className="text-muted-foreground mb-4">
-                    Over three days, participants will enjoy outdoor anime screenings, cosplay photoshoots 
-                    in beautiful natural settings, campfire storytelling, and plenty of opportunities to make 
-                    new friends who share your interests.
-                  </p>
+                  <ul className="list-disc pl-5 mb-4 space-y-2">
+                    <li>Live performance by Korniha band</li>
+                    <li>Karaoke nights with professional equipment</li>
+                    <li>Cosplay masquerade with prizes</li>
+                    <li>Wet cosplay photoshoots by the river</li>
+                    <li>Outdoor anime screenings under the stars</li>
+                    <li>Fandom meetups and community activities</li>
+                  </ul>
                   <p className="text-muted-foreground">
                     Whether you're an experienced camper or a first-timer, YuruCamp offers a welcoming 
                     environment where everyone can enjoy the great outdoors together. All camping equipment 
