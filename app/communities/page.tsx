@@ -269,7 +269,7 @@ export default function CommunitiesPage() {
                         <img 
                           src={`/images/communities/${community.logo}`} 
                           alt={`${community.title} logo`}
-                          className="w-full h-full object-contain p-1"
+                          className="w-full h-full object-cover scale-110 p-0.5"
                           onError={(e) => {
                             // Fallback to icon if logo fails to load
                             const target = e.target as HTMLImageElement;
@@ -346,7 +346,7 @@ export default function CommunitiesPage() {
                         <img 
                           src={`/images/communities/${community.logo}`} 
                           alt={`${community.title} logo`}
-                          className="w-full h-full object-contain p-1"
+                          className="w-full h-full object-cover scale-110 p-0.5"
                           onError={(e) => {
                             // Fallback to icon if logo fails to load
                             const target = e.target as HTMLImageElement;
