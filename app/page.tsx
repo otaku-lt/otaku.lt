@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Calendar, MapPin, Users, Star, ArrowRight, Menu, X, ChevronDown, Mail, Facebook, Youtube, UserPlus } from "lucide-react";
+import { Calendar, MapPin, Users, Star, ArrowRight, Menu, X, ChevronDown, Mail, Facebook, Youtube, UserPlus, Clock } from "lucide-react";
+import { FeatureFlag } from "@/lib/features";
 import { EventCard } from "@/components/events/EventCard";
 
 export default function HomePage() {
@@ -110,14 +111,16 @@ export default function HomePage() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
               </Link>
               
-              <Link
-                href="/events"
-                className="text-foreground/90 hover:text-pink-400 transition-colors relative group flex items-center gap-1"
-              >
-                <span>🎌</span>
-                Event Calendar
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
-              </Link>
+              <FeatureFlag name="eventCalendar">
+                <Link
+                  href="/events"
+                  className="text-foreground/90 hover:text-pink-400 transition-colors relative group flex items-center gap-1"
+                >
+                  <span>📅</span>
+                  Events
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
+                </Link>
+              </FeatureFlag>
 
               <Link
                 href="/communities"
@@ -295,24 +298,26 @@ export default function HomePage() {
               </Link>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {upcomingEvents.map((event) => (
-                <EventCard
-                  key={event.id}
-                  id={event.id}
-                  title={event.title}
-                  date={event.date}
-                  time={event.time}
-                  location={event.location}
-                  category={event.category}
-                  description={event.description}
-                  featured={event.featured}
-                  getCategoryEmoji={getCategoryEmoji}
-                  getCategoryColors={getCategoryColors}
-                  href={`/events/${event.id}`}
-                />
-              ))}
-            </div>
+            <FeatureFlag name="eventCalendar">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {upcomingEvents.map((event) => (
+                  <EventCard
+                    key={event.id}
+                    id={event.id}
+                    title={event.title}
+                    date={event.date}
+                    time={event.time}
+                    location={event.location}
+                    category={event.category}
+                    description={event.description}
+                    featured={event.featured}
+                    getCategoryEmoji={getCategoryEmoji}
+                    getCategoryColors={getCategoryColors}
+                    href={`/events/${event.id}`}
+                  />
+                ))}
+              </div>
+            </FeatureFlag>
           </div>
         </div>
 
