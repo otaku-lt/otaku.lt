@@ -206,21 +206,21 @@ export default function CommunitiesPage() {
                     <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center text-white">
                       {community.links?.[0]?.type ? getIcon(community.links[0].type) : <Users size={24} />}
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <h3 className="text-lg font-bold text-gray-800 dark:text-white">{community.title}</h3>
-                      <span className={`text-xs px-2 py-1 rounded-full ${getActivityColor(community.activity || 'medium')}`}>
-                        {community.activity || 'Active'}
-                      </span>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className={`text-xs px-2 py-1 rounded-full ${getActivityColor(community.activity || 'medium')}`}>
+                          {community.activity || 'Active'}
+                        </span>
+                        <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
+                          {community.category}
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{community.description}</p>
                   
-                  <div className="flex items-center justify-between mb-4">
 
-                    <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
-                      {community.category}
-                    </span>
-                  </div>
                   
                   {community.links?.[0]?.url && (
                     <a
@@ -248,11 +248,16 @@ export default function CommunitiesPage() {
                     <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300">
                       {community.links?.[0]?.type ? getIcon(community.links[0].type) : <Users size={24} />}
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <h3 className="text-lg font-bold text-gray-800 dark:text-white">{community.title}</h3>
-                      <span className={`text-xs px-2 py-1 rounded-full ${getActivityColor(community.activity || 'medium')}`}>
-                        {community.activity || 'Active'}
-                      </span>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className={`text-xs px-2 py-1 rounded-full ${getActivityColor(community.activity || 'medium')}`}>
+                          {community.activity || 'Active'}
+                        </span>
+                        <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
+                          {community.category}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
