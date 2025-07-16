@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Mail, Facebook, Youtube, Sparkles } from 'lucide-react';
 import Image from 'next/image';
+import { isRouteVisible } from '@/config/routes';
 
 // Discord icon component
 const DiscordIcon = ({ size = 16, className = "" }) => (
@@ -50,7 +51,9 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Otaku.lt Events</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><Link href="/idol-stage" className="hover:text-pink-400 flex items-center gap-2">🎤 Idol Stage</Link></li>
+              {isRouteVisible('/idol-stage') && (
+                <li><Link href="/idol-stage" className="hover:text-pink-400 flex items-center gap-2">🎤 Idol Stage</Link></li>
+              )}
               <li><Link href="/yurucamp" className="hover:text-pink-400 flex items-center gap-2">⛺ YuruCamp</Link></li>
               <li><Link href="/korniha-band" className="hover:text-pink-400 flex items-center gap-2">🎸 Korniha Band</Link></li>
             </ul>

@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
+import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import { isRouteVisible } from '@/config/routes';
 import { Calendar, MapPin, Users, Star, ArrowRight, Menu, X, ChevronDown, Mail, Facebook, Youtube, UserPlus, Clock } from "lucide-react";
 import { FeatureFlag } from "@/lib/features";
 import { EventCard } from "@/components/events/EventCard";
@@ -143,13 +145,15 @@ export default function HomePage() {
                 {/* Dropdown Menu */}
                 <div className="absolute top-full left-0 mt-2 w-48 bg-gray-800/95 backdrop-blur-sm rounded-lg shadow-xl border border-gray-700/50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
                   <div className="py-1">
-                    <Link
-                      href="/idol-stage"
-                      className="flex items-center gap-3 px-4 py-2.5 text-gray-200 hover:bg-pink-600/30 hover:text-white transition-colors"
-                    >
-                      <span className="text-pink-400">🎤</span>
-                      Idol Stage
-                    </Link>
+                    {isRouteVisible('/idol-stage') && (
+                      <Link
+                        href="/idol-stage"
+                        className="flex items-center gap-3 px-4 py-2.5 text-gray-200 hover:bg-pink-600/30 hover:text-white transition-colors"
+                      >
+                        <span className="text-pink-400">🎤</span>
+                        Idol Stage
+                      </Link>
+                    )}
                     <Link
                       href="/yurucamp"
                       className="flex items-center gap-3 px-4 py-2.5 text-gray-200 hover:bg-pink-600/30 hover:text-white transition-colors"
@@ -223,14 +227,16 @@ export default function HomePage() {
                     Otaku.lt Events
                   </div>
                   <div className="ml-4 space-y-2">
-                    <Link
-                      href="/idol-stage"
-                      className="text-gray-700 hover:text-pink-600 transition-colors py-1 flex items-center gap-2 text-sm"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <span>🎤</span>
-                      Idol Stage
-                    </Link>
+                    {isRouteVisible('/idol-stage') && (
+                      <Link
+                        href="/idol-stage"
+                        className="text-gray-700 hover:text-pink-600 transition-colors py-1 flex items-center gap-2 text-sm"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        <span>🎤</span>
+                        Idol Stage
+                      </Link>
+                    )}
                     <Link
                       href="/yurucamp"
                       className="text-gray-700 hover:text-pink-600 transition-colors py-1 flex items-center gap-2 text-sm"
