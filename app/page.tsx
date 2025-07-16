@@ -349,33 +349,65 @@ export default function HomePage() {
             Join Our Community
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <Link href="/communities" className="block">
-              <div className="text-center group cursor-pointer p-6 rounded-xl hover:bg-accent/10 transition-colors">
-                <div className="w-20 h-20 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+            {process.env.NODE_ENV === 'production' ? (
+              <div className="text-center p-6 rounded-xl opacity-70">
+                <div className="w-20 h-20 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="text-white" size={32} />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-foreground">Join Communities</h3>
-                <p className="text-muted-foreground">Connect with fellow otaku on Discord, Facebook, and more</p>
+                <h3 className="text-xl font-bold mb-2 text-foreground/70">Join Communities</h3>
+                <p className="text-muted-foreground/70">Coming Soon</p>
               </div>
-            </Link>
-            <Link href="/events" className="block">
-              <div className="text-center group cursor-pointer p-6 rounded-xl hover:bg-accent/10 transition-colors">
-                <div className="w-20 h-20 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+            ) : (
+              <Link href="/communities" className="block">
+                <div className="text-center group cursor-pointer p-6 rounded-xl hover:bg-accent/10 transition-colors">
+                  <div className="w-20 h-20 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <Users className="text-white" size={32} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">Join Communities</h3>
+                  <p className="text-muted-foreground">Connect with fellow otaku on Discord, Facebook, and more</p>
+                </div>
+              </Link>
+            )}
+            
+            {process.env.NODE_ENV === 'production' ? (
+              <div className="text-center p-6 rounded-xl opacity-70">
+                <div className="w-20 h-20 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Calendar className="text-white" size={32} />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-foreground">Discover Events</h3>
-                <p className="text-muted-foreground">From cons to camping, find your next otaku adventure</p>
+                <h3 className="text-xl font-bold mb-2 text-foreground/70">Discover Events</h3>
+                <p className="text-muted-foreground/70">Coming Soon</p>
               </div>
-            </Link>
-            <Link href="/submit" className="block">
-              <div className="text-center group cursor-pointer p-6 rounded-xl hover:bg-accent/10 transition-colors">
-                <div className="w-20 h-20 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+            ) : (
+              <Link href="/events" className="block">
+                <div className="text-center group cursor-pointer p-6 rounded-xl hover:bg-accent/10 transition-colors">
+                  <div className="w-20 h-20 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <Calendar className="text-white" size={32} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">Discover Events</h3>
+                  <p className="text-muted-foreground">From cons to camping, find your next otaku adventure</p>
+                </div>
+              </Link>
+            )}
+            
+            {process.env.NODE_ENV === 'production' ? (
+              <div className="text-center p-6 rounded-xl opacity-70">
+                <div className="w-20 h-20 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Star className="text-white" size={32} />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-foreground">Share Your Event</h3>
-                <p className="text-muted-foreground">Help grow the community by sharing your otaku events</p>
+                <h3 className="text-xl font-bold mb-2 text-foreground/70">Share Your Event</h3>
+                <p className="text-muted-foreground/70">Coming Soon</p>
               </div>
-            </Link>
+            ) : (
+              <Link href="/submit" className="block">
+                <div className="text-center group cursor-pointer p-6 rounded-xl hover:bg-accent/10 transition-colors">
+                  <div className="w-20 h-20 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <Star className="text-white" size={32} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">Share Your Event</h3>
+                  <p className="text-muted-foreground">Help grow the community by sharing your otaku events</p>
+                </div>
+              </Link>
+            )}
           </div>
         </div>
       </section>
