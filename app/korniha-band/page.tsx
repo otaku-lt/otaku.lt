@@ -9,6 +9,7 @@ import { GigsSection } from "./components/GigsSection";
 import { SongsSection } from "./components/SongsSection";
 import { MembersSection } from "./components/MembersSection";
 import { AboutSection } from "./components/AboutSection";
+import { FeaturedEvent } from "./components/FeaturedEvent";
 import type { Event, EventSetlist, SetlistDay } from "./types/event";
 import type { Song } from "./types/song";
 import type { BandMember } from "./types/member";
@@ -145,101 +146,7 @@ export default function KornihaBandPage() {
         </div>
 
         {/* Hero Section - Next Performance */}
-        {featuredEvent && (
-          <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-6 md:p-8 text-white mb-8 shadow-lg transform transition-all hover:shadow-xl hover:-translate-y-0.5 relative overflow-hidden">
-            {/* Widget Label */}
-            <div className="absolute top-0 left-0 bg-white/10 px-4 py-1.5 rounded-br-lg text-sm font-medium text-white/80 backdrop-blur-sm">
-              Next Performance
-            </div>
-            
-            <div className="pt-6 mb-4">
-              <h3 className="text-xl md:text-2xl font-semibold text-white/95 text-center">{featuredEvent.title}</h3>
-            </div>
-            
-            <p className="text-purple-100 mb-6 text-center text-sm md:text-base max-w-3xl mx-auto">{featuredEvent.description}</p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 max-w-5xl mx-auto">
-              <div className="flex items-start space-x-2 bg-white/10 p-3 rounded-lg">
-                <Calendar className="h-5 w-5 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium text-white/80">When</p>
-                  <p className="text-white">
-                    {new Date(featuredEvent.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
-                    {featuredEvent.endDate && (
-                      <span> - {new Date(featuredEvent.endDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                    )}
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-2 bg-white/10 p-3 rounded-lg">
-                <MapPin className="h-5 w-5 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium text-white/80">Where</p>
-                  <p className="text-white">{featuredEvent.location}</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-2 bg-white/10 p-3 rounded-lg">
-                <Music2 className="h-5 w-5 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium text-white/80">Setlist</p>
-                  <p className="text-white">
-                    {!featuredEvent?.setlist ? (
-                      'TBA'
-                    ) : typeof featuredEvent.setlist === 'string' ? (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded bg-white/20 text-xs">
-                        {featuredEvent.setlist}
-                      </span>
-                    ) : (
-                      <span className="flex flex-wrap gap-1">
-                        {featuredEvent.setlist?.days?.length > 0 ? (
-                          featuredEvent.setlist.days.map((day, i) => (
-                            <span key={i} className="inline-flex items-center px-2 py-0.5 rounded bg-white/20 text-xs">
-                              {day?.day ? `Day ${day.day}: ` : ''}{day?.type || 'Performance'}
-                            </span>
-                          ))
-                        ) : (
-                          <span className="text-sm text-white/70">No setlist available yet</span>
-                        )}
-                      </span>
-                    )}
-                  </p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="flex flex-wrap justify-center gap-3">
-              <button className="px-5 py-2.5 bg-white text-purple-600 rounded-full font-medium hover:bg-purple-50 transition-all flex items-center text-sm md:text-base">
-                <Calendar className="mr-2 h-4 w-4" />
-                Add to Calendar
-              </button>
-              {featuredEvent.link ? (
-                <a 
-                  href={featuredEvent.link} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="px-5 py-2.5 border-2 border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-all flex items-center text-sm md:text-base"
-                >
-                  <ExternalLink className="mr-2 h-4 w-4" />
-                  More Info
-                </a>
-              ) : (
-                <button 
-                  disabled
-                  className="px-5 py-2.5 border-2 border-white/10 text-white/50 rounded-full font-medium flex items-center text-sm md:text-base cursor-not-allowed"
-                  title="More information will be available soon"
-                >
-                  <span className="relative flex h-3 w-3 mr-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/40"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-white/70"></span>
-                  </span>
-                  More Info (coming soon)
-                </button>
-              )}
-            </div>
-          </div>
-        )}
+        {featuredEvent && <FeaturedEvent event={featuredEvent} className="mb-8" />}
 
         {/* Tab Navigation */}
         <div className="flex flex-wrap gap-2 mb-8 justify-center">
