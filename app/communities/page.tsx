@@ -303,7 +303,7 @@ export default function CommunitiesPage() {
       ) : link.type === 'facebook' ? (
         <Facebook size={14} className="mr-1" />
       ) : null}
-      Join {link.type.charAt(0).toUpperCase() + link.type.slice(1)}
+      Join {link.type}
       <ExternalLink size={12} className="ml-1" />
     </a>
   ))}
