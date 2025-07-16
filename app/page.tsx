@@ -355,26 +355,18 @@ export default function HomePage() {
             Join Our Community
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
-            {process.env.NODE_ENV === 'production' ? (
-              <div className="text-center p-6 rounded-xl opacity-70">
-                <div className="w-20 h-20 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4">
+            {/* Join Communities - Now available in production */}
+            <Link href="/communities" className="block">
+              <div className="text-center group cursor-pointer p-6 rounded-xl hover:bg-accent/10 transition-colors">
+                <div className="w-20 h-20 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <Users className="text-white" size={32} />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-foreground/70">Join Communities</h3>
-                <p className="text-muted-foreground/70">Coming Soon</p>
+                <h3 className="text-xl font-bold mb-2 text-foreground">Join Communities</h3>
+                <p className="text-muted-foreground">Connect with fellow otaku on Discord, Facebook, and more</p>
               </div>
-            ) : (
-              <Link href="/communities" className="block">
-                <div className="text-center group cursor-pointer p-6 rounded-xl hover:bg-accent/10 transition-colors">
-                  <div className="w-20 h-20 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                    <Users className="text-white" size={32} />
-                  </div>
-                  <h3 className="text-xl font-bold mb-2 text-foreground">Join Communities</h3>
-                  <p className="text-muted-foreground">Connect with fellow otaku on Discord, Facebook, and more</p>
-                </div>
-              </Link>
-            )}
+            </Link>
             
+            {/* Discover Events - Coming Soon in production */}
             {process.env.NODE_ENV === 'production' ? (
               <div className="text-center p-6 rounded-xl opacity-70">
                 <div className="w-20 h-20 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -395,6 +387,7 @@ export default function HomePage() {
               </Link>
             )}
             
+            {/* Share Your Event - Coming Soon in production */}
             {process.env.NODE_ENV === 'production' ? (
               <div className="text-center p-6 rounded-xl opacity-70">
                 <div className="w-20 h-20 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center mx-auto mb-4">
