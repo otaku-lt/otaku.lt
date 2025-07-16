@@ -46,11 +46,6 @@ const InstagramIcon = ({ size = 24, className = "", style }: IconProps) => (
   </svg>
 );
 
-const RedditIcon = ({ size = 24, className = "", style }: IconProps) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} style={style}>
-    <path d="M12 0A12 12 0 001.01 11.98 12 12 0 0012 24a12 12 0 0010.99-7.32c.79.15 1.63.24 2.5.24 1.1 0 2.16-.15 3.16-.43a.25.25 0 00.28-.38 12.1 12.1 0 01-2.2-7.13c0-6.63-7.63-12-17.05-12C6.5 0 3.36 1.15.9 3.28a.25.25 0 00-.14.23v.28c0 .2.1.37.26.46 1.53.85 2.8 1.9 3.75 3.13A11.96 11.96 0 0112 2.4c4.24 0 7.95 1.5 10.89 4.24.2.2.53.12.64-.12.1-.2.05-.43-.1-.57A14.5 14.5 0 0012 0zm-1.5 6.3c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm6 0c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm-9.75 3.55c-1.24.22-2.2.96-2.2 1.83 0 1.02 1.2 1.85 2.67 1.85 1.47 0 2.68-.83 2.68-1.85 0-.87-.96-1.61-2.15-1.83zm12.7 0c-1.2.22-2.15.96-2.15 1.83 0 1.02 1.2 1.85 2.67 1.85 1.48 0 2.68-.83 2.68-1.85 0-.87-.96-1.61-2.2-1.83zM12 15.15c-2.33 0-4.47.54-6.12 1.44-.22.12-.3.4-.18.63.12.22.4.3.62.18 1.5-.85 3.5-1.35 5.68-1.35 2.18 0 4.18.5 5.68 1.35.1.05.2.07.3.07.15 0 .3-.07.4-.18.12-.22.04-.5-.18-.63-1.65-.9-3.79-1.44-6.12-1.44z" />
-  </svg>
-);
 
 const YoutubeIcon = ({ size = 24, className = "", style }: IconProps) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} style={style}>
@@ -59,27 +54,48 @@ const YoutubeIcon = ({ size = 24, className = "", style }: IconProps) => (
 );
 
 const WebIcon = ({ size = 24, className = "", style }: IconProps) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} style={style}>
-    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>
+    <circle cx="12" cy="12" r="10" />
+    <line x1="2" y1="12" x2="22" y2="12" />
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
   </svg>
 );
 
-const getIcon = (type: string, size = 24) => {
+const RedditIcon = ({ size = 24, className = "", style }: IconProps) => (
+  <div style={{ 
+    display: 'inline-flex',
+    filter: 'invert(1)' 
+  }}>
+    <img 
+      src="/icons/reddit.png" 
+      alt="Reddit" 
+      className={className}
+      style={{ 
+        width: size, 
+        height: size,
+        objectFit: 'contain',
+        ...style 
+      }} 
+    />
+  </div>
+);
+
+const getIcon = (type: string, size = 24, className = "", style = {}) => {
   const iconStyle = { width: size, height: size };
   
   switch (type.toLowerCase()) {
     case 'discord':
-      return <DiscordIcon size={size} style={iconStyle} />;
-    case 'youtube':
-      return <YoutubeIcon size={size} style={iconStyle} />;
-    case 'instagram':
-      return <InstagramIcon size={size} style={iconStyle} />;
+      return <DiscordIcon size={size} className={className} style={style} />;
     case 'facebook':
-      return <FacebookIcon size={size} style={iconStyle} />;
+      return <FacebookIcon size={size} className={className} style={style} />;
+    case 'instagram':
+      return <InstagramIcon size={size} className={className} style={style} />;
+    case 'youtube':
+      return <YoutubeIcon size={size} className={className} style={style} />;
     case 'reddit':
-      return <RedditIcon size={size} style={iconStyle} />;
+      return <RedditIcon size={size} className={className} style={style} />;
     case 'web':
-      return <WebIcon size={size} style={iconStyle} />;
+      return <WebIcon size={size} className={className} style={style} />;
     default:
       return <ExternalLink size={size * 0.75} style={iconStyle} />;
   }
