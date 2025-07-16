@@ -1,5 +1,6 @@
 - id: 1
-  title: "J-music LT "
+  title: "J-music LT"
+  logo: "jmusic.png"
   description: "J-music LT yra jaukus kampelis, skirtas dalintis įvairia japonų ir kitokia mėgstama muzika bei naujais atradimais, tačiau mes neapsiribojame vien tik muzikos diskusijomis. Mes taip pat kartu žiūrime anime/filmus, žaidžiame D&D ir video žaidimus, organizuojame susitikimus gyvai. Mūsų serveris yra atviras visiems bendraminčiams ir smalsioms sieloms. Užsukite, jei norite prisijungti prie mūsų draugiškos bendruomenės! "
   category: "music"
   featured: true
@@ -15,11 +16,11 @@
   links:
     - type: "facebook"
       url: "https://www.facebook.com/groups/704082763021625/"
-    - type: "discord"
-      url: "http://discord.gg/VmDEUzm"
+
 
 - id: 3
   title: "r/Japonija"
+  logo: "rjaponija.png"
   description: "Tai bendruomenė organizuojanti gyvą veiklą žmonėms, kurie domisi Japonijos kultūra/popkultūra."
   category: "culture"
   featured: true
@@ -44,14 +45,16 @@
     - type: "discord"
       url: "https://discord.gg/VmDEUzm"
 
-- id: 4
+- id: 5
   title: "AnimeZona"
-  description: "Stipriausia, didžiausia, ir geriausia anime vertėjų komanda Lietuvoje."
+  description: "AnimeZona.net yra daug metų gyvuojantis ir pats didžiausias Lietuviškas portalas dedikuotas viskam kas susiję su anime fandomu ir tuo kas yra įdomu jo nariams."
   category: "anime"
   featured: false
   links:
+    - type: "web"
+      url: "https://animezona.net/"
     - type: "facebook"
-      url: "https://www.facebook.com/animesublt/"
-    - type: "discord"
-      url: "https://discord.gg/VmDEUzm"
+      url: "https://www.facebook.com/AnimeZona.net/"
+    - type: "youtube"
+      url: "https://www.youtube.com/@AnimeZonaPodcast"
 

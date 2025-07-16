@@ -16,6 +16,7 @@ interface Community {
   description: string;
   category: string;
   featured?: boolean;
+  logo?: string; // Path to the logo image in the public directory
   links: CommunityLink[];
   features?: string[];
   activity?: 'high' | 'medium' | 'low';
@@ -260,9 +261,29 @@ export default function CommunitiesPage() {
               .map((community) => (
                 <div key={community.id} className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl ring-2 ring-yellow-200 dark:ring-yellow-800/30 hover:shadow-2xl transition-all">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center text-white">
-                      {community.links?.[0]?.type ? getIcon(community.links[0].type) : <Users size={24} />}
-                    </div>
+                    {community.logo ? (
+                      <div className="w-12 h-12 rounded-full overflow-hidden bg-white dark:bg-gray-700 flex items-center justify-center">
+                        <img 
+                          src={`/images/communities/${community.logo}`} 
+                          alt={`${community.title} logo`}
+                          className="w-full h-full object-contain p-1"
+                          onError={(e) => {
+                            // Fallback to icon if logo fails to load
+                            const target = e.target as HTMLImageElement;
+                            target.onerror = null;
+                            target.style.display = 'none';
+                            const fallback = document.createElement('div');
+                            fallback.className = 'w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center text-white';
+                            fallback.innerHTML = community.links?.[0]?.type ? '' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>';
+                            target.parentNode?.insertBefore(fallback, target.nextSibling);
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center text-white">
+                        {community.links?.[0]?.type ? getIcon(community.links[0].type) : <Users size={24} />}
+                      </div>
+                    )}
                     <div className="flex-1">
                       <h3 className="text-lg font-bold text-gray-800 dark:text-white">{community.title}</h3>
                       <div className="flex items-center gap-2 mt-1">
@@ -307,9 +328,29 @@ export default function CommunitiesPage() {
               {filteredCommunities.map((community) => (
                 <div key={community.id} className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02]">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300">
-                      {community.links?.[0]?.type ? getIcon(community.links[0].type) : <Users size={24} />}
-                    </div>
+                    {community.logo ? (
+                      <div className="w-12 h-12 rounded-full overflow-hidden bg-white dark:bg-gray-700 flex items-center justify-center">
+                        <img 
+                          src={`/images/communities/${community.logo}`} 
+                          alt={`${community.title} logo`}
+                          className="w-full h-full object-contain p-1"
+                          onError={(e) => {
+                            // Fallback to icon if logo fails to load
+                            const target = e.target as HTMLImageElement;
+                            target.onerror = null;
+                            target.style.display = 'none';
+                            const fallback = document.createElement('div');
+                            fallback.className = 'w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300';
+                            fallback.innerHTML = community.links?.[0]?.type ? '' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>';
+                            target.parentNode?.insertBefore(fallback, target.nextSibling);
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300">
+                        {community.links?.[0]?.type ? getIcon(community.links[0].type) : <Users size={24} />}
+                      </div>
+                    )}
                     <div className="flex-1">
                       <h3 className="text-lg font-bold text-gray-800 dark:text-white">{community.title}</h3>
                       <div className="flex items-center gap-2 mt-1">
