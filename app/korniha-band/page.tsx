@@ -7,8 +7,10 @@ import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import { getKornihaEvents, getFeaturedEvent } from "@/lib/events";
 import { GigsSection } from "./components/GigsSection";
 import { SongsSection } from "./components/SongsSection";
+import { MembersSection } from "./components/MembersSection";
 import type { Event, EventSetlist, SetlistDay } from "./types/event";
 import type { Song } from "./types/song";
+import type { BandMember } from "./types/member";
 
 // Event types are now imported from ./types/event
 
@@ -65,7 +67,7 @@ export default function KornihaBandPage() {
     fetchData();
   }, []);
 
-  const bandMembers = [
+  const [bandMembers, setBandMembers] = useState<BandMember[]>([
     {
       name: "Korniha",
       role: "Vocals",
@@ -84,7 +86,7 @@ export default function KornihaBandPage() {
       description: "The rhythm keeper who believes everything is a drum if you hit it right. His sticks are an extension of his arms, and his energy is as infectious as the beats he creates.",
       favorite: "Kokoro Pyon Pyon (Is the Order a Rabbit?)"
     }
-  ];
+  ]);
 
   // Song data state
   const [songs, setSongs] = useState<Song[]>([]);
@@ -310,40 +312,7 @@ export default function KornihaBandPage() {
             </div>
           )}
 
-          {activeTab === "members" && (
-            <div className="grid md:grid-cols-2 gap-6">
-              {bandMembers.map((member, index) => (
-                <div key={index} className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-4">
-                      {['Holms', 'Korniha'].includes(member.name) ? (
-                        <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-purple-400">
-                          <img 
-                            src={`/images/band/${member.name.toLowerCase()}.${member.name === 'Holms' ? 'png' : 'jpg'}`}
-                            alt={member.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      ) : (
-                        <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                          {member.name[0]}
-                        </div>
-                      )}
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-800 dark:text-white">{member.name}</h3>
-                        <p className="text-purple-600 dark:text-purple-400 font-medium">{member.role}</p>
-                      </div>
-                    </div>
-                    <p className="text-gray-600 dark:text-gray-300">{member.description}</p>
-                    <div className="bg-purple-50 dark:bg-gray-700/50 rounded-lg p-3">
-                      <span className="text-sm font-medium text-purple-600 dark:text-purple-400">Favorite: </span>
-                      <span className="text-sm text-gray-700 dark:text-gray-200">{member.favorite}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+          {activeTab === "members" && <MembersSection members={bandMembers} />}
 
         {activeTab === "songs" && <SongsSection songs={songs} />}
 
