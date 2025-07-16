@@ -8,6 +8,7 @@ import { getKornihaEvents, getFeaturedEvent } from "@/lib/events";
 import { GigsSection } from "./components/GigsSection";
 import { SongsSection } from "./components/SongsSection";
 import { MembersSection } from "./components/MembersSection";
+import { AboutSection } from "./components/AboutSection";
 import type { Event, EventSetlist, SetlistDay } from "./types/event";
 import type { Song } from "./types/song";
 import type { BandMember } from "./types/member";
@@ -264,53 +265,7 @@ export default function KornihaBandPage() {
 
         {/* Tab Content */}
         <div className="min-h-96">
-          {activeTab === "about" && (
-            <div className="space-y-8">
-              <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
-                <h3 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">About Korniha Band</h3>
-                <div className="prose prose-lg max-w-none dark:prose-invert">
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    Korniha Band was born from a shared passion for anime music and the desire to bring 
-                    those incredible soundtracks to life. We're a group of Lithuanian musicians who grew up 
-                    loving anime and wanted to share that love through music.
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-200 mb-4">
-                    From epic opening themes to emotional ending songs, we carefully arrange and perform 
-                    both classic and modern anime music. Our goal is to create an authentic experience 
-                    that captures the spirit and emotion of the original compositions.
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-200">
-                    Whether you're a long-time anime fan or just discovering this amazing music, 
-                    we invite you to join us for an unforgettable musical journey through the world of anime.
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl text-center">
-                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Music className="text-purple-600" size={32} />
-                  </div>
-                  <h4 className="text-lg font-bold mb-2 dark:text-white">30+ Songs</h4>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm">Performing anime covers in both Japanese and Lithuanian</p>
-                </div>
-                <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl text-center">
-                  <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Users className="text-pink-600" size={32} />
-                  </div>
-                  <h4 className="text-lg font-bold mb-2 dark:text-white">20+ Events</h4>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm">Performing at cons and events across the Baltic states</p>
-                </div>
-                <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl text-center">
-                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Award className="text-purple-600" size={32} />
-                  </div>
-                  <h4 className="text-lg font-bold mb-2 dark:text-white">1 Year</h4>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm">Passionately performing since 2024</p>
-                </div>
-              </div>
-            </div>
-          )}
+          {activeTab === "about" && <AboutSection />}
 
           {activeTab === "members" && <MembersSection members={bandMembers} />}
 
