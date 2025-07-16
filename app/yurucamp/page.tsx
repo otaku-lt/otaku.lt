@@ -91,7 +91,7 @@ export default function YuruCampPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+    <div className="min-h-screen bg-background text-foreground">
       <ContentPageHeader 
         title="⛺ YuruCamp"
         showBackButton={true}
@@ -105,11 +105,11 @@ export default function YuruCampPage() {
           <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
             YuruCamp ⛺
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             The ultimate otaku camping experience! Join fellow weebs for a unique outdoor adventure 
             combining nature, anime, and unforgettable memories.
           </p>
-          <div className="text-sm text-gray-500 mt-2">
+          <div className="text-sm text-muted-foreground/80 mt-2">
             Organized by Y.M.C.A (Yuru Mobile Camping Assembly)
           </div>
         </div>
@@ -119,7 +119,7 @@ export default function YuruCampPage() {
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div>
               <h2 className="text-3xl font-bold mb-2">YuruCamp 2025</h2>
-              <div className="flex items-center gap-4 text-lg">
+              <div className="flex items-center gap-4 text-lg text-muted-foreground-dark">
                 <div className="flex items-center gap-1">
                   <Calendar size={18} />
                   <span>September 5-7, 2025</span>
@@ -131,7 +131,7 @@ export default function YuruCampPage() {
               </div>
             </div>
             <div className="mt-4 md:mt-0">
-              <button className="px-8 py-3 bg-white text-green-600 rounded-full hover:bg-green-50 transition-colors font-semibold text-lg">
+              <button className="px-8 py-3 bg-white text-green-600 rounded-full hover:bg-green-50 transition-colors font-semibold text-lg hover:scale-105 transform">
                 Register Now
               </button>
             </div>
@@ -152,7 +152,7 @@ export default function YuruCampPage() {
               className={`px-6 py-3 rounded-full text-sm font-medium transition-all ${
                 activeTab === tab.id
                   ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white shadow-lg'
-                  : 'bg-white/80 text-gray-700 hover:bg-green-100'
+                  : 'bg-card-dark/80 text-foreground-dark hover:bg-green-500/10'
               }`}
             >
               {tab.label}
@@ -167,21 +167,21 @@ export default function YuruCampPage() {
               {/* Features Grid */}
               <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
                 {campFeatures.map((feature, index) => (
-                  <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl text-center">
+                  <div key={index} className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl text-center border border-border-dark/50 hover:border-green-500/30 transition-colors">
                     <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                       {feature.icon}
                     </div>
-                    <h3 className="text-lg font-bold mb-2 text-gray-800">{feature.title}</h3>
-                    <p className="text-gray-600 text-sm">{feature.description}</p>
+                    <h3 className="text-lg font-bold mb-2 text-foreground-dark">{feature.title}</h3>
+                    <p className="text-muted-foreground-dark text-sm">{feature.description}</p>
                   </div>
                 ))}
               </div>
 
               {/* Detailed Description */}
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
-                <h3 className="text-2xl font-bold mb-6 text-gray-800">What is YuruCamp?</h3>
-                <div className="prose prose-lg max-w-none">
-                  <p className="text-gray-600 mb-4">
+              <div className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-border-dark/50">
+                <h3 className="text-2xl font-bold mb-6 text-foreground-dark">What is YuruCamp?</h3>
+                <div className="prose prose-invert max-w-none">
+                  <p className="text-muted-foreground-dark mb-4">
                     YuruCamp is Lithuania's first otaku camping event, inspired by the beloved anime series. 
                     It's a unique opportunity to connect with nature while celebrating our shared love for 
                     anime, manga, and Japanese pop culture.
@@ -204,18 +204,18 @@ export default function YuruCampPage() {
           {activeTab === "schedule" && (
             <div className="space-y-6">
               {schedule.map((day, index) => (
-                <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-                  <h3 className="text-2xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+                <div key={index} className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-border-dark/50 hover:border-green-500/30 transition-colors">
+                  <h3 className="text-2xl font-bold mb-4 text-foreground-dark flex items-center gap-2">
                     <Calendar className="text-green-600" size={24} />
                     {day.day} - {day.date}
                   </h3>
                   <div className="space-y-3">
                     {day.events.map((event, eventIndex) => (
                       <div key={eventIndex} className="flex items-center gap-4 p-3 bg-green-50 rounded-lg">
-                        <div className="w-16 text-sm font-semibold text-green-600 flex-shrink-0">
+                        <div className="w-16 text-sm font-semibold text-green-500 flex-shrink-0">
                           {event.time}
                         </div>
-                        <div className="text-gray-700">{event.activity}</div>
+                        <div className="text-foreground-dark">{event.activity}</div>
                       </div>
                     ))}
                   </div>
@@ -227,9 +227,9 @@ export default function YuruCampPage() {
           {activeTab === "faq" && (
             <div className="space-y-4">
               {faqs.map((faq, index) => (
-                <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-                  <h3 className="text-lg font-bold mb-3 text-gray-800">{faq.question}</h3>
-                  <p className="text-gray-600">{faq.answer}</p>
+                <div key={index} className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-border-dark/50 hover:border-green-500/30 transition-colors">
+                  <h3 className="text-lg font-bold mb-3 text-foreground-dark">{faq.question}</h3>
+                  <p className="text-muted-foreground-dark">{faq.answer}</p>
                 </div>
               ))}
             </div>
@@ -238,11 +238,11 @@ export default function YuruCampPage() {
           {activeTab === "gallery" && (
             <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
               {[...Array(6)].map((_, index) => (
-                <div key={index} className="aspect-square bg-gradient-to-br from-green-200 to-blue-200 rounded-2xl flex items-center justify-center hover:scale-105 transition-transform cursor-pointer shadow-xl">
+                <div key={index} className="aspect-square bg-gradient-to-br from-green-900/30 to-blue-900/30 rounded-2xl flex items-center justify-center hover:scale-105 transition-transform cursor-pointer shadow-xl border border-border/50 hover:border-green-500/30">
                   <div className="text-center">
-                    <Camera size={48} className="text-white mx-auto mb-2" />
-                    <p className="text-white font-semibold">Photo Gallery</p>
-                    <p className="text-white/80 text-sm">Coming Soon</p>
+                    <Camera size={48} className="text-green-400 mx-auto mb-2" />
+                    <p className="text-foreground font-semibold">Photo Gallery</p>
+                    <p className="text-muted-foreground text-sm">Coming Soon</p>
                   </div>
                 </div>
               ))}
@@ -251,18 +251,18 @@ export default function YuruCampPage() {
         </div>
 
         {/* Registration CTA */}
-        <div className="bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl p-8 text-white text-center mt-12">
+        <div className="bg-gradient-to-r from-green-600/90 to-blue-600/90 rounded-2xl p-8 text-white text-center mt-12 border border-green-500/20">
           <h3 className="text-3xl font-bold mb-4">Ready for Adventure?</h3>
-          <p className="text-xl mb-6 max-w-2xl mx-auto">
+          <p className="text-xl mb-6 max-w-2xl mx-auto text-muted-foreground">
             Join us for an unforgettable otaku camping experience. Limited spots available!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-white text-green-600 rounded-full hover:bg-green-50 transition-colors font-semibold text-lg">
+            <button className="px-8 py-3 bg-white text-green-700 rounded-full hover:bg-green-50 hover:scale-105 transition-all font-semibold text-lg">
               Register Now - €45
             </button>
             <Link
               href="/contact"
-              className="px-8 py-3 border-2 border-white text-white rounded-full hover:bg-white hover:text-green-600 transition-colors font-semibold text-lg"
+              className="px-8 py-3 border-2 border-white/30 text-white rounded-full hover:bg-white/10 hover:border-white/50 transition-all font-semibold text-lg"
             >
               Have Questions?
             </Link>
