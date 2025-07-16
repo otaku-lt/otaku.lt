@@ -49,6 +49,7 @@
   title: "AnimeZona"
   description: "AnimeZona.net yra daug metų gyvuojantis ir pats didžiausias Lietuviškas portalas dedikuotas viskam kas susiję su anime fandomu ir tuo kas yra įdomu jo nariams."
   category: "anime"
+  active: false
   featured: false
   links:
     - type: "web"

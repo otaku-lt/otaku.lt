@@ -16,6 +16,7 @@ interface Community {
   description: string;
   category: string;
   featured?: boolean;
+  active?: boolean; // Whether the community is active (default: true)
   logo?: string; // Path to the logo image in the public directory
   links: CommunityLink[];
   features?: string[];
@@ -231,9 +232,11 @@ export default function CommunitiesPage() {
           </div>
         </div>
 
-        {/* Category Filters */}
-        <div className="flex flex-wrap gap-2 mb-12 justify-center">
-          {categories.map((category) => (
+        {/* Filters */}
+        <div className="flex flex-col items-center gap-4 mb-8">
+          {/* Category Filters */}
+          <div className="flex flex-wrap gap-2 justify-center">
+            {categories.map((category) => (
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.id)}
@@ -287,8 +290,12 @@ export default function CommunitiesPage() {
                     <div className="flex-1">
                       <h3 className="text-lg font-bold text-gray-800 dark:text-white">{community.title}</h3>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className={`text-xs px-2 py-1 rounded-full ${getActivityColor(community.activity || 'medium')}`}>
-                          {community.activity || 'Active'}
+                        <span className={`text-xs px-2 py-1 rounded-full ${
+                          community.active === false 
+                            ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300' 
+                            : getActivityColor(community.activity || 'medium')
+                        }`}>
+                          {community.active === false ? 'Inactive' : (community.activity || 'Active')}
                         </span>
                         <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
                           {community.category}
@@ -319,6 +326,7 @@ export default function CommunitiesPage() {
               ))}
           </div>
         </div>
+        </div>
 
         {/* All Communities */}
         <div className="mb-16">
@@ -326,7 +334,12 @@ export default function CommunitiesPage() {
           {filteredCommunities.length > 0 ? (
             <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredCommunities.map((community) => (
-                <div key={community.id} className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02]">
+                <div 
+                  key={community.id} 
+                  className={`bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02] ${
+                    community.active === false ? 'opacity-70 hover:opacity-100' : ''
+                  }`}
+                >
                   <div className="flex items-center gap-4 mb-4">
                     {community.logo ? (
                       <div className="w-12 h-12 rounded-full overflow-hidden bg-white dark:bg-gray-700 flex items-center justify-center">
@@ -354,8 +367,12 @@ export default function CommunitiesPage() {
                     <div className="flex-1">
                       <h3 className="text-lg font-bold text-gray-800 dark:text-white">{community.title}</h3>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className={`text-xs px-2 py-1 rounded-full ${getActivityColor(community.activity || 'medium')}`}>
-                          {community.activity || 'Active'}
+                        <span className={`text-xs px-2 py-1 rounded-full ${
+                          community.active === false 
+                            ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300' 
+                            : getActivityColor(community.activity || 'medium')
+                        }`}>
+                          {community.active === false ? 'Inactive' : (community.activity || 'Active')}
                         </span>
                         <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
                           {community.category}
