@@ -5,18 +5,20 @@ import Link from "next/link";
 import { Users, MessageCircle, Youtube, Instagram, Facebook, ExternalLink, Star } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 
+interface CommunityLink {
+  type: 'discord' | 'youtube' | 'instagram' | 'facebook' | 'website';
+  url: string;
+}
+
 interface Community {
   id: string;
   title: string;
   description: string;
   category: string;
   featured?: boolean;
-  links: Array<{
-    type: string;
-    url: string;
-  }>;
+  links: CommunityLink[];
   features?: string[];
-  activity?: string;
+  activity?: 'high' | 'medium' | 'low';
 }
 
 // Discord icon component
@@ -219,16 +221,31 @@ export default function CommunitiesPage() {
                   
 
                   
-                  {community.links?.[0]?.url && (
-                    <a
-                      href={community.links[0].url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full hover:from-blue-600 hover:to-purple-600 transition-all text-sm"
-                    >
-                      Join Community <ExternalLink size={16} />
-                    </a>
-                  )}
+                  {community.links?.map((link, index) => (
+    <a
+      key={index}
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full hover:from-blue-600 hover:to-purple-600 transition-all text-sm mr-2 mb-2"
+      aria-label={`Join ${community.title} on ${link.type}`}
+    >
+      {link.type === 'discord' ? (
+        <>
+          <DiscordIcon size={16} /> Join Discord
+        </>
+      ) : link.type === 'youtube' ? (
+        'Watch on YouTube'
+      ) : link.type === 'instagram' ? (
+        'Follow on Instagram'
+      ) : link.type === 'facebook' ? (
+        'Join Facebook Group'
+      ) : (
+        'Visit Website'
+      )}
+      <ExternalLink size={14} className="ml-1" />
+    </a>
+  ))}
                 </div>
               ))}
           </div>
@@ -268,16 +285,28 @@ export default function CommunitiesPage() {
                       </div>
                     ))}
                   </div>
-                  {community.links?.[0]?.url && (
-                    <a
-                      href={community.links[0].url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm flex items-center gap-1"
-                    >
-                      Join <ExternalLink size={14} />
-                    </a>
-                  )}
+                  {community.links?.map((link, index) => (
+    <a
+      key={index}
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm mr-3"
+      aria-label={`Join ${community.title} on ${link.type}`}
+    >
+      {link.type === 'discord' ? (
+        <DiscordIcon size={14} className="mr-1" />
+      ) : link.type === 'youtube' ? (
+        <Youtube size={14} className="mr-1" />
+      ) : link.type === 'instagram' ? (
+        <Instagram size={14} className="mr-1" />
+      ) : link.type === 'facebook' ? (
+        <Facebook size={14} className="mr-1" />
+      ) : null}
+      Join {link.type.charAt(0).toUpperCase() + link.type.slice(1)}
+      <ExternalLink size={12} className="ml-1" />
+    </a>
+  ))}
                 </div>
               ))}
             </div>
