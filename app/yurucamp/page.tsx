@@ -34,7 +34,7 @@ export default function YuruCampPage() {
   const schedule = [
     {
       day: "Friday",
-      date: "September 5, 2025",
+      date: "August 29",
       events: [
         { time: "15:00", activity: "Check-in & Camp Setup" },
         { time: "17:00", activity: "Welcome Ceremony" },
@@ -44,7 +44,7 @@ export default function YuruCampPage() {
     },
     {
       day: "Saturday",
-      date: "September 6, 2025",
+      date: "August 30",
       events: [
         { time: "08:00", activity: "Morning Yoga & Exercises" },
         { time: "10:00", activity: "Outdoor Anime Screening" },
@@ -58,7 +58,7 @@ export default function YuruCampPage() {
     },
     {
       day: "Sunday",
-      date: "September 7, 2025",
+      date: "August 31",
       events: [
         { time: "09:00", activity: "Farewell Breakfast" },
         { time: "11:00", activity: "Pack Up & Clean Up" },
@@ -122,11 +122,11 @@ export default function YuruCampPage() {
               <div className="flex items-center gap-4 text-lg text-muted-foreground-dark">
                 <div className="flex items-center gap-1">
                   <Calendar size={18} />
-                  <span>September 5-7, 2025</span>
+                  <span>August 29-31</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <MapPin size={18} />
-                  <span>Trakai National Park</span>
+                  <span>Brazuolės stovyklavietė</span>
                 </div>
               </div>
             </div>
@@ -167,31 +167,31 @@ export default function YuruCampPage() {
               {/* Features Grid */}
               <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
                 {campFeatures.map((feature, index) => (
-                  <div key={index} className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl text-center border border-border-dark/50 hover:border-green-500/30 transition-colors">
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      {feature.icon}
+                  <div key={index} className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl text-center border border-border/50 hover:border-green-500/30 transition-colors">
+                    <div className="w-16 h-16 bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-500/20">
+                      {React.cloneElement(feature.icon, { className: 'text-green-400' })}
                     </div>
-                    <h3 className="text-lg font-bold mb-2 text-foreground-dark">{feature.title}</h3>
-                    <p className="text-muted-foreground-dark text-sm">{feature.description}</p>
+                    <h3 className="text-lg font-bold mb-2 text-foreground">{feature.title}</h3>
+                    <p className="text-muted-foreground text-sm">{feature.description}</p>
                   </div>
                 ))}
               </div>
 
               {/* Detailed Description */}
               <div className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-border-dark/50">
-                <h3 className="text-2xl font-bold mb-6 text-foreground-dark">What is YuruCamp?</h3>
+                <h3 className="text-2xl font-bold mb-6 text-foreground">What is YuruCamp?</h3>
                 <div className="prose prose-invert max-w-none">
-                  <p className="text-muted-foreground-dark mb-4">
+                  <p className="text-muted-foreground mb-4">
                     YuruCamp is Lithuania's first otaku camping event, inspired by the beloved anime series. 
                     It's a unique opportunity to connect with nature while celebrating our shared love for 
                     anime, manga, and Japanese pop culture.
                   </p>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-muted-foreground mb-4">
                     Over three days, participants will enjoy outdoor anime screenings, cosplay photoshoots 
                     in beautiful natural settings, campfire storytelling, and plenty of opportunities to make 
                     new friends who share your interests.
                   </p>
-                  <p className="text-gray-600">
+                  <p className="text-muted-foreground">
                     Whether you're an experienced camper or a first-timer, YuruCamp offers a welcoming 
                     environment where everyone can enjoy the great outdoors together. All camping equipment 
                     is provided, so you just need to bring yourself and your enthusiasm!
@@ -211,11 +211,11 @@ export default function YuruCampPage() {
                   </h3>
                   <div className="space-y-3">
                     {day.events.map((event, eventIndex) => (
-                      <div key={eventIndex} className="flex items-center gap-4 p-3 bg-green-50 rounded-lg">
-                        <div className="w-16 text-sm font-semibold text-green-500 flex-shrink-0">
+                      <div key={eventIndex} className="flex items-center gap-4 p-3 bg-card/50 hover:bg-card/70 rounded-lg border border-border/30 transition-colors group">
+                        <div className="w-16 text-sm font-semibold text-green-400 flex-shrink-0">
                           {event.time}
                         </div>
-                        <div className="text-foreground-dark">{event.activity}</div>
+                        <div className="text-foreground group-hover:text-green-300 transition-colors">{event.activity}</div>
                       </div>
                     ))}
                   </div>
