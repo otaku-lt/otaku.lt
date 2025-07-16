@@ -391,10 +391,14 @@ export default function HomePage() {
             <input
               type="email"
               placeholder="Your email address"
-              className="flex-1 px-6 py-3 rounded-full border-0 bg-white/20 text-white placeholder-pink-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-pink-500"
+              disabled
+              className="flex-1 px-6 py-3 rounded-full border-0 bg-white/10 text-white/50 placeholder-pink-300/50 cursor-not-allowed"
             />
-            <button className="px-8 py-3 bg-white text-pink-600 rounded-full hover:bg-opacity-90 transition-opacity font-medium">
-              Subscribe
+            <button 
+              disabled
+              className="px-8 py-3 bg-white/50 text-pink-600/50 rounded-full cursor-not-allowed font-medium"
+            >
+              Coming Soon
             </button>
           </div>
         </div>
