@@ -37,9 +37,21 @@
   category: "anime"
   featured: false
   links:
+    - type: "web"
+      url: "https://animesub.lt/"
     - type: "facebook"
       url: "https://www.facebook.com/animesublt/"
     - type: "discord"
       url: "https://discord.gg/VmDEUzm"
 
+- id: 4
+  title: "AnimeZona"
+  description: "Stipriausia, didžiausia, ir geriausia anime vertėjų komanda Lietuvoje."
+  category: "anime"
+  featured: false
+  links:
+    - type: "facebook"
+      url: "https://www.facebook.com/animesublt/"
+    - type: "discord"
+      url: "https://discord.gg/VmDEUzm"
 
