@@ -6,7 +6,8 @@
   description: "Weekend camping festival celebrating Japanese pop culture, anime, music, and cosplay fandom"
   featured: true
   setlist:
-    - day: 1
-      type: "Japanese"
-    - day: 2
-      type: "Lithuanian"
+    days:
+      - day: 1
+        type: "Japanese"
+      - day: 2
+        type: "Lithuanian"

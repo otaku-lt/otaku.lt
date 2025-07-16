@@ -294,21 +294,25 @@ export default function KornihaBandPage() {
                 <div>
                   <p className="text-sm font-medium text-white/80">Setlist</p>
                   <p className="text-white">
-                    {featuredEvent.setlist ? (
-                      typeof featuredEvent.setlist === 'string' ? (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded bg-white/20 text-xs">
-                          {featuredEvent.setlist}
-                        </span>
-                      ) : (
-                        <span className="flex flex-wrap gap-1">
-                          {featuredEvent.setlist.days.map((day, i) => (
+                    {!featuredEvent?.setlist ? (
+                      'TBA'
+                    ) : typeof featuredEvent.setlist === 'string' ? (
+                      <span className="inline-flex items-center px-2 py-0.5 rounded bg-white/20 text-xs">
+                        {featuredEvent.setlist}
+                      </span>
+                    ) : (
+                      <span className="flex flex-wrap gap-1">
+                        {featuredEvent.setlist?.days?.length > 0 ? (
+                          featuredEvent.setlist.days.map((day, i) => (
                             <span key={i} className="inline-flex items-center px-2 py-0.5 rounded bg-white/20 text-xs">
-                              {day.day ? `Day ${day.day}: ` : ''}{day.type}
+                              {day?.day ? `Day ${day.day}: ` : ''}{day?.type || 'Performance'}
                             </span>
-                          ))}
-                        </span>
-                      )
-                    ) : 'TBA'}
+                          ))
+                        ) : (
+                          <span className="text-sm text-white/70">No setlist available yet</span>
+                        )}
+                      </span>
+                    )}
                   </p>
                 </div>
               </div>
