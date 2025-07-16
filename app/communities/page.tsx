@@ -63,26 +63,28 @@ const WebIcon = ({ size = 24, className = "", style }: IconProps) => (
   </svg>
 );
 
-const RedditIcon = ({ size = 24, className = "", style }: IconProps) => (
-  <div style={{ 
-    display: 'inline-flex',
-    filter: 'invert(1)' 
-  }}>
-    <img 
-      src="/icons/reddit.png" 
-      alt="Reddit" 
-      className={className}
-      style={{ 
-        width: size, 
-        height: size,
-        objectFit: 'contain',
-        ...style 
-      }} 
-    />
-  </div>
-);
+const RedditIcon = ({ size = 24, className = "", style = {}, isFeatured = false }: IconProps & { isFeatured?: boolean }) => {
+  const filter = isFeatured ? 'invert(1)' : 'brightness(0) saturate(100%) invert(40%) sepia(98%) saturate(1293%) hue-rotate(189deg) brightness(97%) contrast(101%)';
+  
+  return (
+    <div style={{ display: 'inline-flex' }}>
+      <img 
+        src="/icons/reddit.png" 
+        alt="Reddit" 
+        className={className}
+        style={{ 
+          width: size, 
+          height: size,
+          objectFit: 'contain',
+          filter,
+          ...style 
+        }} 
+      />
+    </div>
+  );
+};
 
-const getIcon = (type: string, size = 24, className = "", style = {}) => {
+const getIcon = (type: string, size = 24, className = "", style = {}, isFeatured = false) => {
   const iconStyle = { width: size, height: size };
   
   switch (type.toLowerCase()) {
@@ -95,7 +97,7 @@ const getIcon = (type: string, size = 24, className = "", style = {}) => {
     case 'youtube':
       return <YoutubeIcon size={size} className={className} style={style} />;
     case 'reddit':
-      return <RedditIcon size={size} className={className} style={style} />;
+      return <RedditIcon size={size} className={className} style={style} isFeatured={isFeatured} />;
     case 'web':
       return <WebIcon size={size} className={className} style={style} />;
     default:
@@ -318,7 +320,7 @@ export default function CommunitiesPage() {
       aria-label={`${community.title} on ${link.type}`}
       title={`${link.type}: ${community.title}`}
     >
-      {getIcon(link.type, 20)}
+      {getIcon(link.type, 20, "", {}, true)}
     </a>
   ))}
 </div>
@@ -398,11 +400,15 @@ export default function CommunitiesPage() {
       href={link.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-gray-700 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-gray-600 transition-colors"
+      className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
+        link.type.toLowerCase() === 'reddit' 
+          ? 'bg-blue-100 dark:bg-blue-900/50' 
+          : 'bg-blue-100 dark:bg-gray-700'
+      } text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-gray-600 transition-colors`}
       aria-label={`${community.title} on ${link.type}`}
       title={`${link.type}: ${community.title}`}
     >
-      {getIcon(link.type, 16)}
+      {getIcon(link.type, 16, "", {}, false)}
     </a>
   ))}
 </div>
