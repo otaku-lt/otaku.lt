@@ -36,7 +36,6 @@
   title: "AnimeSub"
   description: "Stipriausia, didžiausia, ir geriausia anime vertėjų komanda Lietuvoje."
   category: "anime"
-  featured: false
   links:
     - type: "web"
       url: "https://animesub.lt/"
