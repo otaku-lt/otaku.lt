@@ -212,8 +212,12 @@ export default function ContactPage() {
 
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-primary to-accent text-white font-medium py-3 px-6 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                className={`w-full bg-gradient-to-r from-primary to-accent text-white font-medium py-3 px-6 rounded-lg transition-opacity flex items-center justify-center gap-2 ${
+                  isSubmitting || !formData.name || !formData.email || !formData.message
+                    ? 'opacity-50 cursor-not-allowed'
+                    : 'hover:opacity-90'
+                }`}
+                disabled={isSubmitting || !formData.name || !formData.email || !formData.message}
               >
                 {isSubmitting ? (
                   <>
