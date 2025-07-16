@@ -8,7 +8,18 @@
       url: "https://discord.gg/otakult"
 
 - id: 2
-  title: "R/Japonija"
+  title: "Anime Lietuva"
+  description: "Lietuvos Anime bendruomenė. Laisvai diskutuokit anime tema!"
+  category: "anime"
+  featured: true
+  links:
+    - type: "facebook"
+      url: "https://www.facebook.com/groups/704082763021625/"
+    - type: "discord"
+      url: "http://discord.gg/VmDEUzm"
+
+- id: 3
+  title: "r/Japonija"
   description: "Tai bendruomenė organizuojanti gyvą veiklą žmonėms, kurie domisi Japonijos kultūra/popkultūra."
   category: "culture"
   featured: true
@@ -19,4 +30,3 @@
       url: "https://www.instagram.com/r.japonija/"
     - type: "discord"
       url: "https://discord.com/invite/VySEgbQXt6"
-
