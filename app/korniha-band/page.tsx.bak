@@ -5,10 +5,30 @@ import Link from "next/link";
 import { Music, Youtube, Instagram, Facebook as FacebookIcon, Mail, Music2, Calendar, MapPin, Users, Mic2, Disc, Play, Pause, Volume2, VolumeX, Award, ExternalLink } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import { getKornihaEvents, getFeaturedEvent } from "@/lib/events";
-import { GigsSection } from "./components/GigsSection";
-import type { Event, EventSetlist, SetlistDay } from "./types/event";
 
-// Event types are now imported from ./types/event
+// Define types for the setlist
+type SetlistDay = {
+  day?: number;
+  type: 'Japanese' | 'Lithuanian';
+  songs: string[];
+};
+
+type EventSetlist = {
+  days: SetlistDay[];
+};
+
+// Define the Event type
+type Event = {
+  id: string;
+  title: string;
+  date: string;
+  endDate?: string;
+  location: string;
+  description: string;
+  featured: boolean;
+  link?: string;
+  setlist?: EventSetlist | string;
+};
 
 export default function KornihaBandPage() {
   const [activeTab, setActiveTab] = useState("about");
@@ -25,8 +45,67 @@ export default function KornihaBandPage() {
     days: SetlistDay[];
   };
 
-  const [featuredEvent, setFeaturedEvent] = useState<Event | null>(null);
+  const [featuredEvent, setFeaturedEvent] = useState<Event & { setlist?: EventSetlist | string | null } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const downloadCalendarEvent = () => {
+    if (!featuredEvent) return;
+    
+    try {
+      // Format dates for iCal
+      const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        const pad = (n: number) => n < 10 ? '0' + n : n;
+        
+        return [
+          date.getUTCFullYear(),
+          pad(date.getUTCMonth() + 1),
+          pad(date.getUTCDate()),
+          'T',
+          pad(date.getUTCHours() || 18), // Default to 6 PM if time not specified
+          pad(date.getUTCMinutes() || 0),
+          '00',
+          'Z'
+        ].join('');
+      };
+
+      const startDate = new Date(featuredEvent.date);
+      const endDate = featuredEvent.endDate 
+        ? new Date(featuredEvent.endDate)
+        : new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // Default 2 hour event
+
+      // Create iCal content
+      const icsContent = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Otaku.lt//Korniha Band//EN',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        'BEGIN:VEVENT',
+        `UID:${Date.now()}@otaku.lt`,
+        `DTSTAMP:${formatDate(new Date().toISOString())}`,
+        `DTSTART:${formatDate(startDate.toISOString())}`,
+        `DTEND:${formatDate(endDate.toISOString())}`,
+        `SUMMARY:${featuredEvent.title.replace(/[\,;]/g, '\\$&')}`,
+        `DESCRIPTION:${featuredEvent.description.replace(/[\,;]/g, '\\$&')}\\n\\nLocation: ${featuredEvent.location.replace(/[\,;]/g, '\\$&')}`,
+        `LOCATION:${featuredEvent.location.replace(/[\,;]/g, '\\$&')}`,
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+
+      // Create download link
+      const element = document.createElement('a');
+      const file = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+      element.href = URL.createObjectURL(file);
+      element.download = `korniha-event-${featuredEvent.date}.ics`;
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    } catch (error) {
+      console.error('Error generating calendar event:', error);
+      alert('Failed to generate calendar event. Please try again.');
+    }
+  };
   
   // Filter events
   const now = new Date();
@@ -299,7 +378,10 @@ export default function KornihaBandPage() {
             </div>
             
             <div className="flex flex-wrap justify-center gap-3">
-              <button className="px-5 py-2.5 bg-white text-purple-600 rounded-full font-medium hover:bg-purple-50 transition-all flex items-center text-sm md:text-base">
+              <button 
+                onClick={downloadCalendarEvent}
+                className="px-5 py-2.5 bg-white text-purple-600 rounded-full font-medium hover:bg-purple-50 transition-all flex items-center text-sm md:text-base"
+              >
                 <Calendar className="mr-2 h-4 w-4" />
                 Add to Calendar
               </button>
@@ -529,7 +611,69 @@ export default function KornihaBandPage() {
           </div>
         )}
 
-        {activeTab === "gigs" && <GigsSection events={upcomingEvents} />}
+        {activeTab === "gigs" && (
+          <div className="space-y-6">
+            <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+              <h3 className="text-xl font-bold mb-4">Upcoming Shows</h3>
+              <div className="space-y-4">
+                {upcomingEvents.map((event: { id: string; title: string; date: string; endDate?: string; location: string; setlist?: { days: { day?: number; type: string }[] } | string; link?: string; featured?: boolean }) => (
+                  <div 
+                    key={event.id} 
+                    className={`p-4 rounded-xl ${event.featured ? 'bg-purple-50 dark:bg-gray-700/50' : 'bg-white/50 dark:bg-gray-800/30'}`}
+                  >
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1">
+                        <h4 className="font-bold text-lg">{event.title}</h4>
+                        <p className="text-gray-600 dark:text-gray-300">
+                          {new Date(event.date).toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                          })}
+                          {event.endDate && ` - ${new Date(event.endDate).toLocaleDateString('en-US', { 
+                            month: 'long', 
+                            day: 'numeric' 
+                          })}`}
+                        </p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{event.location}</p>
+                        <div className="mt-2">
+                          <span className="inline-flex items-center text-sm text-purple-600 dark:text-purple-400">
+                            <Music2 className="mr-1 h-4 w-4" />
+                            {event.setlist && typeof event.setlist !== 'string' ? (
+                              event.setlist.days.map((day, i) => (
+                                <span key={i} className="mr-2">
+                                  {i > 0 && ' • '}
+                                  {day.day ? `Day ${day.day}: ` : ''}{day.type}
+                                </span>
+                              ))
+                            ) : (
+                              <span>{event.setlist ? `Setlist: ${event.setlist}` : 'No setlist available'}</span>
+                            )}
+                          </span>
+                        </div>
+                      </div>
+                      {event.link && (
+                        <a
+                          href={event.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
+                            event.featured 
+                              ? 'bg-purple-600 text-white hover:bg-purple-700' 
+                              : 'bg-purple-100 dark:bg-gray-700 text-purple-700 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-gray-600'
+                          }`}
+                        >
+                          More Info
+                          <ExternalLink className="ml-1 h-3 w-3" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Contact Section */}
         <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-8 text-white text-center mt-12 shadow-lg">
