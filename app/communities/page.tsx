@@ -400,11 +400,7 @@ export default function CommunitiesPage() {
       href={link.url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
-        link.type.toLowerCase() === 'reddit' 
-          ? 'bg-blue-100 dark:bg-blue-900/50' 
-          : 'bg-blue-100 dark:bg-gray-700'
-      } text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-gray-600 transition-colors`}
+      className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-gray-700 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-gray-600 transition-colors"
       aria-label={`${community.title} on ${link.type}`}
       title={`${link.type}: ${community.title}`}
     >
