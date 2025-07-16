@@ -3,9 +3,10 @@
 import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, Search, Calendar, User, Home, LogIn, LogOut, ArrowLeft, Plus } from "lucide-react";
+import { Menu, X, Search, User, LogIn, LogOut, ArrowLeft } from "lucide-react";
 import { useState, useEffect, ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { getVisibleRoutes } from '@/config/routes';
 
 interface HeaderProps {
   title?: string;
@@ -18,6 +19,19 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const navLinks = getVisibleRoutes().map(route => ({
+    name: route.label,
+    href: route.path,
+    icon: route.path === '/' ? (
+      <span className="inline-flex items-center justify-center w-4 h-4">🏠</span>
+    ) : route.path === '/events' ? (
+      <span className="inline-flex items-center justify-center w-4 h-4">📅</span>
+    ) : route.path === '/submit' ? (
+      <span className="inline-flex items-center justify-center w-4 h-4">➕</span>
+    ) : (
+      <span className="inline-flex items-center justify-center w-4 h-4">🔗</span>
+    ),
+  }));
 
   // Handle scroll effect for header
   useEffect(() => {
@@ -33,14 +47,6 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
   useEffect(() => {
     setIsMenuOpen(false);
   }, [pathname]);
-
-  const navLinks = [
-    { name: "Home", href: "/", icon: <Home className="w-4 h-4" /> },
-    { name: "Events", href: "/events", icon: <Calendar className="w-4 h-4" /> },
-    { name: "Submit Event", href: "/submit", icon: <Plus className="w-4 h-4" /> },
-    { name: "Communities", href: "/communities", icon: <span className="inline-flex items-center justify-center w-4 h-4 text-base">🤝</span> },
-    { name: "Contact Us", href: "/contact", icon: <span className="inline-flex items-center justify-center w-4 h-4 text-base">📫</span> },
-  ];
 
   return (
     <header 
