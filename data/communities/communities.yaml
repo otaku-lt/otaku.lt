@@ -30,3 +30,16 @@
       url: "https://www.instagram.com/r.japonija/"
     - type: "discord"
       url: "https://discord.com/invite/VySEgbQXt6"
+
+- id: 4
+  title: "AnimeSub"
+  description: "Stipriausia, didžiausia, ir geriausia anime vertėjų komanda Lietuvoje."
+  category: "anime"
+  featured: true
+  links:
+    - type: "facebook"
+      url: "https://www.facebook.com/animesublt/"
+    - type: "discord"
+      url: "https://discord.gg/VmDEUzm"
+
+
