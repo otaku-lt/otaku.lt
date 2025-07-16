@@ -329,18 +329,6 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
-
-            {/* Response Time */}
-            <div className="bg-gradient-to-r from-pink-500 to-blue-500 rounded-2xl p-6 shadow-xl text-white">
-              <h3 className="text-xl font-bold mb-2">Response Time</h3>
-              <p className="mb-4">
-                We typically respond within 24 hours. For urgent matters, please reach out via Discord.
-              </p>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span className="text-sm">Usually online 9 AM - 6 PM (EET)</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
