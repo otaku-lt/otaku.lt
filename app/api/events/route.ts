@@ -30,11 +30,15 @@ export interface Event {
 }
 
 export async function GET() {
-  // Set CORS headers
+  // Set CORS and cache control headers
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET',
     'Content-Type': 'application/json',
+    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0',
+    'Surrogate-Control': 'no-store'
   };
 
   try {
