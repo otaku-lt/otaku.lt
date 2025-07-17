@@ -96,8 +96,8 @@ export default function YuruCampPage() {
 
         {/* Event Banner with Poster and Description */}
         <div className="bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl p-8 text-white mb-8 overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+            <div className="lg:col-span-3">
               <div className="mb-6">
                 <h2 className="text-3xl font-bold mb-2">What is YuruCamp?</h2>
                 <p className="text-muted-foreground-dark text-lg mb-4">
@@ -140,13 +140,12 @@ export default function YuruCampPage() {
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-1 flex items-start justify-center">
-              <div className="w-full max-w-md h-auto rounded-2xl shadow-2xl border-2 border-white/20 overflow-hidden">
+            <div className="lg:col-span-2">
+              <div className="h-full rounded-2xl shadow-2xl border-2 border-white/20 overflow-hidden">
                 <img 
                   src="/images/yurucamp/2025_poster.jpg" 
                   alt="YuruCamp 2025 Official Poster" 
-                  className="w-full h-auto object-contain"
-                  style={{ aspectRatio: '3/4' }}
+                  className="w-full h-full object-cover"
                 />
               </div>
             </div>
