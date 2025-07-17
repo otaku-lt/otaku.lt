@@ -80,6 +80,7 @@
 
 - id: 7
   title: "Akmenės otaku klubas „Atarashii Koishi"
+  logo: "akmene.png"
   description: "Akmenės otaku klubas „Atarashii Koishi“ – tai naujai susibūrusi bendruomenė visiems anime, mangos ir Japonijos popkultūros gerbėjams! Kartu žiūrime anime, skaitome mangą, ragaujame japoniškus užkandžius ir smagiai leidžiame laiką tarp bendraminčių. \n Jei esi iš Akmenės krašto ir domiesi Japonijos kultūra – prisijunk! Mes tavęs laukiame!"
   categories:
     - "club"
