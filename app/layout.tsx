@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/otaku_lt.png',
+        url: '/otaku_lt_icon.png',
         width: 800,
         height: 600,
         alt: 'Otaku.lt Logo',
@@ -30,14 +30,14 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Otaku.lt - Lithuania\'s Otaku Community Hub',
     description: 'Your central hub for anime, cosplay, J-pop, karaoke, and otaku culture in Lithuania.',
-    images: ['/otaku_lt.png'],
+    images: ['/otaku_lt_icon.png'],
   },
   viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',
   icons: {
-    icon: '/otaku_lt.png',
-    shortcut: '/otaku_lt.png',
-    apple: '/otaku_lt.png',
+    icon: '/otaku_lt_icon.png',
+    shortcut: '/otaku_lt_icon.png',
+    apple: '/otaku_lt_icon.png',
   },
 };
 
