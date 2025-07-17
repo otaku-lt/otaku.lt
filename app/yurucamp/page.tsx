@@ -6,6 +6,7 @@ import { Calendar, MapPin, Users, Tent, TreePine, Mountain, Camera, ArrowRight, 
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import FAQSection from "./components/FAQSection";
 import GallerySection from "./components/GallerySection";
+import ScheduleSection from "./components/ScheduleSection";
 
 export default function YuruCampPage() {
   const [activeTab, setActiveTab] = useState("about");
@@ -68,8 +69,6 @@ export default function YuruCampPage() {
       ]
     }
   ];
-
-  // FAQ data is now loaded from the API
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -251,35 +250,7 @@ export default function YuruCampPage() {
             </div>
           )}
 
-          {activeTab === "schedule" && (
-            <div className="space-y-6">
-              {process.env.NODE_ENV === 'production' ? (
-                <div className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-12 text-center">
-                  <h3 className="text-2xl font-bold mb-4 text-foreground-dark">Schedule Coming Soon</h3>
-                  <p className="text-muted-foreground">We're finalizing the schedule details. Check back later for updates!</p>
-                </div>
-              ) : (
-                schedule.map((day, index) => (
-                  <div key={index} className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-border-dark/50 hover:border-green-500/30 transition-colors">
-                    <h3 className="text-2xl font-bold mb-4 text-foreground-dark flex items-center gap-2">
-                      <Calendar className="text-green-600" size={24} />
-                      {day.day} - {day.date}
-                    </h3>
-                    <div className="space-y-3">
-                      {day.events.map((event, eventIndex) => (
-                        <div key={eventIndex} className="flex items-center gap-4 p-3 bg-card/50 hover:bg-card/70 rounded-lg border border-border/30 transition-colors group">
-                          <div className="w-16 text-sm font-semibold text-green-400 flex-shrink-0">
-                            {event.time}
-                          </div>
-                          <div className="text-foreground group-hover:text-green-300 transition-colors">{event.activity}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          )}
+          {activeTab === "schedule" && <ScheduleSection />}
 
           {activeTab === "faq" && <FAQSection />}
 
