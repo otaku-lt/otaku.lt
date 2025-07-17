@@ -271,14 +271,16 @@ export default function HomePage() {
       </header>
 
       {/* YuruCamp 2025 Banner */}
-      <div className="w-full bg-gradient-to-r from-pink-500/10 to-purple-500/10 border-b border-pink-500/20">
-        <div className="max-w-7xl mx-auto px-4">
-          <Link href="/yurucamp" className="block w-full">
-            <img 
-              src="/images/yurucamp/2025_cover.jpg" 
-              alt="YuruCamp 2025 - Weeb Camping Adventure - September 5-7, 2025" 
-              className="w-full h-auto max-h-80 object-cover object-center hover:opacity-95 transition-opacity"
-            />
+      <div className="w-full bg-gradient-to-r from-pink-500/10 to-purple-500/10 border-b border-pink-500/20 py-6">
+        <div className="max-w-6xl mx-auto px-4">
+          <Link href="/yurucamp" className="block w-full rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="relative w-full" style={{ paddingBottom: '30%' }}>
+              <img 
+                src="/images/yurucamp/2025_cover.jpg" 
+                alt="YuruCamp 2025 - Weeb Camping Adventure - September 5-7, 2025" 
+                className="absolute inset-0 w-full h-full object-cover object-center hover:opacity-95 transition-opacity"
+              />
+            </div>
           </Link>
         </div>
       </div>
