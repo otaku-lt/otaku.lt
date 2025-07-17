@@ -121,10 +121,13 @@ export default function YuruCampPage() {
               <div className="mb-6">
                 <h2 className="text-3xl font-bold mb-2">What is YuruCamp?</h2>
                 <p className="text-muted-foreground-dark text-lg mb-4">
-                  YuruCamp is a unique otaku camping experience that brings together anime fans for an unforgettable weekend in nature. 
-                  It's a celebration of Japanese pop culture under the open sky, where you can enjoy your favorite hobbies while 
-                  surrounded by beautiful Lithuanian forests and lakes. Whether you're into cosplay, anime, or just want to meet fellow 
-                  fans in a relaxed outdoor setting, YuruCamp has something special for you.
+                  A weeb-themed outdoor festival by the river, featuring a cosplay stage, photo spots, water adventures, a professional outdoor kitchen, DIY campfire option, and live evening performances by Korniha band with anime OSTs - plus the Idol Stage karaoke!
+                </p>
+                <p className="text-muted-foreground-dark text-lg mb-4">
+                  Fandom meetups (*insert your fandom here*), SpeedWeeb, a Wet Cosplay contest, and Cinema Live concert streams (Hatsune Miku, Hololive).
+                </p>
+                <p className="text-muted-foreground-dark text-lg mb-4">
+                  So, pack your tent, sleeping bag, and thermos. Bring food and drinks for you and your friends. Change into your most comfortable costume—and enjoy time together in nature!
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 text-lg text-muted-foreground-dark mb-4">
                   <div className="flex items-center gap-1">
@@ -148,8 +151,11 @@ export default function YuruCampPage() {
                     </svg>
                     Facebook Event
                   </a>
-                  <button className="px-8 py-3 bg-white text-green-600 rounded-full hover:bg-green-50 transition-colors font-semibold hover:scale-105 transform">
-                    Register Now
+                  <button 
+                    disabled
+                    className="px-8 py-3 bg-yellow-600/20 text-yellow-400 border border-yellow-500/30 rounded-full cursor-not-allowed font-semibold hover:bg-yellow-600/30 transition-colors"
+                  >
+                    Registration Coming Soon
                   </button>
                 </div>
               </div>
@@ -205,27 +211,60 @@ export default function YuruCampPage() {
                 ))}
               </div>
 
-              {/* Event Highlights */}
+              {/* Ticket Information */}
               <div className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-border-dark/50">
-                <h3 className="text-2xl font-bold mb-6 text-foreground">Event Highlights</h3>
+                <h3 className="text-2xl font-bold mb-6 text-foreground">Tickets & Information</h3>
                 <div className="prose prose-invert max-w-none">
+                  <div className="grid md:grid-cols-2 gap-6 mb-6">
+                    <div className="bg-gradient-to-br from-green-900/30 to-blue-900/30 p-6 rounded-xl border border-green-500/20">
+                      <h4 className="text-xl font-bold mb-2">Regular Ticket</h4>
+                      <p className="text-muted-foreground mb-4">€15 (includes €10 deposit for glowstick)</p>
+                      <p className="text-sm text-muted-foreground/80">Ticket quantity is limited</p>
+                      <a 
+                        href="https://wibu.me/PdVyP" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-block mt-4 px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors text-sm font-medium"
+                      >
+                        Buy Online
+                      </a>
+                      <p className="text-xs text-muted-foreground/60 mt-2">
+                        Please email your transaction copy to ymca@otaku.lt to receive your QR code
+                      </p>
+                    </div>
+                    <div className="bg-gradient-to-br from-yellow-900/30 to-amber-900/30 p-6 rounded-xl border border-yellow-500/20">
+                      <h4 className="text-xl font-bold mb-2">VIP Ticket</h4>
+                      <p className="text-muted-foreground mb-4">€25 (includes premium glowstick)</p>
+                      <p className="text-sm text-muted-foreground/80">Very limited quantity</p>
+                      <p className="text-xs text-muted-foreground/60 mt-4">
+                        VIP tickets help support our new event and include a high-quality glowstick
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <h4 className="text-lg font-semibold mt-8 mb-2">Registration</h4>
                   <p className="text-muted-foreground mb-4">
-                    Join us for an unforgettable weekend where anime culture meets outdoor adventure. Our carefully 
-                    curated program includes something for every fan:
+                    Registration for cosplay and fandom meetups will be announced soon.
                   </p>
-                  <ul className="list-disc pl-5 mb-4 space-y-2">
-                    <li>Live performance by Korniha band</li>
-                    <li>Karaoke nights with professional equipment</li>
-                    <li>Cosplay masquerade with prizes</li>
-                    <li>Wet cosplay photoshoots by the river</li>
-                    <li>Outdoor anime screenings under the stars</li>
-                    <li>Fandom meetups and community activities</li>
-                  </ul>
+                  
+                  <h4 className="text-lg font-semibold mt-6 mb-2">Getting There</h4>
                   <p className="text-muted-foreground">
-                    Whether you're an experienced camper or a first-timer, YuruCamp offers a welcoming 
-                    environment where everyone can enjoy the great outdoors together. All camping equipment 
-                    is provided, so you just need to bring yourself and your enthusiasm!
+                    The campsite is accessible by train! Take the train to Kragžliai station (QX44+9M). 
+                    It's a 20-minute walk from the station to the campsite. A free shuttle will run 
+                    a few times a day between the station and the campsite. Parking for cars is also available.
                   </p>
+                  
+                  <div className="mt-6 p-4 bg-yellow-900/20 border-l-4 border-yellow-500 rounded-r">
+                    <div className="flex items-start">
+                      <svg className="h-5 w-5 text-yellow-400 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                      <div>
+                        <p className="text-yellow-200 font-medium">Rain or Shine Event</p>
+                        <p className="text-yellow-100 text-sm mt-1">The festival will proceed regardless of weather conditions. We have tents and shelters in place to keep everyone comfortable.</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -280,24 +319,7 @@ export default function YuruCampPage() {
           )}
         </div>
 
-        {/* Registration CTA */}
-        <div className="bg-gradient-to-r from-green-600/90 to-blue-600/90 rounded-2xl p-8 text-white text-center mt-12 border border-green-500/20">
-          <h3 className="text-3xl font-bold mb-4">Ready for Adventure?</h3>
-          <p className="text-xl mb-6 max-w-2xl mx-auto text-muted-foreground">
-            Join us for an unforgettable otaku camping experience. Limited spots available!
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-white text-green-700 rounded-full hover:bg-green-50 hover:scale-105 transition-all font-semibold text-lg">
-              Register Now - €45
-            </button>
-            <Link
-              href="/contact"
-              className="px-8 py-3 border-2 border-white/30 text-white rounded-full hover:bg-white/10 hover:border-white/50 transition-all font-semibold text-lg"
-            >
-              Have Questions?
-            </Link>
-          </div>
-        </div>
+
       </div>
     </div>
   );
