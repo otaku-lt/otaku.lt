@@ -143,7 +143,7 @@ export default function YuruCampPage() {
             <div className="lg:col-span-1">
               <div className="h-full overflow-hidden rounded-2xl shadow-2xl border-2 border-white/20">
                 <img 
-                  src="/images/yurucamp/2025_poster.png" 
+                  src="/images/yurucamp/2025_poster.jpg" 
                   alt="YuruCamp 2025 Official Poster" 
                   className="w-full h-full object-cover"
                 />
