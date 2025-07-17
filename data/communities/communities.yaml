@@ -33,7 +33,7 @@
       url: "https://discord.com/invite/VySEgbQXt6"
 
 - id: 4
-  title: "AnimeSub"
+  title: "AnimeSub.LT"
   logo: "animesub.png"
   description: "Stipriausia, didžiausia, ir geriausia anime vertėjų komanda Lietuvoje."
   category: "anime"
@@ -65,7 +65,6 @@
   logo: "ccbcosplay.png"
   description: "Comic Con Baltics Cosplay Club - a place for cosplayers and lovers of this hobby to communicate, share news and knowledge, and just celebrate the joys of cosplay!"
   category: "cosplay"
-  featured: false
   links:
     - type: "facebook"
       url: "https://www.facebook.com/groups/666491483556518/"
