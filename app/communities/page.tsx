@@ -14,7 +14,8 @@ interface Community {
   id: string;
   title: string;
   description: string;
-  category: string;
+  category?: string; // For backward compatibility
+  categories?: string[]; // New field for multiple categories
   featured?: boolean;
   active?: boolean; // Whether the community is active (default: true)
   logo?: string; // Path to the logo image in the public directory
@@ -148,21 +149,33 @@ export default function CommunitiesPage() {
   }, []);
 
   // Get all unique categories with counts
+  const allCategories = communities.flatMap(community => 
+    community.categories || [community.category].filter(Boolean)
+  );
+  
   const categories = [
     { id: 'all', label: 'All', count: communities.length },
-    ...Array.from(new Set(communities.map(c => c.category))).map(category => ({
-      id: category,
-      label: category.charAt(0).toUpperCase() + category.slice(1),
-      count: communities.filter(c => c.category === category).length
-    }))
+    ...Array.from(new Set(allCategories))
+      .filter((category): category is string => typeof category === 'string' && category.length > 0)
+      .map(category => ({
+        id: category,
+        label: category.charAt(0).toUpperCase() + category.slice(1),
+        count: communities.filter(c => 
+          (c.categories && c.categories.includes(category)) || 
+          c.category === category
+        ).length
+      }))
   ];
 
   // Filter communities based on search and category
   const filteredCommunities = communities.filter(community => {
     const matchesSearch = community.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                        community.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || community.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    const hasMatchingCategory = 
+      selectedCategory === 'all' || 
+      (community.categories && community.categories.includes(selectedCategory)) ||
+      community.category === selectedCategory;
+    return matchesSearch && hasMatchingCategory;
   });
 
   if (loading) {
@@ -291,7 +304,7 @@ export default function CommunitiesPage() {
                     )}
                     <div className="flex-1">
                       <h3 className="text-lg font-bold text-gray-800 dark:text-white">{community.title}</h3>
-                      <div className="flex items-center gap-2 mt-1">
+                      <div className="flex flex-wrap items-center gap-2 mt-1">
                         <span className={`text-xs px-2 py-1 rounded-full ${
                           community.active === false 
                             ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300' 
@@ -299,9 +312,14 @@ export default function CommunitiesPage() {
                         }`}>
                           {community.active === false ? 'Inactive' : (community.activity || 'Active')}
                         </span>
-                        <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
-                          {community.category}
-                        </span>
+                        {(community.categories || [community.category].filter(Boolean)).map((cat, idx) => (
+                          <span 
+                            key={idx}
+                            className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full"
+                          >
+                            {cat}
+                          </span>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -368,7 +386,7 @@ export default function CommunitiesPage() {
                     )}
                     <div className="flex-1">
                       <h3 className="text-lg font-bold text-gray-800 dark:text-white">{community.title}</h3>
-                      <div className="flex items-center gap-2 mt-1">
+                      <div className="flex flex-wrap items-center gap-2 mt-1">
                         <span className={`text-xs px-2 py-1 rounded-full ${
                           community.active === false 
                             ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300' 
@@ -376,9 +394,14 @@ export default function CommunitiesPage() {
                         }`}>
                           {community.active === false ? 'Inactive' : (community.activity || 'Active')}
                         </span>
-                        <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
-                          {community.category}
-                        </span>
+                        {(community.categories || [community.category].filter(Boolean)).map((cat, idx) => (
+                          <span 
+                            key={idx}
+                            className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full"
+                          >
+                            {cat}
+                          </span>
+                        ))}
                       </div>
                     </div>
                   </div>

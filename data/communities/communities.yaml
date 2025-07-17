@@ -1,7 +1,8 @@
 - id: 1
   title: "Anime Lietuva"
   description: "Lietuvos Anime bendruomenė. Laisvai diskutuokit anime tema!"
-  category: "anime"
+  categories:
+    - "anime"
   featured: true
   links:
     - type: "facebook"
@@ -11,7 +12,9 @@
   title: "J-music LT"
   logo: "jmusic.png"
   description: "J-music LT yra jaukus kampelis, skirtas dalintis įvairia japonų ir kitokia mėgstama muzika bei naujais atradimais, tačiau mes neapsiribojame vien tik muzikos diskusijomis. Mes taip pat kartu žiūrime anime/filmus, žaidžiame D&D ir video žaidimus, organizuojame susitikimus gyvai. Mūsų serveris yra atviras visiems bendraminčiams ir smalsioms sieloms. Užsukite, jei norite prisijungti prie mūsų draugiškos bendruomenės! "
-  category: "music"
+  categories:
+    - "music"
+
   featured: true
   links:
     - type: "discord"
@@ -21,7 +24,9 @@
   title: "r/Japonija"
   logo: "rjaponija.png"
   description: "Tai bendruomenė organizuojanti gyvą veiklą žmonėms, kurie domisi Japonijos kultūra/popkultūra."
-  category: "culture"
+  categories:
+    - "culture"
+    - "manga"
   featured: true
   links:
     - type: "reddit"
@@ -35,7 +40,9 @@
   title: "AnimeSub.LT"
   logo: "animesub.png"
   description: "Stipriausia, didžiausia, ir geriausia anime vertėjų komanda Lietuvoje."
-  category: "anime"
+  categories:
+    - "anime"
+    - "fansub"
   links:
     - type: "web"
       url: "https://animesub.lt/"
@@ -46,8 +53,9 @@
 
 - id: 5
   title: "AnimeZona"
-  description: "AnimeZona.net yra daug metų gyvuojantis ir pats didžiausias Lietuviškas portalas dedikuotas viskam kas susiję su anime fandomu ir tuo kas yra įdomu jo nariams."
-  category: "anime"
+  description: "AnimeZona.net yra daug metų gyvuojantis ir pats didžiausias Lietuviškas portalas dedikuotas viskam kas susiję su anime fandomu ir tuo kas įdomu jo nariams."
+  categories:
+    - "anime"
   active: false
   featured: false
   links:
@@ -58,13 +66,25 @@
     - type: "youtube"
       url: "https://www.youtube.com/@AnimeZonaPodcast"
 
-
 - id: 6
   title: "Comic Con Baltics Cosplay Club"
   logo: "ccbcosplay.png"
   description: "Comic Con Baltics Cosplay Club - a place for cosplayers and lovers of this hobby to communicate, share news and knowledge, and just celebrate the joys of cosplay!"
-  category: "cosplay"
+  categories:
+    - "cosplay"
+    - "club"
   links:
     - type: "facebook"
       url: "https://www.facebook.com/groups/666491483556518/"
 
+
+- id: 7
+  title: "Akmenės otaku klubas „Atarashii Koishi"
+  description: "Akmenės otaku klubas „Atarashii Koishi“ – tai naujai susibūrusi bendruomenė visiems anime, mangos ir Japonijos popkultūros gerbėjams! Kartu žiūrime anime, skaitome mangą, ragaujame japoniškus užkandžius ir smagiai leidžiame laiką tarp bendraminčių. \n Jei esi iš Akmenės krašto ir domiesi Japonijos kultūra – prisijunk! Mes tavęs laukiame!"
+  categories:
+    - "club"
+    - "anime"
+    - "manga"
+  links:
+    - type: "facebook"
+      url: "https://www.facebook.com/people/Akmen%C4%97s-otaku-klubas-Atarashii-Koishi/61577975646482/"
