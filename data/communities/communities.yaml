@@ -34,6 +34,7 @@
 
 - id: 4
   title: "AnimeSub"
+  logo: "animesub.png"
   description: "Stipriausia, didžiausia, ir geriausia anime vertėjų komanda Lietuvoje."
   category: "anime"
   links:
