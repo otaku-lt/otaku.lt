@@ -251,15 +251,29 @@ export default function ContactPage() {
                     <p className="mt-1 text-base text-foreground">otaku@otaku.lt</p>
                   </div>
                 </div>
-                <div className="flex items-start mt-6">
-                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-lg">
-                    <MessageCircle className="h-6 w-6 text-primary" />
+                <a 
+                  href="https://discord.gg/2gjpUqBPsj" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block hover:bg-accent/5 rounded-lg p-2 -m-2 transition-colors"
+                >
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 bg-primary/10 p-3 rounded-lg">
+                      <MessageCircle className="h-6 w-6 text-primary" />
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-sm font-medium text-muted-foreground">Discord</h3>
+                      <p className="mt-1 text-base text-foreground flex items-center">
+                        Join our community
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-1.5">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                      </p>
+                    </div>
                   </div>
-                  <div className="ml-4">
-                    <h3 className="text-sm font-medium text-muted-foreground">Discord</h3>
-                    <p className="mt-1 text-base text-foreground">Join our community</p>
-                  </div>
-                </div>
+                </a>
                 <div className="flex items-start">
                   <div className="flex-shrink-0 bg-primary/10 p-3 rounded-lg">
                     <MapPin className="h-6 w-6 text-primary" />
