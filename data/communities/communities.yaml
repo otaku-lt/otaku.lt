@@ -58,3 +58,13 @@
     - type: "youtube"
       url: "https://www.youtube.com/@AnimeZonaPodcast"
 
+
+- id: 6
+  title: "Comic Con Baltics Cosplay Club"
+  description: "Comic Con Baltics Cosplay Club - a place for cosplayers and lovers of this hobby to communicate, share news and knowledge, and just celebrate the joys of cosplay!"
+  category: "cosplay"
+  featured: false
+  links:
+    - type: "facebook"
+      url: "https://www.facebook.com/groups/666491483556518/"
+
