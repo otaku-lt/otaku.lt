@@ -101,7 +101,7 @@ export default function YuruCampPage() {
               <div className="mb-6">
                 <h2 className="text-3xl font-bold mb-2">What is YuruCamp?</h2>
                 <p className="text-muted-foreground-dark text-lg mb-4">
-                  A weeb-themed outdoor festival by the river, featuring a cosplay stage, photo spots, water adventures, a professional outdoor kitchen, DIY campfire option, and live evening performances by Korniha band with anime OSTs - plus the Idol Stage karaoke!
+                  A weeb-themed outdoor festival by the river, featuring a cosplay stage, photo spots, water adventures, a professional outdoor kitchen, DIY campfire option, live evening performances by Korniha band with anime OSTs, and the Idol Stage karaoke! Artists will enjoy sketch meetups, live drawing sessions, and collaborative art projects in our Creative Hub.
                 </p>
                 <p className="text-muted-foreground-dark text-lg mb-4">
                   Fandom meetups (*insert your fandom here*), SpeedWeeb, a Wet Cosplay contest, and Cinema Live concert streams (Hatsune Miku, Kasane Tetsu, Hololive). Join our Creative Hub for artist workshops, where you can learn new skills, share techniques, and create amazing art together with fellow enthusiasts.
