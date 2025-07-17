@@ -27,7 +27,7 @@ export default function YuruCampPage() {
     {
       icon: <Users className="text-green-600" size={24} />,
       title: "Community & Activities",
-      description: "Fandom meetups, games, and outdoor anime screenings"
+      description: "Fandom meetups, games, and outdoor vocaloid and vtubers screenings"
     }
   ];
 
@@ -124,10 +124,10 @@ export default function YuruCampPage() {
                   A weeb-themed outdoor festival by the river, featuring a cosplay stage, photo spots, water adventures, a professional outdoor kitchen, DIY campfire option, and live evening performances by Korniha band with anime OSTs - plus the Idol Stage karaoke!
                 </p>
                 <p className="text-muted-foreground-dark text-lg mb-4">
-                  Fandom meetups (*insert your fandom here*), SpeedWeeb, a Wet Cosplay contest, and Cinema Live concert streams (Hatsune Miku, Hololive).
+                  Fandom meetups (*insert your fandom here*), SpeedWeeb, a Wet Cosplay contest, and Cinema Live concert streams (Hatsune Miku, Kasane Tetsu, Hololive).
                 </p>
                 <p className="text-muted-foreground-dark text-lg mb-4">
-                  So, pack your tent, sleeping bag, and thermos. Bring food and drinks for you and your friends. Change into your most comfortable costume—and enjoy time together in nature!
+                  So, pack your tent, sleeping bag, and thermos (for ramen, of course!). Don't forget your cat ears, fluffy tail, and plenty of glowsticks for the evening concerts. Bring your favorite anime snacks, a reusable water bottle (hydration is important!), and your most comfortable cosplay. Whether you're a camping pro or a first-time weeb in the wild, we can't wait to see you there!
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 text-lg text-muted-foreground-dark mb-4">
                   <div className="flex items-center gap-1">
@@ -232,11 +232,11 @@ export default function YuruCampPage() {
                         Please email your transaction copy to ymca@otaku.lt to receive your QR code
                       </p>
                     </div>
-                    <div className="bg-gradient-to-br from-yellow-900/30 to-amber-900/30 p-6 rounded-xl border border-yellow-500/20">
-                      <h4 className="text-xl font-bold mb-2">VIP Ticket</h4>
-                      <p className="text-muted-foreground mb-4">€25 (includes premium glowstick)</p>
-                      <p className="text-sm text-muted-foreground/80">Very limited quantity</p>
-                      <p className="text-xs text-muted-foreground/60 mt-4">
+                    <div className="bg-gradient-to-br from-red-900/40 to-red-800/30 p-6 rounded-xl border border-red-500/30">
+                      <h4 className="text-xl font-bold mb-2 text-red-100">VIP Ticket</h4>
+                      <p className="text-red-50/90 mb-4">€25 (includes premium glowstick)</p>
+                      <p className="text-sm text-red-100/80">Very limited quantity</p>
+                      <p className="text-xs text-red-100/70 mt-4">
                         VIP tickets help support our new event and include a high-quality glowstick
                       </p>
                     </div>
@@ -254,14 +254,14 @@ export default function YuruCampPage() {
                     a few times a day between the station and the campsite. Parking for cars is also available.
                   </p>
                   
-                  <div className="mt-6 p-4 bg-yellow-900/20 border-l-4 border-yellow-500 rounded-r">
+                  <div className="mt-6 p-4 bg-red-900/30 border-l-4 border-red-500 rounded-r">
                     <div className="flex items-start">
-                      <svg className="h-5 w-5 text-yellow-400 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="h-5 w-5 text-red-400 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                       </svg>
                       <div>
-                        <p className="text-yellow-200 font-medium">Rain or Shine Event</p>
-                        <p className="text-yellow-100 text-sm mt-1">The festival will proceed regardless of weather conditions. We have tents and shelters in place to keep everyone comfortable.</p>
+                        <p className="text-red-100 font-medium">Rain or Shine Event</p>
+                        <p className="text-red-50 text-sm mt-1">The festival will proceed regardless of weather conditions. We have tents and shelters in place to keep everyone comfortable.</p>
                       </div>
                     </div>
                   </div>
