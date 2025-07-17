@@ -100,3 +100,21 @@
   links:
     - type: "facebook"
       url: "https://www.facebook.com/p/Marijampol%C4%97s-Otaku-klubas-100063565027724/"
+
+- id: 9
+  title: "Japonistikos klubas Hashi"
+  description: "Klubas „Hashi“ yra visuomeninė ne pelno siekianti organizacija, visada atvira naujiems nariams ir idėjoms, todėl, jei nori: pagerinti japonų bei anglų kalbų įgūdžius, susirasti naujų draugųlabiau pažinti Tekančios saulės šalies kultūrą"
+  categories:
+    - "club"
+    - "culture"
+  links:
+    - type: "web"
+      url: "https://www.vdu.lt/lt/laisvalaikis/akademiniai-ir-studentu-klubai/japonistikos-klubas-hashi/"
+    - type: "facebook"
+      url: "https://www.facebook.com/vduhashi/"
+    - type: "discord"
+      url: "https://discord.gg/wdX3u7KUws"
+    - type: "instagram"
+      url: "https://instagram.com/hashi_vdu"
+      
+  
