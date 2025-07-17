@@ -16,7 +16,33 @@ const nextConfig = {
       bodySizeLimit: '2mb',
     },
   },
-  // Webpack configuration can be added here if needed
+  // Handle subdomain rewrites
+  async rewrites() {
+    return [
+      // Handle korniha.otaku.lt -> otaku.lt/korniha-band
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'korniha.otaku.lt',
+          },
+        ],
+        destination: '/korniha-band/:path*',
+      },
+      // Handle yurucamp.otaku.lt -> otaku.lt/yurucamp
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'yurucamp.otaku.lt',
+          },
+        ],
+        destination: '/yurucamp/:path*',
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
