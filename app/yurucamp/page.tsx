@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Calendar, MapPin, Users, Tent, TreePine, Mountain, Camera, ArrowRight, ArrowUpRight, Star, Music } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
+import FAQSection from "./components/FAQSection";
 
 export default function YuruCampPage() {
   const [activeTab, setActiveTab] = useState("about");
@@ -67,28 +68,7 @@ export default function YuruCampPage() {
     }
   ];
 
-  const faqs = [
-    {
-      question: "What should I bring?",
-      answer: "We'll provide camping equipment, but bring personal items, cosplay, comfortable clothes, and toiletries. Full packing list will be sent to registered participants."
-    },
-    {
-      question: "Is food included?",
-      answer: "Yes! All meals are included in the registration fee. We'll have vegetarian and vegan options available."
-    },
-    {
-      question: "What if it rains?",
-      answer: "We have covered areas and backup indoor activities. The event will proceed rain or shine!"
-    },
-    {
-      question: "Are there age restrictions?",
-      answer: "18+ only for this edition. Future family-friendly editions may be organized."
-    },
-    {
-      question: "Can I bring my own tent?",
-      answer: "Absolutely! Personal tents are welcome. We'll also have shared tents available."
-    }
-  ];
+  // FAQ data is now loaded from the API
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -272,54 +252,59 @@ export default function YuruCampPage() {
 
           {activeTab === "schedule" && (
             <div className="space-y-6">
-              {schedule.map((day, index) => (
-                <div key={index} className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-border-dark/50 hover:border-green-500/30 transition-colors">
-                  <h3 className="text-2xl font-bold mb-4 text-foreground-dark flex items-center gap-2">
-                    <Calendar className="text-green-600" size={24} />
-                    {day.day} - {day.date}
-                  </h3>
-                  <div className="space-y-3">
-                    {day.events.map((event, eventIndex) => (
-                      <div key={eventIndex} className="flex items-center gap-4 p-3 bg-card/50 hover:bg-card/70 rounded-lg border border-border/30 transition-colors group">
-                        <div className="w-16 text-sm font-semibold text-green-400 flex-shrink-0">
-                          {event.time}
-                        </div>
-                        <div className="text-foreground group-hover:text-green-300 transition-colors">{event.activity}</div>
-                      </div>
-                    ))}
-                  </div>
+              {process.env.NODE_ENV === 'production' ? (
+                <div className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-12 text-center">
+                  <h3 className="text-2xl font-bold mb-4 text-foreground-dark">Schedule Coming Soon</h3>
+                  <p className="text-muted-foreground">We're finalizing the schedule details. Check back later for updates!</p>
                 </div>
-              ))}
+              ) : (
+                schedule.map((day, index) => (
+                  <div key={index} className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-border-dark/50 hover:border-green-500/30 transition-colors">
+                    <h3 className="text-2xl font-bold mb-4 text-foreground-dark flex items-center gap-2">
+                      <Calendar className="text-green-600" size={24} />
+                      {day.day} - {day.date}
+                    </h3>
+                    <div className="space-y-3">
+                      {day.events.map((event, eventIndex) => (
+                        <div key={eventIndex} className="flex items-center gap-4 p-3 bg-card/50 hover:bg-card/70 rounded-lg border border-border/30 transition-colors group">
+                          <div className="w-16 text-sm font-semibold text-green-400 flex-shrink-0">
+                            {event.time}
+                          </div>
+                          <div className="text-foreground group-hover:text-green-300 transition-colors">{event.activity}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           )}
 
-          {activeTab === "faq" && (
-            <div className="space-y-4">
-              {faqs.map((faq, index) => (
-                <div key={index} className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-border-dark/50 hover:border-green-500/30 transition-colors">
-                  <h3 className="text-lg font-bold mb-3 text-foreground-dark">{faq.question}</h3>
-                  <p className="text-muted-foreground-dark">{faq.answer}</p>
-                </div>
-              ))}
-            </div>
-          )}
+          {activeTab === "faq" && <FAQSection />}
 
           {activeTab === "gallery" && (
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {[...Array(6)].map((_, index) => (
-                <div key={index} className="aspect-square bg-gradient-to-br from-green-900/30 to-blue-900/30 rounded-2xl flex items-center justify-center hover:scale-105 transition-transform cursor-pointer shadow-xl border border-border/50 hover:border-green-500/30">
-                  <div className="text-center">
-                    <Camera size={48} className="text-green-400 mx-auto mb-2" />
-                    <p className="text-foreground font-semibold">Photo Gallery</p>
-                    <p className="text-muted-foreground text-sm">Coming Soon</p>
-                  </div>
+            <div className="space-y-6">
+              {process.env.NODE_ENV === 'production' ? (
+                <div className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-12 text-center">
+                  <h3 className="text-2xl font-bold mb-4 text-foreground-dark">Gallery Coming Soon</h3>
+                  <p className="text-muted-foreground">Check back after the event to see photos from YuruCamp 2025!</p>
                 </div>
-              ))}
+              ) : (
+                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {[...Array(6)].map((_, index) => (
+                    <div key={index} className="aspect-square bg-gradient-to-br from-green-900/30 to-blue-900/30 rounded-2xl flex items-center justify-center hover:scale-105 transition-transform cursor-pointer shadow-xl border border-border/50 hover:border-green-500/30">
+                      <div className="text-center">
+                        <Camera size={48} className="text-green-400 mx-auto mb-2" />
+                        <p className="text-foreground font-semibold">Photo Gallery</p>
+                        <p className="text-muted-foreground text-sm">Coming Soon</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
-
-
       </div>
     </div>
   );
