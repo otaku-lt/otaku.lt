@@ -88,3 +88,15 @@
   links:
     - type: "facebook"
       url: "https://www.facebook.com/people/Akmen%C4%97s-otaku-klubas-Atarashii-Koishi/61577975646482/"
+
+- id: 8
+  title: "Marijampolės Otaku klubas"
+  logo: "marijampoleklubas.jpg"
+  description: "Mūsų tikslas surinkti visus kurie žiūri anime ir skaito mangą Marijampolės regione."
+  categories:
+    - "club"
+    - "anime"
+    - "manga"
+  links:
+    - type: "facebook"
+      url: "https://www.facebook.com/p/Marijampol%C4%97s-Otaku-klubas-100063565027724/"
