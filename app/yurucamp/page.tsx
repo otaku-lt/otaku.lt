@@ -239,7 +239,8 @@ export default function YuruCampPage() {
                   <p className="text-muted-foreground">
                     The campsite is accessible by train! Take the train to Kragžliai station (QX44+9M). 
                     It's a 20-minute walk from the station to the campsite. A free shuttle will run 
-                    a few times a day between the station and the campsite. Parking for cars is also available.
+                    a few times a day between the station and the campsite, primarily for transporting 
+                    attendees' belongings (priority given to cosplay equipment). Parking for cars is also available.
                   </p>
                   
                   <div className="mt-6 p-4 bg-red-900/30 border-l-4 border-red-500 rounded-r">
