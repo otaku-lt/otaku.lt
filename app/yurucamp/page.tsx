@@ -198,7 +198,7 @@ export default function YuruCampPage() {
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
                     <div className="bg-gradient-to-br from-green-900/30 to-blue-900/30 p-6 rounded-xl border border-green-500/20">
                       <h4 className="text-xl font-bold mb-2">Regular Ticket</h4>
-                      <p className="text-muted-foreground mb-4">€15 (includes €10 deposit for glowstick)</p>
+                      <p className="text-muted-foreground mb-4">€15 (limited number of glowsticks available for €10 deposit)</p>
                       <p className="text-sm text-muted-foreground/80">Ticket quantity is limited</p>
                       <a 
                         href="https://wibu.me/PdVyP" 
