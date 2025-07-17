@@ -274,7 +274,7 @@ export default function HomePage() {
       <div className="w-full bg-gradient-to-r from-pink-500/10 to-purple-500/10 border-b border-pink-500/20 py-6">
         <div className="max-w-6xl mx-auto px-4">
           <Link href="/yurucamp" className="block w-full rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
-            <div className="relative w-full" style={{ paddingBottom: '30%' }}>
+            <div className="relative w-full" style={{ paddingBottom: '35%' }}>
               <img 
                 src="/images/yurucamp/2025_cover.jpg" 
                 alt="YuruCamp 2025 - Weeb Camping Adventure - September 5-7, 2025" 
