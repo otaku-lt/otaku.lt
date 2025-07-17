@@ -140,12 +140,13 @@ export default function YuruCampPage() {
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-1">
-              <div className="h-full overflow-hidden rounded-2xl shadow-2xl border-2 border-white/20">
+            <div className="lg:col-span-1 flex items-start justify-center">
+              <div className="w-full max-w-md h-auto rounded-2xl shadow-2xl border-2 border-white/20 overflow-hidden">
                 <img 
                   src="/images/yurucamp/2025_poster.jpg" 
                   alt="YuruCamp 2025 Official Poster" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto object-contain"
+                  style={{ aspectRatio: '3/4' }}
                 />
               </div>
             </div>
