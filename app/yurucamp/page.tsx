@@ -216,6 +216,14 @@ export default function YuruCampPage() {
                       <h4 className="text-xl font-bold mb-2 text-red-100">VIP Ticket</h4>
                       <p className="text-red-50/90 mb-4">€25 (includes premium glowstick)</p>
                       <p className="text-sm text-red-100/80">Very limited quantity</p>
+                      <a 
+                        href="https://wibu.me/BFeBv" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-block mt-4 px-6 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors text-sm font-medium"
+                      >
+                        Buy VIP Ticket
+                      </a>
                       <p className="text-xs text-red-100/70 mt-4">
                         VIP tickets help support our new event and include a high-quality glowstick
                       </p>
