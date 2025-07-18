@@ -36,12 +36,6 @@ export const routes: RouteConfig[] = [
     isProtected: true, // Will be hidden in production
     isEnabled: true,
   },
-  {
-    path: '/submit',
-    label: 'Submit Event',
-    isProtected: true, // Will be hidden in production
-    isEnabled: true,
-  },
   // Add more routes here as needed
 ];
 
