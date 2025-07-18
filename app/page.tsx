@@ -203,14 +203,16 @@ export default function HomePage() {
                   <span>🏠</span>
                   Home
                 </Link>
-                <Link
-                  href="/events"
-                  className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <span>🎌</span>
-                  Event Calendar
-                </Link>
+                {process.env.NODE_ENV !== 'production' && (
+                  <Link
+                    href="/events"
+                    className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span>🎌</span>
+                    Event Calendar
+                  </Link>
+                )}
                 <Link
                   href="/communities"
                   className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
