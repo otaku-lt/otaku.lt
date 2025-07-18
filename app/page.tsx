@@ -113,7 +113,7 @@ export default function HomePage() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
               </Link>
               
-              <FeatureFlag name="eventCalendar">
+              {isRouteVisible('/events') && (
                 <Link
                   href="/events"
                   className="text-foreground/90 hover:text-pink-400 transition-colors relative group flex items-center gap-1"
@@ -122,7 +122,7 @@ export default function HomePage() {
                   Events
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
                 </Link>
-              </FeatureFlag>
+              )}
 
               <Link
                 href="/communities"
@@ -203,14 +203,16 @@ export default function HomePage() {
                   <span>🏠</span>
                   Home
                 </Link>
-                <Link
-                  href="/events"
-                  className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <span>🎌</span>
-                  Event Calendar
-                </Link>
+                {isRouteVisible('/events') && (
+                  <Link
+                    href="/events"
+                    className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span>🎌</span>
+                    Event Calendar
+                  </Link>
+                )}
                 <Link
                   href="/communities"
                   className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
@@ -302,8 +304,8 @@ export default function HomePage() {
               Your central hub for anime, cosplay, J-pop, karaoke, and otaku culture in Lithuania. 
               Powered by community, love for Japan, and good vibes. 🌸
             </p>
-            <FeatureFlag name="eventCalendar">
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              {isRouteVisible('/events') && (
                 <Link
                   href="/events"
                   className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-full hover:from-pink-600 hover:to-pink-700 transition-all hover:scale-105 shadow-lg"
@@ -311,6 +313,8 @@ export default function HomePage() {
                   <Calendar className="mr-2" size={20} />
                   Explore Events
                 </Link>
+              )}
+              {isRouteVisible('/submit') && (
                 <Link
                   href="/submit"
                   className="inline-flex items-center px-8 py-4 border-2 border-pink-500 text-pink-600 rounded-full hover:bg-pink-50 transition-all hover:scale-105"
@@ -318,10 +322,10 @@ export default function HomePage() {
                   <Star className="mr-2" size={20} />
                   Submit Event
                 </Link>
-              </div>
-            </FeatureFlag>
+              )}
+            </div>
             
-            <FeatureFlag name="eventCalendar">
+            {isRouteVisible('/events') && (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {upcomingEvents.map((event) => (
                   <EventCard
@@ -340,7 +344,7 @@ export default function HomePage() {
                   />
                 ))}
               </div>
-            </FeatureFlag>
+            )}
           </div>
         </div>
 

@@ -3,7 +3,14 @@
 import Link from 'next/link';
 import { Mail, Facebook, Youtube, Sparkles } from 'lucide-react';
 import Image from 'next/image';
-import { isRouteVisible } from '@/config/routes';
+import { isRouteVisible, getVisibleRoutes } from '@/config/routes';
+
+type RouteType = {
+  path: string;
+  label: string;
+  isProtected?: boolean;
+  isEnabled?: boolean;
+};
 
 // Discord icon component
 const DiscordIcon = ({ size = 16, className = "" }) => (
@@ -42,12 +49,20 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-muted-foreground">
-              <li><Link href="/" className="hover:text-pink-400 flex items-center gap-2">🏠 Home</Link></li>
-              {process.env.NODE_ENV !== 'production' && (
-                <li><Link href="/events" className="hover:text-pink-400 flex items-center gap-2">🎌 Event Calendar</Link></li>
-              )}
-              <li><Link href="/communities" className="hover:text-pink-400 flex items-center gap-2">👥 Communities</Link></li>
-              <li><Link href="/submit" className="hover:text-pink-400 flex items-center gap-2">➕ Submit Event</Link></li>
+              {getVisibleRoutes().map((route: RouteType) => (
+                <li key={route.path}>
+                  <Link 
+                    href={route.path} 
+                    className="hover:text-pink-400 flex items-center gap-2"
+                  >
+                    {route.path === '/' ? '🏠' : 
+                     route.path === '/communities' ? '👥' : 
+                     route.path === '/events' ? '🎌' : 
+                     route.path === '/submit' ? '➕' : '🔗'}
+                    {route.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
           <div>
