@@ -47,7 +47,6 @@ export default function Footer() {
                 <li><Link href="/events" className="hover:text-pink-400 flex items-center gap-2">🎌 Event Calendar</Link></li>
               )}
               <li><Link href="/communities" className="hover:text-pink-400 flex items-center gap-2">👥 Communities</Link></li>
-              <li><Link href="/submit" className="hover:text-pink-400 flex items-center gap-2">➕ Submit Event</Link></li>
             </ul>
           </div>
           <div>
