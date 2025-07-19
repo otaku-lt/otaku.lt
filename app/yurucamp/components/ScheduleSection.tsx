@@ -60,10 +60,12 @@ export default function ScheduleSection() {
     return schedule[index].day.toLowerCase().replace(/\s+/g, '-');
   };
   
-  // Function to get day index from slug
+  // Function to get day index from slug (case insensitive)
   const getDayIndex = (slug: string) => {
+    if (!slug) return -1;
     return schedule.findIndex(day => 
-      day.day.toLowerCase().replace(/\s+/g, '-') === slug
+      day.day.toLowerCase() === slug.toLowerCase() || 
+      day.day.toLowerCase().replace(/\s+/g, '-') === slug.toLowerCase()
     );
   };
 
@@ -170,14 +172,12 @@ export default function ScheduleSection() {
         if (typeof window !== 'undefined') {
           const hash = window.location.hash.replace('#', '');
           if (hash) {
-            const dayIndex = data.findIndex((day: ScheduleDay) => 
-              day.day.toLowerCase().replace(/\s+/g, '-') === hash
-            );
+            const dayIndex = getDayIndex(hash);
             if (dayIndex >= 0) {
               setActiveDay(dayIndex);
               // Small delay to ensure the element is rendered
               setTimeout(() => {
-                const element = document.getElementById(`day-${hash}`);
+                const element = document.getElementById(`day-${getDaySlug(dayIndex)}`);
                 if (element) {
                   element.scrollIntoView({ behavior: 'smooth' });
                 }

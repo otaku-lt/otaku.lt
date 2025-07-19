@@ -61,6 +61,8 @@
       events:
         - zone: "Kitchen"
           activity: "Second Set"
+        - zone: "Creative Hub"
+          activity: "To Be Announced"
     - time: "15:00"
       events:
         - zone: "Stage"
