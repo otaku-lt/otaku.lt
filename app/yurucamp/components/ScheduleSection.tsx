@@ -71,8 +71,17 @@ export default function ScheduleSection() {
   useEffect(() => {
     if (schedule.length === 0) return;
     
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '');
+    const handleHash = () => {
+      // Get hash from URL or default to empty string
+      const hash = typeof window !== 'undefined' ? window.location.hash.replace('#', '') : '';
+      
+      // If no hash but we have a schedule, use the first day
+      if (!hash && schedule.length > 0) {
+        setActiveDay(0);
+        return;
+      }
+      
+      // If we have a hash, try to find and set the corresponding day
       if (hash) {
         const dayIndex = getDayIndex(hash);
         if (dayIndex >= 0 && dayIndex < schedule.length) {
@@ -88,10 +97,11 @@ export default function ScheduleSection() {
       }
     };
 
-    // Initial check
-    handleHashChange();
+    // Handle initial hash on mount and when schedule loads
+    handleHash();
     
-    // Listen for hash changes
+    // Also handle hash changes
+    const handleHashChange = () => handleHash();
     window.addEventListener('hashchange', handleHashChange);
     
     // Cleanup
@@ -155,6 +165,26 @@ export default function ScheduleSection() {
         }
         const data = await response.json();
         setSchedule(data);
+        
+        // After setting the schedule, check if we need to handle a hash
+        if (typeof window !== 'undefined') {
+          const hash = window.location.hash.replace('#', '');
+          if (hash) {
+            const dayIndex = data.findIndex((day: ScheduleDay) => 
+              day.day.toLowerCase().replace(/\s+/g, '-') === hash
+            );
+            if (dayIndex >= 0) {
+              setActiveDay(dayIndex);
+              // Small delay to ensure the element is rendered
+              setTimeout(() => {
+                const element = document.getElementById(`day-${hash}`);
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }, 100);
+            }
+          }
+        }
       } catch (err) {
         console.error('Error loading schedule data:', err);
         setError('Failed to load schedule data. Please try again later.');
