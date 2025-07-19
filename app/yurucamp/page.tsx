@@ -104,7 +104,7 @@ export default function YuruCampPage() {
                   A weeb-themed outdoor festival by the river, featuring a cosplay stage, photo spots, water adventures, a professional outdoor kitchen, DIY campfire option, live evening performances by Korniha band with anime OSTs, and the Idol Stage karaoke! Artists will enjoy sketch meetups, live drawing sessions, and collaborative art projects in our Creative Hub.
                 </p>
                 <p className="text-muted-foreground-dark text-lg mb-4">
-                  Fandom meetups (*insert your fandom here*), SpeedWeeb, a Wet Cosplay contest, and Cinema Live concert streams (Hatsune Miku, Kasane Tetsu, Hololive). Join our Creative Hub for artist workshops, where you can learn new skills, share techniques, and create amazing art together with fellow enthusiasts.
+                  Fandom meetups (*insert your fandom here*), SpeedWeeb, a Wet Cosplay contest, and Cinema Live concert streams (Hatsune Miku, Colorful Stage, Hololive). Join our Creative Hub for artist workshops, where you can learn new skills, share techniques, and create amazing art together with fellow enthusiasts.
                 </p>
                 <p className="text-muted-foreground-dark text-lg mb-4">
                   So, pack your tent, sleeping bag, and thermos (for ramen, of course!). Don't forget your cat ears, fluffy tail, and plenty of glowsticks for the evening concerts. Bring your favorite anime snacks, a reusable water bottle (hydration is important!), and your most comfortable cosplay. Whether you're a camping pro or a first-time weeb in the wild, we can't wait to see you there!
