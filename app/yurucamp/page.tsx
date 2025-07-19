@@ -135,10 +135,14 @@ export default function YuruCampPage() {
                     href="https://forms.gle/F8vjGNG8LefEXeoi7"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-8 py-3 bg-white text-green-700 rounded-full hover:bg-green-50 hover:scale-105 transition-all font-semibold text-lg flex items-center justify-center gap-2"
+                    className="relative px-8 py-3.5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white rounded-full font-bold text-lg group overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-pink-500/30"
                   >
-                    <span>Register for Cosplay</span>
-                    <ArrowUpRight size={16} />
+                    <span className="relative z-10 flex items-center gap-2">
+                      <span className="bg-white/20 backdrop-blur-sm px-2 py-0.5 rounded-full text-sm">✨</span>
+                      <span>Register for Cosplay</span>
+                      <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    </span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></span>
                   </a>
                 </div>
               </div>
