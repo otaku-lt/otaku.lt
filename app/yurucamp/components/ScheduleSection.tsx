@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, ChevronRight, List, Grid } from 'lucide-react';
 import { ScheduleDay, ScheduleTimeslot, ScheduleEvent } from '@/types/yurucamp';
 import Link from 'next/link';
@@ -168,7 +168,7 @@ export default function ScheduleSection() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         {/* Day Selector */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide w-full sm:w-auto">
           {schedule.map((day, index) => (
@@ -197,20 +197,29 @@ export default function ScheduleSection() {
         </div>
 
         {/* View Toggle */}
-        <div className="flex items-center gap-2 bg-card-dark/50 rounded-full p-1 ml-auto">
+        <div className="flex items-center gap-1 bg-card-dark/70 rounded-full p-1.5 ml-auto border border-border/20 shadow-sm">
           <button
             onClick={() => setViewMode('time')}
-            className={`p-2 rounded-full transition-all ${viewMode === 'time' ? 'bg-card' : 'opacity-50 hover:opacity-75'}`}
-            title="Time-based view"
+            className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              viewMode === 'time'
+                ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white shadow-md'
+                : 'text-foreground/70 hover:text-foreground hover:bg-card/50'
+            }`}
           >
-            <List size={16} />
+            <Clock size={16} className="flex-shrink-0" />
+            <span>By Time</span>
           </button>
+          <div className="h-6 w-px bg-border/30 mx-1"></div>
           <button
             onClick={() => setViewMode('space')}
-            className={`p-2 rounded-full transition-all ${viewMode === 'space' ? 'bg-card' : 'opacity-50 hover:opacity-75'}`}
-            title="Space-based view"
+            className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              viewMode === 'space'
+                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
+                : 'text-foreground/70 hover:text-foreground hover:bg-card/50'
+            }`}
           >
-            <Grid size={16} />
+            <MapPin size={16} className="flex-shrink-0" />
+            <span>By Area</span>
           </button>
         </div>
       </div>
@@ -263,22 +272,24 @@ export default function ScheduleSection() {
                 const zoneIcon = zoneIcons[zone] || <MapPin size={16} />;
 
                 return (
-                  <div key={zone} className="mb-6">
-                    <div className="flex items-center gap-2 mb-3 text-foreground/90 bg-card-dark/60 py-1.5 px-3 rounded-full w-fit">
-                      <div className={`p-1 rounded-md ${zoneColor.replace('border-', 'bg-').replace('/10', '/20')} bg-opacity-30`}>
-                        {zoneIcon}
+                  <div key={zone} className="mb-8 group">
+                    <div 
+                      className={`flex items-center gap-3 mb-4 px-4 py-3 rounded-xl ${zoneColor.replace('border-', 'bg-').replace('/10', '/20')} bg-opacity-30 w-fit transition-all duration-200 group-hover:bg-opacity-40`}
+                    >
+                      <div className={`p-2 rounded-lg ${zoneColor.replace('border-', 'bg-').replace('/10', '/30')} bg-opacity-30`}>
+                        {React.cloneElement(zoneIcon, { size: 20, className: zoneColor.replace('border-', 'text-').replace('/10', '') })}
                       </div>
-                      <span className="font-medium text-sm">{zone}</span>
+                      <span className="font-bold text-foreground text-base">{zone}</span>
                     </div>
                     
                     <div className="space-y-2">
                       {zoneData.events.map((event, index) => (
                         <div 
                           key={index}
-                          className="p-4 rounded-xl bg-card/50 hover:bg-card/70 transition-all duration-200 backdrop-blur-sm border-l-4 border-border/20"
+                          className={`p-4 rounded-xl bg-card/50 hover:bg-card/70 transition-all duration-200 backdrop-blur-sm border-l-4 ${zoneColor} border-opacity-50`}
                         >
-                          <div className="flex items-start gap-3">
-                            <div className="text-sm font-mono text-muted-foreground min-w-[60px] pt-0.5">
+                          <div className="flex items-start gap-4">
+                            <div className="text-sm font-mono text-muted-foreground min-w-[60px] pt-0.5 flex-shrink-0">
                               {event.time}
                             </div>
                             <div className="font-medium text-foreground">
