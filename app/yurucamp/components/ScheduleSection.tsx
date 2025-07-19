@@ -1,30 +1,47 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, MapPin, ChevronRight, List, Grid } from 'lucide-react';
+import { 
+  Calendar, 
+  Clock, 
+  ChevronRight, 
+  List, 
+  Grid,
+  Music,
+  Film,
+  Utensils,
+  Gamepad2,
+  Paintbrush,
+  DoorOpen,
+  MapPin,
+  Globe,
+  Users
+} from 'lucide-react';
 import { ScheduleDay, ScheduleTimeslot, ScheduleEvent } from '@/types/yurucamp';
 import Link from 'next/link';
 
 // Zone color mapping
 const zoneColors: Record<string, string> = {
   'Stage': 'border-blue-500 bg-blue-500/10',
-  'Cinema': 'border-purple-500 bg-purple-500/10',
+  'Open Cinema': 'border-purple-500 bg-purple-500/10',
   'Kitchen': 'border-amber-500 bg-amber-500/10',
-  'Fandom': 'border-green-500 bg-green-500/10',
+  'Fandom Area': 'border-green-500 bg-green-500/10',
+  'Fandom Meetings': 'border-teal-500 bg-teal-500/10',
   'Creative Hub': 'border-pink-500 bg-pink-500/10',
   'Entrance': 'border-gray-500 bg-gray-500/10',
   'All Areas': 'border-white bg-white/10'
 };
 
-// Zone icon mapping
+// Zone icon mapping with more specific icons
 const zoneIcons: Record<string, JSX.Element> = {
-  'Stage': <MapPin className="text-blue-400" size={16} />,
-  'Cinema': <MapPin className="text-purple-400" size={16} />,
-  'Kitchen': <MapPin className="text-amber-400" size={16} />,
-  'Fandom': <MapPin className="text-green-400" size={16} />,
-  'Creative Hub': <MapPin className="text-pink-400" size={16} />,
-  'Entrance': <MapPin className="text-gray-400" size={16} />,
-  'All Areas': <MapPin className="text-white" size={16} />
+  'Stage': <Music className="text-blue-400" size={20} />,
+  'Open Cinema': <Film className="text-purple-400" size={20} />,
+  'Kitchen': <Utensils className="text-amber-400" size={20} />,
+  'Fandom Area': <Gamepad2 className="text-green-400" size={20} />,
+  'Fandom Meetings': <Users className="text-teal-400" size={20} />,
+  'Creative Hub': <Paintbrush className="text-pink-400" size={20} />,
+  'Entrance': <DoorOpen className="text-gray-400" size={20} />,
+  'All Areas': <Globe className="text-white" size={20} />
 };
 
 export default function ScheduleSection() {
