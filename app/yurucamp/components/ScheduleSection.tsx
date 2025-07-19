@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Calendar, Clock, MapPin, ChevronRight } from 'lucide-react';
+import { Calendar, Clock, MapPin, ChevronRight, List, Grid } from 'lucide-react';
 import { ScheduleDay, ScheduleTimeslot, ScheduleEvent } from '@/types/yurucamp';
 import Link from 'next/link';
 
@@ -32,29 +32,80 @@ export default function ScheduleSection() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeDay, setActiveDay] = useState<number>(0);
+  const [viewMode, setViewMode] = useState<'time' | 'space'>('time');
 
-  // Handle URL hash changes
+  // Handle scroll to update active day
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '');
-      if (hash) {
-        const dayIndex = schedule.findIndex(day => 
-          day.day.toLowerCase().replace(/\s+/g, '-') === hash
-        );
-        if (dayIndex >= 0) {
-          setActiveDay(dayIndex);
+    if (schedule.length === 0) return;
+    
+    // Function to get day slug (lowercase, no spaces)
+    const getDaySlug = (index: number) => {
+      if (!schedule[index]) return '';
+      return schedule[index].day.toLowerCase().replace(/\s+/g, '-');
+    };
+    
+    // Function to get day index from slug
+    const getDayIndex = (slug: string) => {
+      return schedule.findIndex(day => 
+        day.day.toLowerCase().replace(/\s+/g, '-') === slug
+      );
+    };
+    
+    const handleScroll = () => {
+      const dayElements = schedule.map((_, index) => 
+        document.getElementById(`day-${getDaySlug(index)}`)
+      ).filter(Boolean) as HTMLElement[];
+      
+      if (dayElements.length === 0) return;
+      
+      // Find which day is currently in view
+      const scrollPosition = window.scrollY + 100; // Add some offset
+      
+      for (let i = 0; i < dayElements.length; i++) {
+        const element = dayElements[i];
+        const nextElement = dayElements[i + 1];
+        
+        const elementTop = element.offsetTop;
+        const elementBottom = nextElement ? nextElement.offsetTop : elementTop + element.offsetHeight;
+        
+        if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+          setActiveDay(i);
+          // Update URL without scrolling
+          window.history.replaceState({}, '', `#${getDaySlug(i)}`);
+          break;
         }
       }
     };
-
-    // Listen for hash changes
-    window.addEventListener('hashchange', handleHashChange);
+    
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Check URL hash on initial load
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        const dayIndex = getDayIndex(hash);
+        if (dayIndex >= 0 && dayIndex < schedule.length) {
+          setActiveDay(dayIndex);
+          // Small delay to ensure the element is rendered
+          setTimeout(() => {
+            const element = document.getElementById(`day-${hash}`);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 100);
+        }
+      }
+    };
     
     // Initial check
+    handleScroll();
     handleHashChange();
     
     // Cleanup
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [schedule]);
 
   // Fetch schedule data from the API
@@ -117,16 +168,21 @@ export default function ScheduleSection() {
 
   return (
     <div className="space-y-6">
-      {/* Day Selector */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide">
-        {schedule.map((day, index) => (
-          <div key={index} className="flex items-center">
-            {index > 0 && <ChevronRight className="w-4 h-4 mx-1 opacity-50 flex-shrink-0" />}
-            <button
-              onClick={() => {
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        {/* Day Selector */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide w-full sm:w-auto">
+          {schedule.map((day, index) => (
+            <Link
+              key={index}
+              href={`#${day.day.toLowerCase().replace(/\s+/g, '-')}`}
+              onClick={(e) => {
+                e.preventDefault();
                 setActiveDay(index);
-                // Update URL
-                window.location.hash = day.day.toLowerCase().replace(/\s+/g, '-');
+                // Scroll to the day's section
+                const element = document.getElementById(`day-${day.day.toLowerCase().replace(/\s+/g, '-')}`);
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
               }}
               className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
                 activeDay === index
@@ -134,15 +190,34 @@ export default function ScheduleSection() {
                   : 'bg-card-dark/50 text-foreground hover:bg-card-dark/70'
               }`}
             >
+              {index > 0 && <ChevronRight className="inline-block w-4 h-4 mr-1 opacity-50" />}
               {day.day}
-            </button>
-          </div>
-        ))}
+            </Link>
+          ))}
+        </div>
+
+        {/* View Toggle */}
+        <div className="flex items-center gap-2 bg-card-dark/50 rounded-full p-1 ml-auto">
+          <button
+            onClick={() => setViewMode('time')}
+            className={`p-2 rounded-full transition-all ${viewMode === 'time' ? 'bg-card' : 'opacity-50 hover:opacity-75'}`}
+            title="Time-based view"
+          >
+            <List size={16} />
+          </button>
+          <button
+            onClick={() => setViewMode('space')}
+            className={`p-2 rounded-full transition-all ${viewMode === 'space' ? 'bg-card' : 'opacity-50 hover:opacity-75'}`}
+            title="Space-based view"
+          >
+            <Grid size={16} />
+          </button>
+        </div>
       </div>
 
       {/* Schedule for Selected Day */}
       <div className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-border-dark/50">
-        <div id={schedule[activeDay]?.day.toLowerCase().replace(/\s+/g, '-')} className="scroll-mt-20">
+        <div id={`day-${schedule[activeDay]?.day.toLowerCase().replace(/\s+/g, '-')}`} className="scroll-mt-20">
           <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
             <Calendar className="h-5 w-5 text-amber-400" />
             {currentDay.day}, {currentDay.date}
@@ -150,40 +225,98 @@ export default function ScheduleSection() {
         </div>
         
         <div className="space-y-4">
-          {currentDay.timeslots.map((timeslot: ScheduleTimeslot, index: number) => (
-            <div key={index} className="mb-6">
-              <div className="flex items-center gap-2 mb-3 text-foreground/90 bg-card-dark/60 py-1.5 px-3 rounded-full w-fit">
-                <Clock size={16} className="text-green-400 flex-shrink-0" />
-                <span className="font-medium text-sm">{timeslot.time}</span>
+          {viewMode === 'time' ? (
+            /* Time-based View */
+            currentDay.timeslots.map((timeslot: ScheduleTimeslot, index: number) => (
+              <div key={index} className="mb-6">
+                <div className="flex items-center gap-2 mb-3 text-foreground/90 bg-card-dark/60 py-1.5 px-3 rounded-full w-fit">
+                  <Clock size={16} className="text-green-400 flex-shrink-0" />
+                  <span className="font-medium text-sm">{timeslot.time}</span>
+                </div>
+                
+                <div className="grid gap-3 md:grid-cols-2">
+                  {timeslot.events.map((event: ScheduleEvent, eventIndex: number) => (
+                    <EventCard key={eventIndex} event={event} />
+                  ))}
+                </div>
               </div>
-              
-              <div className="grid gap-3 md:grid-cols-2">
-                {timeslot.events.map((event: ScheduleEvent, eventIndex: number) => {
-                  const zoneColor = zoneColors[event.zone] || 'border-gray-500 bg-gray-500/10';
-                  const zoneIcon = zoneIcons[event.zone] || <MapPin size={16} />;
-                  
-                  return (
-                    <div 
-                      key={eventIndex}
-                      className={`p-4 rounded-xl border-l-4 ${zoneColor} bg-card/50 hover:bg-card/70 transition-all duration-200 backdrop-blur-sm`}
-                    >
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <h4 className="font-medium text-foreground">{event.activity}</h4>
-                          <div className="flex items-center gap-1.5 mt-2 text-sm text-muted-foreground">
-                            <div className={`p-1 rounded-md ${zoneColor.replace('border-', 'bg-').replace('/10', '/20')} bg-opacity-30`}>
-                              {zoneIcon}
+            ))
+          ) : (
+            /* Space-based View */
+            (() => {
+              // Group events by zone for the current day
+              const eventsByZone = currentDay.timeslots.reduce<Record<string, {zone: string, events: {time: string, activity: string}[]}>>((acc, timeslot) => {
+                timeslot.events.forEach(event => {
+                  if (!acc[event.zone]) {
+                    acc[event.zone] = { zone: event.zone, events: [] };
+                  }
+                  acc[event.zone].events.push({
+                    time: timeslot.time,
+                    activity: event.activity
+                  });
+                });
+                return acc;
+              }, {});
+
+              return Object.entries(eventsByZone).map(([zone, zoneData]) => {
+                const zoneColor = zoneColors[zone] || 'border-gray-500 bg-gray-500/10';
+                const zoneIcon = zoneIcons[zone] || <MapPin size={16} />;
+
+                return (
+                  <div key={zone} className="mb-6">
+                    <div className="flex items-center gap-2 mb-3 text-foreground/90 bg-card-dark/60 py-1.5 px-3 rounded-full w-fit">
+                      <div className={`p-1 rounded-md ${zoneColor.replace('border-', 'bg-').replace('/10', '/20')} bg-opacity-30`}>
+                        {zoneIcon}
+                      </div>
+                      <span className="font-medium text-sm">{zone}</span>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      {zoneData.events.map((event, index) => (
+                        <div 
+                          key={index}
+                          className="p-4 rounded-xl bg-card/50 hover:bg-card/70 transition-all duration-200 backdrop-blur-sm border-l-4 border-border/20"
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className="text-sm font-mono text-muted-foreground min-w-[60px] pt-0.5">
+                              {event.time}
                             </div>
-                            <span className="font-medium">{event.zone}</span>
+                            <div className="font-medium text-foreground">
+                              {event.activity}
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      ))}
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              });
+            })()
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Event card component
+function EventCard({ event }: { event: ScheduleEvent }) {
+  const zoneColor = zoneColors[event.zone] || 'border-gray-500 bg-gray-500/10';
+  const zoneIcon = zoneIcons[event.zone] || <MapPin size={16} />;
+  
+  return (
+    <div 
+      className={`p-4 rounded-xl border-l-4 ${zoneColor} bg-card/50 hover:bg-card/70 transition-all duration-200 backdrop-blur-sm`}
+    >
+      <div className="flex justify-between items-start">
+        <div>
+          <h4 className="font-medium text-foreground">{event.activity}</h4>
+          <div className="flex items-center gap-1.5 mt-2 text-sm text-muted-foreground">
+            <div className={`p-1 rounded-md ${zoneColor.replace('border-', 'bg-').replace('/10', '/20')} bg-opacity-30`}>
+              {zoneIcon}
             </div>
-          ))}
+            <span className="font-medium">{event.zone}</span>
+          </div>
         </div>
       </div>
     </div>
