@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Calendar, Clock, MapPin } from 'lucide-react';
+import { Calendar, Clock, MapPin, ChevronRight } from 'lucide-react';
 import { ScheduleDay, ScheduleTimeslot, ScheduleEvent } from '@/types/yurucamp';
+import Link from 'next/link';
 
 // Zone color mapping
 const zoneColors: Record<string, string> = {
@@ -31,6 +32,68 @@ export default function ScheduleSection() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeDay, setActiveDay] = useState<number>(0);
+
+  // Handle scroll to update active day
+  useEffect(() => {
+    if (schedule.length === 0) return;
+    
+    const handleScroll = () => {
+      const dayElements = schedule.map((_, index) => 
+        document.getElementById(`day-${index}`)
+      ).filter(Boolean) as HTMLElement[];
+      
+      if (dayElements.length === 0) return;
+      
+      // Find which day is currently in view
+      const scrollPosition = window.scrollY + 100; // Add some offset
+      
+      for (let i = 0; i < dayElements.length; i++) {
+        const element = dayElements[i];
+        const nextElement = dayElements[i + 1];
+        
+        const elementTop = element.offsetTop;
+        const elementBottom = nextElement ? nextElement.offsetTop : elementTop + element.offsetHeight;
+        
+        if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+          setActiveDay(i);
+          // Update URL without scrolling
+          window.history.replaceState({}, '', `#day-${i}`);
+          break;
+        }
+      }
+    };
+    
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Check URL hash on initial load
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      const dayMatch = hash.match(/day-(\d+)/);
+      if (dayMatch) {
+        const dayIndex = parseInt(dayMatch[1], 10);
+        if (!isNaN(dayIndex) && dayIndex >= 0 && dayIndex < schedule.length) {
+          setActiveDay(dayIndex);
+          // Small delay to ensure the element is rendered
+          setTimeout(() => {
+            const element = document.getElementById(`day-${dayIndex}`);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 100);
+        }
+      }
+    };
+    
+    // Initial check
+    handleScroll();
+    handleHashChange();
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [schedule]);
 
   // Fetch schedule data from the API
   useEffect(() => {
@@ -93,28 +156,40 @@ export default function ScheduleSection() {
   return (
     <div className="space-y-6">
       {/* Day Selector */}
-      <div className="flex flex-wrap gap-2 justify-center mb-6">
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide">
         {schedule.map((day, index) => (
-          <button
+          <Link
             key={index}
-            onClick={() => setActiveDay(index)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+            href={`#day-${index}`}
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveDay(index);
+              // Scroll to the day's section
+              const element = document.getElementById(`day-${index}`);
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
               activeDay === index
                 ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white'
                 : 'bg-card-dark/50 text-foreground hover:bg-card-dark/70'
             }`}
           >
+            {index > 0 && <ChevronRight className="inline-block w-4 h-4 mr-1 opacity-50" />}
             {day.day}
-          </button>
+          </Link>
         ))}
       </div>
 
       {/* Schedule for Selected Day */}
       <div className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-border-dark/50">
-        <h3 className="text-2xl font-bold mb-6 text-foreground-dark flex items-center gap-2">
-          <Calendar className="text-green-600" size={24} />
-          {currentDay.day} - {currentDay.date}
-        </h3>
+        <div id={`day-${activeDay}`} className="scroll-mt-20">
+          <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+            <Calendar className="h-5 w-5 text-amber-400" />
+            {currentDay.day}, {currentDay.date}
+          </h3>
+        </div>
         
         <div className="space-y-4">
           {currentDay.timeslots.map((timeslot: ScheduleTimeslot, index: number) => (
