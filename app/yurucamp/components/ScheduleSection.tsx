@@ -119,9 +119,9 @@ export default function ScheduleSection() {
         <div className="space-y-4">
           {currentDay.timeslots.map((timeslot: ScheduleTimeslot, index: number) => (
             <div key={index} className="mb-6">
-              <div className="flex items-center gap-2 mb-2 text-foreground/80">
-                <Clock size={16} className="text-green-400" />
-                <span className="font-medium">{timeslot.time}</span>
+              <div className="flex items-center gap-2 mb-3 text-foreground/90 bg-card-dark/60 py-1.5 px-3 rounded-full w-fit">
+                <Clock size={16} className="text-green-400 flex-shrink-0" />
+                <span className="font-medium text-sm">{timeslot.time}</span>
               </div>
               
               <div className="grid gap-3 md:grid-cols-2">
@@ -132,14 +132,16 @@ export default function ScheduleSection() {
                   return (
                     <div 
                       key={eventIndex}
-                      className={`p-4 rounded-lg border-l-4 ${zoneColor} bg-card/50 hover:bg-card/70 transition-colors`}
+                      className={`p-4 rounded-xl border-l-4 ${zoneColor} bg-card/50 hover:bg-card/70 transition-all duration-200 backdrop-blur-sm`}
                     >
                       <div className="flex justify-between items-start">
                         <div>
                           <h4 className="font-medium text-foreground">{event.activity}</h4>
-                          <div className="flex items-center gap-1.5 mt-1 text-sm text-muted-foreground">
-                            {zoneIcon}
-                            <span>{event.zone}</span>
+                          <div className="flex items-center gap-1.5 mt-2 text-sm text-muted-foreground">
+                            <div className={`p-1 rounded-md ${zoneColor.replace('border-', 'bg-').replace('/10', '/20')} bg-opacity-30`}>
+                              {zoneIcon}
+                            </div>
+                            <span className="font-medium">{event.zone}</span>
                           </div>
                         </div>
                       </div>
