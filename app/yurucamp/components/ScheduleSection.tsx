@@ -146,15 +146,6 @@ export default function ScheduleSection() {
     fetchSchedule();
   }, []);
 
-  if (process.env.NODE_ENV === 'production') {
-    return (
-      <div className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-12 text-center">
-        <h3 className="text-2xl font-bold mb-4 text-foreground-dark">Schedule Coming Soon</h3>
-        <p className="text-muted-foreground">We're finalizing the schedule details. Check back later for updates!</p>
-      </div>
-    );
-  }
-
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
