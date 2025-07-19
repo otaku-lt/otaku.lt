@@ -51,22 +51,55 @@ export default function ScheduleSection() {
   const [activeDay, setActiveDay] = useState<number>(0);
   const [viewMode, setViewMode] = useState<'time' | 'space'>('time');
 
-  // Handle scroll to update active day
+  // Function to get day slug (lowercase, no spaces)
+  const getDaySlug = (index: number) => {
+    if (!schedule[index]) return '';
+    return schedule[index].day.toLowerCase().replace(/\s+/g, '-');
+  };
+  
+  // Function to get day index from slug
+  const getDayIndex = (slug: string) => {
+    return schedule.findIndex(day => 
+      day.day.toLowerCase().replace(/\s+/g, '-') === slug
+    );
+  };
+
+  // Handle URL hash changes and scrolling
   useEffect(() => {
     if (schedule.length === 0) return;
     
-    // Function to get day slug (lowercase, no spaces)
-    const getDaySlug = (index: number) => {
-      if (!schedule[index]) return '';
-      return schedule[index].day.toLowerCase().replace(/\s+/g, '-');
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        const dayIndex = getDayIndex(hash);
+        if (dayIndex >= 0 && dayIndex < schedule.length) {
+          setActiveDay(dayIndex);
+          // Small delay to ensure the element is rendered
+          setTimeout(() => {
+            const element = document.getElementById(`day-${hash}`);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 100);
+        }
+      }
     };
+
+    // Initial check
+    handleHashChange();
     
-    // Function to get day index from slug
-    const getDayIndex = (slug: string) => {
-      return schedule.findIndex(day => 
-        day.day.toLowerCase().replace(/\s+/g, '-') === slug
-      );
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
     };
+  }, [schedule]);
+  
+  // Handle scroll to update active day
+  useEffect(() => {
+    if (schedule.length === 0) return;
     
     const handleScroll = () => {
       const dayElements = schedule.map((_, index) => 
@@ -86,9 +119,12 @@ export default function ScheduleSection() {
         const elementBottom = nextElement ? nextElement.offsetTop : elementTop + element.offsetHeight;
         
         if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+          const slug = getDaySlug(i);
           setActiveDay(i);
-          // Update URL without scrolling
-          window.history.replaceState({}, '', `#${getDaySlug(i)}`);
+          // Update URL without adding to history
+          if (window.location.hash !== `#${slug}`) {
+            window.history.replaceState({}, '', `#${slug}`);
+          }
           break;
         }
       }
@@ -97,27 +133,8 @@ export default function ScheduleSection() {
     // Add scroll listener
     window.addEventListener('scroll', handleScroll, { passive: true });
     
-    // Check URL hash on initial load
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '');
-      if (hash) {
-        const dayIndex = getDayIndex(hash);
-        if (dayIndex >= 0 && dayIndex < schedule.length) {
-          setActiveDay(dayIndex);
-          // Small delay to ensure the element is rendered
-          setTimeout(() => {
-            const element = document.getElementById(`day-${hash}`);
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth' });
-            }
-          }, 100);
-        }
-      }
-    };
-    
     // Initial check
     handleScroll();
-    handleHashChange();
     
     // Cleanup
     return () => {
@@ -183,15 +200,7 @@ export default function ScheduleSection() {
             <Link
               key={index}
               href={`#${day.day.toLowerCase().replace(/\s+/g, '-')}`}
-              onClick={(e) => {
-                e.preventDefault();
-                setActiveDay(index);
-                // Scroll to the day's section
-                const element = document.getElementById(`day-${day.day.toLowerCase().replace(/\s+/g, '-')}`);
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
+              scroll={false}
               className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
                 activeDay === index
                   ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white'
