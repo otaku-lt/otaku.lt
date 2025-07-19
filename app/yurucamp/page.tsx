@@ -131,12 +131,15 @@ export default function YuruCampPage() {
                     </svg>
                     Facebook Event
                   </a>
-                  <button 
-                    disabled
-                    className="px-8 py-3 bg-yellow-600/20 text-yellow-400 border border-yellow-500/30 rounded-full cursor-not-allowed font-semibold hover:bg-yellow-600/30 transition-colors"
+                  <a 
+                    href="https://forms.gle/F8vjGNG8LefEXeoi7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-8 py-3 bg-white text-green-700 rounded-full hover:bg-green-50 hover:scale-105 transition-all font-semibold text-lg flex items-center justify-center gap-2"
                   >
-                    Registration Coming Soon
-                  </button>
+                    <span>Register for Cosplay</span>
+                    <ArrowUpRight size={16} />
+                  </a>
                 </div>
               </div>
             </div>
