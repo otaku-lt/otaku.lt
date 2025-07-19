@@ -201,6 +201,16 @@ export default function ScheduleSection() {
               key={index}
               href={`#${day.day.toLowerCase().replace(/\s+/g, '-')}`}
               scroll={false}
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveDay(index);
+                const slug = day.day.toLowerCase().replace(/\s+/g, '-');
+                window.history.pushState({}, '', `#${slug}`);
+                const element = document.getElementById(`day-${slug}`);
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
                 activeDay === index
                   ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white'
