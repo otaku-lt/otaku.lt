@@ -209,12 +209,13 @@ export default function YuruCampPage() {
                         Buy Online
                       </a>
                       <p className="text-xs text-muted-foreground/60 mt-2">
-                        Please email your transaction copy to ymca@otaku.lt to receive your QR code
+                        Your email will be your confirmation at the entrance
                       </p>
                     </div>
                     <div className="bg-gradient-to-br from-red-900/40 to-red-800/30 p-6 rounded-xl border border-red-500/30">
                       <h4 className="text-xl font-bold mb-2 text-red-100">VIP Ticket</h4>
-                      <p className="text-red-50/90 mb-4">€25 (includes premium glowstick)</p>
+                      <p className="text-red-50/90 mb-1">€25 (includes premium glowstick)</p>
+                      <p className="text-sm text-red-100/80 mb-1">Priority during karaoke event</p>
                       <p className="text-sm text-red-100/80">Very limited quantity</p>
                       <a 
                         href="https://wibu.me/BFeBv" 
