@@ -15,12 +15,13 @@ import {
   DoorOpen,
   MapPin,
   Globe,
-  Users
+  Users,
+  Car
 } from 'lucide-react';
 import { ScheduleDay, ScheduleTimeslot, ScheduleEvent } from '@/types/yurucamp';
 import Link from 'next/link';
 
-// Zone color mapping
+// Zone color mapping with consistent opacity and styling
 const zoneColors: Record<string, string> = {
   'Stage': 'border-blue-500 bg-blue-500/10',
   'Open Cinema': 'border-purple-500 bg-purple-500/10',
@@ -29,7 +30,8 @@ const zoneColors: Record<string, string> = {
   'Fandom Meetings': 'border-teal-500 bg-teal-500/10',
   'Creative Hub': 'border-pink-500 bg-pink-500/10',
   'Entrance': 'border-gray-500 bg-gray-500/10',
-  'All Areas': 'border-white bg-white/10'
+  'All Areas': 'border-foreground/50 bg-foreground/5',
+  'Shuttle': 'border-indigo-500 bg-indigo-500/10'
 };
 
 // Zone icon mapping with more specific icons
@@ -41,7 +43,8 @@ const zoneIcons: Record<string, JSX.Element> = {
   'Fandom Meetings': <Users className="text-teal-400" size={20} />,
   'Creative Hub': <Paintbrush className="text-pink-400" size={20} />,
   'Entrance': <DoorOpen className="text-gray-400" size={20} />,
-  'All Areas': <Globe className="text-white" size={20} />
+  'All Areas': <Globe className="text-foreground/70" size={20} />,
+  'Shuttle': <Car className="text-indigo-400" size={20} />
 };
 
 export default function ScheduleSection() {
@@ -344,7 +347,7 @@ function EventCard({ event }: { event: ScheduleEvent }) {
   
   return (
     <div 
-      className={`p-4 rounded-xl border-l-4 ${zoneColor} bg-card/50 hover:bg-card/70 transition-all duration-200 backdrop-blur-sm`}
+      className={`p-4 rounded-xl border-l-4 ${zoneColor} bg-card-dark/80 hover:bg-card-dark transition-all duration-200 backdrop-blur-sm`}
     >
       <div className="flex justify-between items-start">
         <div>
@@ -353,7 +356,7 @@ function EventCard({ event }: { event: ScheduleEvent }) {
             <div className={`p-1 rounded-md ${zoneColor.replace('border-', 'bg-').replace('/10', '/20')} bg-opacity-30`}>
               {zoneIcon}
             </div>
-            <span className="font-medium">{event.zone}</span>
+            <span className="font-medium text-foreground/80">{event.zone}</span>
           </div>
         </div>
       </div>

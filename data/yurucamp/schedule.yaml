@@ -1,10 +1,18 @@
 - day: "Friday"
   date: "August 23"
   timeslots:
+    - time: "11:00 - 12:00"
+      events:
+        - zone: "Shuttle"
+          activity: "First Shuttle"
     - time: "12:00"
       events:
         - zone: "Entrance"
           activity: "Check-in & Camp Setup"
+    - time: "14:00 - 14:30"
+      events:
+        - zone: "Shuttle"
+          activity: "Second Shuttle"
     - time: "16:00"
       events:
         - zone: "Open Cinema"
@@ -37,6 +45,14 @@
           activity: "Just Dance"
         - zone: "Fandom Area"
           activity: "Fandom Meet-ups"
+    - time: "11:00 - 12:00"
+      events:
+        - zone: "Shuttle"
+          activity: "First Shuttle"
+    - time: "14:00 - 14:30"
+      events:
+        - zone: "Shuttle"
+          activity: "Second Shuttle"
     - time: "12:00"
       events:
         - zone: "Kitchen"
@@ -75,7 +91,7 @@
           activity: "VJ: Epic Anime Song Set"
 
 - day: "Sunday"
-  date: "August 31"
+  date: "August 25"
   timeslots:
     - time: "09:00 - 10:00"
       events:
@@ -89,3 +105,9 @@
       events:
         - zone: "All Areas"
           activity: "Pack Up & Clean Up"
+        - zone: "Shuttle"
+          activity: "First Shuttle"
+    - time: "14:00 - 14:30"
+      events:
+        - zone: "Shuttle"
+          activity: "Second Shuttle"
