@@ -33,66 +33,28 @@ export default function ScheduleSection() {
   const [error, setError] = useState<string | null>(null);
   const [activeDay, setActiveDay] = useState<number>(0);
 
-  // Handle scroll to update active day
+  // Handle URL hash changes
   useEffect(() => {
-    if (schedule.length === 0) return;
-    
-    const handleScroll = () => {
-      const dayElements = schedule.map((_, index) => 
-        document.getElementById(`day-${index}`)
-      ).filter(Boolean) as HTMLElement[];
-      
-      if (dayElements.length === 0) return;
-      
-      // Find which day is currently in view
-      const scrollPosition = window.scrollY + 100; // Add some offset
-      
-      for (let i = 0; i < dayElements.length; i++) {
-        const element = dayElements[i];
-        const nextElement = dayElements[i + 1];
-        
-        const elementTop = element.offsetTop;
-        const elementBottom = nextElement ? nextElement.offsetTop : elementTop + element.offsetHeight;
-        
-        if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
-          setActiveDay(i);
-          // Update URL without scrolling
-          window.history.replaceState({}, '', `#day-${i}`);
-          break;
-        }
-      }
-    };
-    
-    // Add scroll listener
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    // Check URL hash on initial load
     const handleHashChange = () => {
-      const hash = window.location.hash;
-      const dayMatch = hash.match(/day-(\d+)/);
-      if (dayMatch) {
-        const dayIndex = parseInt(dayMatch[1], 10);
-        if (!isNaN(dayIndex) && dayIndex >= 0 && dayIndex < schedule.length) {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        const dayIndex = schedule.findIndex(day => 
+          day.day.toLowerCase().replace(/\s+/g, '-') === hash
+        );
+        if (dayIndex >= 0) {
           setActiveDay(dayIndex);
-          // Small delay to ensure the element is rendered
-          setTimeout(() => {
-            const element = document.getElementById(`day-${dayIndex}`);
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth' });
-            }
-          }, 100);
         }
       }
     };
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
     
     // Initial check
-    handleScroll();
     handleHashChange();
     
     // Cleanup
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, [schedule]);
 
   // Fetch schedule data from the API
@@ -158,33 +120,29 @@ export default function ScheduleSection() {
       {/* Day Selector */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide">
         {schedule.map((day, index) => (
-          <Link
-            key={index}
-            href={`#day-${index}`}
-            onClick={(e) => {
-              e.preventDefault();
-              setActiveDay(index);
-              // Scroll to the day's section
-              const element = document.getElementById(`day-${index}`);
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
-            className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
-              activeDay === index
-                ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white'
-                : 'bg-card-dark/50 text-foreground hover:bg-card-dark/70'
-            }`}
-          >
-            {index > 0 && <ChevronRight className="inline-block w-4 h-4 mr-1 opacity-50" />}
-            {day.day}
-          </Link>
+          <div key={index} className="flex items-center">
+            {index > 0 && <ChevronRight className="w-4 h-4 mx-1 opacity-50 flex-shrink-0" />}
+            <button
+              onClick={() => {
+                setActiveDay(index);
+                // Update URL
+                window.location.hash = day.day.toLowerCase().replace(/\s+/g, '-');
+              }}
+              className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                activeDay === index
+                  ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white'
+                  : 'bg-card-dark/50 text-foreground hover:bg-card-dark/70'
+              }`}
+            >
+              {day.day}
+            </button>
+          </div>
         ))}
       </div>
 
       {/* Schedule for Selected Day */}
       <div className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-border-dark/50">
-        <div id={`day-${activeDay}`} className="scroll-mt-20">
+        <div id={schedule[activeDay]?.day.toLowerCase().replace(/\s+/g, '-')} className="scroll-mt-20">
           <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
             <Calendar className="h-5 w-5 text-amber-400" />
             {currentDay.day}, {currentDay.date}

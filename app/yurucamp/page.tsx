@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Calendar, MapPin, Users, Tent, TreePine, Mountain, Camera, ArrowRight, ArrowUpRight, Star, Music } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
@@ -10,6 +10,30 @@ import ScheduleSection from "./components/ScheduleSection";
 
 export default function YuruCampPage() {
   const [activeTab, setActiveTab] = useState("about");
+
+  // Handle tab changes and URL hash
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (['about', 'schedule', 'faq', 'gallery'].includes(hash)) {
+        setActiveTab(hash);
+        // Small delay to ensure the element is rendered before scrolling
+        setTimeout(() => {
+          const element = document.getElementById(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
+    };
+
+    // Initial check
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   const campFeatures = [
     {
@@ -160,23 +184,33 @@ export default function YuruCampPage() {
             { id: "faq", label: "FAQ" },
             { id: "gallery", label: "Gallery" }
           ].map((tab) => (
-            <button
+            <a
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-3 rounded-full text-sm font-medium transition-all ${
+              href={`#${tab.id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveTab(tab.id);
+                const element = document.getElementById(tab.id);
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                  // Update URL without page reload
+                  window.history.pushState({}, '', `#${tab.id}`);
+                }
+              }}
+              className={`px-6 py-3 rounded-full text-sm font-medium transition-all cursor-pointer ${
                 activeTab === tab.id
                   ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white shadow-lg'
                   : 'bg-card-dark/80 text-foreground-dark hover:bg-green-500/10'
               }`}
             >
               {tab.label}
-            </button>
+            </a>
           ))}
         </div>
 
         {/* Tab Content */}
         <div className="min-h-96">
-          {activeTab === "about" && (
+          <div id="about" className={activeTab === 'about' ? 'block' : 'hidden'}>
             <div className="space-y-8">
               {/* Features Grid */}
               <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -258,13 +292,19 @@ export default function YuruCampPage() {
                 </div>
               </div>
             </div>
-          )}
+          </div>
+          
+          <div id="schedule" className={activeTab === 'schedule' ? 'block' : 'hidden'}>
+            <ScheduleSection />
+          </div>
 
-          {activeTab === "schedule" && <ScheduleSection />}
+          <div id="faq" className={activeTab === 'faq' ? 'block' : 'hidden'}>
+            <FAQSection />
+          </div>
 
-          {activeTab === "faq" && <FAQSection />}
-
-          {activeTab === "gallery" && <GallerySection />}
+          <div id="gallery" className={activeTab === 'gallery' ? 'block' : 'hidden'}>
+            <GallerySection />
+          </div>
         </div>
       </div>
     </div>
