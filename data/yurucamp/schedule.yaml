@@ -30,7 +30,7 @@
     - time: "23:30"
       events:
         - zone: "Open Cinema"
-          activity: "Anime Screening (Hololive, Colorful...)"
+          activity: "Hololive & Colorful Stage Concert"
     - time: "01:00"
       events:
         - zone: "Open Cinema"
