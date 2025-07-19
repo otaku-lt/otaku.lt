@@ -1,13 +1,36 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Calendar } from 'lucide-react';
-import { ScheduleDay } from '@/types/yurucamp';
+import { Calendar, Clock, MapPin } from 'lucide-react';
+import { ScheduleDay, ScheduleTimeslot, ScheduleEvent } from '@/types/yurucamp';
+
+// Zone color mapping
+const zoneColors: Record<string, string> = {
+  'Stage': 'border-blue-500 bg-blue-500/10',
+  'Cinema': 'border-purple-500 bg-purple-500/10',
+  'Kitchen': 'border-amber-500 bg-amber-500/10',
+  'Fandom': 'border-green-500 bg-green-500/10',
+  'Creative Hub': 'border-pink-500 bg-pink-500/10',
+  'Entrance': 'border-gray-500 bg-gray-500/10',
+  'All Areas': 'border-white bg-white/10'
+};
+
+// Zone icon mapping
+const zoneIcons: Record<string, JSX.Element> = {
+  'Stage': <MapPin className="text-blue-400" size={16} />,
+  'Cinema': <MapPin className="text-purple-400" size={16} />,
+  'Kitchen': <MapPin className="text-amber-400" size={16} />,
+  'Fandom': <MapPin className="text-green-400" size={16} />,
+  'Creative Hub': <MapPin className="text-pink-400" size={16} />,
+  'Entrance': <MapPin className="text-gray-400" size={16} />,
+  'All Areas': <MapPin className="text-white" size={16} />
+};
 
 export default function ScheduleSection() {
   const [schedule, setSchedule] = useState<ScheduleDay[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [activeDay, setActiveDay] = useState<number>(0);
 
   // Fetch schedule data from the API
   useEffect(() => {
@@ -64,26 +87,70 @@ export default function ScheduleSection() {
     );
   }
 
+  // Add type safety for the current day
+  const currentDay = schedule[activeDay] as ScheduleDay;
+
   return (
     <div className="space-y-6">
-      {schedule.map((day, index) => (
-        <div key={index} className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-border-dark/50 hover:border-green-500/30 transition-colors">
-          <h3 className="text-2xl font-bold mb-4 text-foreground-dark flex items-center gap-2">
-            <Calendar className="text-green-600" size={24} />
-            {day.day} - {day.date}
-          </h3>
-          <div className="space-y-3">
-            {day.events.map((event, eventIndex) => (
-              <div key={eventIndex} className="flex items-center gap-4 p-3 bg-card/50 hover:bg-card/70 rounded-lg border border-border/30 transition-colors group">
-                <div className="w-16 text-sm font-semibold text-green-400 flex-shrink-0">
-                  {event.time}
-                </div>
-                <div className="text-foreground group-hover:text-green-300 transition-colors">{event.activity}</div>
+      {/* Day Selector */}
+      <div className="flex flex-wrap gap-2 justify-center mb-6">
+        {schedule.map((day, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveDay(index)}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              activeDay === index
+                ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white'
+                : 'bg-card-dark/50 text-foreground hover:bg-card-dark/70'
+            }`}
+          >
+            {day.day}
+          </button>
+        ))}
+      </div>
+
+      {/* Schedule for Selected Day */}
+      <div className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-border-dark/50">
+        <h3 className="text-2xl font-bold mb-6 text-foreground-dark flex items-center gap-2">
+          <Calendar className="text-green-600" size={24} />
+          {currentDay.day} - {currentDay.date}
+        </h3>
+        
+        <div className="space-y-4">
+          {currentDay.timeslots.map((timeslot: ScheduleTimeslot, index: number) => (
+            <div key={index} className="mb-6">
+              <div className="flex items-center gap-2 mb-2 text-foreground/80">
+                <Clock size={16} className="text-green-400" />
+                <span className="font-medium">{timeslot.time}</span>
               </div>
-            ))}
-          </div>
+              
+              <div className="grid gap-3 md:grid-cols-2">
+                {timeslot.events.map((event: ScheduleEvent, eventIndex: number) => {
+                  const zoneColor = zoneColors[event.zone] || 'border-gray-500 bg-gray-500/10';
+                  const zoneIcon = zoneIcons[event.zone] || <MapPin size={16} />;
+                  
+                  return (
+                    <div 
+                      key={eventIndex}
+                      className={`p-4 rounded-lg border-l-4 ${zoneColor} bg-card/50 hover:bg-card/70 transition-colors`}
+                    >
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="font-medium text-foreground">{event.activity}</h4>
+                          <div className="flex items-center gap-1.5 mt-1 text-sm text-muted-foreground">
+                            {zoneIcon}
+                            <span>{event.zone}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
     </div>
   );
 }

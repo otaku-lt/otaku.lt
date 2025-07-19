@@ -3,13 +3,18 @@ export interface FAQItem {
   answer: string;
 }
 
-export interface ScheduleItem {
-  time: string;
+export interface ScheduleEvent {
+  zone: string;
   activity: string;
+}
+
+export interface ScheduleTimeslot {
+  time: string;
+  events: ScheduleEvent[];
 }
 
 export interface ScheduleDay {
   day: string;
   date: string;
-  events: ScheduleItem[];
+  timeslots: ScheduleTimeslot[];
 }

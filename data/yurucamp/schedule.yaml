@@ -1,41 +1,119 @@
 - day: "Friday"
   date: "August 29"
-  events:
-    - time: "15:00"
-      activity: "Check-in & Camp Setup"
-    - time: "17:00"
-      activity: "Welcome Ceremony"
-    - time: "19:00"
-      activity: "Campfire Stories & Anime Tales"
-    - time: "21:00"
-      activity: "Stargazing & Chill Music"
+  timeslots:
+    - time: "14:00 - 15:30"
+      events:
+        - zone: "Entrance"
+          activity: "Check-in & Camp Setup"
+    - time: "16:00 - 17:00"
+      events:
+        - zone: "Stage"
+          activity: "Welcome Ceremony"
+    - time: "17:00 - 19:00"
+      events:
+        - zone: "Cinema"
+          activity: "Anime Screening"
+        - zone: "Fandom"
+          activity: "Icebreaker Games"
+    - time: "19:00 - 21:00"
+      events:
+        - zone: "Stage"
+          activity: "Campfire Stories & Anime Tales"
+        - zone: "Kitchen"
+          activity: "Dinner Time"
+    - time: "21:00 - 23:00"
+      events:
+        - zone: "Stage"
+          activity: "Stargazing & Chill Music"
+        - zone: "Cinema"
+          activity: "Late Night Anime"
 
 - day: "Saturday"
   date: "August 30"
-  events:
-    - time: "08:00"
-      activity: "Morning Yoga & Exercises"
-    - time: "10:00"
-      activity: "Outdoor Anime Screening"
-    - time: "12:00"
-      activity: "Lunch & Free Time"
-    - time: "14:00"
-      activity: "Cosplay Photoshoot"
-    - time: "16:00"
-      activity: "Outdoor Games & Activities"
-    - time: "18:00"
-      activity: "Cooking Together"
-    - time: "20:00"
-      activity: "Campfire Concert"
-    - time: "22:00"
-      activity: "Night Games & Karaoke"
+  timeslots:
+    - time: "09:00 - 10:00"
+      events:
+        - zone: "Stage"
+          activity: "Morning Yoga & Exercises"
+        - zone: "Kitchen"
+          activity: "Breakfast"
+    - time: "10:00 - 12:00"
+      events:
+        - zone: "Cinema"
+          activity: "Anime Screening"
+        - zone: "Creative Hub"
+          activity: "Creative Workshop"
+    - time: "12:00 - 13:00"
+      events:
+        - zone: "Kitchen"
+          activity: "Lunch"
+    - time: "13:00 - 14:00"
+      events:
+        - zone: "Fandom"
+          activity: "Fandom Meetups"
+        - zone: "Creative Hub"
+          activity: "Art Jam Session"
+    - time: "14:00 - 15:00"
+      events:
+        - zone: "Stage"
+          activity: "Cosplay Photoshoot"
+        - zone: "Cinema"
+          activity: "Anime Discussion Panel"
+    - time: "15:00 - 16:00"
+      events:
+        - zone: "Creative Hub"
+          activity: "Creative Workshop II"
+        - zone: "Fandom"
+          activity: "Trivia Games"
+    - time: "16:00 - 17:00"
+      events:
+        - zone: "Fandom"
+          activity: "Outdoor Games"
+        - zone: "Stage"
+          activity: "Karaoke Warm-up"
+    - time: "17:00 - 18:00"
+      events:
+        - zone: "Kitchen"
+          activity: "Cooking Together"
+        - zone: "Cinema"
+          activity: "Anime Screening"
+    - time: "18:00 - 19:00"
+      events:
+        - zone: "Cinema"
+          activity: "Anime Screening"
+        - zone: "Fandom"
+          activity: "Board Games"
+    - time: "19:00 - 21:00"
+      events:
+        - zone: "Stage"
+          activity: "Korniha Live Performance"
+    - time: "21:00 - 23:00"
+      events:
+        - zone: "Stage"
+          activity: "Karaoke Night"
+        - zone: "Cinema"
+          activity: "Late Night Anime"
+    - time: "23:00 - 00:00"
+      events:
+        - zone: "Stage"
+          activity: "Night Activities"
 
 - day: "Sunday"
   date: "August 31"
-  events:
-    - time: "09:00"
-      activity: "Farewell Breakfast"
-    - time: "11:00"
-      activity: "Pack Up & Clean Up"
-    - time: "12:00"
-      activity: "Group Photo & Departure"
+  timeslots:
+    - time: "09:00 - 10:00"
+      events:
+        - zone: "Kitchen"
+          activity: "Farewell Breakfast"
+    - time: "10:00 - 11:00"
+      events:
+        - zone: "All Areas"
+          activity: "Pack Up & Clean Up"
+    - time: "12:00 - 13:00"
+      events:
+        - zone: "Kitchen"
+          activity: "Lunch"
+    - time: "13:00 - 14:00"
+      events:
+        - zone: "Stage"
+          activity: "Group Photo & Closing Ceremony"
