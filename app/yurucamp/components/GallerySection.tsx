@@ -26,6 +26,8 @@ export default function GallerySection() {
       { src: '/images/yurucamp/gallery/IMG_8374.JPG', alt: 'YuruCamp 2025', width: 1920, height: 1080 },
       { src: '/images/yurucamp/gallery/IMG_8375.JPG', alt: 'YuruCamp 2025', width: 1920, height: 1080 },
       { src: '/images/yurucamp/gallery/IMG_8377.JPG', alt: 'YuruCamp 2025', width: 1920, height: 1080 },
+      { src: '/images/yurucamp/gallery/20250629_154855.jpg', alt: 'YuruCamp 2025', width: 1920, height: 1080 },
+      { src: '/images/yurucamp/gallery/20250629_155706.jpg', alt: 'YuruCamp 2025', width: 1920, height: 1080 },
     ];
     
     setImages(galleryImages);
