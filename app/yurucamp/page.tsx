@@ -182,6 +182,32 @@ export default function YuruCampPage() {
                       <p className="text-xs text-muted-foreground/60 mt-2">
                         Your email will be your confirmation at the entrance
                       </p>
+                      <hr className="border-t border-border/30 my-4" />
+                      <div className="mt-4">
+                        <button 
+                          onClick={() => document.getElementById('bank-transfer-details')?.classList.toggle('hidden')}
+                          className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1"
+                        >
+                          <span>Bank Transfer Option</span>
+                          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
+                        <div id="bank-transfer-details" className="hidden mt-2 p-3 bg-blue-900/20 rounded-lg text-xs">
+                          <p className="font-mono break-all">
+                            <span className="text-muted-foreground/80 block">Recipient:</span>
+                            Roman Gorodeckij
+                          </p>
+                          <p className="font-mono break-all mt-2">
+                            <span className="text-muted-foreground/80 block">IBAN:</span>
+                            LT54 7290 0990 3540 3692
+                          </p>
+                          <p className="mt-2">
+                            <span className="text-muted-foreground/80 block">Payment reason:</span>
+                            Yurucamp your@email.com
+                          </p>
+                        </div>
+                      </div>
                     </div>
                     <div className="bg-gradient-to-br from-red-900/40 to-red-800/30 p-6 rounded-xl border border-red-500/30">
                       <h4 className="text-xl font-bold mb-2 text-red-100">VIP Ticket</h4>
@@ -199,6 +225,31 @@ export default function YuruCampPage() {
                       <p className="text-xs text-red-100/70 mt-4">
                         VIP tickets help support our new event and include a high-quality glowstick
                       </p>
+                      <div className="mt-4 pt-4 border-t border-red-500/20">
+                        <button 
+                          onClick={() => document.getElementById('bank-transfer-details-vip')?.classList.toggle('hidden')}
+                          className="text-xs text-blue-300 hover:text-blue-200 flex items-center gap-1"
+                        >
+                          <span>Bank Transfer Option</span>
+                          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
+                        <div id="bank-transfer-details-vip" className="hidden mt-2 p-3 bg-red-900/20 rounded-lg text-xs">
+                          <p className="font-mono break-all">
+                            <span className="text-red-100/80 block">Recipient:</span>
+                            Roman Gorodeckij
+                          </p>
+                          <p className="font-mono break-all mt-2">
+                            <span className="text-red-100/80 block">IBAN:</span>
+                            LT54 7290 0990 3540 3692
+                          </p>
+                          <p className="mt-2">
+                            <span className="text-red-100/80 block">Payment reason:</span>
+                            Yurucamp VIP your@email.com
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   
