@@ -79,11 +79,26 @@ export function FeaturedEvent({ event, className = '' }: FeaturedEventProps) {
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <button className="px-5 py-2.5 bg-white text-purple-600 rounded-full font-medium hover:bg-purple-50 transition-all flex items-center text-sm md:text-base">
+        <a
+          href={`data:text/calendar;charset=utf8,${encodeURIComponent(
+            `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTART:${new Date(event.date).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '')}
+DTEND:${event.endDate ? new Date(event.endDate).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '') : new Date(new Date(event.date).getTime() + 2 * 60 * 60 * 1000).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '')}
+SUMMARY:${event.title}
+DESCRIPTION:${event.description}
+LOCATION:${event.location}
+END:VEVENT
+END:VCALENDAR`
+          )}`}
+          download={`${event.title.replace(/\s+/g, '_')}.ics`}
+          className="px-5 py-2.5 bg-white text-purple-600 rounded-full font-medium hover:bg-purple-50 transition-all flex items-center text-sm md:text-base"
+        >
           <Calendar className="mr-2 h-4 w-4" />
           Add to Calendar
-        </button>
-        {event.link ? (
+        </a>
+        {event.link && (
           <a 
             href={event.link} 
             target="_blank" 
@@ -91,20 +106,8 @@ export function FeaturedEvent({ event, className = '' }: FeaturedEventProps) {
             className="px-5 py-2.5 border-2 border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-all flex items-center text-sm md:text-base"
           >
             <ExternalLink className="mr-2 h-4 w-4" />
-            More Info
+            Event Details
           </a>
-        ) : (
-          <button 
-            disabled
-            className="px-5 py-2.5 border-2 border-white/10 text-white/50 rounded-full font-medium flex items-center text-sm md:text-base cursor-not-allowed"
-            title="More information will be available soon"
-          >
-            <span className="relative flex h-3 w-3 mr-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/40"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-white/70"></span>
-            </span>
-            More Info (coming soon)
-          </button>
         )}
       </div>
     </div>
