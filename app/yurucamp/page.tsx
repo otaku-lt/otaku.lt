@@ -255,7 +255,17 @@ export default function YuruCampPage() {
                   
                   <h4 className="text-lg font-semibold mt-8 mb-2">Registration</h4>
                   <p className="text-muted-foreground mb-4">
-                    Registration for cosplay and fandom meetups will be announced soon.
+                    <a 
+                      href="https://forms.gle/your-cosplay-registration-link" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-blue-400 hover:underline flex items-center gap-1"
+                    >
+                      Register for Cosplay Competition <ArrowUpRight size={16} />
+                    </a>
+                    <span className="block mt-2 text-sm text-muted-foreground">
+                      Fandom meetups registration will be announced soon.
+                    </span>
                   </p>
                   
                   <h4 className="text-lg font-semibold mt-6 mb-2">Getting There</h4>
