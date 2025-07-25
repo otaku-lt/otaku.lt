@@ -1,22 +1,7 @@
 // Client-side events management for the korniha-band page
 
-// Define the Event type
-export type Event = {
-  id: string;
-  title: string;
-  date: string;
-  endDate?: string;
-  location: string;
-  description: string;
-  featured: boolean;
-  link?: string;
-  setlist?: {
-    days?: Array<{
-      day?: number;
-      type: string;
-    }>;
-  };
-};
+// Import the Event type from the korniha-band types
+import type { Event } from '@/app/korniha-band/types/event';
 
 // In-memory cache for events
 let eventsCache: Event[] | null = null;

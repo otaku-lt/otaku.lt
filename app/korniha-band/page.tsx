@@ -19,18 +19,6 @@ import type { BandMember } from "./types/member";
 export default function KornihaBandPage() {
   const [activeTab, setActiveTab] = useState("about");
   const [events, setEvents] = useState<Event[]>([]);
-  // Define a type for the setlist day
-  type SetlistDay = {
-    day?: number;
-    type: 'Japanese' | 'Lithuanian';
-    songs: string[];
-  };
-
-  // Define a type for the setlist
-  type EventSetlist = {
-    days: SetlistDay[];
-  };
-
   const [featuredEvent, setFeaturedEvent] = useState<Event | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   
