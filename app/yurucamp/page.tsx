@@ -172,7 +172,7 @@ export default function YuruCampPage() {
                       <p className="text-muted-foreground mb-4">€15 (limited number of glowsticks available for €10 deposit)</p>
                       <p className="text-sm text-muted-foreground/80">Ticket quantity is limited</p>
                       <a 
-                        href="https://wibu.me/PdVyP" 
+                        href="https://checkout.revolut.com/pay/e3e7b2aa-8911-498d-be57-c41ec14a6f30" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="inline-block mt-4 px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors text-sm font-medium"
@@ -215,10 +215,10 @@ export default function YuruCampPage() {
                       <p className="text-sm text-red-100/80 mb-1">Priority during karaoke event</p>
                       <p className="text-sm text-red-100/80">Very limited quantity</p>
                       <a 
-                        href="https://wibu.me/BFeBv" 
+                        href="https://checkout.revolut.com/pay/e3e7b2aa-8911-498d-be57-c41ec14a6f30" 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="inline-block mt-4 px-6 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors text-sm font-medium"
+                        className="inline-block mt-4 px-6 py-2 bg-gradient-to-r from-red-600 to-yellow-500 text-white rounded-full hover:from-red-700 hover:to-yellow-600 transition-colors text-sm font-medium"
                       >
                         Buy VIP Ticket
                       </a>
