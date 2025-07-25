@@ -256,7 +256,7 @@ export default function YuruCampPage() {
                   <h4 className="text-lg font-semibold mt-8 mb-2">Registration</h4>
                   <p className="text-muted-foreground mb-4">
                     <a 
-                      href="https://forms.gle/your-cosplay-registration-link" 
+                      href="https://forms.gle/F8vjGNG8LefEXeoi7" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-blue-400 hover:underline flex items-center gap-1"
