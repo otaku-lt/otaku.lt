@@ -10,21 +10,38 @@ export type Event = {
   description: string;
   featured: boolean;
   link?: string;
-  setlist?: any; // Can be a string or a more complex object
+  setlist?: {
+    days?: Array<{
+      day?: number;
+      type: string;
+    }>;
+  };
 };
 
 // In-memory cache for events
 let eventsCache: Event[] | null = null;
+let lastFetchTime = 0;
+const CACHE_DURATION = process.env.NODE_ENV === 'development' ? 0 : 5 * 60 * 1000; // No cache in development, 5 minutes in production
 
 // Function to fetch events from the API (client-side only)
-export async function fetchEventsFromApi(): Promise<Event[]> {
+async function fetchEventsFromApi(): Promise<Event[]> {
   try {
-    const response = await fetch('/api/events');
+    // Add a timestamp to bypass cache in development
+    const timestamp = process.env.NODE_ENV === 'development' ? `?t=${Date.now()}` : '';
+    const response = await fetch(`/api/events${timestamp}`, {
+      cache: 'no-store' // Don't use browser cache
+    });
+    
     if (!response.ok) {
-      throw new Error('Failed to fetch events');
+      throw new Error(`Failed to fetch events: ${response.statusText}`);
     }
+    
     const data = await response.json();
-    return data.events || [];
+    if (!data.success || !Array.isArray(data.events)) {
+      throw new Error('Invalid events data format');
+    }
+    
+    return data.events;
   } catch (error) {
     console.error('Error fetching events from API:', error);
     return [];
@@ -38,13 +55,16 @@ export async function getKornihaEvents(): Promise<Event[]> {
     return [];
   }
 
-  // If we already have cached events, return them
-  if (eventsCache) {
+  const now = Date.now();
+  
+  // Return cached events if they're still fresh
+  if (eventsCache && (now - lastFetchTime) < CACHE_DURATION) {
     return eventsCache;
   }
   
   try {
     eventsCache = await fetchEventsFromApi();
+    lastFetchTime = now;
   } catch (error) {
     console.error('Error getting events:', error);
     eventsCache = [];
@@ -53,6 +73,7 @@ export async function getKornihaEvents(): Promise<Event[]> {
   return eventsCache || [];
 }
 
+// Get the next featured event
 export async function getFeaturedEvent(): Promise<Event | null> {
   try {
     const events = await getKornihaEvents();
