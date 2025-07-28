@@ -119,4 +119,46 @@
     - type: "instagram"
       url: "https://instagram.com/hashi_vdu"
       
+- id: 10
+  title: "Otaku Kūryba"
+  logo: "otakukuryba.png"
+  description: "Serveris Lietuvos anime, komiksų, animacijos, žaidimų ir visokių kitų dalykų kūrėjams."
+  categories:
+    - "artist"
+  links:
+    - type: "discord"
+      url: "https://disboard.org/server/556536183979769867"
+
+- id: 11
+  title: "Gacha Kavinė "
+  logo: "gachakavyne.gif"
+  description: "Nepraleiskite progos gauti nuolaidos kodų savo mėgstamam žaidimui, sužinoti naujienų arba, jei esate naujokas, gauti daug patarimų ir pagalbos. Čia rasite įvairiausių gacha žaidimų, tokių kaip Genshin Impact, Zenless Zone Zero, Arknights, Honkai, Azur Lane, Nikke, Wuthering Waves, Strinova ir daugybę kitų."
+  categories:
+    - "gaming"
+  links:
+    - type: "discord"
+      url: "https://discord.gg/Ht3997KvPf"
+
+- id: 12
+  title: "Reimos Šventykla"
+  logo: "reimostemple.jpg"
+  description: "Tikrų skibidžių serveris, N-18 (serveryje tik pilnamečiai)."
+  categories:
+    - "anime"
+  links:
+    - type: "discord"
+      url: "https://disboard.org/server/1202971289799626852"
+    - type: "youtube"
+      url: "https://www.youtube.com/channel/UCFC5YmmIID-ERPxQuiqJyAw"
+  
+- id: 13
+  title: "AnimeMinusFam"
+  description: "Anime vertėjų komanda Lietuvoje."
+  categories:
+    - "anime"
+  links:
+    - type: "web"
+      url: "https://www.animeonline.lt/"
+    - type: "discord"
+      url: "https://discord.com/invite/4jTV4hx"
   
