@@ -1,16 +1,53 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import { EventTabs } from "@/components/events/EventTabs";
 import { EventCard } from "@/components/events/EventCard";
 import EventCalendar from "@/components/Calendar";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar, MapPin, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+interface Event {
+  id: number;
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  category: string;
+  description: string;
+  status: 'upcoming' | 'past' | 'cancelled';
+  featured?: boolean;
+}
 
 export default function EventsPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [viewMode, setViewMode] = useState<'calendar' | 'list'>('calendar');
+  const [events, setEvents] = useState<Event[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch events from API
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch('/api/events/all');
+        if (!response.ok) {
+          throw new Error('Failed to fetch events');
+        }
+        const data = await response.json();
+        setEvents(data);
+      } catch (err) {
+        console.error('Error fetching events:', err);
+        setError('Failed to load events. Please try again later.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   // Helper function to get category emoji
   const getCategoryEmoji = (category: string): string => {
@@ -44,287 +81,7 @@ export default function EventsPage() {
     return colorMap[category] || 'bg-gray-500/10 text-gray-400';
   };
 
-  const events = [
-    // Featured Events
-    {
-      id: 1,
-      title: "Idol Stage: Summer Edition",
-      date: "August 17, 2025",
-      time: "18:00",
-      location: "Vilnius, Compensa Concert Hall",
-      category: "concert",
-      description: "Our biggest summer concert featuring local and international performers",
-      status: "upcoming",
-      featured: true
-    },
-    {
-      id: 2,
-      title: "YuruCamp: Weeb Camping Adventure",
-      date: "September 5-7, 2025",
-      time: "All day",
-      location: "Trakai National Park",
-      category: "camping",
-      description: "3-day camping experience with anime screenings, cosplay contests, and outdoor activities",
-      status: "upcoming",
-      featured: true
-    },
-    {
-      id: 3,
-      title: "Baltic Anime Con 2025",
-      date: "October 12-14, 2025",
-      time: "10:00",
-      location: "Vilnius, LITEXPO",
-      category: "convention",
-      description: "The biggest anime convention in the Baltics with guests, competitions, and vendors",
-      status: "upcoming",
-      featured: true
-    },
-
-    // Concerts & Music
-    {
-      id: 4,
-      title: "Korniha Band Live Performance",
-      date: "August 12, 2025",
-      time: "20:00",
-      location: "Kaunas, Music Club",
-      category: "concert",
-      description: "Live performance by Lithuania's favorite anime cover band",
-      status: "upcoming"
-    },
-    {
-      id: 5,
-      title: "J-Rock Night: Visual Kei Tribute",
-      date: "July 25, 2025",
-      time: "21:00",
-      location: "Vilnius, Rock Club",
-      category: "concert",
-      description: "Tribute night to legendary Visual Kei bands with local performers",
-      status: "upcoming"
-    },
-    {
-      id: 6,
-      title: "Vocaloid Concert Experience",
-      date: "September 20, 2025",
-      time: "19:30",
-      location: "Klaipėda, Concert Hall",
-      category: "concert",
-      description: "Holographic Vocaloid concert with Hatsune Miku and friends",
-      status: "upcoming"
-    },
-
-    // Screenings
-    {
-      id: 7,
-      title: "Anime Night: Studio Ghibli Marathon",
-      date: "July 20, 2025",
-      time: "19:00",
-      location: "Kaunas, Cinema Hall",
-      category: "screening",
-      description: "Marathon screening of beloved Studio Ghibli films",
-      status: "upcoming"
-    },
-    {
-      id: 8,
-      title: "Your Name: 35mm Film Screening",
-      date: "July 28, 2025",
-      time: "20:00",
-      location: "Vilnius, Skalvijos Cinema",
-      category: "screening",
-      description: "Special 35mm film screening of Makoto Shinkai's masterpiece",
-      status: "upcoming"
-    },
-    {
-      id: 9,
-      title: "Ghost in the Shell: Cyberpunk Night",
-      date: "August 3, 2025",
-      time: "22:00",
-      location: "Šiauliai, Art Cinema",
-      category: "screening",
-      description: "Late night screening with cyberpunk atmosphere and discussion",
-      status: "upcoming"
-    },
-    {
-      id: 10,
-      title: "Demon Slayer: Movie Marathon",
-      date: "August 15, 2025",
-      time: "16:00",
-      location: "Panevėžys, Cinema Center",
-      category: "screening",
-      description: "All Demon Slayer movies back-to-back with breaks",
-      status: "upcoming"
-    },
-
-    // Gaming
-    {
-      id: 11,
-      title: "Yu-Gi-Oh! Tournament",
-      date: "August 5, 2025",
-      time: "12:00",
-      location: "Vilnius, Board Game Café",
-      category: "gaming",
-      description: "Competitive Yu-Gi-Oh! trading card game tournament",
-      status: "upcoming"
-    },
-    {
-      id: 12,
-      title: "Pokémon TCG Championship",
-      date: "July 27, 2025",
-      time: "11:00",
-      location: "Kaunas, Gaming Center",
-      category: "gaming",
-      description: "Regional Pokémon Trading Card Game championship",
-      status: "upcoming"
-    },
-    {
-      id: 13,
-      title: "Fighting Game Tournament: Tekken 8",
-      date: "August 9, 2025",
-      time: "15:00",
-      location: "Vilnius, Esports Arena",
-      category: "gaming",
-      description: "Competitive Tekken 8 tournament with cash prizes",
-      status: "upcoming"
-    },
-    {
-      id: 14,
-      title: "Retro Gaming: Arcade Night",
-      date: "July 24, 2025",
-      time: "18:00",
-      location: "Klaipėda, Retro Bar",
-      category: "gaming",
-      description: "Classic arcade games and retro console tournaments",
-      status: "upcoming"
-    },
-
-    // Workshops
-    {
-      id: 16,
-      title: "Cosplay Workshop: Props & Makeup",
-      date: "July 30, 2025",
-      time: "14:00",
-      location: "Vilnius, Art Studio",
-      category: "workshop",
-      description: "Learn prop-making and makeup techniques from experienced cosplayers",
-      status: "upcoming"
-    },
-    {
-      id: 17,
-      title: "Manga Drawing Masterclass",
-      date: "July 26, 2025",
-      time: "13:00",
-      location: "Vilnius, Art Academy",
-      category: "workshop",
-      description: "Professional manga artist teaches character design and storytelling",
-      status: "upcoming"
-    },
-    {
-      id: 18,
-      title: "Sewing Workshop: Cosplay Basics",
-      date: "August 14, 2025",
-      time: "10:00",
-      location: "Šiauliai, Craft Studio",
-      category: "workshop",
-      description: "Learn basic sewing techniques for cosplay costume creation",
-      status: "upcoming"
-    },
-    {
-      id: 19,
-      title: "Voice Acting Workshop: Anime Dubbing",
-      date: "September 1, 2025",
-      time: "15:00",
-      location: "Vilnius, Recording Studio",
-      category: "workshop",
-      description: "Learn anime voice acting techniques with professional voice actors",
-      status: "upcoming"
-    },
-
-    // Competitions
-    {
-      id: 20,
-      title: "Cosplay Competition: Summer Edition",
-      date: "July 21, 2025",
-      time: "16:00",
-      location: "Vilnius, Convention Center",
-      category: "competition",
-      description: "Regional cosplay competition with multiple categories and prizes",
-      status: "upcoming"
-    },
-    {
-      id: 21,
-      title: "AMV (Anime Music Video) Contest",
-      date: "August 18, 2025",
-      time: "20:00",
-      location: "Kaunas, Digital Arts Center",
-      category: "competition",
-      description: "Annual anime music video creation contest and screening",
-      status: "upcoming"
-    },
-    {
-      id: 22,
-      title: "Karaoke Championship: Anime Songs",
-      date: "September 5, 2025",
-      time: "19:00",
-      location: "Vilnius, Karaoke Club",
-      category: "competition",
-      description: "Sing your favorite anime opening and ending themes",
-      status: "upcoming"
-    },
-
-    // Meetups
-    {
-      id: 23,
-      title: "Anime Discussion: Attack on Titan Finale",
-      date: "July 22, 2025",
-      time: "18:30",
-      location: "Vilnius, Café Library",
-      category: "meetup",
-      description: "Discuss the finale of Attack on Titan with fellow fans",
-      status: "upcoming"
-    },
-    {
-      id: 24,
-      title: "J-Pop Dance Practice",
-      date: "July 29, 2025",
-      time: "19:00",
-      location: "Kaunas, Dance Studio",
-      category: "meetup",
-      description: "Learn and practice popular J-Pop choreographies",
-      status: "upcoming"
-    },
-    {
-      id: 25,
-      title: "Otaku Book Club: Light Novel Discussion",
-      date: "August 11, 2025",
-      time: "17:00",
-      location: "Šiauliai, Bookstore Café",
-      category: "meetup",
-      description: "Monthly book club discussing popular light novels",
-      status: "upcoming"
-    },
-
-    // Special Events
-    {
-      id: 26,
-      title: "Maid Café Pop-up",
-      date: "August 19-20, 2025",
-      time: "12:00",
-      location: "Vilnius, Themed Café",
-      category: "special",
-      description: "Two-day maid café experience with themed menu and entertainment",
-      status: "upcoming"
-    },
-    {
-      id: 27,
-      title: "Anime Trivia Night",
-      date: "July 31, 2025",
-      time: "20:00",
-      location: "Kaunas, Pub Quiz",
-      category: "special",
-      description: "Test your anime knowledge in this fun trivia competition",
-      status: "upcoming"
-    }
-  ];
-
+  // Calculate category counts
   const categories = [
     { id: "all", label: "All Events", count: events.length },
     { id: "concert", label: "Concerts", count: events.filter(e => e.category === "concert").length },
@@ -376,9 +133,16 @@ export default function EventsPage() {
     });
   }, [filteredEvents]);
 
+  const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const handleEventClick = (event: any) => {
-    // Navigate to event details or show modal
-    console.log('Event clicked:', event);
+    // Navigate to event details
+    router.push(`/events/${event.id}`);
   };
 
   return (
@@ -430,9 +194,9 @@ export default function EventsPage() {
         )}
 
         {/* List View */}
-        {viewMode === 'list' && (
+        {viewMode === 'list' && isClient && (
           <div>
-                {/* Events Grid */}
+            {/* Events Grid */}
             <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredEvents.map((event) => (
                 <EventCard

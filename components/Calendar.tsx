@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import type { CalendarApi } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -76,43 +76,55 @@ const downloadICS = (event: CalendarEvent) => {
   window.URL.revokeObjectURL(url);
 };
 
+// Get category colors
+const getCategoryColor = (category: string) => {
+  const colors: Record<string, { background: string; border: string }> = {
+    concert: { background: 'rgba(236, 72, 153, 0.1)', border: 'rgba(236, 72, 153, 0.5)' },
+    camping: { background: 'rgba(34, 197, 94, 0.1)', border: 'rgba(34, 197, 94, 0.5)' },
+    convention: { background: 'rgba(99, 102, 241, 0.1)', border: 'rgba(99, 102, 241, 0.5)' },
+    screening: { background: 'rgba(59, 130, 246, 0.1)', border: 'rgba(59, 130, 246, 0.5)' },
+    workshop: { background: 'rgba(139, 92, 246, 0.1)', border: 'rgba(139, 92, 246, 0.5)' },
+    gaming: { background: 'rgba(249, 115, 22, 0.1)', border: 'rgba(249, 115, 22, 0.5)' },
+    competition: { background: 'rgba(234, 179, 8, 0.1)', border: 'rgba(234, 179, 8, 0.5)' },
+    meetup: { background: 'rgba(20, 184, 166, 0.1)', border: 'rgba(20, 184, 166, 0.5)' },
+    special: { background: 'rgba(244, 63, 94, 0.1)', border: 'rgba(244, 63, 94, 0.5)' },
+    default: { background: 'rgba(156, 163, 175, 0.1)', border: 'rgba(156, 163, 175, 0.5)' },
+  };
+  return colors[category] || colors.default;
+};
+
 export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: EventCalendarProps) {
+  const [isClient, setIsClient] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   const calendarRef = useRef<FullCalendar>(null);
 
-  // Convert events to FullCalendar format
-  const fullCalendarEvents = events.map(event => ({
-    id: event.id.toString(),
-    title: event.title,
-    start: event.start,
-    end: event.end,
-    extendedProps: {
-      location: event.location,
-      category: event.category,
-      description: event.description,
-      originalEvent: event
-    },
-    className: `fc-event-${event.category}`,
-    borderColor: getCategoryColor(event.category || 'default').border,
-    backgroundColor: getCategoryColor(event.category || 'default').background,
-  }));
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
-  // Get category colors
-  function getCategoryColor(category: string) {
-    const colors: { [key: string]: { background: string; border: string } } = {
-      'concert': { background: '#ec4899', border: '#db2777' },
-      'camping': { background: '#22c55e', border: '#16a34a' },
-      'convention': { background: '#6366f1', border: '#4f46e5' },
-      'screening': { background: '#3b82f6', border: '#2563eb' },
-      'workshop': { background: '#9333ea', border: '#7c3aed' },
-      'gaming': { background: '#f97316', border: '#ea580c' },
-      'competition': { background: '#f59e0b', border: '#d97706' },
-      'meetup': { background: '#14b8a6', border: '#0d9488' },
-      'special': { background: '#f43f5e', border: '#e11d48' },
-      'default': { background: '#ec4899', border: '#db2777' }
+  // Convert events to FullCalendar format
+  const fullCalendarEvents = events.map(event => {
+    const category = event.category || 'default';
+    const colors = getCategoryColor(category);
+    
+    return {
+      id: event.id.toString(),
+      title: event.title,
+      start: event.start,
+      end: event.end,
+      extendedProps: {
+        location: event.location,
+        category: category,
+        description: event.description,
+        originalEvent: event
+      },
+      className: `fc-event-${category}`,
+      borderColor: colors.border,
+      backgroundColor: colors.background,
     };
-    return colors[category] || colors.default;
-  }
+  });
+
+
 
   const handleEventClick = (info: any) => {
     const event = info.event.extendedProps.originalEvent;
@@ -128,8 +140,16 @@ export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: E
     }
   };
 
+  if (!isClient) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-500"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-6">
+    <div className="relative">
       {/* Header with export all functionality */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-card/80 backdrop-blur-sm rounded-2xl shadow-lg border border-border/40 p-6">
         <div className="flex items-center gap-3">
