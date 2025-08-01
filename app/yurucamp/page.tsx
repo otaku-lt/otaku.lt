@@ -71,7 +71,7 @@ export default function YuruCampPage() {
                   Fandom meetups (*insert your fandom here*), SpeedWeeb, a Wet Cosplay contest, and Cinema Live concert streams (Hatsune Miku, Colorful Stage, Hololive). Join our Creative Hub for artist workshops, where you can learn new skills, share techniques, and create amazing art together with fellow enthusiasts.
                 </p>
                 <p className="text-muted-foreground-dark text-lg mb-4">
-                  So, pack your tent, sleeping bag, and thermos (for ramen, of course!). Don't forget your cat ears, fluffy tail, and plenty of glowsticks for the evening concerts. Bring your favorite snacks, water, and your most comfortable cosplay. Whether you're a camping pro or a first-time weeb in the wild, we can't wait to see you there!
+                  So, pack your tent, sleeping bag, and thermos (for ramen, of course!). Don't forget your cat ears and plenty of glowsticks for the evening concerts. Bring your favorite snacks, water, and your most comfortable cosplay. Whether you're a camping pro or a first-time weeb in the wild, we can't wait to see you there!
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 text-lg text-muted-foreground-dark mb-4">
                   <div className="flex items-center gap-1">
@@ -172,42 +172,13 @@ export default function YuruCampPage() {
                       <p className="text-muted-foreground mb-4">€15 (limited number of glowsticks available for €10 deposit)</p>
                       <p className="text-sm text-muted-foreground/80">Ticket quantity is limited</p>
                       <a 
-                        href="https://checkout.revolut.com/pay/e3e7b2aa-8911-498d-be57-c41ec14a6f30" 
+                        href="https://kakava.lt/renginys/yurucamp-2025-japonijos-popkulturos-stovykla/10600/20976" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="inline-block mt-4 px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors text-sm font-medium"
                       >
                         Buy Online
                       </a>
-                      <p className="text-xs text-muted-foreground/60 mt-2">
-                        Your email will be your confirmation at the entrance
-                      </p>
-                      <hr className="border-t border-border/30 my-4" />
-                      <div className="mt-4">
-                        <button 
-                          onClick={() => document.getElementById('bank-transfer-details')?.classList.toggle('hidden')}
-                          className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1"
-                        >
-                          <span>Bank Transfer Option</span>
-                          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </button>
-                        <div id="bank-transfer-details" className="hidden mt-2 p-3 bg-blue-900/20 rounded-lg text-xs">
-                          <p className="font-mono break-all">
-                            <span className="text-muted-foreground/80 block">Recipient:</span>
-                            Roman Gorodeckij
-                          </p>
-                          <p className="font-mono break-all mt-2">
-                            <span className="text-muted-foreground/80 block">IBAN:</span>
-                            LT54 7290 0990 3540 3692
-                          </p>
-                          <p className="mt-2">
-                            <span className="text-muted-foreground/80 block">Payment reason:</span>
-                            Yurucamp your@email.com
-                          </p>
-                        </div>
-                      </div>
                     </div>
                     <div className="bg-gradient-to-br from-red-900/40 to-red-800/30 p-6 rounded-xl border border-red-500/30">
                       <h4 className="text-xl font-bold mb-2 text-red-100">VIP Ticket</h4>
@@ -215,7 +186,7 @@ export default function YuruCampPage() {
                       <p className="text-sm text-red-100/80 mb-1">Priority during karaoke event</p>
                       <p className="text-sm text-red-100/80">Very limited quantity</p>
                       <a 
-                        href="https://checkout.revolut.com/pay/e3e7b2aa-8911-498d-be57-c41ec14a6f30" 
+                        href="https://kakava.lt/renginys/yurucamp-2025-japonijos-popkulturos-stovykla/10600/20976" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="inline-block mt-4 px-6 py-2 bg-gradient-to-r from-red-600 to-yellow-500 text-white rounded-full hover:from-red-700 hover:to-yellow-600 transition-colors text-sm font-medium"
@@ -225,31 +196,6 @@ export default function YuruCampPage() {
                       <p className="text-xs text-red-100/70 mt-4">
                         VIP tickets help support our new event and include a high-quality glowstick
                       </p>
-                      <div className="mt-4 pt-4 border-t border-red-500/20">
-                        <button 
-                          onClick={() => document.getElementById('bank-transfer-details-vip')?.classList.toggle('hidden')}
-                          className="text-xs text-blue-300 hover:text-blue-200 flex items-center gap-1"
-                        >
-                          <span>Bank Transfer Option</span>
-                          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </button>
-                        <div id="bank-transfer-details-vip" className="hidden mt-2 p-3 bg-red-900/20 rounded-lg text-xs">
-                          <p className="font-mono break-all">
-                            <span className="text-red-100/80 block">Recipient:</span>
-                            Roman Gorodeckij
-                          </p>
-                          <p className="font-mono break-all mt-2">
-                            <span className="text-red-100/80 block">IBAN:</span>
-                            LT54 7290 0990 3540 3692
-                          </p>
-                          <p className="mt-2">
-                            <span className="text-red-100/80 block">Payment reason:</span>
-                            Yurucamp VIP your@email.com
-                          </p>
-                        </div>
-                      </div>
                     </div>
                   </div>
                   
