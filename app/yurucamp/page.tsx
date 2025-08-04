@@ -111,12 +111,13 @@ export default function YuruCampPage() {
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-2">
-              <div className="h-full rounded-2xl shadow-2xl border-2 border-white/20 overflow-hidden">
+            <div className="lg:col-span-2 flex items-center justify-center">
+              <div className="w-full max-w-md">
                 <img 
                   src="/images/yurucamp/2025_poster.jpg" 
                   alt="YuruCamp 2025 Official Poster" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto rounded-2xl shadow-2xl border-2 border-white/20"
+                  style={{ maxHeight: '80vh' }}
                 />
               </div>
             </div>
