@@ -237,9 +237,10 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
   // Add event content to show title and time
   const eventContent = (arg: any) => {
     return (
-      <div className="p-1">
-        <div className="font-medium text-sm truncate">{arg.timeText}</div>
-        <div className="font-bold text-sm truncate">{arg.event.title}</div>
+      <div className="p-1 w-full h-full">
+        <div className="font-bold text-xs leading-tight break-words whitespace-normal">
+          {arg.event.title}
+        </div>
       </div>
     );
   };
@@ -328,12 +329,7 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
           eventTextColor="inherit"
           eventBackgroundColor="transparent"
           eventDisplay="block"
-          eventTimeFormat={{
-            hour: '2-digit',
-            minute: '2-digit',
-            meridiem: 'short',
-            hour12: true
-          }}
+          displayEventTime={false}
           dayMaxEvents={3}
           views={{
             dayGridMonth: {
