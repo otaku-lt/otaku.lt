@@ -11,18 +11,33 @@ import { format, parseISO } from 'date-fns';
 import { Tag, MapPin, Calendar as CalendarIcon, Download, ExternalLink, X, Clock, CalendarPlus } from 'lucide-react';
 import './Calendar.css';
 
-interface CalendarEvent {
+// Extended event interface for the original event data
+export interface OriginalEvent extends Omit<CalendarEvent, 'extendedProps'> {
   id: string;
   title: string;
-  start: Date | string;
+  date: string;
+  time?: string;
+  location?: string;
+  description?: string;
+  category?: string;
+  featured?: boolean;
+  status?: string;
+  [key: string]: any; // Allow additional properties
+}
+
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  start?: Date | string;
   end?: Date | string;
   allDay?: boolean;
   description?: string;
   location?: string;
   category?: string;
   url?: string;
+  className?: string;
   extendedProps?: {
-    originalEvent?: CalendarEvent;
+    originalEvent?: OriginalEvent;
   };
 }
 
@@ -76,11 +91,27 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
 
   // Generate Google Calendar URL
   const generateGoogleCalendarUrl = useCallback((event: CalendarEvent): string => {
-    const start = event.start instanceof Date ? event.start : new Date(event.start);
-    const end = event.end ? (event.end instanceof Date ? event.end : new Date(event.end)) : new Date(start.getTime() + 60 * 60 * 1000);
+    const start = event.start 
+      ? (event.start instanceof Date ? event.start : new Date(event.start))
+      : new Date();
+    
+    const end = event.end 
+      ? (event.end instanceof Date ? event.end : new Date(event.end))
+      : new Date(start.getTime() + 60 * 60 * 1000);
+      
+    // Ensure dates are valid
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      console.error('Invalid date in event', event);
+      return '';
+    }
 
-    const formatDate = (date: Date): string => {
-      return date.toISOString().replace(/-|:|\.\d+/g, '');
+    const formatDate = (date: Date | string): string => {
+      const d = date instanceof Date ? date : new Date(date);
+      if (isNaN(d.getTime())) {
+        console.error('Invalid date:', date);
+        return '';
+      }
+      return d.toISOString().replace(/-|:|\.\d+/g, '');
     };
 
     const params = new URLSearchParams({
@@ -105,11 +136,27 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
 
   // Generate ICS content for a single event
   const generateICSContent = useCallback((event: CalendarEvent): string => {
-    const start = event.start instanceof Date ? event.start : new Date(event.start);
-    const end = event.end ? (event.end instanceof Date ? event.end : new Date(event.end)) : new Date(start.getTime() + 60 * 60 * 1000);
+    const start = event.start 
+      ? (event.start instanceof Date ? event.start : new Date(event.start))
+      : new Date();
+      
+    const end = event.end 
+      ? (event.end instanceof Date ? event.end : new Date(event.end))
+      : new Date(start.getTime() + 60 * 60 * 1000);
+      
+    // Ensure dates are valid
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      console.error('Invalid date in event', event);
+      return '';
+    }
 
-    const formatDate = (date: Date): string => {
-      return date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+    const formatDate = (date: Date | string): string => {
+      const d = date instanceof Date ? date : new Date(date);
+      if (isNaN(d.getTime())) {
+        console.error('Invalid date in ICS generation:', date);
+        return new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+      }
+      return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
     };
 
     return [
@@ -147,20 +194,38 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
   // Format date for display
   const formatEventDate = useCallback((date: Date | string | undefined, formatStr: string): string => {
     if (!date) return '';
-    const dateObj = date instanceof Date ? date : new Date(date);
-    return format(dateObj, formatStr);
+    try {
+      const dateObj = date instanceof Date ? date : new Date(date);
+      if (isNaN(dateObj.getTime())) {
+        console.error('Invalid date:', date);
+        return '';
+      }
+      return format(dateObj, formatStr);
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return '';
+    }
   }, []);
 
   // Format date range for display
-  const formatDateRange = useCallback((start: Date | string, end?: Date | string): string => {
+  const formatDateRange = useCallback((start: Date | string | undefined, end?: Date | string | undefined): string => {
     if (!start) return '';
+    
     const startDate = start instanceof Date ? start : new Date(start);
+    if (isNaN(startDate.getTime())) {
+      console.error('Invalid start date:', start);
+      return '';
+    }
     
     if (!end) {
       return format(startDate, 'MMMM d, yyyy h:mm a');
     }
     
     const endDate = end instanceof Date ? end : new Date(end);
+    if (isNaN(endDate.getTime())) {
+      console.error('Invalid end date:', end);
+      return format(startDate, 'MMMM d, yyyy h:mm a');
+    }
     
     if (format(startDate, 'yyyy-MM-dd') === format(endDate, 'yyyy-MM-dd')) {
       return `${format(startDate, 'MMMM d, yyyy h:mm a')} - ${format(endDate, 'h:mm a')}`;
@@ -206,36 +271,8 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
     setSelectedEvent(null);
   }, []);
 
-  // Convert events to FullCalendar format
-  const fullCalendarEvents = events.map((event: CalendarEvent) => {
-    const category = event.category || 'default';
-    const colors = getCategoryColor(category);
-    
-    // Format date and time
-    const startDate = event.start instanceof Date ? event.start : new Date(event.start);
-    const endDate = event.end ? (event.end instanceof Date ? event.end : new Date(event.end)) : undefined;
-    
-    return {
-      id: event.id.toString(),
-      title: event.title,
-      start: startDate,
-      end: endDate,
-      allDay: event.allDay || false,
-      backgroundColor: colors.bg,
-      borderColor: colors.border,
-      textColor: colors.text,
-      className: `fc-event-${category} cursor-pointer hover:opacity-90 transition-opacity`,
-      extendedProps: {
-        location: event.location,
-        category: category,
-        description: event.description,
-        originalEvent: event
-      }
-    };
-  });
-  
-  // Add event content to show title and time
-  const eventContent = (arg: any) => {
+  // Event content renderer - shows just the title
+  const eventContent = useCallback((arg: any) => {
     return (
       <div className="p-1 w-full h-full">
         <div className="font-bold text-xs leading-tight break-words whitespace-normal">
@@ -243,7 +280,7 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
         </div>
       </div>
     );
-  };
+  }, []);
 
   // Handle date select
   const handleDateSelect = useCallback((selectInfo: any): void => {
@@ -251,6 +288,56 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
       onSelectSlot(selectInfo);
     }
   }, [onSelectSlot]);
+
+  // Convert events to FullCalendar format and filter out invalid ones
+  const fullCalendarEvents = events
+    .map((event: CalendarEvent) => {
+      try {
+        const category = event.category || 'default';
+        const colors = getCategoryColor(category);
+        
+        // Format date and time with proper null checks
+        const startDate = event.start 
+          ? (event.start instanceof Date ? event.start : new Date(event.start))
+          : new Date();
+          
+        const endDate = event.end 
+          ? (event.end instanceof Date ? event.end : new Date(event.end))
+          : undefined;
+        
+        // Skip invalid events
+        if (isNaN(startDate.getTime()) || (endDate && isNaN(endDate.getTime()))) {
+          console.error('Invalid date in event', event);
+          return null;
+        }
+        
+        return {
+          id: event.id?.toString() || Math.random().toString(36).substr(2, 9),
+          title: event.title || 'Untitled Event',
+          start: startDate,
+          end: endDate,
+          allDay: event.allDay || false,
+          backgroundColor: colors.bg,
+          borderColor: colors.border,
+          textColor: colors.text,
+          className: `fc-event-${category} cursor-pointer hover:opacity-90 transition-opacity`,
+          extendedProps: {
+            location: event.location || '',
+            category: category,
+            description: event.description || '',
+            originalEvent: event
+          }
+        };
+      } catch (error) {
+        console.error('Error processing event:', error, event);
+        return null;
+      }
+    })
+    .filter((event): event is NonNullable<typeof event> => event !== null);
+  
+  // Add event content to show title and time
+  // Event content renderer - shows just the title (duplicate removed)
+  // Handle date select (duplicate removed)
 
   if (!isClient) {
     return (
@@ -369,8 +456,8 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
                   <div>
                     <p className="text-sm font-medium text-muted-foreground">When</p>
                     <p className="text-foreground">
-                      {format(selectedEvent.start, 'MMMM d, yyyy h:mm a')}
-                      {selectedEvent.end && ` - ${format(selectedEvent.end, 'h:mm a')}`}
+                      {selectedEvent.start ? format(new Date(selectedEvent.start), 'MMMM d, yyyy h:mm a') : 'TBD'}
+                      {selectedEvent.end && ` - ${format(new Date(selectedEvent.end), 'h:mm a')}`}
                     </p>
                   </div>
                 </div>
