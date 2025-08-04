@@ -8,25 +8,56 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 import { NextResponse } from 'next/server';
+import { Event } from '@/types/event';
 
-
-interface SetlistDay {
-  day?: number;
-  type: 'Japanese' | 'Lithuanian';
+// Helper function to parse date string into Date object
+function parseDate(dateStr: string): Date {
+  return new Date(dateStr);
 }
 
-type Setlist = 'Japanese' | 'Lithuanian' | SetlistDay[];
+// Get all event files in the monthly directory
+async function getEventFiles() {
+  const eventsDir = path.join(process.cwd(), 'data/events/monthly');
+  try {
+    const files = await fs.readdir(eventsDir);
+    return files.filter(file => file.endsWith('.yaml') || file.endsWith('.yml'));
+  } catch (error) {
+    console.error('Error reading events directory:', error);
+    return [];
+  }
+}
 
-export interface Event {
-  id: string;
-  title: string;
-  date: string;
-  endDate?: string;
-  location: string;
-  description: string;
-  featured: boolean;
-  link?: string;
-  setlist: Setlist;
+// Read and parse events from a file
+async function readEventsFromFile(filename: string): Promise<Event[]> {
+  try {
+    const filePath = path.join(process.cwd(), 'data/events/monthly', filename);
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    const data = yaml.load(fileContents);
+    
+    if (!Array.isArray(data)) {
+      console.error(`Invalid data format in ${filename}: expected an array of events`);
+      return [];
+    }
+    
+    // Ensure all required fields are present
+    return data.map(event => ({
+      id: event.id || '',
+      title: event.title || 'Untitled Event',
+      date: event.date || new Date().toISOString(),
+      time: event.time,
+      endDate: event.endDate,
+      location: event.location || 'Location not specified',
+      description: event.description || '',
+      featured: Boolean(event.featured),
+      status: event.status || 'upcoming',
+      link: event.link,
+      category: event.category,
+      image: event.image
+    }));
+  } catch (error) {
+    console.error(`Error reading file ${filename}:`, error);
+    return [];
+  }
 }
 
 export async function GET() {
@@ -42,47 +73,38 @@ export async function GET() {
   };
 
   try {
-    console.log('Reading events from YAML file...');
-    const filePath = path.join(process.cwd(), 'data/events/korniha.yaml');
-    console.log('File path:', filePath);
+    console.log('Reading events from monthly YAML files...');
     
-    const fileContents = await fs.readFile(filePath, 'utf8');
-    console.log('File contents length:', fileContents.length);
+    // Get all event files
+    const eventFiles = await getEventFiles();
+    console.log(`Found ${eventFiles.length} event files`);
     
-    const events = yaml.load(fileContents) as Event[];
-    console.log('Parsed events:', events);
+    // Read and combine all events
+    const allEvents = await Promise.all(
+      eventFiles.map(file => readEventsFromFile(file))
+    );
     
-    if (!Array.isArray(events)) {
-      throw new Error('Invalid events data format');
-    }
+    // Flatten the array of events and sort by date
+    const events = allEvents
+      .flat()
+      .sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
     
-    return new NextResponse(
-      JSON.stringify({
-        success: true,
-        events: events || []
-      }),
-      { 
-        status: 200,
-        headers
-      }
+    console.log(`Loaded ${events.length} events`);
+    
+    return NextResponse.json(
+      { success: true, events },
+      { status: 200, headers }
     );
   } catch (error) {
-    console.error('Error reading events:', error);
-    return new NextResponse(
-      JSON.stringify({
-        success: false,
-        error: 'Failed to load events'
-      }),
-      {
-        status: 500,
-        headers
-      }
+    console.error('Error processing events:', error);
+    return NextResponse.json(
+      { success: false, error: 'Failed to load events' },
+      { status: 500, headers }
     );
   }
 }
 
 // Handle OPTIONS method for CORS preflight
-// This is necessary for some browsers and environments
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 204,

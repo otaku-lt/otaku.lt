@@ -1,0 +1,20 @@
+- id: 3
+  title: "YuruCamp: Weeb Camping Adventure"
+  date: "2025-09-05"
+  endDate: "2025-09-07"
+  location: "Trakai National Park"
+  category: "camping"
+  description: "3-day camping experience with anime screenings, cosplay contests, and outdoor activities"
+  status: "upcoming"
+  featured: true
+  image: "/images/events/yurucamp.jpg"
+
+- id: 4
+  title: "Japanese Language Workshop"
+  date: "2025-09-15"
+  time: "17:00"
+  location: "Vilnius, Japanese Culture Center"
+  category: "workshop"
+  description: "Beginner-friendly Japanese language workshop focusing on anime phrases"
+  status: "upcoming"
+  featured: false

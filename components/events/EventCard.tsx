@@ -6,9 +6,9 @@ type EventCardProps = {
   id: string | number;
   title: string;
   date: string;
-  time: string;
+  time?: string;
   location: string;
-  category: string;
+  category?: string;
   description: string;
   featured?: boolean;
   showCategory?: boolean;
@@ -24,13 +24,13 @@ export function EventCard({
   date,
   time,
   location,
-  category,
+  category = 'other',
   description,
   featured = false,
   showCategory = true,
   className = '',
   href = `#`,
-  getCategoryEmoji = (cat: string) => '🎌',
+  getCategoryEmoji = (cat: string = '') => '🎌',
   getCategoryColors = () => 'bg-primary/10 text-primary',
 }: EventCardProps) {
   const cardContent = (

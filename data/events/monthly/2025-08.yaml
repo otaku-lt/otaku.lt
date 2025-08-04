@@ -1,0 +1,20 @@
+- id: 1
+  title: "Idol Stage: Summer Edition"
+  date: "2025-08-17"
+  time: "18:00"
+  location: "Vilnius, Compensa Concert Hall"
+  category: "concert"
+  description: "Our biggest summer concert featuring local and international performers"
+  status: "upcoming"
+  featured: true
+  image: "/images/events/idol-stage-summer.jpg"
+
+- id: 2
+  title: "Anime Movie Night"
+  date: "2025-08-24"
+  time: "19:30"
+  location: "Vilnius, Forum Cinemas"
+  category: "screening"
+  description: "Screening of popular anime movies with Japanese subtitles"
+  status: "upcoming"
+  featured: false

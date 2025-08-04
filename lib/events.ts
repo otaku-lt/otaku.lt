@@ -1,7 +1,8 @@
-// Client-side events management for the korniha-band page
+// Client-side events management
 
-// Import the Event type from the korniha-band types
-import type { Event } from '@/app/korniha-band/types/event';
+export * from '@/types/event';
+
+import type { Event } from '@/types/event';
 
 // In-memory cache for events
 let eventsCache: Event[] | null = null;
@@ -34,7 +35,7 @@ async function fetchEventsFromApi(): Promise<Event[]> {
 }
 
 // Get all events (client-side only)
-export async function getKornihaEvents(): Promise<Event[]> {
+export async function getEvents(): Promise<Event[]> {
   // If we're not in a browser, return empty array
   if (typeof window === 'undefined') {
     return [];
@@ -58,26 +59,65 @@ export async function getKornihaEvents(): Promise<Event[]> {
   return eventsCache || [];
 }
 
-// Get the next featured event
-export async function getFeaturedEvent(): Promise<Event | null> {
+// Get events by category
+export async function getEventsByCategory(category: string): Promise<Event[]> {
   try {
-    const events = await getKornihaEvents();
-    if (!events || !Array.isArray(events)) {
-      console.error('No events found or invalid format');
-      return null;
-    }
+    const events = await getEvents();
+    return events.filter(event => 
+      event.category === category && 
+      (!event.status || event.status !== 'cancelled')
+    );
+  } catch (error) {
+    console.error(`Error getting events for category ${category}:`, error);
+    return [];
+  }
+}
 
+// Get events by month
+export async function getEventsByMonth(year: number, month: number): Promise<Event[]> {
+  try {
+    const events = await getEvents();
+    return events.filter(event => {
+      const eventDate = new Date(event.date);
+      return (
+        eventDate.getFullYear() === year &&
+        eventDate.getMonth() === month - 1 && // months are 0-indexed in JS
+        (!event.status || event.status !== 'cancelled')
+      );
+    });
+  } catch (error) {
+    console.error(`Error getting events for ${year}-${month}:`, error);
+    return [];
+  }
+}
+
+// Get featured events
+export async function getFeaturedEvents(limit: number = 3): Promise<Event[]> {
+  try {
+    const events = await getEvents();
     const now = new Date();
     
-    // Find the first upcoming featured event
-    const upcomingEvents = events
-      .filter(event => event && event.date && new Date(event.date) >= now)
-      .filter(event => event.featured === true)
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-      
-    return upcomingEvents[0] || null;
+    return events
+      .filter(event => 
+        event.featured && 
+        new Date(event.date) >= now &&
+        (!event.status || event.status !== 'cancelled')
+      )
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .slice(0, limit);
   } catch (error) {
-    console.error('Error getting featured event:', error);
+    console.error('Error getting featured events:', error);
+    return [];
+  }
+}
+
+// Get a single event by ID
+export async function getEventById(id: string): Promise<Event | null> {
+  try {
+    const events = await getEvents();
+    return events.find(event => event.id === id) || null;
+  } catch (error) {
+    console.error(`Error getting event with ID ${id}:`, error);
     return null;
   }
 }
