@@ -1,24 +1,29 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import FullCalendar from '@fullcalendar/react';
-import type { CalendarApi } from '@fullcalendar/core';
+import type { CalendarApi, EventClickArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { format } from 'date-fns';
-import { Tag, MapPin, Calendar as CalendarIcon, Download, ExternalLink, X } from 'lucide-react';
-import listPlugin from '@fullcalendar/list';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
+import { format, parseISO } from 'date-fns';
+import { Tag, MapPin, Calendar as CalendarIcon, Download, ExternalLink, X, Clock, CalendarPlus } from 'lucide-react';
 import './Calendar.css';
 
 interface CalendarEvent {
-  id: number;
+  id: string;
   title: string;
-  start: Date;
-  end: Date;
+  start: Date | string;
+  end?: Date | string;
+  allDay?: boolean;
+  description?: string;
   location?: string;
   category?: string;
-  description?: string;
-  resource?: any;
+  url?: string;
+  extendedProps?: {
+    originalEvent?: CalendarEvent;
+  };
 }
 
 interface EventCalendarProps {
@@ -27,118 +32,224 @@ interface EventCalendarProps {
   onSelectSlot?: (slotInfo: any) => void;
 }
 
-// Generate Google Calendar URL for single event
-const generateGoogleCalendarUrl = (event: CalendarEvent) => {
-  const startDate = event.start.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-  const endDate = event.end.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-  
-  const params = new URLSearchParams({
-    action: 'TEMPLATE',
-    text: event.title,
-    dates: `${startDate}/${endDate}`,
-    details: event.description || '',
-    location: event.location || '',
-  });
-  
-  return `https://calendar.google.com/calendar/render?${params.toString()}`;
-};
-
-// Generate ICS file content for single event
-const generateICSContent = (event: CalendarEvent) => {
-  const formatDate = (date: Date) => date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-  
-  return `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Otaku.lt//Event Calendar//EN
-BEGIN:VEVENT
-UID:${event.id}@otaku.lt
-DTSTAMP:${formatDate(new Date())}
-DTSTART:${formatDate(event.start)}
-DTEND:${formatDate(event.end)}
-SUMMARY:${event.title}
-DESCRIPTION:${event.description || ''}
-LOCATION:${event.location || ''}
-END:VEVENT
-END:VCALENDAR`;
-};
-
-// Download ICS file
-const downloadICS = (event: CalendarEvent) => {
-  const icsContent = generateICSContent(event);
-  const blob = new Blob([icsContent], { type: 'text/calendar' });
-  const url = window.URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = `${event.title.replace(/\s+/g, '_')}.ics`;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  window.URL.revokeObjectURL(url);
-};
-
-// Get category colors
-const getCategoryColor = (category: string) => {
-  const colors: Record<string, { background: string; border: string }> = {
-    concert: { background: 'rgba(236, 72, 153, 0.1)', border: 'rgba(236, 72, 153, 0.5)' },
-    camping: { background: 'rgba(34, 197, 94, 0.1)', border: 'rgba(34, 197, 94, 0.5)' },
-    convention: { background: 'rgba(99, 102, 241, 0.1)', border: 'rgba(99, 102, 241, 0.5)' },
-    screening: { background: 'rgba(59, 130, 246, 0.1)', border: 'rgba(59, 130, 246, 0.5)' },
-    workshop: { background: 'rgba(139, 92, 246, 0.1)', border: 'rgba(139, 92, 246, 0.5)' },
-    gaming: { background: 'rgba(249, 115, 22, 0.1)', border: 'rgba(249, 115, 22, 0.5)' },
-    competition: { background: 'rgba(234, 179, 8, 0.1)', border: 'rgba(234, 179, 8, 0.5)' },
-    meetup: { background: 'rgba(20, 184, 166, 0.1)', border: 'rgba(20, 184, 166, 0.5)' },
-    special: { background: 'rgba(244, 63, 94, 0.1)', border: 'rgba(244, 63, 94, 0.5)' },
-    default: { background: 'rgba(156, 163, 175, 0.1)', border: 'rgba(156, 163, 175, 0.5)' },
+const getCategoryColor = (category: string): { bg: string; text: string; border: string } => {
+  const colors = {
+    default: {
+      bg: 'bg-gray-100/10',
+      text: 'text-gray-100',
+      border: 'border-gray-500/30',
+    },
+    meetup: {
+      bg: 'bg-blue-500/10',
+      text: 'text-blue-400',
+      border: 'border-blue-500/30',
+    },
+    workshop: {
+      bg: 'bg-purple-500/10',
+      text: 'text-purple-400',
+      border: 'border-purple-500/30',
+    },
+    conference: {
+      bg: 'bg-pink-500/10',
+      text: 'text-pink-400',
+      border: 'border-pink-500/30',
+    },
+    social: {
+      bg: 'bg-green-500/10',
+      text: 'text-green-400',
+      border: 'border-green-500/30',
+    },
   };
-  return colors[category] || colors.default;
+
+  return colors[category as keyof typeof colors] || colors.default;
 };
 
-export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: EventCalendarProps) {
+export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: EventCalendarProps) {
   const [isClient, setIsClient] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   const calendarRef = useRef<FullCalendar>(null);
 
+  // Set isClient to true on mount
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  // Generate Google Calendar URL
+  const generateGoogleCalendarUrl = useCallback((event: CalendarEvent): string => {
+    const start = event.start instanceof Date ? event.start : new Date(event.start);
+    const end = event.end ? (event.end instanceof Date ? event.end : new Date(event.end)) : new Date(start.getTime() + 60 * 60 * 1000);
+
+    const formatDate = (date: Date): string => {
+      return date.toISOString().replace(/-|:|\.\d+/g, '');
+    };
+
+    const params = new URLSearchParams({
+      action: 'TEMPLATE',
+      text: event.title,
+      details: event.description || '',
+      location: event.location || '',
+      dates: `${formatDate(start)}/${formatDate(end)}`,
+    });
+
+    return `https://calendar.google.com/calendar/render?${params.toString()}`;
+  }, []);
+
+  // Helper to escape ICS content
+  const escapeICS = useCallback((text: string): string => {
+    return text
+      .replace(/\\/g, '\\\\')
+      .replace(/\n/g, '\\n')
+      .replace(/;/g, '\\;')
+      .replace(/,/g, '\\,');
+  }, []);
+
+  // Generate ICS content for a single event
+  const generateICSContent = useCallback((event: CalendarEvent): string => {
+    const start = event.start instanceof Date ? event.start : new Date(event.start);
+    const end = event.end ? (event.end instanceof Date ? event.end : new Date(event.end)) : new Date(start.getTime() + 60 * 60 * 1000);
+
+    const formatDate = (date: Date): string => {
+      return date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+    };
+
+    return [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//otaku.lt//NONSGML Events//EN',
+      'BEGIN:VEVENT',
+      `UID:${event.id}@otaku.lt`,
+      `DTSTAMP:${formatDate(new Date())}`,
+      `DTSTART:${formatDate(start)}`,
+      `DTEND:${formatDate(end)}`,
+      `SUMMARY:${escapeICS(event.title)}`,
+      event.description ? `DESCRIPTION:${escapeICS(event.description)}` : '',
+      event.location ? `LOCATION:${escapeICS(event.location)}` : '',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].filter(Boolean).join('\r\n');
+  }, [escapeICS]);
+
+  // Download event as ICS file
+  const downloadEventICS = useCallback((event: CalendarEvent): void => {
+    const icsContent = generateICSContent(event);
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${event.title.replace(/\s+/g, '_')}.ics`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, [generateICSContent]);
+
+  // Format date for display
+  const formatEventDate = useCallback((date: Date | string | undefined, formatStr: string): string => {
+    if (!date) return '';
+    const dateObj = date instanceof Date ? date : new Date(date);
+    return format(dateObj, formatStr);
+  }, []);
+
+  // Format date range for display
+  const formatDateRange = useCallback((start: Date | string, end?: Date | string): string => {
+    if (!start) return '';
+    const startDate = start instanceof Date ? start : new Date(start);
+    
+    if (!end) {
+      return format(startDate, 'MMMM d, yyyy h:mm a');
+    }
+    
+    const endDate = end instanceof Date ? end : new Date(end);
+    
+    if (format(startDate, 'yyyy-MM-dd') === format(endDate, 'yyyy-MM-dd')) {
+      return `${format(startDate, 'MMMM d, yyyy h:mm a')} - ${format(endDate, 'h:mm a')}`;
+    }
+    
+    return `${format(startDate, 'MMMM d, yyyy h:mm a')} - ${format(endDate, 'MMMM d, yyyy h:mm a')}`;
+  }, []);
+
+  // Handle event click
+  const handleEventClick = useCallback((info: EventClickArg) => {
+    info.jsEvent.preventDefault();
+    const event = info.event.extendedProps.originalEvent as CalendarEvent;
+    if (event) {
+      setSelectedEvent(event);
+      if (onSelectEvent) {
+        onSelectEvent(event);
+      }
+    }
+  }, [onSelectEvent]);
+
+  // Handle download ICS for an event
+  const handleDownloadICS = useCallback((event: CalendarEvent) => {
+    const icsContent = generateICSContent(event);
+    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'event.ics';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  }, []);
+
+  // Open Google Calendar with event details
+  const handleGoogleCalendar = useCallback((event: CalendarEvent) => {
+    const url = generateGoogleCalendarUrl(event);
+    window.open(url, '_blank');
+  }, []);
+
+  // Close the event details modal
+  const handleModalClose = useCallback((): void => {
+    setSelectedEvent(null);
+  }, []);
+
   // Convert events to FullCalendar format
-  const fullCalendarEvents = events.map(event => {
+  const fullCalendarEvents = events.map((event: CalendarEvent) => {
     const category = event.category || 'default';
     const colors = getCategoryColor(category);
+    
+    // Format date and time
+    const startDate = event.start instanceof Date ? event.start : new Date(event.start);
+    const endDate = event.end ? (event.end instanceof Date ? event.end : new Date(event.end)) : undefined;
     
     return {
       id: event.id.toString(),
       title: event.title,
-      start: event.start,
-      end: event.end,
+      start: startDate,
+      end: endDate,
+      allDay: event.allDay || false,
+      backgroundColor: colors.bg,
+      borderColor: colors.border,
+      textColor: colors.text,
+      className: `fc-event-${category} cursor-pointer hover:opacity-90 transition-opacity`,
       extendedProps: {
         location: event.location,
         category: category,
         description: event.description,
         originalEvent: event
-      },
-      className: `fc-event-${category}`,
-      borderColor: colors.border,
-      backgroundColor: colors.background,
+      }
     };
   });
-
-
-
-  const handleEventClick = (info: any) => {
-    const event = info.event.extendedProps.originalEvent;
-    setSelectedEvent(event);
-    if (onSelectEvent) {
-      onSelectEvent(event);
-    }
+  
+  // Add event content to show title and time
+  const eventContent = (arg: any) => {
+    return (
+      <div className="p-1">
+        <div className="font-medium text-sm truncate">{arg.timeText}</div>
+        <div className="font-bold text-sm truncate">{arg.event.title}</div>
+      </div>
+    );
   };
 
-  const handleDateSelect = (selectInfo: any) => {
+  // Handle date select
+  const handleDateSelect = useCallback((selectInfo: any): void => {
     if (onSelectSlot) {
       onSelectSlot(selectInfo);
     }
-  };
+  }, [onSelectSlot]);
 
   if (!isClient) {
     return (
@@ -151,7 +262,7 @@ export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: E
   return (
     <div className="relative">
       {/* Header with export all functionality */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-card/80 backdrop-blur-sm rounded-2xl shadow-lg border border-border/40 p-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-card/80 backdrop-blur-sm rounded-2xl shadow-lg border border-border/40 p-6 mb-6">
         <div className="flex items-center gap-3">
           <CalendarIcon className="text-primary" size={24} />
           <div>
@@ -185,7 +296,7 @@ export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: E
           
           <button
             onClick={() => {
-              const googleCalendarUrl = `https://calendar.google.com/calendar/render?cid=otaku.lt`;
+              const googleCalendarUrl = 'https://calendar.google.com/calendar/render?cid=otaku.lt';
               window.open(googleCalendarUrl, '_blank');
             }}
             className="flex items-center gap-2 px-4 py-2 bg-muted text-foreground rounded-lg hover:bg-muted/80 transition-all shadow-md border border-border"
@@ -205,60 +316,38 @@ export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: E
           headerToolbar={{
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,listWeek'
+            right: 'dayGridMonth,listMonth'
           }}
-          height="auto"
           events={fullCalendarEvents}
           eventClick={handleEventClick}
+          eventContent={eventContent}
+          selectable={!!onSelectSlot}
           select={handleDateSelect}
-          selectable={true}
-          selectMirror={true}
-          dayMaxEvents={true}
-          weekends={true}
-          nowIndicator={true}
-          eventDisplay='block'
-          displayEventTime={false}
-          dayMaxEventRows={3}
-          moreLinkClick='popover'
-          // Styling for dark theme
-          themeSystem='standard'
-          eventClassNames="bg-card border-l-4 border-primary hover:bg-accent/50 transition-colors"
-          dayHeaderClassNames="text-foreground/80 font-medium"
-          dayCellClassNames="hover:bg-accent/20"
+          height="auto"
+          eventBorderColor="transparent"
+          eventTextColor="inherit"
+          eventBackgroundColor="transparent"
+          eventDisplay="block"
+          eventTimeFormat={{
+            hour: '2-digit',
+            minute: '2-digit',
+            meridiem: 'short',
+            hour12: true
+          }}
+          dayMaxEvents={3}
+          views={{
+            dayGridMonth: {
+              dayMaxEventRows: 3,
+            },
+            listMonth: {
+              listDayFormat: { weekday: 'long', month: 'long', day: 'numeric', omitCommas: true },
+              listDaySideFormat: false,
+            }
+          }}
           buttonText={{
             today: 'Today',
             month: 'Month',
             list: 'List'
-          }}
-
-          eventContent={(eventInfo) => {
-            const event = eventInfo.event;
-            const timeText = eventInfo.timeText;
-            
-            return (
-              <div className="fc-event-main-frame">
-                {timeText && (
-                  <div className="fc-event-time text-xs opacity-80 mr-1">
-                    {timeText}
-                  </div>
-                )}
-                <div className="fc-event-title-container">
-                  <div className="fc-event-title text-sm font-medium">
-                    {event.title}
-                  </div>
-                </div>
-              </div>
-            );
-          }}
-          expandRows={true}
-          stickyHeaderDates={true}
-          eventMouseEnter={(info: any) => {
-            info.el.style.transform = 'scale(1.02)';
-            info.el.style.zIndex = '10';
-          }}
-          eventMouseLeave={(info: any) => {
-            info.el.style.transform = 'scale(1)';
-            info.el.style.zIndex = '1';
           }}
         />
       </div>
@@ -320,7 +409,7 @@ export default function EventCalendar({ events, onSelectEvent, onSelectSlot }: E
               
               <div className="flex flex-col sm:flex-row justify-end gap-3 pt-6">
                 <button
-                  onClick={() => downloadICS(selectedEvent)}
+                  onClick={() => handleDownloadICS(selectedEvent)}
                   className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-border hover:bg-accent/50 transition-colors"
                 >
                   <Download size={16} />
