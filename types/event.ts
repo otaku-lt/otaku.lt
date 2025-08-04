@@ -14,6 +14,11 @@ export interface Event {
   link?: string;
   category?: string;
   image?: string;
+  tags?: string[];
+  organizer?: string;
+  venue?: string;
+  city?: string;
+  price?: number | string;
   // Add any other fields that might be used in your events
 }
 

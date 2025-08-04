@@ -113,11 +113,31 @@ export async function getFeaturedEvents(limit: number = 3): Promise<Event[]> {
 
 // Get a single event by ID
 export async function getEventById(id: string): Promise<Event | null> {
-  try {
-    const events = await getEvents();
-    return events.find(event => event.id === id) || null;
-  } catch (error) {
-    console.error(`Error getting event with ID ${id}:`, error);
-    return null;
-  }
+  const events = await getEvents();
+  return events.find(event => event.id === id) || null;
+}
+
+// Get events specifically for Korniha band
+export async function getKornihaEvents(): Promise<Event[]> {
+  const events = await getEvents();
+  return events.filter(event => {
+    const hasKornihaTag = Array.isArray(event.tags) && 
+                         event.tags.some(tag => tag.toLowerCase().includes('korniha'));
+    const isKornihaOrganizer = event.organizer && 
+                              event.organizer.toLowerCase().includes('korniha');
+    return hasKornihaTag || isKornihaOrganizer;
+  });
+}
+
+// Get a featured event (currently returns the next upcoming event)
+export async function getFeaturedEvent(): Promise<Event | null> {
+  const now = new Date();
+  const events = await getEvents();
+  
+  // Sort events by date and find the next upcoming event
+  const upcomingEvents = events
+    .filter(event => new Date(event.date) >= now)
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  
+  return upcomingEvents[0] || null;
 }
