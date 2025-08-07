@@ -35,7 +35,6 @@
   description: "Lietuvos Anime bendruomenė. Laisvai diskutuokit anime tema!"
   categories:
     - "anime"
-  featured: true
   logo: "animelietuva.jpg"
   links:
     - type: "facebook"
@@ -49,8 +48,6 @@
   description: "J-music LT yra jaukus kampelis, skirtas dalintis įvairia japonų ir kitokia mėgstama muzika bei naujais atradimais, tačiau mes neapsiribojame vien tik muzikos diskusijomis. Mes taip pat kartu žiūrime anime/filmus, žaidžiame D&D ir video žaidimus, organizuojame susitikimus gyvai. Mūsų serveris yra atviras visiems bendraminčiams ir smalsioms sieloms. Užsukite, jei norite prisijungti prie mūsų draugiškos bendruomenės! "
   categories:
     - "music"
-
-  featured: true
   links:
     - type: "discord"
       url: "https://discord.gg/otakult"
