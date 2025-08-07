@@ -193,6 +193,7 @@
   description: "Anime vertėjų komanda Lietuvoje."
   categories:
     - "anime"
+    - "fansub"
   links:
     - type: "web"
       url: "https://www.animeonline.lt/"
