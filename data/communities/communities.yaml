@@ -17,7 +17,6 @@
     - type: "instagram"
       url: "https://www.instagram.com/y.m.c.a.lt/"
 
-
 - id: 1
   title: "Solanum Baltic"
   description: "The Baltic States creators community, a collaboration of artists here to unite the creatives of Estonia, Latvia and Lithuania by organizing art meet ups, Secret SWanta and much more for different types of creators. Do you need advice for wig making or table placement? We also have lot of useful tutorials!"
@@ -43,7 +42,7 @@
     - type: "discord"
       url: "https://disboard.org/server/1142573695601225738"
 
-- id: 2
+- id: 3
   title: "J-music LT"
   logo: "jmusic.png"
   description: "J-music LT yra jaukus kampelis, skirtas dalintis įvairia japonų ir kitokia mėgstama muzika bei naujais atradimais, tačiau mes neapsiribojame vien tik muzikos diskusijomis. Mes taip pat kartu žiūrime anime/filmus, žaidžiame D&D ir video žaidimus, organizuojame susitikimus gyvai. Mūsų serveris yra atviras visiems bendraminčiams ir smalsioms sieloms. Užsukite, jei norite prisijungti prie mūsų draugiškos bendruomenės! "
@@ -55,7 +54,7 @@
     - type: "discord"
       url: "https://discord.gg/otakult"
 
-- id: 3
+- id: 4
   title: "r/Japonija"
   logo: "rjaponija.png"
   description: "Tai bendruomenė organizuojanti gyvą veiklą žmonėms, kurie domisi Japonijos kultūra/popkultūra."
@@ -71,7 +70,7 @@
     - type: "discord"
       url: "https://discord.com/invite/VySEgbQXt6"
 
-- id: 4
+- id: 5
   title: "AnimeSub.LT"
   logo: "animesub.png"
   description: "Stipriausia, didžiausia, ir geriausia anime vertėjų komanda Lietuvoje."
@@ -86,7 +85,7 @@
     - type: "discord"
       url: "https://discord.gg/VmDEUzm"
 
-- id: 5
+- id: 6
   title: "AnimeZona"
   description: "AnimeZona.net yra daug metų gyvuojantis ir pats didžiausias Lietuviškas portalas dedikuotas viskam kas susiję su anime fandomu ir tuo kas įdomu jo nariams."
   categories:
@@ -101,7 +100,7 @@
     - type: "youtube"
       url: "https://www.youtube.com/@AnimeZonaPodcast"
 
-- id: 6
+- id: 7
   title: "Comic Con Baltics Cosplay Club"
   logo: "ccbcosplay.png"
   description: "Comic Con Baltics Cosplay Club - a place for cosplayers and lovers of this hobby to communicate, share news and knowledge, and just celebrate the joys of cosplay!"
@@ -113,7 +112,7 @@
       url: "https://www.facebook.com/groups/666491483556518/"
 
 
-- id: 7
+- id: 8
   title: "Akmenės otaku klubas „Atarashii Koishi"
   logo: "akmene.png"
   description: "Akmenės otaku klubas „Atarashii Koishi“ – tai naujai susibūrusi bendruomenė visiems anime, mangos ir Japonijos popkultūros gerbėjams! Kartu žiūrime anime, skaitome mangą, ragaujame japoniškus užkandžius ir smagiai leidžiame laiką tarp bendraminčių. \n Jei esi iš Akmenės krašto ir domiesi Japonijos kultūra – prisijunk! Mes tavęs laukiame!"
@@ -125,7 +124,7 @@
     - type: "facebook"
       url: "https://www.facebook.com/people/Akmen%C4%97s-otaku-klubas-Atarashii-Koishi/61577975646482/"
 
-- id: 8
+- id: 9
   title: "Marijampolės Otaku klubas"
   logo: "marijampoleklubas.jpg"
   description: "Mūsų tikslas surinkti visus kurie žiūri anime ir skaito mangą Marijampolės regione."
@@ -137,7 +136,7 @@
     - type: "facebook"
       url: "https://www.facebook.com/p/Marijampol%C4%97s-Otaku-klubas-100063565027724/"
 
-- id: 9
+- id: 10
   title: "Japonistikos klubas Hashi"
   logo: "hashi.jpg"
   description: "Klubas „Hashi“ yra visuomeninė ne pelno siekianti organizacija, visada atvira naujiems nariams ir idėjoms, todėl, jei nori: pagerinti japonų bei anglų kalbų įgūdžius, susirasti naujų draugųlabiau pažinti Tekančios saulės šalies kultūrą"
@@ -154,7 +153,7 @@
     - type: "instagram"
       url: "https://instagram.com/hashi_vdu"
       
-- id: 10
+- id: 11
   title: "Otaku Kūryba"
   logo: "otakukuryba.jpg"
   description: "Serveris Lietuvos anime, komiksų, animacijos, žaidimų ir visokių kitų dalykų kūrėjams."
@@ -164,7 +163,7 @@
     - type: "discord"
       url: "https://disboard.org/server/556536183979769867"
 
-- id: 11
+- id: 12
   title: "Gacha Kavinė "
   logo: "gachakavyne.gif"
   description: "Nepraleiskite progos gauti nuolaidos kodų savo mėgstamam žaidimui, sužinoti naujienų arba, jei esate naujokas, gauti daug patarimų ir pagalbos. Čia rasite įvairiausių gacha žaidimų, tokių kaip Genshin Impact, Zenless Zone Zero, Arknights, Honkai, Azur Lane, Nikke, Wuthering Waves, Strinova ir daugybę kitų."
@@ -174,7 +173,7 @@
     - type: "discord"
       url: "https://discord.gg/Ht3997KvPf"
 
-- id: 12
+- id: 13
   title: "Reimos Šventykla"
   logo: "reimostemple.jpg"
   description: "Tikrų skibidžių serveris, N-18 (serveryje tik pilnamečiai)."
@@ -186,7 +185,7 @@
     - type: "youtube"
       url: "https://www.youtube.com/channel/UCFC5YmmIID-ERPxQuiqJyAw"
   
-- id: 13
+- id: 14
   title: "AnimeMinusFam"
   description: "Anime vertėjų komanda Lietuvoje."
   categories:
