@@ -5,6 +5,7 @@
     - "anime"
     - "manga"
     - "cosplay"
+    - "irl"
   featured: true
   logo: "otaku_lt.png"
   links:
@@ -61,6 +62,7 @@
   categories:
     - "culture"
     - "manga"
+    - "irl"
   featured: true
   links:
     - type: "reddit"
@@ -143,6 +145,7 @@
   categories:
     - "club"
     - "culture"
+    - "irl"
   links:
     - type: "web"
       url: "https://www.vdu.lt/lt/laisvalaikis/akademiniai-ir-studentu-klubai/japonistikos-klubas-hashi/"
