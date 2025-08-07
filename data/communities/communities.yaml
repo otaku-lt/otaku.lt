@@ -5,8 +5,6 @@
     - "anime"
     - "manga"
     - "cosplay"
-    - "jpop"
-    - "community"
   featured: true
   logo: "otaku_lt.png"
   links:
@@ -21,6 +19,18 @@
 
 
 - id: 1
+  title: "Solanum Baltic"
+  description: "The Baltic States creators community, a collaboration of artists here to unite the creatives of Estonia, Latvia and Lithuania by organizing art meet ups, Secret SWanta and much more for different types of creators. Do you need advice for wig making or table placement? We also have lot of useful tutorials!"
+  categories:
+    - "art"
+    - "cosplay"
+  featured: true
+  logo: "solanum.png"
+  links:
+    - type: "discord"
+      url: "https://discord.com/invite/cXrqGhgqE4"
+
+- id: 2
   title: "Anime Lietuva"
   description: "Lietuvos Anime bendruomenė. Laisvai diskutuokit anime tema!"
   categories:
