@@ -1,3 +1,25 @@
+- id: 0
+  title: "Otaku.lt"
+  description: "Lietuvos otaku bendruomenė. Sėsk į traukinį į japonų popkultūrą kartu su mumis! Didžiausia ir aktyviausia Lietuvos otaku bendruomenė, vienijanti anime, kosplejaus, J-pop ir japonų kultūros entuziastus. Organizuojame renginius, susitikimus ir veiklas visoje šalyje."
+  categories:
+    - "anime"
+    - "manga"
+    - "cosplay"
+    - "jpop"
+    - "community"
+  featured: true
+  logo: "otaku_lt.png"
+  links:
+    - type: "web"
+      url: "https://otaku.lt"
+    - type: "discord"
+      url: "https://discord.gg/ZRjhsM6knJ"
+    - type: "facebook"
+      url: "https://www.facebook.com/otakultu"
+    - type: "instagram"
+      url: "https://www.instagram.com/y.m.c.a.lt/"
+
+
 - id: 1
   title: "Anime Lietuva"
   description: "Lietuvos Anime bendruomenė. Laisvai diskutuokit anime tema!"
