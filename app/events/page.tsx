@@ -39,48 +39,34 @@ export default function EventsPage() {
 
   // Helper function to get category emoji
   const getCategoryEmoji = (category: string): string => {
-    const emojiMap: { [key: string]: string } = {
-      'concert': '🎤',
-      'camping': '⛺',
-      'convention': '🏢',
-      'screening': '🎬',
-      'workshop': '🎨',
-      'gaming': '🎮',
-      'competition': '🏆',
+    const categoryIcons: Record<string, string> = {
       'meetup': '👥',
-      'special': '✨'
+      'workshop': '🎨',
+      'conference': '🎤',
+      'social': '🎉'
     };
-    return emojiMap[category] || '🎌';
+    return categoryIcons[category] || '🎌';
   };
 
   // Helper function to get category colors
   const getCategoryColors = (category: string): string => {
-    const colorMap: { [key: string]: string } = {
-      'concert': 'bg-pink-500/10 text-pink-400',
-      'camping': 'bg-green-500/10 text-green-400',
-      'convention': 'bg-indigo-500/10 text-indigo-400',
-      'screening': 'bg-blue-500/10 text-blue-400',
+    const categoryColors: Record<string, string> = {
+      'meetup': 'bg-blue-500/10 text-blue-400',
       'workshop': 'bg-purple-500/10 text-purple-400',
-      'gaming': 'bg-orange-500/10 text-orange-400',
-      'competition': 'bg-yellow-500/10 text-yellow-400',
-      'meetup': 'bg-teal-500/10 text-teal-400',
-      'special': 'bg-rose-500/10 text-rose-400'
+      'conference': 'bg-pink-500/10 text-pink-400',
+      'social': 'bg-green-500/10 text-green-400'
     };
-    return colorMap[category] || 'bg-gray-500/10 text-gray-400';
+    return categoryColors[category] || 'bg-gray-500/10 text-gray-400';
   };
 
   // Calculate category counts
   const categories = [
-    { id: "all", label: "All Events", count: events.length },
-    { id: "concert", label: "Concerts", count: events.filter(e => e.category === "concert").length },
-    { id: "camping", label: "Camping", count: events.filter(e => e.category === "camping").length },
-    { id: "convention", label: "Conventions", count: events.filter(e => e.category === "convention").length },
-    { id: "screening", label: "Screenings", count: events.filter(e => e.category === "screening").length },
-    { id: "workshop", label: "Workshops", count: events.filter(e => e.category === "workshop").length },
-    { id: "gaming", label: "Gaming", count: events.filter(e => e.category === "gaming").length },
-    { id: "competition", label: "Competitions", count: events.filter(e => e.category === "competition").length },
-    { id: "meetup", label: "Meetups", count: events.filter(e => e.category === "meetup").length },
-    { id: "special", label: "Special Events", count: events.filter(e => e.category === "special").length }
+    { id: 'all', label: 'All Events', count: events.length },
+    { id: 'upcoming', label: 'Upcoming', count: events.filter(e => e.status === 'upcoming').length },
+    { id: 'meetup', label: 'Meetups', count: events.filter(e => e.category === 'meetup').length },
+    { id: 'workshop', label: 'Workshops', count: events.filter(e => e.category === 'workshop').length },
+    { id: 'conference', label: 'Conferences', count: events.filter(e => e.category === 'conference').length },
+    { id: 'social', label: 'Socials', count: events.filter(e => e.category === 'social').length }
   ];
 
   // Filter events based on selected category and search term

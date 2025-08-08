@@ -60,9 +60,7 @@ export default function HomePage() {
       'screening': '🎬',
       'workshop': '🎨',
       'gaming': '🎮',
-      'competition': '🏆',
-      'meetup': '👥',
-      'special': '✨'
+      'meetup': '👥'
     };
     return emojiMap[category] || '🎌';
   };
@@ -76,9 +74,7 @@ export default function HomePage() {
       'screening': 'bg-blue-500/10 text-blue-400',
       'workshop': 'bg-purple-500/10 text-purple-400',
       'gaming': 'bg-orange-500/10 text-orange-400',
-      'competition': 'bg-yellow-500/10 text-yellow-400',
-      'meetup': 'bg-teal-500/10 text-teal-400',
-      'special': 'bg-rose-500/10 text-rose-400'
+      'meetup': 'bg-teal-500/10 text-teal-400'
     };
     return colorMap[category] || 'bg-gray-500/10 text-gray-400';
   };
