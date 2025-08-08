@@ -51,7 +51,7 @@
   --fc-today-bg-color: var(--vscode-editor-lineHighlightBackground);
   --fc-now-indicator-color: var(--vscode-button-hoverBackground);
   --fc-highlight-color: var(--vscode-editor-selectionBackground);
-  --fc-list-event-hover-bg-color: var(--vscode-editor-lineHighlightBackground);
+  --fc-list-event-hover-bg-color: var(--vscode-editor-background);
   --fc-event-bg-color: var(--vscode-sideBar-background);
   --fc-event-border-color: var(--vscode-widget-border);
   --fc-event-text-color: var(--vscode-editor-foreground);
@@ -304,7 +304,6 @@
   margin: 2px 4px;
   font-size: 0.8125rem;
   cursor: pointer;
-  transition: all 0.15s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
@@ -312,10 +311,10 @@
 }
 
 .otaku-fullcalendar .fc-event:hover {
-  background: var(--vscode-editor-selectionBackground);
-  border-color: var(--vscode-focusBorder);
-  transform: translateX(2px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  background: var(--vscode-sideBar-background) !important;
+  border-color: var(--vscode-widget-border) !important;
+  /* transform: translateX(2px); */
+  /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); */
 }
 
 .otaku-fullcalendar .fc-event .fc-event-main {
@@ -421,7 +420,7 @@
   background: var(--vscode-editor-background);
   border-left: 3px solid var(--vscode-button-background);
   margin: 0;
-  transition: all 0.2s ease;
+  /* transition: all 0.2s ease; */
   border-bottom: 1px solid var(--vscode-widget-border);
 }
 
@@ -429,10 +428,10 @@
   border-bottom: none;
 }
 
-.otaku-fullcalendar .fc-list-event:hover {
+/* .otaku-fullcalendar .fc-list-event:hover {
   background: var(--vscode-editor-lineHighlightBackground);
   transform: translateX(2px);
-}
+} */
 
 .otaku-fullcalendar .fc-list-event-time,
 .otaku-fullcalendar .fc-list-event-title {
@@ -450,8 +449,7 @@
 }
 
 .otaku-fullcalendar .fc-list-event-dot {
-  border-color: var(--vscode-button-background);
-  margin-left: 1.25rem;
+  display: none;
 }
 
 /* Popover */
@@ -579,17 +577,17 @@
   font-size: 13px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
   cursor: pointer !important;
-  transition: all 0.3s ease !important;
+  /* transition: all 0.3s ease !important; */
   color: white !important;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
   margin: 2px !important;
 }
 
-.otaku-fullcalendar .fc-event:hover {
+/* .otaku-fullcalendar .fc-event:hover {
   transform: translateY(-2px) scale(1.02) !important;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
   z-index: 10 !important;
-}
+} */
 
 /* Category-specific gradients */
 .otaku-fullcalendar .fc-event-concert {
@@ -650,30 +648,29 @@
 
 /* List view styling */
 .otaku-fullcalendar .fc-list {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
+  background: var(--vscode-editor-background);
   border: none;
 }
 
 .otaku-fullcalendar .fc-list-table {
-  background: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(10px) !important;
+  background: var(--vscode-editor-background) !important;
 }
 
 .otaku-fullcalendar .fc-list-day-cushion {
-  background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%) !important;
-  color: rgb(219 39 119) !important;
+  background: var(--vscode-sideBar-background) !important;
+  color: var(--vscode-editor-foreground) !important;
   font-weight: 600 !important;
 }
 
 .otaku-fullcalendar .fc-list-event {
   border: none;
-  transition: all 0.2s ease;
+  /* transition: all 0.2s ease; */
 }
 
 .otaku-fullcalendar .fc-list-event:hover {
-  background: linear-gradient(135deg, rgba(236, 72, 153, 0.05) 0%, rgba(147, 51, 234, 0.05) 100%) !important;
-  transform: scale(1.01);
+  background: var(--vscode-editor-background) !important;
+  /* background: linear-gradient(135deg, rgba(236, 72, 153, 0.05) 0%, rgba(147, 51, 234, 0.05) 100%) !important; */
+  /* transform: scale(1.01); */
 }
 
 .otaku-fullcalendar .fc-list-event-time {
@@ -701,11 +698,11 @@
 /* Override any white color that might be applied */
 .otaku-fullcalendar .fc-list-event .list-view-title,
 .otaku-fullcalendar .fc-list-event-title .list-view-title {
-  color: transparent !important;
-  background: linear-gradient(135deg, rgb(37 99 235) 0%, rgb(219 39 119) 100%) !important;
-  background-clip: text !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
+  color: var(--vscode-editor-foreground) !important;
+  background: none !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: var(--vscode-editor-foreground) !important;
 }
 
 /* List view specific styling - Force override all text colors */
@@ -715,21 +712,12 @@
 .otaku-fullcalendar .fc-event-title-text,
 .otaku-fullcalendar .fc-list-event-title a span,
 .otaku-fullcalendar .fc-list-event-title span {
-  color: white !important; /* White text for better contrast on colored backgrounds */
+  color: var(--vscode-editor-foreground) !important;
   background: none !important;
-  -webkit-text-fill-color: white !important;
+  -webkit-text-fill-color: var(--vscode-editor-foreground) !important;
   font-weight: 600 !important;
   text-decoration: none !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important; /* Add shadow for better readability */
-}
-
-.otaku-fullcalendar .fc-list-event-title a:hover,
-.otaku-fullcalendar .fc-list-event-title:hover,
-.otaku-fullcalendar .fc-list-event .fc-list-event-title a:hover,
-.otaku-fullcalendar .fc-event-title-text:hover {
-  color: rgba(255, 255, 255, 0.9) !important;
-  background: none !important;
-  -webkit-text-fill-color: rgba(255, 255, 255, 0.9) !important;
+  text-shadow: none !important;
 }
 
 /* Force override for list view text color - most specific selectors */
@@ -740,24 +728,24 @@
 .otaku-fullcalendar .fc-list-view .fc-event-title-text,
 .otaku-fullcalendar .fc-list-view .fc-list-event-title a span,
 .otaku-fullcalendar .fc-list-view .fc-list-event-title span {
-  color: white !important;
+  color: var(--vscode-editor-foreground) !important;
   background: none !important;
-  -webkit-text-fill-color: white !important;
+  -webkit-text-fill-color: var(--vscode-editor-foreground) !important;
   font-weight: 600 !important;
   text-decoration: none !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+  text-shadow: none !important;
 }
 
 /* Ultimate fallback for any missed list view text elements */
 .otaku-fullcalendar .fc-list-view .fc-list-event * {
-  color: white !important;
-  -webkit-text-fill-color: white !important;
+  color: var(--vscode-editor-foreground) !important;
+  -webkit-text-fill-color: var(--vscode-editor-foreground) !important;
 }
 
 .otaku-fullcalendar .fc-list-view .fc-list-event .fc-list-event-title * {
-  color: white !important;
-  -webkit-text-fill-color: white !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+  color: var(--vscode-editor-foreground) !important;
+  -webkit-text-fill-color: var(--vscode-editor-foreground) !important;
+  text-shadow: none !important;
 }
 
 /* Scrollbar styling */
