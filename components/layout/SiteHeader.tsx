@@ -21,7 +21,7 @@ export default function SiteHeader() {
 
   const navLinks = [
     { name: "Home", href: "/", icon: <Home className="w-5 h-5" /> },
-    { name: "Events", href: "/events", icon: <Calendar className="w-5 h-5" /> },
+    { name: "Event Calendar", href: "/events", icon: <Calendar className="w-5 h-5" /> },
     ...(process.env.NODE_ENV !== 'production' ? [
       { name: "Submit Event", href: "/submit", icon: <LogIn className="w-5 h-5" /> }
     ] : []),

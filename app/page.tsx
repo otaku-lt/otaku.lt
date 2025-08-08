@@ -115,7 +115,7 @@ export default function HomePage() {
                   className="text-foreground/90 hover:text-pink-400 transition-colors relative group flex items-center gap-1"
                 >
                   <span>📅</span>
-                  Events
+                  Event Calendar
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-400 transition-all group-hover:w-full"></span>
                 </Link>
               </FeatureFlag>
