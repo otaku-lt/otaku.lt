@@ -21,3 +21,33 @@
   organizer: Otaku.lt 
   link: /yurucamp
 
+- id: 5
+  title: 'GG Vasara: Summer Gaming Festival'
+  date: '2025-08-15'
+  time: '12:00'
+  location: 'Vilnius, Lithuania'
+  category: gaming
+  description: |
+    Join us for GG Vasara, a summer gaming festival in collaboration with Baltic's Game. 
+    Experience the latest games, compete in tournaments, and connect with fellow gamers.
+    Event details will be updated soon.
+
+  featured: false
+  image: /images/events/2025/08/2025-08-ggvasara.jpg
+  link: 'https://www.facebook.com/events/s/gg-vasara-kartu-su-baltics-gam/3062355387267895'
+
+- id: 6
+  title: 'Kelionė į UniCon 2025, Ryga'
+  date: '2025-08-16'
+  time: 'All day'
+  location: 'Riga, Latvia'
+  category: convention
+  description: |
+    Journey to UniCon 2025 in Riga, Latvia.
+    UniCon is one of the largest anime and manga conventions in the Baltic states.
+    Join fellow fans for a weekend of anime, manga, cosplay, and Japanese culture.
+    Event details will be updated soon.
+
+  featured: true
+  image: /images/events/2025/08/2025-08-animecon.jpg
+  link: 'https://www.facebook.com/events/712401125102206/'
