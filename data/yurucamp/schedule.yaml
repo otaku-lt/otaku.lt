@@ -1,5 +1,5 @@
 - day: "Friday"
-  date: "August 29"
+  date: "September 5"
   timeslots:
     - time: "11:00 - 12:00"
       events:
@@ -37,7 +37,7 @@
           activity: "VJ: Anime OP Playlist"
 
 - day: "Saturday"
-  date: "August 30"
+  date: "September 6"
   timeslots:
     - time: "10:00"
       events:
@@ -93,7 +93,7 @@
           activity: "VJ: Epic Anime Song Set"
 
 - day: "Sunday"
-  date: "August 31"
+  date: "September 7"
   timeslots:
     - time: "09:00 - 10:00"
       events:
