@@ -60,21 +60,37 @@ export default function EventsPage() {
   };
 
   // Calculate category counts
-  const categories = [
-    { id: 'all', label: 'All Events', count: events.length },
-    { id: 'upcoming', label: 'Upcoming', count: events.filter(e => e.status === 'upcoming').length },
-    { id: 'meetup', label: 'Meetups', count: events.filter(e => e.category === 'meetup').length },
-    { id: 'workshop', label: 'Workshops', count: events.filter(e => e.category === 'workshop').length },
-    { id: 'conference', label: 'Conferences', count: events.filter(e => e.category === 'conference').length },
-    { id: 'social', label: 'Socials', count: events.filter(e => e.category === 'social').length }
-  ];
+  const categories = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    return [
+      { id: 'all', label: 'All Events', count: events.length },
+      { 
+        id: 'upcoming', 
+        label: 'Upcoming', 
+        count: events.filter(event => new Date(event.date) >= today).length 
+      },
+      { id: 'meetup', label: 'Meetups', count: events.filter(e => e.category === 'meetup').length },
+      { id: 'workshop', label: 'Workshops', count: events.filter(e => e.category === 'workshop').length },
+      { id: 'conference', label: 'Conferences', count: events.filter(e => e.category === 'conference').length },
+      { id: 'social', label: 'Socials', count: events.filter(e => e.category === 'social').length }
+    ];
+  }, [events]);
 
   // Filter events based on selected category and search term
   const filteredEvents = useMemo(() => {
     let result = [...events];
     
     // Filter by category
-    if (selectedCategory !== "all") {
+    if (selectedCategory === 'upcoming') {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      result = result.filter(event => {
+        const eventDate = new Date(event.date);
+        return eventDate >= today;
+      });
+    } else if (selectedCategory !== "all") {
       result = result.filter(event => event.category === selectedCategory);
     }
     
