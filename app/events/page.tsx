@@ -233,7 +233,7 @@ export default function EventsPage() {
       </p>
 
       <div className="max-w-6xl mx-auto px-4 py-4">
-        {/* Event Tabs */}
+        {/* View Toggle - Always visible */}
         <EventTabs
           categories={categories}
           selectedCategory={selectedCategory}
@@ -242,8 +242,30 @@ export default function EventsPage() {
           onViewModeChange={setViewMode}
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
+          showSearch={viewMode === 'list'}
+          showViewToggle={true}
+          showSubmitButton={true}
           className="mb-8"
         />
+        
+        {/* Category Filters - Only in list view */}
+        {viewMode === 'list' && (
+          <div className="flex flex-wrap gap-2 justify-center mb-8">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => handleCategoryChange(category.id)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  selectedCategory === category.id
+                    ? 'bg-primary text-primary-foreground shadow-lg'
+                    : 'bg-card/80 text-muted-foreground hover:bg-accent/10'
+                }`}
+              >
+                {category.label} ({category.count})
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Loading State */}
         {isLoading && (
