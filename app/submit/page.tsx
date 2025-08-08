@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Send, Calendar, Clock, MapPin, Tag, Ticket, Link, Mail, Image as ImageIcon, Upload, X, Calendar as CalendarIcon, ArrowLeft } from "lucide-react";
+import { Plus, Send, Calendar, Clock, MapPin, Tag, Ticket, Link, Mail, Image as ImageIcon, Upload, X, Calendar as CalendarIcon, ArrowLeft, LayoutGrid } from "lucide-react";
 import SimpleForm from "@/components/submit-form/SimpleForm";
 import FullForm from "@/components/submit-form/FullForm";
 import SuccessScreen from "@/components/submit-form/SuccessScreen";
@@ -165,15 +165,17 @@ export default function SubmitEventPage() {
               <button
                 type="button"
                 onClick={() => setFormType('simple')}
-                className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${formType === 'simple' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${formType === 'simple' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
               >
+                <LayoutGrid size={16} />
                 Simple Submission
               </button>
               <button
                 type="button"
                 onClick={() => setFormType('full')}
-                className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${formType === 'full' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${formType === 'full' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
               >
+                <CalendarIcon size={16} />
                 Full Form
               </button>
             </div>

@@ -313,30 +313,24 @@ export default function EventsPage() {
           className="mb-8"
         />
 
-        {/* View Toggle - Dual Button Style */}
+        {/* View Toggle - Matching Submit Form Style */}
         <div className="flex justify-center mb-6">
-          <div className="flex bg-card/80 backdrop-blur-sm rounded-full p-1 shadow w-fit">
+          <div className="inline-flex rounded-lg border border-border bg-card p-1">
             <button
+              type="button"
               onClick={() => setViewMode('calendar')}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
-                viewMode === 'calendar'
-                  ? 'bg-primary text-primary-foreground shadow-sm'
-                  : 'text-muted-foreground hover:bg-accent/10'
-              }`}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${viewMode === 'calendar' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
             >
               <CalendarIcon size={16} />
-              <span>Calendar View</span>
+              Calendar View
             </button>
             <button
+              type="button"
               onClick={() => setViewMode('list')}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
-                viewMode === 'list'
-                  ? 'bg-primary text-primary-foreground shadow-sm'
-                  : 'text-muted-foreground hover:bg-accent/10'
-              }`}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${viewMode === 'list' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
             >
               <LayoutGrid size={16} />
-              <span>List View</span>
+              List View
             </button>
           </div>
         </div>
