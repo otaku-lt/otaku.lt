@@ -45,35 +45,14 @@ export default function EventsPage() {
 
   // Helper function to get category emoji
   const getCategoryEmoji = (category: string): string => {
-    const categoryIcons: Record<string, string> = {
-      'anime': '🎌',
-      'cosplay': '👤',
-      'gaming': '🎮',
-      'music': '🎵',
-      'screening': '🎬',
-      'workshop': '🎨',
-      'meetup': '👥',
-      'convention': '🏢',
-      'other': '❓'
-    };
-    return categoryIcons[category] || '🎌';
+    const categoryConfig = EVENT_CATEGORIES.find(cat => cat.id === category);
+    return categoryConfig?.icon || '🎌';
   };
 
   // Helper function to get category colors
   const getCategoryColors = (category: string): string => {
-    const categoryColors: Record<string, string> = {
-      'anime': 'bg-red-500/10 text-red-400',
-      'cosplay': 'bg-pink-500/10 text-pink-400',
-      'gaming': 'bg-orange-500/10 text-orange-400',
-      'music': 'bg-purple-500/10 text-purple-400',
-      'screening': 'bg-blue-500/10 text-blue-400',
-      'workshop': 'bg-green-500/10 text-green-400',
-      'meetup': 'bg-yellow-500/10 text-yellow-400',
-      'convention': 'bg-indigo-500/10 text-indigo-400',
-      'social': 'bg-teal-500/10 text-teal-400',
-      'other': 'bg-gray-500/10 text-gray-400'
-    };
-    return categoryColors[category] || 'bg-gray-500/10 text-gray-400';
+    const categoryConfig = EVENT_CATEGORIES.find(cat => cat.id === category);
+    return categoryConfig?.color || 'bg-gray-500/10 text-gray-400';
   };
 
   // Calculate category counts
@@ -418,6 +397,7 @@ export default function EventsPage() {
                 time={event.time}
                 location={event.location}
                 category={event.category}
+                categories={event.categories}
                 description={event.description}
                 featured={event.featured}
                 getCategoryEmoji={getCategoryEmoji}

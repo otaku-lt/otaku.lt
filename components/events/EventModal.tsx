@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Calendar as CalendarIcon, MapPin, Tag } from 'lucide-react';
 import type { Event } from '@/types/event';
+import { EVENT_CATEGORIES } from '@/config/event-categories';
 
 interface EventModalProps {
   event: Event | null;
@@ -38,6 +39,15 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
               </span>
             )}
             <h3 className="text-2xl font-bold text-foreground">{event.title}</h3>
+            {(event.categories || [event.category]).length > 0 && (
+              <div className="text-2xl">
+                {(() => {
+                  const firstCategory = event.categories?.[0] || event.category;
+                  const categoryConfig = EVENT_CATEGORIES.find(cat => cat.id === firstCategory);
+                  return categoryConfig?.icon || '🎌';
+                })()}
+              </div>
+            )}
           </div>
           <p className="opacity-90 flex items-center gap-2 text-foreground/80">
             <MapPin className="w-4 h-4 flex-shrink-0" />
@@ -79,12 +89,18 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
               </div>
             </div>
             
-            {event.category && (
+            {(event.category || (event.categories && event.categories.length > 0)) && (
               <div className="flex items-start">
                 <Tag className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Category</p>
-                  <p className="text-foreground">{event.category.charAt(0).toUpperCase() + event.category.slice(1)}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {(event.categories || [event.category]).map((category, index) => (
+                      <span key={index} className="inline-block bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">
+                        {category ? category.charAt(0).toUpperCase() + category.slice(1) : 'Unknown'}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
