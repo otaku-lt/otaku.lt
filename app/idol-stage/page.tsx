@@ -48,7 +48,7 @@ export default function IdolStagePage() {
   const currentEdition = editions.find(e => e.id === selectedEdition);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-background">
       <ContentPageHeader 
         title="🎤 Idol Stage"
         showBackButton={true}
