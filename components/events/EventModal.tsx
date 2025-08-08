@@ -25,7 +25,7 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
         
         {/* Event Image */}
         {event.image && (
-          <div className="relative h-48 bg-cover bg-center" style={{ backgroundImage: `url(${event.image})` }}>
+          <div className="relative h-80 bg-cover bg-center" style={{ backgroundImage: `url(${event.image})` }}>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
           </div>
         )}
