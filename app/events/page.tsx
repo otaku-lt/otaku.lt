@@ -42,8 +42,12 @@ export default function EventsPage() {
     const categoryIcons: Record<string, string> = {
       'meetup': '👥',
       'workshop': '🎨',
-      'conference': '🎤',
-      'social': '🎉'
+      'convention': '🏢',
+      'social': '🎉',
+      'gaming': '🎮',
+      'concert': '🎤',
+      'karaoke': '🎤',
+      'camping': '⛺'
     };
     return categoryIcons[category] || '🎌';
   };
@@ -53,8 +57,12 @@ export default function EventsPage() {
     const categoryColors: Record<string, string> = {
       'meetup': 'bg-blue-500/10 text-blue-400',
       'workshop': 'bg-purple-500/10 text-purple-400',
-      'conference': 'bg-pink-500/10 text-pink-400',
-      'social': 'bg-green-500/10 text-green-400'
+      'convention': 'bg-pink-500/10 text-pink-400',
+      'social': 'bg-green-500/10 text-green-400',
+      'gaming': 'bg-orange-500/10 text-orange-400',
+      'concert': 'bg-red-500/10 text-red-400',
+      'karaoke': 'bg-pink-500/10 text-pink-400',
+      'camping': 'bg-teal-500/10 text-teal-400'
     };
     return categoryColors[category] || 'bg-gray-500/10 text-gray-400';
   };
@@ -69,11 +77,16 @@ export default function EventsPage() {
       { 
         id: 'upcoming', 
         label: 'Upcoming', 
-        count: events.filter(event => new Date(event.date) >= today).length 
+        count: events.filter(event => new Date(event.date) >= today).length,
+        forceListView: true
       },
       { id: 'meetup', label: 'Meetups', count: events.filter(e => e.category === 'meetup').length },
       { id: 'workshop', label: 'Workshops', count: events.filter(e => e.category === 'workshop').length },
-      { id: 'conference', label: 'Conferences', count: events.filter(e => e.category === 'conference').length },
+      { id: 'convention', label: 'Conventions', count: events.filter(e => e.category === 'convention').length },
+      { id: 'gaming', label: 'Gaming', count: events.filter(e => e.category === 'gaming').length },
+      { id: 'concert', label: 'Concerts', count: events.filter(e => e.category === 'concert').length },
+      { id: 'karaoke', label: 'Karaoke', count: events.filter(e => e.category === 'karaoke').length },
+      { id: 'camping', label: 'Camping', count: events.filter(e => e.category === 'camping').length },
       { id: 'social', label: 'Socials', count: events.filter(e => e.category === 'social').length }
     ];
   }, [events]);
@@ -191,6 +204,14 @@ export default function EventsPage() {
     setIsClient(true);
   }, []);
 
+  const handleCategoryChange = useCallback((category: string) => {
+    setSelectedCategory(category);
+    // Switch to list view when 'upcoming' is selected
+    if (category === 'upcoming') {
+      setViewMode('list');
+    }
+  }, []);
+
   const handleEventClick = useCallback((calendarEvent: CalendarEvent) => {
     // The Calendar component handles the modal display
   }, []);
@@ -220,7 +241,7 @@ export default function EventsPage() {
         <EventTabs
           categories={categories}
           selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
+          onCategoryChange={handleCategoryChange}
           viewMode={viewMode}
           onViewModeChange={setViewMode}
           searchTerm={searchTerm}
