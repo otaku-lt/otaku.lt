@@ -43,9 +43,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-muted-foreground">
               <li><Link href="/" className="hover:text-pink-400 flex items-center gap-2">🏠 Home</Link></li>
-              {process.env.NODE_ENV !== 'production' && (
-                <li><Link href="/events" className="hover:text-pink-400 flex items-center gap-2">🎌 Event Calendar</Link></li>
-              )}
+              <li><Link href="/events" className="hover:text-pink-400 flex items-center gap-2">🎌 Event Calendar</Link></li>
               <li><Link href="/communities" className="hover:text-pink-400 flex items-center gap-2">👥 Communities</Link></li>
             </ul>
           </div>
