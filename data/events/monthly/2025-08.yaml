@@ -48,3 +48,27 @@
   featured: true
   image: /images/events/2025/08/2025-08-unicontrip.jpg
   link: 'https://www.facebook.com/events/712401125102206/'
+
+- id: 7
+  title: 'MZ Battlegroud'
+  date: '2025-08-23'
+  time: 'All day'
+  location: 'VU Aulą M. K. Čiurlionio g. 21, Vilnius'
+  category: gaming
+  description: |
+    A new chapter in Lithuania's fighting game scene!
+    Born from passion, matured into an idea, and grown into a team.
+    MZ BATTLEGROUND – the first event of the cycle is happening THIS AUGUST!
+    Time to get off that chair and come to Vilnius – VU Aula on August 23rd.
+    What awaits you?
+    🎮 A tournament with partner-sponsored prizes and a cash pool (Main tournament – Mortal Kombat 1)
+    🎨 Creative workshops
+    🎙️ Talks and lectures
+    🎲 Board game zone
+    🦸 Comic books & geeky goodies market
+    🛋️ Chill & leisure area
+    And most importantly – it's FREE!
+
+  featured: true
+  image: /images/events/2025/08/2025-08-mzbattleground.jpg
+  link: 'https://www.facebook.com/events/1284257033151299'
