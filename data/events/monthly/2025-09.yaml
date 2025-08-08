@@ -1,25 +1,3 @@
-- id: 3
-  title: 'YuruCamp: Weeb Camping Adventure'
-  date: '2025-09-05'
-  endDate: '2025-09-07'
-  time: 'All day'
-  location: Trakai National Park, Lithuania
-  category: camping
-  description: |
-    A weeb-themed outdoor festival by the river, featuring a cosplay stage, photo spots, water adventures, 
-    a professional outdoor kitchen, DIY campfire option, live evening performances by Korniha band with 
-    anime OSTs, and the Idol Stage karaoke! Artists will enjoy sketch meetups, live drawing sessions, 
-    and collaborative art projects in our Creative Hub.
-  status: upcoming
-  featured: true
-  image: /images/events/2025/09/yurucamp-2025-09-poster.jpg
-  tags:
-    - camping
-    - music
-    - cosplay
-    - art
-  organizer: Otaku.lt 
-  link: /yurucamp
 - id: 4
   title: Japanese Language Workshop
   date: '2025-09-15'
