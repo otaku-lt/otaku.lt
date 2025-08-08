@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, Send, CheckCircle, Image as ImageIcon, Upload, X, Plus } from "lucide-react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import Image from "next/image";
+import { SUBMIT_EVENT_CATEGORIES } from '@/config/event-categories';
 
 type HTMLInputWithPicker = HTMLInputElement & {
   showPicker: () => void;
@@ -29,17 +30,11 @@ type FormData = {
   imageFile: File | null;
 };
 
-const categories = [
-  { value: "anime", label: "Anime Events" },
-  { value: "cosplay", label: "Cosplay" },
-  { value: "gaming", label: "Gaming" },
-  { value: "music", label: "Music/Concerts" },
-  { value: "screening", label: "Movie Screenings" },
-  { value: "workshop", label: "Workshops" },
-  { value: "meetup", label: "Meetups" },
-  { value: "convention", label: "Conventions" },
-  { value: "other", label: "Other" }
-];
+// Map submit event categories to the format expected by the form
+const categories = SUBMIT_EVENT_CATEGORIES.map(category => ({
+  value: category.id,
+  label: category.label
+}));
 
 export default function SubmitEventPage() {
   const [formData, setFormData] = useState<FormData>({

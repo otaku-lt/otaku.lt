@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { Event, getEvents, getEventsByCategory } from "@/lib/events";
 import type { CalendarEvent } from '@/components/Calendar';
 import type { EventStatus } from '@/types/event';
+import { EVENT_CATEGORIES } from '@/config/event-categories';
 
 export default function EventsPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -41,13 +42,15 @@ export default function EventsPage() {
   // Helper function to get category emoji
   const getCategoryEmoji = (category: string): string => {
     const categoryIcons: Record<string, string> = {
-      'meetup': '👥',
-      'workshop': '🎨',
-      'convention': '🏢',
-      'social': '🎤', // Using music note for social since it includes karaoke
+      'anime': '🎌',
+      'cosplay': '👤',
       'gaming': '🎮',
-      'concert': '🎵',
-      'camping': '⛺'
+      'music': '🎵',
+      'screening': '🎬',
+      'workshop': '🎨',
+      'meetup': '👥',
+      'convention': '🏢',
+      'other': '❓'
     };
     return categoryIcons[category] || '🎌';
   };
@@ -55,13 +58,15 @@ export default function EventsPage() {
   // Helper function to get category colors
   const getCategoryColors = (category: string): string => {
     const categoryColors: Record<string, string> = {
-      'meetup': 'bg-blue-500/10 text-blue-400',
-      'workshop': 'bg-purple-500/10 text-purple-400',
-      'convention': 'bg-pink-500/10 text-pink-400',
-      'social': 'bg-green-500/10 text-green-400', // Social now includes karaoke
+      'anime': 'bg-red-500/10 text-red-400',
+      'cosplay': 'bg-pink-500/10 text-pink-400',
       'gaming': 'bg-orange-500/10 text-orange-400',
-      'concert': 'bg-red-500/10 text-red-400',
-      'camping': 'bg-teal-500/10 text-teal-400'
+      'music': 'bg-purple-500/10 text-purple-400',
+      'screening': 'bg-blue-500/10 text-blue-400',
+      'workshop': 'bg-green-500/10 text-green-400',
+      'meetup': 'bg-yellow-500/10 text-yellow-400',
+      'convention': 'bg-indigo-500/10 text-indigo-400',
+      'other': 'bg-gray-500/10 text-gray-400'
     };
     return categoryColors[category] || 'bg-gray-500/10 text-gray-400';
   };
@@ -71,22 +76,37 @@ export default function EventsPage() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
-    return [
+    // Start with special categories
+    const baseCategories = [
       { id: 'all', label: 'All Events', count: events.length },
       { 
         id: 'upcoming', 
         label: 'Upcoming', 
         count: events.filter(event => new Date(event.date) >= today).length,
         forceListView: true
-      },
-      { id: 'meetup', label: 'Meetups', count: events.filter(e => e.category === 'meetup').length },
-      { id: 'workshop', label: 'Workshops', count: events.filter(e => e.category === 'workshop').length },
-      { id: 'convention', label: 'Conventions', count: events.filter(e => e.category === 'convention').length },
-      { id: 'gaming', label: 'Gaming', count: events.filter(e => e.category === 'gaming').length },
-      { id: 'concert', label: 'Concerts', count: events.filter(e => e.category === 'concert').length },
-      { id: 'camping', label: 'Camping', count: events.filter(e => e.category === 'camping').length },
-      { id: 'social', label: 'Socials', count: events.filter(e => e.category === 'social' || e.category === 'karaoke').length }
+      }
     ];
+    
+    // Add event categories with counts
+    const eventCategories = EVENT_CATEGORIES.map((category: { id: string; label: string }) => ({
+      id: category.id,
+      label: category.label,
+      // Special handling for categories that might have been renamed or merged
+      count: events.filter(e => {
+        if (category.id === 'music') {
+          // Handle music category (formerly concert)
+          return e.category === 'concert' || e.category === 'music';
+        }
+        if (category.id === 'screening') {
+          // Handle screening category
+          return e.category === 'screening';
+        }
+        // Default case
+        return e.category === category.id;
+      }).length
+    }));
+    
+    return [...baseCategories, ...eventCategories];
   }, [events]);
 
   // Filter events based on selected category and search term
