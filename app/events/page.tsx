@@ -237,6 +237,14 @@ export default function EventsPage() {
     setViewMode('list');
   }, []);
 
+  const handleSearchChange = useCallback((searchTerm: string) => {
+    setSearchTerm(searchTerm);
+    // Switch to list view when user starts typing in search
+    if (searchTerm.trim().length > 0) {
+      setViewMode('list');
+    }
+  }, []);
+
   const handleEventClick = useCallback((event: Event) => {
     setSelectedEvent(event);
     setIsModalOpen(true);
@@ -315,7 +323,7 @@ export default function EventsPage() {
           viewMode={viewMode}
           onViewModeChange={setViewMode}
           searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
+          onSearchChange={handleSearchChange}
           showViewToggle={false}
           showSubmitButton={true}
           className="mb-8"
