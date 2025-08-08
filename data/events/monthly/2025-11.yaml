@@ -4,8 +4,7 @@
   endDate: '2025-11-09'
   time: 'All day'
   location: 'LITEXPO, Vilnius, Lithuania'
-  category: gaming
-  secondaryCategory: convention
+  category: gaming, convention
   description: |
     A three-day gaming universe where generations collide. Features include:
     - An EXPO zone packed with the latest games, indie gems, and VR experiences

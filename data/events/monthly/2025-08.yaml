@@ -22,8 +22,7 @@
   endDate: '2025-09-08'
   time: 'All day'
   location: 'Kauno AKROPOLIS, Kaunas, Lithuania'
-  category: gaming
-  secondaryCategory: convention
+  category: gaming, convention
   description: |
     Join us for GG Vasara, a summer gaming festival in collaboration with Baltic's Game. 
     Experience the latest games, compete in tournaments, and connect with fellow gamers.
@@ -72,3 +71,17 @@
   featured: true
   image: /images/events/2025/08/2025-08-mzbattleground.jpg
   link: 'https://www.facebook.com/events/1284257033151299'
+
+- id: 8
+  title: 'Grave of the Fireflies (1988)'
+  date: '2025-08-29'
+  time: 'All day'
+  location: 'Across the country'
+  category: screening
+  description: |
+    A powerful and emotional Studio Ghibli film about two siblings struggling to survive in post-World War II Japan. 
+    This special cinema screening offers a chance to experience this acclaimed animated masterpiece on the big screen.
+
+  featured: false
+  image: /images/events/2025/08/2025-08-graveoffireflies.jpg
+  link: 'https://www.forumcinemas.lt/event/310974/grave_of_the_fireflies_1988?theatreAreaID=1011'

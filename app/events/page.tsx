@@ -70,6 +70,7 @@ export default function EventsPage() {
       'workshop': 'bg-green-500/10 text-green-400',
       'meetup': 'bg-yellow-500/10 text-yellow-400',
       'convention': 'bg-indigo-500/10 text-indigo-400',
+      'social': 'bg-teal-500/10 text-teal-400',
       'other': 'bg-gray-500/10 text-gray-400'
     };
     return categoryColors[category] || 'bg-gray-500/10 text-gray-400';
@@ -126,16 +127,19 @@ export default function EventsPage() {
       } else {
         // Special handling for categories that might have been renamed or merged
         result = result.filter(event => {
+          // Get all categories for this event (primary + additional)
+          const eventCategories = event.categories ? [...event.categories] : [event.category];
+          
           if (selectedCategory === 'music') {
             // Handle music category (formerly concert)
-            return event.category === 'concert' || event.category === 'music';
+            return eventCategories.includes('concert') || eventCategories.includes('music');
           }
           if (selectedCategory === 'screening') {
             // Handle screening category
-            return event.category === 'screening';
+            return eventCategories.includes('screening');
           }
-          // Default case
-          return event.category === selectedCategory;
+          // Default case - check if any of the event's categories match
+          return eventCategories.includes(selectedCategory);
         });
       }
     }

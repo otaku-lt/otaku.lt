@@ -16,6 +16,7 @@ export const EVENT_CATEGORIES: EventCategory[] = [
   { id: 'workshop', label: 'Workshops' },
   { id: 'meetup', label: 'Meetups' },
   { id: 'convention', label: 'Conventions' },
+  { id: 'social', label: 'Social Events' },
   { id: 'other', label: 'Other' }
 ];
 

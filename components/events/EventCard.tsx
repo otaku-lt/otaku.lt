@@ -9,6 +9,7 @@ type EventCardProps = {
   time?: string;
   location: string;
   category?: string;
+  categories?: string[];
   description: string;
   featured?: boolean;
   showCategory?: boolean;
@@ -26,6 +27,7 @@ export function EventCard({
   time,
   location,
   category = 'other',
+  categories,
   description,
   featured = false,
   showCategory = true,
@@ -44,7 +46,7 @@ export function EventCard({
           </span>
           {showCategory && (
             <div className="text-2xl">
-              {getCategoryEmoji(category)}
+              {getCategoryEmoji(categories?.[0] || category)}
             </div>
           )}
         </div>
@@ -72,9 +74,13 @@ export function EventCard({
       {showCategory && (
         <div className="mt-auto pt-4 border-t border-border/40">
           <div className="flex items-center justify-between">
-            <span className={`text-xs px-2 py-1 rounded-full ${getCategoryColors(category)}`}>
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </span>
+            <div className="flex flex-wrap gap-1">
+              {(categories || [category]).map((cat, index) => (
+                <span key={index} className={`text-xs px-2 py-1 rounded-full ${getCategoryColors(cat)} whitespace-nowrap`}>
+                  {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                </span>
+              ))}
+            </div>
             <span className="text-primary text-sm font-medium hover:underline leading-normal pb-0.5">
               Learn More →
             </span>

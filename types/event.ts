@@ -13,6 +13,7 @@ export interface Event {
   status?: EventStatus;
   link?: string;
   category?: string;
+  categories?: string[];
   image?: string;
   tags?: string[];
   organizer?: string;

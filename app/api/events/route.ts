@@ -40,20 +40,35 @@ async function readEventsFromFile(filename: string): Promise<Event[]> {
     }
     
     // Ensure all required fields are present
-    return data.map(event => ({
-      id: event.id || '',
-      title: event.title || 'Untitled Event',
-      date: event.date || new Date().toISOString(),
-      time: event.time,
-      endDate: event.endDate,
-      location: event.location || 'Location not specified',
-      description: event.description || '',
-      featured: Boolean(event.featured),
-      status: event.status || 'upcoming',
-      link: event.link,
-      category: event.category,
-      image: event.image
-    }));
+    return data.map(event => {
+      // Handle comma-separated categories
+      let categories: string[] = [];
+      if (event.category) {
+        // If category contains commas, split it into multiple categories
+        if (typeof event.category === 'string' && event.category.includes(',')) {
+          categories = event.category.split(',').map((cat: string) => cat.trim());
+        } else {
+          // Single category
+          categories = [event.category];
+        }
+      }
+      
+      return {
+        id: event.id || '',
+        title: event.title || 'Untitled Event',
+        date: event.date || new Date().toISOString(),
+        time: event.time,
+        endDate: event.endDate,
+        location: event.location || 'Location not specified',
+        description: event.description || '',
+        featured: Boolean(event.featured),
+        status: event.status || 'upcoming',
+        link: event.link,
+        category: categories[0] || event.category, // Primary category
+        categories: categories.length > 1 ? categories : undefined, // Only set if multiple categories
+        image: event.image
+      };
+    });
   } catch (error) {
     console.error(`Error reading file ${filename}:`, error);
     return [];
