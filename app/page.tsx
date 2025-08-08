@@ -320,7 +320,7 @@ export default function HomePage() {
               </div>
             </FeatureFlag>
             
-            <FeatureFlag name="eventCalendar">
+            <FeatureFlag name="upcomingEvents">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {upcomingEvents.map((event) => (
                   <EventCard

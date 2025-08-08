@@ -2,8 +2,10 @@ import React, { ReactNode } from 'react';
 
 // Define feature flags
 const features = {
-  // Set to false to disable in production
-  eventCalendar: process.env.NODE_ENV !== 'production',
+  // Enable event calendar features in production
+  eventCalendar: true,
+  // Upcoming events section (disabled in production)
+  upcomingEvents: process.env.NODE_ENV !== 'production',
   // Add more feature flags here as needed
 } as const;
 
