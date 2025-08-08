@@ -1,0 +1,497 @@
+/* FullCalendar Month View Styles - Otaku.lt VSCode Dark Theme */
+
+:root {
+  /* Base colors from VSCode dark theme with blue tint */
+  --vscode-editor-background: #1a1f2e;
+  --vscode-sideBar-background: #1f2535;
+  --vscode-editor-foreground: #e1e4ed;
+  --vscode-editor-selectionBackground: #2a4a7a;
+  --vscode-editor-lineHighlightBackground: #2a3142;
+  --vscode-button-background: #3a5a9a;
+  --vscode-button-hoverBackground: #4a6aaf;
+  --vscode-button-foreground: #ffffff;
+  --vscode-input-background: #2a3142;
+  --vscode-input-foreground: #e1e4ed;
+  --vscode-widget-border: #3a4466;
+  
+  /* Calendar specific variables */
+  --fc-border-color: var(--vscode-widget-border);
+  --fc-button-bg-color: var(--vscode-button-background);
+  --fc-button-hover-bg-color: var(--vscode-button-hoverBackground);
+  --fc-button-active-bg-color: #0a4b7a;
+  --fc-button-text-color: var(--vscode-button-foreground);
+  --fc-button-border-color: transparent;
+  --fc-button-hover-border-color: transparent;
+  --fc-button-active-border-color: transparent;
+  --fc-today-bg-color: rgba(30, 126, 222, 0.1);
+  --fc-now-indicator-color: #0078d7;
+  --fc-highlight-color: rgba(14, 99, 156, 0.3);
+  --fc-neutral-bg-color: var(--vscode-sideBar-background);
+  --fc-list-event-hover-bg-color: #2a2d2e;
+  --fc-page-bg-color: var(--vscode-editor-background);
+  --fc-event-bg-color: #2a2d2e;
+  --fc-event-border-color: #3c3c3c;
+  --fc-event-text-color: var(--vscode-editor-foreground);
+  --fc-more-link-bg-color: var(--vscode-sideBar-background);
+  --fc-more-link-text-color: var(--vscode-editor-foreground);
+}
+
+.otaku-fullcalendar {
+  font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--vscode-editor-background);
+  color: var(--vscode-editor-foreground);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  
+  /* Calendar specific overrides */
+  --fc-page-bg-color: var(--vscode-editor-background);
+  --fc-border-color: var(--vscode-widget-border);
+  --fc-neutral-bg-color: var(--vscode-sideBar-background);
+  --fc-today-bg-color: var(--vscode-editor-lineHighlightBackground);
+  --fc-now-indicator-color: var(--vscode-button-hoverBackground);
+  --fc-highlight-color: var(--vscode-editor-selectionBackground);
+  --fc-list-event-hover-bg-color: var(--vscode-editor-background);
+  --fc-event-bg-color: var(--vscode-sideBar-background);
+  --fc-event-border-color: var(--vscode-widget-border);
+  --fc-event-text-color: var(--vscode-editor-foreground);
+  --fc-more-link-bg-color: var(--vscode-sideBar-background);
+  --fc-more-link-text-color: var(--vscode-editor-foreground);
+}
+
+/* Header styling */
+.otaku-fullcalendar .fc-header-toolbar {
+  background: var(--vscode-sideBar-background);
+  padding: 1rem 1.5rem;
+  margin: 0;
+  border-bottom: 1px solid var(--vscode-widget-border);
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+}
+
+.otaku-fullcalendar .fc-toolbar-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--vscode-editor-foreground);
+  margin: 0 1.5rem;
+  letter-spacing: 0.3px;
+}
+
+/* Button styling */
+.otaku-fullcalendar .fc-button {
+  background: var(--vscode-button-background) !important;
+  border: none !important;
+  color: var(--vscode-button-foreground) !important;
+  padding: 0.4rem 1rem !important;
+  border-radius: 2px !important;
+  font-weight: 500 !important;
+  font-size: 0.8125rem !important;
+  transition: background-color 0.2s ease, transform 0.1s ease !important;
+  box-shadow: none !important;
+  margin: 0 0.25rem !important;
+  text-transform: none !important;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.otaku-fullcalendar .fc-button:hover {
+  background: var(--vscode-button-hoverBackground) !important;
+  transform: translateY(-1px);
+}
+
+.otaku-fullcalendar .fc-button:active {
+  transform: translateY(0);
+  transition: none !important;
+}
+
+.otaku-fullcalendar .fc-button:focus {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+  z-index: 1;
+}
+
+/* Today button */
+.otaku-fullcalendar .fc-today-button {
+  background: linear-gradient(135deg, rgb(236 72 153) 0%, rgb(147 51 234) 100%) !important;
+  background-color: transparent !important;
+  border: none !important;
+  color: white !important;
+  margin-left: 1rem !important;
+}
+
+/* View buttons */
+.otaku-fullcalendar .fc-button-group .fc-button {
+  border-radius: 0 !important;
+  margin: 0 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.otaku-fullcalendar .fc-button-group .fc-button:first-child {
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+}
+
+.otaku-fullcalendar .fc-button-group .fc-button:last-child {
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
+  border-right: none !important;
+}
+
+/* Calendar cells */
+.otaku-fullcalendar .fc-daygrid-day {
+  border: 1px solid var(--vscode-widget-border);
+  background: var(--vscode-editor-background);
+  transition: all 0.2s ease;
+}
+
+/* Day cell base styles */
+.otaku-fullcalendar .fc-daygrid-day {
+  background: var(--vscode-editor-background);
+  border-color: var(--vscode-widget-border) !important;
+}
+
+/* Today's cell */
+.otaku-fullcalendar .fc-day-today {
+  background: var(--vscode-editor-lineHighlightBackground) !important;
+  border-color: var(--vscode-widget-border) !important;
+}
+
+.otaku-fullcalendar .fc-day-today::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  height: 4px;
+  background: var(--vscode-button-background);
+  border-radius: 2px;
+}
+
+.otaku-fullcalendar .fc-daygrid-day-number {
+  color: var(--vscode-editor-foreground);
+  font-weight: 500;
+  padding: 6px 8px;
+  transition: color 0.2s ease;
+}
+
+.otaku-fullcalendar .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+  font-weight: 600;
+  color: var(--vscode-button-foreground);
+}
+
+.otaku-fullcalendar .fc-day-other .fc-daygrid-day-number {
+  color: var(--vscode-disabledForeground);
+  opacity: 0.7;
+}
+
+/* Event styling */
+.otaku-fullcalendar .fc-daygrid-event {
+  border-radius: 4px;
+  margin: 1px 4px 1px 6px;
+  padding: 2px 4px;
+  font-size: 0.75em;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.otaku-fullcalendar .fc-daygrid-event:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.otaku-fullcalendar .fc-daygrid-event .fc-event-start {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.otaku-fullcalendar .fc-daygrid-event .fc-event-end {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.otaku-fullcalendar .fc-daygrid-more-link {
+  font-size: 0.75em;
+  padding-left: 2px;
+}
+
+.otaku-fullcalendar .fc-event-main {
+  padding: 0 4px !important;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: 100%;
+}
+
+.otaku-fullcalendar .fc-event-title {
+  font-size: 0.7em;
+  font-weight: 500;
+  color: inherit;
+  line-height: 1.3;
+  padding: 2px 4px;
+  margin: 0;
+  width: 100%;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+/* Event colors */
+.otaku-fullcalendar .fc-event {
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 6px 10px !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  cursor: pointer !important;
+  /* transition: all 0.3s ease !important; */
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+  margin: 2px !important;
+}
+
+/* .otaku-fullcalendar .fc-event:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
+  z-index: 10 !important;
+} */
+
+/* Category-specific gradients */
+.otaku-fullcalendar .fc-event-concert {
+  background: linear-gradient(135deg, #ec4899 0%, #db2777 100%) !important;
+}
+
+.otaku-fullcalendar .fc-event-camping {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important;
+}
+
+.otaku-fullcalendar .fc-event-convention {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%) !important;
+}
+
+.otaku-fullcalendar .fc-event-screening {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+}
+
+.otaku-fullcalendar .fc-event-workshop {
+  background: linear-gradient(135deg, #9333ea 0%, #7c3aed 100%) !important;
+}
+
+.otaku-fullcalendar .fc-event-gaming {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important;
+}
+
+.otaku-fullcalendar .fc-event-competition {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+}
+
+.otaku-fullcalendar .fc-event-meetup {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%) !important;
+}
+
+.otaku-fullcalendar .fc-event-special {
+  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%) !important;
+}
+
+/* Time grid styling */
+.otaku-fullcalendar .fc-timegrid {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+}
+
+.otaku-fullcalendar .fc-timegrid-slot {
+  border-color: rgba(236, 72, 153, 0.1);
+}
+
+.otaku-fullcalendar .fc-timegrid-slot:hover {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.03) 0%, rgba(147, 51, 234, 0.03) 100%);
+}
+
+.otaku-fullcalendar .fc-timegrid-now-indicator-line {
+  border-color: rgb(236 72 153);
+  border-width: 2px;
+  box-shadow: 0 0 6px rgba(236, 72, 153, 0.4);
+}
+
+/* More events link styling */
+.otaku-fullcalendar .fc-more-link {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+  color: rgb(236 72 153);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.otaku-fullcalendar .fc-more-link:hover {
+  background: linear-gradient(135deg, rgb(236, 72, 153) 0%, rgb(147, 51, 234) 100%);
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Popover styling */
+.otaku-fullcalendar .fc-popover {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(236, 72, 153, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.otaku-fullcalendar .fc-popover-header {
+  background: linear-gradient(135deg, rgb(236 72 153) 0%, rgb(147 51 234) 100%);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 16px 16px 0 0;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Remove borders and add subtle gradients */
+.otaku-fullcalendar .fc-scrollgrid {
+  border: none;
+}
+
+.otaku-fullcalendar .fc-scrollgrid-section > * {
+  border: none;
+}
+
+.otaku-fullcalendar .fc-h-event {
+  border: none;
+}
+
+.otaku-fullcalendar .fc-v-event {
+  border: none;
+}
+
+/* Custom event content styling */
+.otaku-fullcalendar .fc-event-title-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.otaku-fullcalendar .fc-event-title-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.otaku-fullcalendar .fc-event-time {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* Ensure event content doesn't overflow */
+.otaku-fullcalendar .fc-event-main-frame {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .otaku-fullcalendar .fc-toolbar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.75rem;
+  }
+  
+  .otaku-fullcalendar .fc-toolbar-chunk {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .otaku-fullcalendar .fc-toolbar-title {
+    margin: 0.5rem 0;
+    text-align: center;
+    order: -1;
+    width: 100%;
+  }
+  
+  .otaku-fullcalendar .fc-button {
+    padding: 0.35rem 0.75rem !important;
+    font-size: 0.8125rem !important;
+  }
+  
+  .otaku-fullcalendar .fc-today-button {
+    margin-left: 0 !important;
+  }
+}
+
+/* Animation for better interactivity */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.otaku-fullcalendar .fc-event {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+/* Loading state */
+.otaku-fullcalendar .fc-loading {
+  opacity: 0.7;
+  pointer-events: none;
+  position: relative;
+}
+
+.otaku-fullcalendar .fc-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  z-index: 1;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Daygrid specific styles */
+.otaku-fullcalendar .fc-daygrid-body {
+  background: var(--vscode-editor-background);
+}
+
+.otaku-fullcalendar .fc-daygrid-day {
+  background: var(--vscode-editor-background);
+  border-color: var(--vscode-widget-border);
+}
+
+.otaku-fullcalendar .fc-daygrid-day-number {
+  color: var(--vscode-editor-foreground);
+}
+
+.otaku-fullcalendar .fc-day-today .fc-daygrid-day-number {
+  color: var(--vscode-button-foreground);
+  font-weight: 500;
+}
