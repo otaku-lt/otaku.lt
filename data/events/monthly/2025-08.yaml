@@ -5,7 +5,7 @@
   location: Vilnius, Compensa Concert Hall
   category: concert
   description: Our biggest summer concert featuring local and international performers
-  status: upcoming
+
   featured: true
   image: /images/events/idol-stage-summer.jpg
 - id: 2
@@ -15,21 +15,21 @@
   location: Vilnius, Forum Cinemas
   category: screening
   description: Screening of popular anime movies with Japanese subtitles
-  status: upcoming
+
   featured: false
 - id: 3
   title: 'YuruCamp: Weeb Camping Adventure'
   date: '2025-08-29'
   endDate: '2025-08-31'
   time: 'All day'
-  location: Trakai National Park, Lithuania
+  location: Brazuolės stovyklavietė
   category: camping
   description: |
     A weeb-themed outdoor festival by the river, featuring a cosplay stage, photo spots, water adventures, 
     a professional outdoor kitchen, DIY campfire option, live evening performances by Korniha band with 
     anime OSTs, and the Idol Stage karaoke! Artists will enjoy sketch meetups, live drawing sessions, 
     and collaborative art projects in our Creative Hub.
-  status: upcoming
+
   featured: true
   image: /images/events/2025/09/yurucamp-2025-09-poster.jpg
   tags:
@@ -46,7 +46,7 @@
   location: Kaunas, Music Club
   category: concert
   description: Live performance by Lithuania's favorite anime cover band
-  status: upcoming
+
 - id: 7
   title: Anime Trivia Night
   date: '2025-08-08'
@@ -54,4 +54,4 @@
   location: Vilnius, Geek Hub
   category: meetup
   description: Test your anime knowledge and win prizes
-  status: upcoming
+
