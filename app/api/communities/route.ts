@@ -17,6 +17,8 @@ type Community = {
     type: string;
     url: string;
   }>;
+  type: string;
+  url: string;
   features?: string[];
   activity?: string;
 };
