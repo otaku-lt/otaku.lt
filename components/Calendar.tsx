@@ -35,6 +35,8 @@ export interface CalendarEvent {
   location?: string;
   category?: string;
   url?: string;
+  link?: string; // External link to event page
+  image?: string; // Path to event poster/cover image
   className?: string;
   extendedProps?: {
     originalEvent?: OriginalEvent;
@@ -438,18 +440,25 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
       {/* Event Details Modal */}
       {selectedEvent && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl max-w-md w-full border border-border/40 overflow-hidden">
-            <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground p-6">
-              <h3 className="text-xl font-bold">{selectedEvent.title}</h3>
+          <div className="bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl max-w-2xl w-full border border-border/40 overflow-hidden">
+            {/* Event Image */}
+            {selectedEvent.image && (
+              <div className="relative h-48 bg-cover bg-center" style={{ backgroundImage: `url(${selectedEvent.image})` }}>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+              </div>
+            )}
+            
+            <div className={`${selectedEvent.image ? 'pt-4' : ''} px-6`}>
+              <h3 className="text-2xl font-bold text-foreground">{selectedEvent.title}</h3>
               {selectedEvent.location && (
-                <p className="opacity-90 mt-2 flex items-center gap-2">
-                  <MapPin className="w-4 h-4" />
+                <p className="opacity-90 mt-2 flex items-center gap-2 text-foreground/80">
+                  <MapPin className="w-4 h-4 flex-shrink-0" />
                   <span>{selectedEvent.location}</span>
                 </p>
               )}
             </div>
             
-            <div className="p-6 space-y-4">
+            <div className="p-6 space-y-4 mt-2">
               <div className="space-y-4">
                 <div className="flex items-start">
                   <CalendarIcon className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
@@ -490,23 +499,35 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
                 )}
               </div>
               
-              <div className="flex flex-col sm:flex-row justify-end gap-3 pt-6">
-                <button
-                  onClick={() => handleDownloadICS(selectedEvent)}
-                  className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-border hover:bg-accent/50 transition-colors"
-                >
-                  <Download size={16} />
-                  Download .ics
-                </button>
-                <a
-                  href={generateGoogleCalendarUrl(selectedEvent)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity"
-                >
-                  <ExternalLink size={16} />
-                  Google Calendar
-                </a>
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-6 border-t border-border/40 mt-4">
+                {selectedEvent.link && (
+                  <a 
+                    href={selectedEvent.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-primary hover:underline flex items-center gap-1"
+                  >
+                    View event page <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )}
+                  <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                  <button
+                    onClick={() => handleDownloadICS(selectedEvent)}
+                    className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-border hover:bg-accent/50 transition-colors"
+                  >
+                    <Download size={16} />
+                    Download .ics
+                  </button>
+                  <a
+                    href={generateGoogleCalendarUrl(selectedEvent)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity"
+                  >
+                    <ExternalLink size={16} />
+                    Google Calendar
+                  </a>
+                </div>
               </div>
               
               <button
