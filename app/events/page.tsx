@@ -6,7 +6,8 @@ import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import { EventTabs } from "@/components/events/EventTabs";
 import { EventCard } from "@/components/events/EventCard";
 import EventCalendar from "@/components/Calendar";
-import { Calendar as CalendarIcon, Clock, LayoutGrid, MapPin, Loader2, X, ExternalLink, Download, Tag } from "lucide-react";
+import { EventModal } from "@/components/events/EventModal";
+import { Calendar as CalendarIcon, Clock, LayoutGrid, MapPin, Loader2, ExternalLink, Download, Tag } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Event, getEvents, getEventsByCategory } from "@/lib/events";
 import type { CalendarEvent } from '@/components/Calendar';
@@ -425,95 +426,11 @@ export default function EventsPage() {
       </div>
       
       {/* Event Detail Modal - Matching Calendar Modal Styling */}
-      {isModalOpen && selectedEvent && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl max-w-2xl w-full border border-border/40 overflow-hidden relative">
-            {/* Close Button */}
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-card/80 hover:bg-accent text-muted-foreground hover:text-foreground transition-colors shadow-sm"
-              aria-label="Close"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            
-            {/* Event Image */}
-            {selectedEvent.image && (
-              <div className="relative h-48 bg-cover bg-center" style={{ backgroundImage: `url(${selectedEvent.image})` }}>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-              </div>
-            )}
-            
-            <div className={`${selectedEvent.image ? 'pt-4' : 'pt-2'} px-6`}>
-              <div className="flex items-center gap-2 mb-2">
-                {selectedEvent.featured && (
-                  <span className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-medium px-2 py-1 rounded-full">
-                    Featured
-                  </span>
-                )}
-                <h3 className="text-2xl font-bold text-foreground">{selectedEvent.title}</h3>
-              </div>
-              <p className="opacity-90 flex items-center gap-2 text-foreground/80">
-                <MapPin className="w-4 h-4 flex-shrink-0" />
-                <span>{selectedEvent.location}</span>
-              </p>
-            </div>
-            
-            <div className="p-6 space-y-4 mt-2">
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <CalendarIcon className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">When</p>
-                    <p className="text-foreground">
-                      {new Date(selectedEvent.date).toLocaleDateString('en-US', { 
-                        weekday: 'long', 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
-                      })}
-                      {selectedEvent.time && selectedEvent.time !== 'All day' && ` at ${selectedEvent.time}`}
-                      {selectedEvent.endDate && (
-                        ` - ${new Date(selectedEvent.endDate).toLocaleDateString('en-US', { 
-                          weekday: 'long', 
-                          year: 'numeric', 
-                          month: 'long', 
-                          day: 'numeric' 
-                        })}`
-                      )}
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <MapPin className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">Location</p>
-                    <p className="text-foreground">{selectedEvent.location}</p>
-                  </div>
-                </div>
-                
-                {selectedEvent.category && (
-                  <div className="flex items-start">
-                    <Tag className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground">Category</p>
-                      <p className="text-foreground">{selectedEvent.category.charAt(0).toUpperCase() + selectedEvent.category.slice(1)}</p>
-                    </div>
-                  </div>
-                )}
-                
-                {selectedEvent.description && (
-                  <div className="pt-4 mt-2 border-t border-border/40">
-                    <p className="text-sm font-medium text-muted-foreground mb-2">Description</p>
-                    <p className="text-foreground whitespace-pre-line">{selectedEvent.description}</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <EventModal 
+        event={selectedEvent} 
+        isOpen={isModalOpen && selectedEvent !== null} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </div>
   );
 };

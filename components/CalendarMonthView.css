@@ -317,7 +317,7 @@
 }
 
 .otaku-fullcalendar .fc-timegrid-slot:hover {
-  background: linear-gradient(135deg, rgba(236, 72, 153, 0.03) 0%, rgba(147, 51, 234, 0.03) 100%);
+  background: transparent;
 }
 
 .otaku-fullcalendar .fc-timegrid-now-indicator-line {

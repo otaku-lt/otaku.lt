@@ -9,6 +9,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import { format, parseISO } from 'date-fns';
 import { Tag, MapPin, Calendar as CalendarIcon, Download, ExternalLink, X, Clock, CalendarPlus } from 'lucide-react';
+import { EventModal } from '@/components/events/EventModal';
 import './Calendar.css';
 
 // Extended event interface for the original event data
@@ -17,11 +18,19 @@ export interface OriginalEvent extends Omit<CalendarEvent, 'extendedProps'> {
   title: string;
   date: string;
   time?: string;
-  location?: string;
-  description?: string;
+  endDate?: string;
+  location: string;
+  description: string;
+  featured: boolean;
+  status?: import('@/types/event').EventStatus;
+  link?: string;
   category?: string;
-  featured?: boolean;
-  status?: string;
+  image?: string;
+  tags?: string[];
+  organizer?: string;
+  venue?: string;
+  city?: string;
+  price?: number | string;
   [key: string]: any; // Allow additional properties
 }
 
@@ -84,6 +93,7 @@ const getCategoryColor = (category: string): { bg: string; text: string; border:
 export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: EventCalendarProps) {
   const [isClient, setIsClient] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const calendarRef = useRef<FullCalendar>(null);
 
   // Set isClient to true on mount
@@ -237,16 +247,13 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
   }, []);
 
   // Handle event click
-  const handleEventClick = useCallback((info: EventClickArg) => {
-    info.jsEvent.preventDefault();
-    const event = info.event.extendedProps.originalEvent as CalendarEvent;
-    if (event) {
-      setSelectedEvent(event);
-      if (onSelectEvent) {
-        onSelectEvent(event);
-      }
+  const handleEventClick = useCallback((clickInfo: EventClickArg) => {
+    const calendarEvent = clickInfo.event.extendedProps.originalEvent;
+    if (calendarEvent) {
+      setSelectedEvent(calendarEvent);
+      setIsModalOpen(true);
     }
-  }, [onSelectEvent]);
+  }, []);
 
   // Handle download ICS for an event
   const handleDownloadICS = useCallback((event: CalendarEvent) => {
@@ -438,110 +445,11 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
       </div>
 
       {/* Event Details Modal */}
-      {selectedEvent && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl max-w-2xl w-full border border-border/40 overflow-hidden relative">
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedEvent(null)}
-              className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-card/80 hover:bg-accent text-muted-foreground hover:text-foreground transition-colors shadow-sm"
-              aria-label="Close"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            
-            {/* Event Image */}
-            {selectedEvent.image && (
-              <div className="relative h-48 bg-cover bg-center" style={{ backgroundImage: `url(${selectedEvent.image})` }}>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-              </div>
-            )}
-            
-            <div className={`${selectedEvent.image ? 'pt-4' : 'pt-2'} px-6`}>
-              <h3 className="text-2xl font-bold text-foreground mt-2">{selectedEvent.title}</h3>
-              {selectedEvent.location && (
-                <p className="opacity-90 mt-2 flex items-center gap-2 text-foreground/80">
-                  <MapPin className="w-4 h-4 flex-shrink-0" />
-                  <span>{selectedEvent.location}</span>
-                </p>
-              )}
-            </div>
-            
-            <div className="p-6 space-y-4 mt-2">
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <CalendarIcon className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">When</p>
-                    <p className="text-foreground">
-                      {selectedEvent.start ? format(new Date(selectedEvent.start), 'MMMM d, yyyy h:mm a') : 'TBD'}
-                      {selectedEvent.end && ` - ${format(new Date(selectedEvent.end), 'h:mm a')}`}
-                    </p>
-                  </div>
-                </div>
-                
-                {selectedEvent.location && (
-                  <div className="flex items-start">
-                    <MapPin className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground">Location</p>
-                      <p className="text-foreground">{selectedEvent.location}</p>
-                    </div>
-                  </div>
-                )}
-                
-                {selectedEvent.category && (
-                  <div className="flex items-start">
-                    <Tag className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground">Category</p>
-                      <p className="text-foreground">{selectedEvent.category}</p>
-                    </div>
-                  </div>
-                )}
-                
-                {selectedEvent.description && (
-                  <div className="pt-4 mt-2 border-t border-border/40">
-                    <p className="text-sm font-medium text-muted-foreground mb-2">Description</p>
-                    <p className="text-foreground whitespace-pre-line">{selectedEvent.description}</p>
-                  </div>
-                )}
-              </div>
-              
-              <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-6 border-t border-border/40 mt-4">
-                {selectedEvent.link && (
-                  <a 
-                    href={selectedEvent.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium text-primary hover:underline flex items-center gap-1"
-                  >
-                    View event page <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                )}
-                  <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                  <button
-                    onClick={() => handleDownloadICS(selectedEvent)}
-                    className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-border hover:bg-accent/50 transition-colors"
-                  >
-                    <Download size={16} />
-                    Download .ics
-                  </button>
-                  <a
-                    href={generateGoogleCalendarUrl(selectedEvent)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity"
-                  >
-                    <ExternalLink size={16} />
-                    Google Calendar
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <EventModal 
+        event={selectedEvent?.extendedProps?.originalEvent || null} 
+        isOpen={isModalOpen && selectedEvent?.extendedProps?.originalEvent !== undefined} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </div>
   );
 }

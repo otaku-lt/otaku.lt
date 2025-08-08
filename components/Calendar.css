@@ -313,8 +313,6 @@
 .otaku-fullcalendar .fc-event:hover {
   background: var(--vscode-sideBar-background) !important;
   border-color: var(--vscode-widget-border) !important;
-  /* transform: translateX(2px); */
-  /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); */
 }
 
 .otaku-fullcalendar .fc-event .fc-event-main {
