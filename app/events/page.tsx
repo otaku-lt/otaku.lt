@@ -198,17 +198,26 @@ export default function EventsPage() {
         className: `event-category-${event.category || 'other'}`
       };
 
-      // Set end time if specified
-      if (event.time) {
+      // Set end time if specified and not 'All day'
+      if (event.time && event.time !== 'All day') {
         const endDate = new Date(eventDate);
         const [hours, minutes] = event.time.split(':').map(Number);
         endDate.setHours(hours + 2, minutes || 0, 0, 0);
         calendarEvent.end = endDate;
+        calendarEvent.allDay = false;
+      } else if (event.endDate) {
+        // For events with endDate, use that as the end date
+        const endDate = new Date(event.endDate);
+        // Add one day to make it inclusive
+        endDate.setDate(endDate.getDate() + 1);
+        calendarEvent.end = endDate;
+        calendarEvent.allDay = true;
       } else {
         // For all-day events, set end to the next day
         const endDate = new Date(eventDate);
         endDate.setDate(endDate.getDate() + 1);
         calendarEvent.end = endDate;
+        calendarEvent.allDay = true;
       }
 
       return calendarEvent;
