@@ -228,13 +228,11 @@ export default function EventsPage() {
           backText="Back to Home"
         />
       </div>
-      <div className="max-w-3xl mx-auto text-center mb-12">
-        <p className="text-muted-foreground">
-          Discover anime, Japanese culture, and otaku events in Lithuania and beyond
-        </p>
-      </div>
+      <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-2">
+        Discover anime, Japanese culture, and otaku events in Lithuania and beyond
+      </p>
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-4 py-4">
         {/* Event Tabs */}
         <EventTabs
           categories={categories}
