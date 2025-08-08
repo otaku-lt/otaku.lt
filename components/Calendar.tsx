@@ -352,8 +352,8 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
   return (
     <div className="relative">
       {/* Header with export all functionality */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-card/80 backdrop-blur-sm rounded-2xl shadow-lg border border-border/40 p-6 mb-6">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-card/80 backdrop-blur-sm rounded-2xl shadow-lg border border-border/40 p-6 mb-4">
+        <div className="flex items-center gap-2">
           <CalendarIcon className="text-primary" size={24} />
           <div>
             <h2 className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
