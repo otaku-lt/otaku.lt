@@ -33,7 +33,6 @@ export const routes: RouteConfig[] = [
   {
     path: '/events',
     label: 'Event Calendar',
-    isProtected: true, // Will be hidden in production
     isEnabled: true,
   },
   // Add more routes here as needed
