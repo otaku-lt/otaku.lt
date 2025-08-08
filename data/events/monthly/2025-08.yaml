@@ -85,3 +85,17 @@
   featured: false
   image: /images/events/2025/08/2025-08-graveoffireflies.jpg
   link: 'https://www.forumcinemas.lt/event/310974/grave_of_the_fireflies_1988?theatreAreaID=1011'
+
+- id: 9
+  title: 'Demon Slayer: Kimetsu no Yaiba - The Infinity Castle'
+  date: '2025-08-29'
+  time: 'All day'
+  location: 'Across the country'
+  category: screening
+  description: |
+    Join Tanjiro and his allies as they embark on a new mission in the highly anticipated movie continuation of the Demon Slayer series.
+    Experience the epic battle against the demons in this stunning animated film shown in theaters.
+
+  featured: false
+  image: /images/events/2025/08/2025-08-demonslayer.jpg
+  link: 'https://www.apollokinas.lt/event/5036/demon_slayer_kimetsu_no_yaiba_begalyb%C4%97s_pilis?theatreAreaID=1019'
