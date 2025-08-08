@@ -32,7 +32,7 @@ const SimpleForm: React.FC<SimpleFormProps> = ({
   handleInputChange 
 }) => {
   return (
-    <div className="bg-card rounded-2xl p-6 shadow-lg border border-border">
+    <div className="bg-card rounded-2xl p-6 shadow-lg border border-border mb-8">
       <div className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-foreground mb-2">

@@ -157,12 +157,6 @@ export default function SubmitEventPage() {
       />
       <div className="max-w-4xl mx-auto px-4 py-4">
         <div className="text-center mb-12">
-          {process.env.NODE_ENV === 'production' && (
-            <div className="mb-6 p-4 bg-destructive/20 border border-destructive/30 rounded-lg text-destructive text-center">
-              <p className="font-medium">Submissions are currently disabled in production</p>
-              <p className="text-sm mt-1">Please check back later or contact the site administrator</p>
-            </div>
-          )}
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Submit an Event <Plus className="w-8 h-8 inline-block align-middle" />
           </h1>
@@ -194,10 +188,12 @@ export default function SubmitEventPage() {
         </div>
         <form onSubmit={handleSubmit} className="space-y-8">
           {formType === 'simple' ? (
-            <SimpleForm 
-              formData={formData}
-              handleInputChange={handleInputChange}
-            />
+            <div className="mb-16">
+              <SimpleForm 
+                formData={formData}
+                handleInputChange={handleInputChange}
+              />
+            </div>
           ) : (
             <FullForm 
               formData={formData}
@@ -211,7 +207,7 @@ export default function SubmitEventPage() {
               categories={categories}
             />
           )}
-          <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-4 mb-8">
             <button
               type="submit"
               disabled={isSubmitting || process.env.NODE_ENV === 'production'}
