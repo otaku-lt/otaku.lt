@@ -55,44 +55,6 @@ export default function EventsPage() {
     return categoryConfig?.color || 'bg-gray-500/10 text-gray-400';
   };
 
-  // Calculate category counts
-  const categories = useMemo(() => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    // Start with special categories
-    const baseCategories = [
-      { id: 'all', label: 'All Events', count: events.length },
-      { 
-        id: 'upcoming', 
-        label: 'Upcoming', 
-        count: events.filter(event => new Date(event.date) >= today).length,
-        forceListView: true
-      }
-    ];
-    
-    // Add event categories with counts
-    const eventCategories = EVENT_CATEGORIES.map((category: { id: string; label: string }) => ({
-      id: category.id,
-      label: category.label,
-      // Special handling for categories that might have been renamed or merged
-      count: events.filter(e => {
-        if (category.id === 'music') {
-          // Handle music category (formerly concert)
-          return e.category === 'concert' || e.category === 'music';
-        }
-        if (category.id === 'screening') {
-          // Handle screening category
-          return e.category === 'screening';
-        }
-        // Default case
-        return e.category === category.id;
-      }).length
-    }));
-    
-    return [...baseCategories, ...eventCategories];
-  }, [events]);
-
   // Filter events based on selected category and search term
   const filteredEvents = useMemo(() => {
     let result = [...events];
@@ -136,6 +98,47 @@ export default function EventsPage() {
     
     return result.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }, [events, selectedCategory, searchTerm]);
+
+  // Calculate category counts based on filtered events
+  const categories = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    // Start with special categories
+    const baseCategories = [
+      { id: 'all', label: 'All Events', count: filteredEvents.length },
+      { 
+        id: 'upcoming', 
+        label: 'Upcoming', 
+        count: filteredEvents.filter(event => new Date(event.date) >= today).length,
+        forceListView: true
+      }
+    ];
+    
+    // Add event categories with counts
+    const eventCategories = EVENT_CATEGORIES.map((category: { id: string; label: string }) => ({
+      id: category.id,
+      label: category.label,
+      // Special handling for categories that might have been renamed or merged
+      count: filteredEvents.filter(e => {
+        // Get all categories for this event (primary + additional)
+        const eventCategories = e.categories ? [...e.categories] : [e.category];
+        
+        if (category.id === 'music') {
+          // Handle music category (formerly concert)
+          return eventCategories.includes('concert') || eventCategories.includes('music');
+        }
+        if (category.id === 'screening') {
+          // Handle screening category
+          return eventCategories.includes('screening');
+        }
+        // Default case - check if any of the event's categories match
+        return eventCategories.includes(category.id);
+      }).length
+    }));
+    
+    return [...baseCategories, ...eventCategories];
+  }, [filteredEvents]);
 
   // Group events by month for the calendar view
   const eventsByMonth = useMemo(() => {
@@ -230,10 +233,8 @@ export default function EventsPage() {
 
   const handleCategoryChange = useCallback((category: string) => {
     setSelectedCategory(category);
-    // Switch to list view when 'upcoming' is selected
-    if (category === 'upcoming') {
-      setViewMode('list');
-    }
+    // Always switch to list view when filtering by categories
+    setViewMode('list');
   }, []);
 
   const handleEventClick = useCallback((event: Event) => {
@@ -417,4 +418,4 @@ export default function EventsPage() {
       />
     </div>
   );
-};
+}

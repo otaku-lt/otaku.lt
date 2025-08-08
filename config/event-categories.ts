@@ -9,8 +9,6 @@ export interface EventCategory {
 // Main event categories used throughout the application
 // Using the submit event categories list as it's more comprehensive
 export const EVENT_CATEGORIES: EventCategory[] = [
-  { id: 'anime', label: 'Anime Events', icon: '🎌', color: 'bg-red-500/10 text-red-400' },
-  { id: 'cosplay', label: 'Cosplay', icon: '👤', color: 'bg-pink-500/10 text-pink-400' },
   { id: 'gaming', label: 'Gaming', icon: '🎮', color: 'bg-orange-500/10 text-orange-400' },
   { id: 'music', label: 'Music/Concerts', icon: '🎵', color: 'bg-purple-500/10 text-purple-400' },
   { id: 'screening', label: 'Movie Screenings', icon: '🎬', color: 'bg-blue-500/10 text-blue-400' },
