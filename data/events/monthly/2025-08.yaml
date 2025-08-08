@@ -23,21 +23,22 @@
 
 - id: 5
   title: 'GG Vasara: Summer Gaming Festival'
-  date: '2025-08-15'
-  time: '12:00'
+  date: '2025-08-20'
+  endDate: '2025-09-08'
+  time: 'All day'
   location: 'Vilnius, Lithuania'
   category: gaming
   description: |
     Join us for GG Vasara, a summer gaming festival in collaboration with Baltic's Game. 
     Experience the latest games, compete in tournaments, and connect with fellow gamers.
-    Event details will be updated soon.
+    Event runs from August 20 to September 8.
 
   featured: false
   image: /images/events/2025/08/2025-08-ggvasara.jpg
-  link: 'https://www.facebook.com/events/s/gg-vasara-kartu-su-baltics-gam/3062355387267895'
+  link: 'https://www.facebook.com/events/s/gg-vasara-kartu-su-baltics-gam/3062355387267895/'
 
 - id: 6
-  title: 'Kelionė į UniCon 2025, Ryga'
+  title: 'Trip to UniCon 2025, Riga'
   date: '2025-08-16'
   time: 'All day'
   location: 'Riga, Latvia'
@@ -49,5 +50,5 @@
     Event details will be updated soon.
 
   featured: true
-  image: /images/events/2025/08/2025-08-animecon.jpg
+  image: /images/events/2025/08/2025-08-unicontrip.jpg
   link: 'https://www.facebook.com/events/712401125102206/'
