@@ -157,6 +157,12 @@ export default function SubmitEventPage() {
       />
       <div className="max-w-4xl mx-auto px-4 py-4">
         <div className="text-center mb-12">
+          {process.env.NODE_ENV === 'production' && (
+            <div className="mb-6 p-4 bg-destructive/20 border border-destructive/30 rounded-lg text-destructive text-center">
+              <p className="font-medium">Submissions are currently disabled in production</p>
+              <p className="text-sm mt-1">Please check back later or contact the site administrator</p>
+            </div>
+          )}
           <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Submit an Event <Plus className="w-8 h-8 inline-block align-middle" />
           </h1>
@@ -208,16 +214,22 @@ export default function SubmitEventPage() {
           <div className="flex flex-col items-center gap-4">
             <button
               type="submit"
-              disabled={isSubmitting}
-              className={`w-full md:w-auto px-8 py-4 rounded-full font-medium text-lg flex items-center justify-center gap-2 transition-all ${isSubmitting ? 'bg-primary/80' : 'bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-600 hover:shadow-lg hover:shadow-pink-500/20'}`}
+              disabled={isSubmitting || process.env.NODE_ENV === 'production'}
+              className={`w-full md:w-auto px-8 py-4 rounded-full font-medium text-lg flex items-center justify-center gap-2 transition-all ${isSubmitting || process.env.NODE_ENV === 'production' ? 'bg-primary/80' : 'bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-600 hover:shadow-lg hover:shadow-pink-500/20'}`}
             >
-              {isSubmitting ? 'Submitting...' : 'Submit Event'}
-              {!isSubmitting && <Send size={20} className="text-primary-foreground" />}
+              {isSubmitting ? 'Submitting...' : process.env.NODE_ENV === 'production' ? 'Submissions Disabled' : 'Submit Event'}
+              {!isSubmitting && process.env.NODE_ENV !== 'production' && <Send size={20} className="text-primary-foreground" />}
             </button>
             
-            <p className="text-sm text-muted-foreground text-center">
-              Note: Your event will be reviewed before being published.
-            </p>
+            {process.env.NODE_ENV === 'production' ? (
+              <p className="text-sm text-muted-foreground text-center">
+                Submissions are currently disabled in production. Please check back later or contact the site administrator.
+              </p>
+            ) : (
+              <p className="text-sm text-muted-foreground text-center">
+                Note: Your event will be reviewed before being published.
+              </p>
+            )}
           </div>
         </form>
       </div>
