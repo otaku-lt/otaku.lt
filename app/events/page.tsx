@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import { EventTabs } from "@/components/events/EventTabs";
 import { EventCard } from "@/components/events/EventCard";
