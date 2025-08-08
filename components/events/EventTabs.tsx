@@ -87,36 +87,6 @@ export function EventTabs({
         </div>
       )}
 
-      {/* View Toggle */}
-      {showViewToggle && (
-        <div className="flex justify-center">
-          <div className="bg-card/80 backdrop-blur-sm rounded-full p-1 shadow-lg">
-            <button
-              onClick={() => onViewModeChange('calendar')}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
-                viewMode === 'calendar'
-                  ? 'bg-primary text-primary-foreground shadow-sm'
-                  : 'text-muted-foreground hover:bg-accent/10'
-              }`}
-            >
-              <Calendar size={16} className="inline mr-2" />
-              Calendar View
-            </button>
-            <button
-              onClick={() => onViewModeChange('list')}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
-                viewMode === 'list'
-                  ? 'bg-primary text-primary-foreground shadow-sm'
-                  : 'text-muted-foreground hover:bg-accent/10'
-              }`}
-            >
-              <LayoutGrid size={16} className="inline mr-2" />
-              List View
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* Category Filters */}
       {showCategoryFilters && (
         <div className="flex flex-wrap gap-2 justify-center">

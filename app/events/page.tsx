@@ -6,7 +6,7 @@ import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import { EventTabs } from "@/components/events/EventTabs";
 import { EventCard } from "@/components/events/EventCard";
 import EventCalendar from "@/components/Calendar";
-import { Calendar as CalendarIcon, MapPin, Loader2, X, ExternalLink, Download } from "lucide-react";
+import { Calendar as CalendarIcon, LayoutGrid, MapPin, Loader2, X, ExternalLink, Download } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Event, getEvents, getEventsByCategory } from "@/lib/events";
 import type { CalendarEvent } from '@/components/Calendar';
@@ -214,6 +214,52 @@ export default function EventsPage() {
     // The Calendar component handles the modal display
   }, []);
 
+  // Function to export all events as ICS
+  const exportAllEventsAsICS = useCallback(() => {
+    if (calendarEvents.length === 0) return;
+    
+    const icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Otaku.lt//Event Calendar//EN',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'X-WR-CALNAME:Otaku.lt Events',
+      'X-WR-TIMEZONE:Europe/Vilnius',
+      ...calendarEvents.map(event => {
+        const start = event.start ? new Date(event.start) : new Date();
+        const end = event.end ? new Date(event.end) : new Date(start.getTime() + 60 * 60 * 1000);
+        
+        // Format dates for ICS (YYYYMMDDTHHMMSSZ)
+        const formatDate = (date: Date): string => {
+          return date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+        };
+        
+        return [
+          'BEGIN:VEVENT',
+          `UID:${event.id}@otaku.lt`,
+          `DTSTART:${formatDate(start)}`,
+          `DTEND:${formatDate(end)}`,
+          `SUMMARY:${event.title}`,
+          `DESCRIPTION:${event.description || ''}`,
+          `LOCATION:${event.location || ''}`,
+          'END:VEVENT'
+        ].join('\n');
+      }).flat(),
+      'END:VCALENDAR'
+    ].join('\n');
+    
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'otaku-events.ics';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }, [calendarEvents]);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mb-8">
@@ -228,12 +274,12 @@ export default function EventsPage() {
           backText="Back to Home"
         />
       </div>
-      <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-2">
-        Discover anime, Japanese culture, and otaku events in Lithuania and beyond
-      </p>
-
       <div className="max-w-6xl mx-auto px-4 py-4">
-        {/* Event Tabs */}
+        <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-2">
+          Discover anime, Japanese culture, and otaku events in Lithuania and beyond
+        </p>
+
+        {/* Event Tabs - Modified to remove view toggle */}
         <EventTabs
           categories={categories}
           selectedCategory={selectedCategory}
@@ -242,8 +288,38 @@ export default function EventsPage() {
           onViewModeChange={setViewMode}
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
+          showViewToggle={false}
+          showSubmitButton={true}
           className="mb-8"
         />
+
+        {/* View Toggle - Dual Button Style */}
+        <div className="flex justify-center mb-6">
+          <div className="flex bg-card/80 backdrop-blur-sm rounded-full p-1 shadow w-fit">
+            <button
+              onClick={() => setViewMode('calendar')}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
+                viewMode === 'calendar'
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'text-muted-foreground hover:bg-accent/10'
+              }`}
+            >
+              <CalendarIcon size={16} />
+              <span>Calendar View</span>
+            </button>
+            <button
+              onClick={() => setViewMode('list')}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
+                viewMode === 'list'
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'text-muted-foreground hover:bg-accent/10'
+              }`}
+            >
+              <LayoutGrid size={16} />
+              <span>List View</span>
+            </button>
+          </div>
+        </div>
 
         {/* Loading State */}
         {isLoading && (
