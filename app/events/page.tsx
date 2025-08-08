@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import { EventTabs } from "@/components/events/EventTabs";
 import { EventCard } from "@/components/events/EventCard";
@@ -137,24 +137,17 @@ export default function EventsPage() {
   // Convert event data to calendar format
   const calendarEvents = useMemo<CalendarEvent[]>(() => {
     return filteredEvents.map(event => {
-      // Create a date object from the event date
       const eventDate = new Date(event.date);
-      
-      // Set time if specified
-      if (event.time) {
-        const [hours, minutes] = event.time.split(':').map(Number);
-        eventDate.setHours(hours, minutes || 0, 0, 0);
-      }
-      
-      // Create a new event object that matches the CalendarEvent type
       const calendarEvent: CalendarEvent = {
         id: event.id?.toString() || Math.random().toString(36).substr(2, 9),
         title: event.title || 'Untitled Event',
         start: eventDate,
         allDay: !event.time, // If no time is specified, it's an all-day event
-        description: event.description || '',
-        location: event.location || '',
-        category: event.category || 'other',
+        description: event.description,
+        location: event.location,
+        category: event.category,
+        image: event.image,
+        link: event.link,
         extendedProps: {
           originalEvent: {
             ...event,
@@ -162,7 +155,7 @@ export default function EventsPage() {
             title: event.title || 'Untitled Event',
             date: event.date,
             time: event.time || '',
-            location: event.location || '',
+            location: event.location || 'Location not specified',
             description: event.description || '',
             category: event.category || 'other',
             featured: Boolean(event.featured),
@@ -171,19 +164,8 @@ export default function EventsPage() {
         },
         className: `event-category-${event.category || 'other'}`
       };
-      
-      // Add end time if specified or for all-day events
-      const formatTime = (timeString?: string) => {
-        if (!timeString) return '';
-        
-        const [hours, minutes] = timeString.split(':');
-        const date = new Date();
-        date.setHours(parseInt(hours, 10) || 0);
-        date.setMinutes(parseInt(minutes, 10) || 0);
-        
-        return date.toLocaleTimeString('lt-LT', { hour: '2-digit', minute: '2-digit' });
-      };
 
+      // Set end time if specified
       if (event.time) {
         const endDate = new Date(eventDate);
         const [hours, minutes] = event.time.split(':').map(Number);
@@ -195,7 +177,7 @@ export default function EventsPage() {
         endDate.setDate(endDate.getDate() + 1);
         calendarEvent.end = endDate;
       }
-      
+
       return calendarEvent;
     });
   }, [filteredEvents]);
@@ -207,60 +189,31 @@ export default function EventsPage() {
     setIsClient(true);
   }, []);
 
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-
-  const handleEventClick = (calendarEvent: CalendarEvent) => {
-    // Get the original event data from the calendar event
-    const eventData = calendarEvent.extendedProps?.originalEvent;
-    if (eventData) {
-      // Ensure all required fields have fallback values
-      const safeEvent: Event = {
-        id: eventData.id || '',
-        title: eventData.title || 'Untitled Event',
-        date: eventData.date || new Date().toISOString().split('T')[0],
-        time: eventData.time || '',
-        location: eventData.location || '',
-        description: eventData.description || '',
-        category: eventData.category || 'other',
-        featured: Boolean(eventData.featured),
-        status: (eventData.status && ['upcoming', 'past', 'cancelled', 'scheduled', 'postponed', 'completed'].includes(eventData.status))
-          ? eventData.status as EventStatus
-          : 'upcoming',
-        link: eventData.link || '',
-        image: eventData.image || ''
-      };
-      setSelectedEvent(safeEvent);
-    }
-  };
+  const handleEventClick = useCallback((calendarEvent: CalendarEvent) => {
+    // The Calendar component handles the modal display
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <ContentPageHeader 
-        title={
-          <>
-            <span className="inline-block mr-2">🎌</span>
+      <div className="mb-8">
+        <ContentPageHeader 
+          title={
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Otaku Event Calendar
+              Events & Gatherings
             </span>
-          </>
-        } 
-        showBackButton={true}
-        backHref="/"
-        backText="Back to Home"
-      />
+          }
+          showBackButton={true}
+          backHref="/"
+          backText="Back to Home"
+        />
+      </div>
+      <div className="max-w-3xl mx-auto text-center mb-12">
+        <p className="text-muted-foreground">
+          Discover anime, Japanese culture, and otaku events in Lithuania and beyond
+        </p>
+      </div>
 
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Page Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Otaku Event Calendar 🎌
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Discover anime, cosplay, and Japanese culture events across Lithuania. 
-            Find your next otaku adventure or submit your own event to our calendar.
-          </p>
-        </div>
-
         {/* Event Tabs */}
         <EventTabs
           categories={categories}
@@ -273,123 +226,63 @@ export default function EventsPage() {
           className="mb-8"
         />
 
-        {/* Calendar View */}
-        {viewMode === 'calendar' && (
-          <EventCalendar 
-            events={calendarEvents}
-            onSelectEvent={handleEventClick}
-          />
-        )}
-
-        {/* List View */}
-        {viewMode === 'list' && isClient && (
-          <div>
-            {/* Events Grid */}
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filteredEvents.map((event) => (
-                <EventCard
-                  key={event.id}
-                  id={event.id}
-                  title={event.title}
-                  date={event.date}
-                  time={event.time}
-                  location={event.location}
-                  category={event.category}
-                  description={event.description}
-                  featured={event.featured}
-                  getCategoryEmoji={getCategoryEmoji}
-                  getCategoryColors={getCategoryColors}
-                  href={`/events/${event.id}`}
-                />
-              ))}
-            </div>
-
-            {filteredEvents.length === 0 && (
-              <div className="text-center py-12 col-span-full">
-                <div className="text-6xl mb-4">🔍</div>
-                <h3 className="text-xl font-semibold text-muted-foreground mb-2">No events found</h3>
-                <p className="text-muted-foreground/80">Try adjusting your search or filters</p>
-              </div>
-            )}
+        {/* Loading State */}
+        {isLoading && (
+          <div className="flex justify-center items-center py-20">
+            <Loader2 className="animate-spin h-8 w-8 text-primary" />
+            <span className="ml-2">Loading events...</span>
           </div>
         )}
 
-        {/* Event Details Modal */}
-        {selectedEvent && (
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setSelectedEvent(null)}>
-            <div className="bg-card rounded-xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-              <div className="flex justify-between items-start mb-4">
-                <h2 className="text-2xl font-bold text-foreground">{selectedEvent.title}</h2>
-                <button 
-                  onClick={() => setSelectedEvent(null)}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                  aria-label="Close"
-                >
-                  <X size={24} />
-                </button>
-              </div>
-              
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <CalendarIcon className="h-5 w-5" />
-                  <span>{selectedEvent.date} • {selectedEvent.time}</span>
-                </div>
-                
-                {selectedEvent.location && (
-                  <div className="flex items-start gap-2 text-muted-foreground">
-                    <MapPin className="h-5 w-5 flex-shrink-0 mt-0.5" />
-                    <span>{selectedEvent.location}</span>
-                  </div>
-                )}
+        {/* Error State */}
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-red-500 text-center">
+            {error}
+          </div>
+        )}
 
-                {selectedEvent.description && (
-                  <div className="prose prose-invert max-w-none">
-                    <p className="text-foreground">{selectedEvent.description}</p>
-                  </div>
-                )}
+        {/* Empty State */}
+        {!isLoading && !error && filteredEvents.length === 0 && (
+          <div className="text-center py-16">
+            <div className="text-6xl mb-4">📅</div>
+            <h3 className="text-xl font-semibold mb-2">No events found</h3>
+            <p className="text-muted-foreground">
+              {searchTerm || selectedCategory !== 'all' 
+                ? 'Try adjusting your search or filters'
+                : 'Check back later for upcoming events!'}
+            </p>
+          </div>
+        )}
 
-                <div className="flex flex-wrap gap-2 pt-2">
-                  <a
-                    href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(selectedEvent.title)}&dates=${new Date(selectedEvent.date).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '')}/${new Date(selectedEvent.date).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '')}&details=${encodeURIComponent(selectedEvent.description || '')}&location=${encodeURIComponent(selectedEvent.location || '')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-colors"
-                  >
-                    <ExternalLink size={16} />
-                    Add to Google Calendar
-                  </a>
-                  
-                  <button
-                    onClick={() => {
-                      const icsContent = `BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VEVENT
-SUMMARY:${selectedEvent.title}
-DESCRIPTION:${selectedEvent.description || ''}
-LOCATION:${selectedEvent.location || ''}
-DTSTART:${new Date(selectedEvent.date).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '')}
-DTEND:${new Date(selectedEvent.date).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '')}
-END:VEVENT
-END:VCALENDAR`;
-                      
-                      const blob = new Blob([icsContent], { type: 'text/calendar' });
-                      const url = window.URL.createObjectURL(blob);
-                      const link = document.createElement('a');
-                      link.href = url;
-                      link.download = `${selectedEvent.title.replace(/\s+/g, '_')}.ics`;
-                      document.body.appendChild(link);
-                      link.click();
-                      document.body.removeChild(link);
-                      window.URL.revokeObjectURL(url);
-                    }}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-colors"
-                  >
-                    <Download size={16} />
-                    Download .ics
-                  </button>
-                </div>
-              </div>
-            </div>
+        {/* Calendar View */}
+        {!isLoading && !error && viewMode === 'calendar' && filteredEvents.length > 0 && (
+          <div className="bg-card rounded-lg border shadow-sm overflow-hidden">
+            <EventCalendar 
+              events={calendarEvents}
+              onSelectEvent={handleEventClick}
+            />
+          </div>
+        )}
+
+        {/* List View */}
+        {!isLoading && !error && viewMode === 'list' && filteredEvents.length > 0 && (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {filteredEvents.map((event) => (
+              <EventCard
+                key={event.id}
+                id={event.id}
+                title={event.title}
+                date={event.date}
+                time={event.time}
+                location={event.location}
+                category={event.category}
+                description={event.description}
+                featured={event.featured}
+                getCategoryEmoji={getCategoryEmoji}
+                getCategoryColors={getCategoryColors}
+                href={`/events/${event.id}`}
+              />
+            ))}
           </div>
         )}
       </div>
