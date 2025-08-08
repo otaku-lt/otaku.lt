@@ -440,7 +440,16 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
       {/* Event Details Modal */}
       {selectedEvent && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl max-w-2xl w-full border border-border/40 overflow-hidden">
+          <div className="bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl max-w-2xl w-full border border-border/40 overflow-hidden relative">
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedEvent(null)}
+              className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-card/80 hover:bg-accent text-muted-foreground hover:text-foreground transition-colors shadow-sm"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
             {/* Event Image */}
             {selectedEvent.image && (
               <div className="relative h-48 bg-cover bg-center" style={{ backgroundImage: `url(${selectedEvent.image})` }}>
@@ -448,8 +457,8 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
               </div>
             )}
             
-            <div className={`${selectedEvent.image ? 'pt-4' : ''} px-6`}>
-              <h3 className="text-2xl font-bold text-foreground">{selectedEvent.title}</h3>
+            <div className={`${selectedEvent.image ? 'pt-4' : 'pt-2'} px-6`}>
+              <h3 className="text-2xl font-bold text-foreground mt-2">{selectedEvent.title}</h3>
               {selectedEvent.location && (
                 <p className="opacity-90 mt-2 flex items-center gap-2 text-foreground/80">
                   <MapPin className="w-4 h-4 flex-shrink-0" />
@@ -529,14 +538,6 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
                   </a>
                 </div>
               </div>
-              
-              <button
-                onClick={() => setSelectedEvent(null)}
-                className="absolute top-4 right-4 p-1 rounded-full text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
-                aria-label="Close"
-              >
-                <X className="w-5 h-5" />
-              </button>
             </div>
           </div>
         </div>
