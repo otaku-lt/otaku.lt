@@ -9,6 +9,68 @@ let eventsCache: Event[] | null = null;
 let lastFetchTime = 0;
 const CACHE_DURATION = process.env.NODE_ENV === 'development' ? 0 : 5 * 60 * 1000; // No cache in development, 5 minutes in production
 
+// Import event data directly for static export
+let staticEventsData: Event[] | null = null;
+
+// Function to load events data for static export
+async function loadStaticEventsData(): Promise<Event[]> {
+  if (staticEventsData) {
+    return staticEventsData;
+  }
+  
+  try {
+    // Dynamically import all event files
+    const eventModules = [
+      await import('@/data/events/monthly/2025-08.yaml'),
+      await import('@/data/events/monthly/2025-09.yaml'),
+      await import('@/data/events/monthly/2025-11.yaml'),
+      await import('@/data/events/monthly/2026-05.yaml')
+    ];
+    
+    // Flatten all events
+    const allEvents: Event[] = [];
+    eventModules.forEach(module => {
+      if (Array.isArray(module.default)) {
+        module.default.forEach((event: any) => {
+          // Handle comma-separated categories
+          let categories: string[] = [];
+          if (event.category) {
+            // If category contains commas, split it into multiple categories
+            if (typeof event.category === 'string' && event.category.includes(',')) {
+              categories = event.category.split(',').map((cat: string) => cat.trim());
+            } else {
+              // Single category
+              categories = [event.category];
+            }
+          }
+          
+          allEvents.push({
+            id: event.id || '',
+            title: event.title || 'Untitled Event',
+            date: event.date || new Date().toISOString(),
+            time: event.time,
+            endDate: event.endDate,
+            location: event.location || 'Location not specified',
+            description: event.description || '',
+            featured: Boolean(event.featured),
+            status: event.status || 'upcoming',
+            link: event.link,
+            category: categories[0] || event.category, // Primary category
+            categories: categories.length > 1 ? categories : undefined, // Only set if multiple categories
+            image: event.image
+          });
+        });
+      }
+    });
+    
+    staticEventsData = allEvents;
+    return allEvents;
+  } catch (error) {
+    console.error('Error loading static events data:', error);
+    return [];
+  }
+}
+
 // Function to fetch events from the API (client-side only)
 async function fetchEventsFromApi(): Promise<Event[]> {
   try {
@@ -49,7 +111,12 @@ export async function getEvents(): Promise<Event[]> {
   }
   
   try {
-    eventsCache = await fetchEventsFromApi();
+    // Use static data loading for production (static export)
+    if (process.env.NODE_ENV === 'production') {
+      eventsCache = await loadStaticEventsData();
+    } else {
+      eventsCache = await fetchEventsFromApi();
+    }
     lastFetchTime = now;
   } catch (error) {
     console.error('Error getting events:', error);
