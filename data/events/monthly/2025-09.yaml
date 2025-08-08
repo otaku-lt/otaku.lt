@@ -1,20 +1,39 @@
 - id: 3
-  title: "YuruCamp: Weeb Camping Adventure"
-  date: "2025-09-05"
-  endDate: "2025-09-07"
-  location: "Trakai National Park"
-  category: "camping"
-  description: "3-day camping experience with anime screenings, cosplay contests, and outdoor activities"
-  status: "upcoming"
+  title: 'YuruCamp: Weeb Camping Adventure'
+  date: '2025-09-05'
+  endDate: '2025-09-07'
+  time: 'All day'
+  location: Trakai National Park, Lithuania
+  category: camping
+  description: |
+    A weeb-themed outdoor festival by the river, featuring a cosplay stage, photo spots, water adventures, 
+    a professional outdoor kitchen, DIY campfire option, live evening performances by Korniha band with 
+    anime OSTs, and the Idol Stage karaoke! Artists will enjoy sketch meetups, live drawing sessions, 
+    and collaborative art projects in our Creative Hub.
+  status: upcoming
   featured: true
-  image: "/images/events/yurucamp.jpg"
-
+  image: /images/events/2025/09/yurucamp-2025-09-poster.jpg
+  tags:
+    - camping
+    - music
+    - cosplay
+    - art
+  organizer: Otaku.lt 
+  link: /yurucamp
 - id: 4
-  title: "Japanese Language Workshop"
-  date: "2025-09-15"
-  time: "17:00"
-  location: "Vilnius, Japanese Culture Center"
-  category: "workshop"
-  description: "Beginner-friendly Japanese language workshop focusing on anime phrases"
-  status: "upcoming"
+  title: Japanese Language Workshop
+  date: '2025-09-15'
+  time: '17:00'
+  location: Vilnius, Japanese Culture Center
+  category: workshop
+  description: Beginner-friendly Japanese language workshop focusing on anime phrases
+  status: upcoming
   featured: false
+- id: 8
+  title: Cosplay Workshop
+  date: '2025-09-01'
+  time: '14:00'
+  location: Kaunas, Art Space
+  category: workshop
+  description: Learn cosplay techniques from professionals
+  status: upcoming
