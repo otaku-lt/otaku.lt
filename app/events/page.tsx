@@ -55,6 +55,24 @@ export default function EventsPage() {
     return categoryConfig?.color || 'bg-gray-500/10 text-gray-400';
   };
 
+  // Filter events only by search term (for category counts)
+  const searchFilteredEvents = useMemo(() => {
+    let result = [...events];
+    
+    // Apply only search filter (not category filter)
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      result = result.filter(event => 
+        event.title.toLowerCase().includes(term) ||
+        event.description.toLowerCase().includes(term) ||
+        event.location.toLowerCase().includes(term) ||
+        (event.category && event.category.toLowerCase().includes(term))
+      );
+    }
+    
+    return result.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  }, [events, searchTerm]);
+
   // Filter events based on selected category and search term
   const filteredEvents = useMemo(() => {
     let result = [...events];
@@ -106,11 +124,11 @@ export default function EventsPage() {
     
     // Start with special categories
     const baseCategories = [
-      { id: 'all', label: 'All Events', count: filteredEvents.length },
+      { id: 'all', label: 'All Events', count: searchFilteredEvents.length },
       { 
         id: 'upcoming', 
         label: 'Upcoming', 
-        count: filteredEvents.filter(event => new Date(event.date) >= today).length,
+        count: searchFilteredEvents.filter(event => new Date(event.date) >= today).length,
         forceListView: true
       }
     ];
@@ -120,7 +138,7 @@ export default function EventsPage() {
       id: category.id,
       label: category.label,
       // Special handling for categories that might have been renamed or merged
-      count: filteredEvents.filter(e => {
+      count: searchFilteredEvents.filter(e => {
         // Get all categories for this event (primary + additional)
         const eventCategories = e.categories ? [...e.categories] : [e.category];
         
@@ -138,7 +156,7 @@ export default function EventsPage() {
     }));
     
     return [...baseCategories, ...eventCategories];
-  }, [filteredEvents]);
+  }, [searchFilteredEvents]);
 
   // Group events by month for the calendar view
   const eventsByMonth = useMemo(() => {
