@@ -14,6 +14,7 @@ type EventCardProps = {
   showCategory?: boolean;
   className?: string;
   href?: string;
+  onClick?: () => void;
   getCategoryEmoji?: (category: string) => string;
   getCategoryColors?: (category: string) => string;
 };
@@ -30,6 +31,7 @@ export function EventCard({
   showCategory = true,
   className = '',
   href = `#`,
+  onClick,
   getCategoryEmoji = (cat: string = '') => '🎌',
   getCategoryColors = () => 'bg-primary/10 text-primary',
 }: EventCardProps) {
@@ -82,11 +84,26 @@ export function EventCard({
     </div>
   );
 
-  return href ? (
-    <Link href={href} className="block h-full">
-      {cardContent}
-    </Link>
-  ) : (
+  // If onClick is provided, wrap in a clickable div
+  if (onClick) {
+    return (
+      <div className="h-full cursor-pointer" onClick={onClick}>
+        {cardContent}
+      </div>
+    );
+  }
+  
+  // If href is provided, wrap in a Link
+  if (href && href !== '#') {
+    return (
+      <Link href={href} className="block h-full">
+        {cardContent}
+      </Link>
+    );
+  }
+  
+  // Default to non-clickable div
+  return (
     <div className="h-full">
       {cardContent}
     </div>

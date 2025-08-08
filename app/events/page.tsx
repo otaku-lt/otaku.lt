@@ -6,12 +6,13 @@ import { ContentPageHeader } from "@/components/layout/ContentPageHeader";
 import { EventTabs } from "@/components/events/EventTabs";
 import { EventCard } from "@/components/events/EventCard";
 import EventCalendar from "@/components/Calendar";
-import { Calendar as CalendarIcon, LayoutGrid, MapPin, Loader2, X, ExternalLink, Download } from "lucide-react";
+import { Calendar as CalendarIcon, Clock, LayoutGrid, MapPin, Loader2, X, ExternalLink, Download, Tag } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Event, getEvents, getEventsByCategory } from "@/lib/events";
 import type { CalendarEvent } from '@/components/Calendar';
 import type { EventStatus } from '@/types/event';
 import { EVENT_CATEGORIES } from '@/config/event-categories';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
 export default function EventsPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -20,6 +21,8 @@ export default function EventsPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Fetch events
   useEffect(() => {
@@ -113,30 +116,40 @@ export default function EventsPage() {
   const filteredEvents = useMemo(() => {
     let result = [...events];
     
-    // Filter by category
-    if (selectedCategory === 'upcoming') {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      result = result.filter(event => {
-        const eventDate = new Date(event.date);
-        return eventDate >= today;
-      });
-    } else if (selectedCategory !== "all") {
-      result = result.filter(event => event.category === selectedCategory);
+    // Apply category filter
+    if (selectedCategory !== 'all') {
+      if (selectedCategory === 'upcoming') {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        result = result.filter(event => new Date(event.date) >= today);
+      } else {
+        // Special handling for categories that might have been renamed or merged
+        result = result.filter(event => {
+          if (selectedCategory === 'music') {
+            // Handle music category (formerly concert)
+            return event.category === 'concert' || event.category === 'music';
+          }
+          if (selectedCategory === 'screening') {
+            // Handle screening category
+            return event.category === 'screening';
+          }
+          // Default case
+          return event.category === selectedCategory;
+        });
+      }
     }
     
-    // Filter by search term
+    // Apply search filter
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
-      result = result.filter(
-        event =>
-          event.title.toLowerCase().includes(term) ||
-          (event.description?.toLowerCase() || '').includes(term) ||
-          event.location.toLowerCase().includes(term)
+      result = result.filter(event => 
+        event.title.toLowerCase().includes(term) ||
+        event.description.toLowerCase().includes(term) ||
+        event.location.toLowerCase().includes(term) ||
+        (event.category && event.category.toLowerCase().includes(term))
       );
     }
     
-    // Sort by date (upcoming first)
     return result.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }, [events, selectedCategory, searchTerm]);
 
@@ -239,8 +252,9 @@ export default function EventsPage() {
     }
   }, []);
 
-  const handleEventClick = useCallback((calendarEvent: CalendarEvent) => {
-    // The Calendar component handles the modal display
+  const handleEventClick = useCallback((event: Event) => {
+    setSelectedEvent(event);
+    setIsModalOpen(true);
   }, []);
 
   // Function to export all events as ICS
@@ -377,7 +391,12 @@ export default function EventsPage() {
           <div className="bg-card rounded-lg border shadow-sm overflow-hidden">
             <EventCalendar 
               events={calendarEvents}
-              onSelectEvent={handleEventClick}
+              onSelectEvent={(event) => {
+                const matchedEvent = events.find(e => e.id === event.id);
+                if (matchedEvent) {
+                  handleEventClick(matchedEvent);
+                }
+              }}
             />
           </div>
         )}
@@ -398,12 +417,103 @@ export default function EventsPage() {
                 featured={event.featured}
                 getCategoryEmoji={getCategoryEmoji}
                 getCategoryColors={getCategoryColors}
-                href={`/events/${event.id}`}
+                onClick={() => handleEventClick(event)}
               />
             ))}
           </div>
         )}
       </div>
+      
+      {/* Event Detail Modal - Matching Calendar Modal Styling */}
+      {isModalOpen && selectedEvent && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl max-w-2xl w-full border border-border/40 overflow-hidden relative">
+            {/* Close Button */}
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-card/80 hover:bg-accent text-muted-foreground hover:text-foreground transition-colors shadow-sm"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            {/* Event Image */}
+            {selectedEvent.image && (
+              <div className="relative h-48 bg-cover bg-center" style={{ backgroundImage: `url(${selectedEvent.image})` }}>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+              </div>
+            )}
+            
+            <div className={`${selectedEvent.image ? 'pt-4' : 'pt-2'} px-6`}>
+              <div className="flex items-center gap-2 mb-2">
+                {selectedEvent.featured && (
+                  <span className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-medium px-2 py-1 rounded-full">
+                    Featured
+                  </span>
+                )}
+                <h3 className="text-2xl font-bold text-foreground">{selectedEvent.title}</h3>
+              </div>
+              <p className="opacity-90 flex items-center gap-2 text-foreground/80">
+                <MapPin className="w-4 h-4 flex-shrink-0" />
+                <span>{selectedEvent.location}</span>
+              </p>
+            </div>
+            
+            <div className="p-6 space-y-4 mt-2">
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <CalendarIcon className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">When</p>
+                    <p className="text-foreground">
+                      {new Date(selectedEvent.date).toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                      })}
+                      {selectedEvent.time && selectedEvent.time !== 'All day' && ` at ${selectedEvent.time}`}
+                      {selectedEvent.endDate && (
+                        ` - ${new Date(selectedEvent.endDate).toLocaleDateString('en-US', { 
+                          weekday: 'long', 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })}`
+                      )}
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <MapPin className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">Location</p>
+                    <p className="text-foreground">{selectedEvent.location}</p>
+                  </div>
+                </div>
+                
+                {selectedEvent.category && (
+                  <div className="flex items-start">
+                    <Tag className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Category</p>
+                      <p className="text-foreground">{selectedEvent.category.charAt(0).toUpperCase() + selectedEvent.category.slice(1)}</p>
+                    </div>
+                  </div>
+                )}
+                
+                {selectedEvent.description && (
+                  <div className="pt-4 mt-2 border-t border-border/40">
+                    <p className="text-sm font-medium text-muted-foreground mb-2">Description</p>
+                    <p className="text-foreground whitespace-pre-line">{selectedEvent.description}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
