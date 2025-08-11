@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,6 +11,18 @@ import { EventCard } from "@/components/events/EventCard";
 
 export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [sakuraPetals, setSakuraPetals] = useState<Array<{left: string, top: string, delay: string, duration: string}>>([]);
+
+  useEffect(() => {
+    // Generate random positions for sakura petals on client side to avoid hydration mismatch
+    const petals = [...Array(6)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 2}s`,
+      duration: `${3 + Math.random() * 2}s`
+    }));
+    setSakuraPetals(petals);
+  }, []);
 
   // Discord icon component
   const DiscordIcon = ({ size = 16, className = "" }) => (
@@ -345,15 +357,15 @@ export default function HomePage() {
 
         {/* Floating Sakura Petals */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          {[...Array(6)].map((_, i) => (
+          {sakuraPetals.map((petal, i) => (
             <div
               key={i}
               className="absolute text-pink-300 opacity-50 animate-bounce"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                animationDuration: `${3 + Math.random() * 2}s`
+                left: petal.left,
+                top: petal.top,
+                animationDelay: petal.delay,
+                animationDuration: petal.duration
               }}
             >
               🌸

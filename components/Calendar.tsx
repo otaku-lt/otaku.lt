@@ -248,12 +248,30 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
 
   // Handle event click
   const handleEventClick = useCallback((clickInfo: EventClickArg) => {
+    console.log('Calendar handleEventClick called');
+    console.log('clickInfo.event:', clickInfo.event);
+    console.log('extendedProps:', clickInfo.event.extendedProps);
+    
     const calendarEvent = clickInfo.event.extendedProps.originalEvent;
+    console.log('calendarEvent (originalEvent):', calendarEvent);
+    
     if (calendarEvent) {
-      setSelectedEvent(calendarEvent);
-      setIsModalOpen(true);
+      // Call the parent's onSelectEvent callback if provided
+      if (onSelectEvent) {
+        // Pass the original event data from extendedProps
+        const originalEvent = clickInfo.event.extendedProps.originalEvent;
+        console.log('Calling onSelectEvent with originalEvent:', originalEvent);
+        onSelectEvent(originalEvent);
+      } else {
+        console.log('No onSelectEvent callback, using internal modal');
+        // Fallback to internal modal if no callback provided
+        setSelectedEvent(calendarEvent);
+        setIsModalOpen(true);
+      }
+    } else {
+      console.error('No calendarEvent found in extendedProps.originalEvent');
     }
-  }, []);
+  }, [onSelectEvent]);
 
   // Handle download ICS for an event
   const handleDownloadICS = useCallback((event: CalendarEvent) => {

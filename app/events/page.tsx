@@ -8,7 +8,7 @@ import { EventCard } from "@/components/events/EventCard";
 import EventCalendar from "@/components/Calendar";
 import { EventModal } from "@/components/events/EventModal";
 import { Calendar as CalendarIcon, Clock, LayoutGrid, MapPin, Loader2, ExternalLink, Download, Tag } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Event, getEvents, getEventsByCategory } from "@/lib/events";
 import type { CalendarEvent } from '@/components/Calendar';
 import type { EventStatus } from '@/types/event';
@@ -243,11 +243,60 @@ export default function EventsPage() {
   }, [filteredEvents]);
 
   const router = useRouter();
+  const pathname = usePathname();
   const [isClient, setIsClient] = useState(false);
+  const [currentEventId, setCurrentEventId] = useState<string | null>(null);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  // Handle URL parameters for deep linking to events
+  useEffect(() => {
+    if (!isClient || !events.length) return;
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const eventId = urlParams.get('event');
+    
+    if (eventId && eventId !== currentEventId) {
+      const event = events.find(e => e.id?.toString() === eventId);
+      if (event) {
+        setSelectedEvent(event);
+        setIsModalOpen(true);
+        setCurrentEventId(eventId);
+      }
+    } else if (!eventId && currentEventId) {
+      setIsModalOpen(false);
+      setSelectedEvent(null);
+      setCurrentEventId(null);
+    }
+  }, [isClient, events, currentEventId]);
+
+  // Handle browser back/forward navigation
+  useEffect(() => {
+    if (!isClient) return;
+    
+    const handlePopState = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const eventId = urlParams.get('event');
+      
+      if (eventId && events.length) {
+        const event = events.find(e => e.id?.toString() === eventId);
+        if (event) {
+          setSelectedEvent(event);
+          setIsModalOpen(true);
+          setCurrentEventId(eventId);
+        }
+      } else {
+        setIsModalOpen(false);
+        setSelectedEvent(null);
+        setCurrentEventId(null);
+      }
+    };
+    
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [isClient, events]);
 
   const handleCategoryChange = useCallback((category: string) => {
     setSelectedCategory(category);
@@ -264,9 +313,50 @@ export default function EventsPage() {
   }, []);
 
   const handleEventClick = useCallback((event: Event) => {
+    const eventId = event.id?.toString() || '';
+    console.log('Event clicked:', event.title, 'ID:', eventId);
+    
     setSelectedEvent(event);
     setIsModalOpen(true);
+    setCurrentEventId(eventId);
+    
+    // Update URL with event ID for deep linking
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('event', eventId);
+        window.history.pushState({}, '', url.toString());
+        console.log('URL updated to:', url.toString());
+      } catch (error) {
+        console.error('Error updating URL:', error);
+      }
+    }
   }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+    setSelectedEvent(null);
+    setCurrentEventId(null);
+    
+    // Remove event parameter from URL
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('event');
+        window.history.pushState({}, '', url.toString());
+        console.log('URL cleared, now:', url.toString());
+      } catch (error) {
+        console.error('Error clearing URL:', error);
+      }
+    }
+  }, []);
+
+  // Debug: Log view mode and events
+  useEffect(() => {
+    console.log('Current view mode:', viewMode);
+    console.log('Filtered events count:', filteredEvents.length);
+    console.log('Calendar events count:', calendarEvents.length);
+  }, [viewMode, filteredEvents.length, calendarEvents.length]);
 
   // Function to export all events as ICS
   const exportAllEventsAsICS = useCallback(() => {
@@ -403,9 +493,19 @@ export default function EventsPage() {
             <EventCalendar 
               events={calendarEvents}
               onSelectEvent={(event) => {
-                const matchedEvent = events.find(e => e.id === event.id);
+                console.log('Calendar event selected:', event);
+                
+                // The calendar now passes the originalEvent which should have Event structure
+                // Try to find the matching event in our events array by ID
+                const eventId = event?.id?.toString();
+                const matchedEvent = events.find(e => e.id?.toString() === eventId);
+                console.log('Matched event found:', matchedEvent);
+                
                 if (matchedEvent) {
                   handleEventClick(matchedEvent);
+                } else {
+                  console.error('No matching event found for ID:', eventId);
+                  console.log('Available event IDs:', events.map(e => e.id));
                 }
               }}
             />
@@ -440,7 +540,7 @@ export default function EventsPage() {
       <EventModal 
         event={selectedEvent} 
         isOpen={isModalOpen && selectedEvent !== null} 
-        onClose={() => setIsModalOpen(false)} 
+        onClose={handleCloseModal} 
       />
     </div>
   );
