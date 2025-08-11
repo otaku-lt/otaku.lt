@@ -247,6 +247,24 @@ export default function EventsPage() {
   const [isClient, setIsClient] = useState(false);
   const [currentEventId, setCurrentEventId] = useState<string | null>(null);
 
+  // Generate URL-friendly slug from event title
+  const generateEventSlug = useCallback((event: Event): string => {
+    const titleWords = event.title
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+      .trim()
+      .split(/\s+/) // Split by whitespace
+      .slice(0, 3) // Take first 3 words
+      .join('-'); // Join with hyphens
+    
+    return `${event.id}-${titleWords}`;
+  }, []);
+
+  // Extract event ID from slug (handles both "5" and "5-event-title" formats)
+  const extractEventId = useCallback((slug: string): string => {
+    return slug.split('-')[0];
+  }, []);
+
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -256,21 +274,23 @@ export default function EventsPage() {
     if (!isClient || !events.length) return;
     
     const urlParams = new URLSearchParams(window.location.search);
-    const eventId = urlParams.get('event');
+    const eventParam = urlParams.get('event');
     
-    if (eventId && eventId !== currentEventId) {
+    if (eventParam && eventParam !== currentEventId) {
+      // Extract event ID from slug (handles both "5" and "5-event-title" formats)
+      const eventId = extractEventId(eventParam);
       const event = events.find(e => e.id?.toString() === eventId);
       if (event) {
         setSelectedEvent(event);
         setIsModalOpen(true);
         setCurrentEventId(eventId);
       }
-    } else if (!eventId && currentEventId) {
+    } else if (!eventParam && currentEventId) {
       setIsModalOpen(false);
       setSelectedEvent(null);
       setCurrentEventId(null);
     }
-  }, [isClient, events, currentEventId]);
+  }, [isClient, events, currentEventId, extractEventId]);
 
   // Handle browser back/forward navigation
   useEffect(() => {
@@ -278,9 +298,11 @@ export default function EventsPage() {
     
     const handlePopState = () => {
       const urlParams = new URLSearchParams(window.location.search);
-      const eventId = urlParams.get('event');
+      const eventParam = urlParams.get('event');
       
-      if (eventId && events.length) {
+      if (eventParam && events.length) {
+        // Extract event ID from slug (handles both "5" and "5-event-title" formats)
+        const eventId = extractEventId(eventParam);
         const event = events.find(e => e.id?.toString() === eventId);
         if (event) {
           setSelectedEvent(event);
@@ -296,7 +318,7 @@ export default function EventsPage() {
     
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [isClient, events]);
+  }, [isClient, events, extractEventId]);
 
   const handleCategoryChange = useCallback((category: string) => {
     setSelectedCategory(category);
@@ -314,24 +336,25 @@ export default function EventsPage() {
 
   const handleEventClick = useCallback((event: Event) => {
     const eventId = event.id?.toString() || '';
-    console.log('Event clicked:', event.title, 'ID:', eventId);
+    const eventSlug = generateEventSlug(event);
+    console.log('Event clicked:', event.title, 'ID:', eventId, 'Slug:', eventSlug);
     
     setSelectedEvent(event);
     setIsModalOpen(true);
     setCurrentEventId(eventId);
     
-    // Update URL with event ID for deep linking
+    // Update URL with event slug for deep linking
     if (typeof window !== 'undefined') {
       try {
         const url = new URL(window.location.href);
-        url.searchParams.set('event', eventId);
+        url.searchParams.set('event', eventSlug);
         window.history.pushState({}, '', url.toString());
         console.log('URL updated to:', url.toString());
       } catch (error) {
         console.error('Error updating URL:', error);
       }
     }
-  }, []);
+  }, [generateEventSlug]);
 
   const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
