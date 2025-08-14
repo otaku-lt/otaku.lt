@@ -68,8 +68,19 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 space-y-2">
           <p>&copy; 2025 Otaku.lt. Made with 💖 for Lithuania's otaku community.</p>
+          <p className="text-sm">
+            All artworks are copyrighted and belong to{' '}
+            <a 
+              href="https://instagram.com/king_fisher_arts" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-pink-400 underline"
+            >
+              @king_fisher_arts
+            </a>
+          </p>
         </div>
       </div>
     </footer>
