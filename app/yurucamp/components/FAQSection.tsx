@@ -67,7 +67,7 @@ export default function FAQSection() {
         faqs.map((faq, index) => (
           <div key={index} className="bg-card-dark/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-border-dark/50 hover:border-green-500/30 transition-colors">
             <h3 className="text-lg font-bold mb-3 text-foreground-dark">{faq.question}</h3>
-            <p className="text-muted-foreground-dark">{faq.answer}</p>
+            <div className="text-muted-foreground-dark" dangerouslySetInnerHTML={{ __html: faq.answer }} />
           </div>
         ))
       ) : (
