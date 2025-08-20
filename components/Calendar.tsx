@@ -56,6 +56,8 @@ interface EventCalendarProps {
   events: CalendarEvent[];
   onSelectEvent?: (event: CalendarEvent) => void;
   onSelectSlot?: (slotInfo: any) => void;
+  initialDate?: string; // YYYY-MM format
+  onMonthChange?: (date: Date) => void;
 }
 
 const getCategoryColor = (category: string): { bg: string; text: string; border: string } => {
@@ -90,7 +92,7 @@ const getCategoryColor = (category: string): { bg: string; text: string; border:
   return colors[category as keyof typeof colors] || colors.default;
 };
 
-export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: EventCalendarProps) {
+export default function Calendar({ events = [], onSelectEvent, onSelectSlot, initialDate, onMonthChange }: EventCalendarProps) {
   const [isClient, setIsClient] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -315,6 +317,16 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
     }
   }, [onSelectSlot]);
 
+  // Handle calendar navigation (month change)
+  const handleDatesSet = useCallback((dateInfo: any) => {
+    if (onMonthChange) {
+      // Use the view's currentStart which represents the actual month being displayed
+      // For month view, this gives us the first day of the month
+      const currentDate = dateInfo.view.currentStart;
+      onMonthChange(currentDate);
+    }
+  }, [onMonthChange]);
+
   // Convert events to FullCalendar format and filter out invalid ones
   const fullCalendarEvents = useMemo(() => {
     const processed = events
@@ -421,6 +433,7 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
           key={`calendar-${fullCalendarEvents.length}`}
           plugins={[dayGridPlugin, listPlugin, interactionPlugin]}
           initialView="dayGridMonth"
+          initialDate={initialDate ? `${initialDate}-01` : undefined}
           headerToolbar={{
             left: 'prev,next today',
             center: 'title',
@@ -431,6 +444,7 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
           eventContent={eventContent}
           selectable={!!onSelectSlot}
           select={handleDateSelect}
+          datesSet={handleDatesSet}
           height="auto"
           eventBorderColor="transparent"
           eventTextColor="inherit"

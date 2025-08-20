@@ -24,6 +24,23 @@ export default function EventsPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentMonth, setCurrentMonth] = useState<string>('');
+
+  // Initialize month from URL on client side
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const monthParam = urlParams.get('month');
+      if (monthParam) {
+        setCurrentMonth(monthParam);
+      } else {
+        // Default to current month if no URL parameter
+        const now = new Date();
+        const defaultMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+        setCurrentMonth(defaultMonth);
+      }
+    }
+  }, []);
 
   // Fetch events
   useEffect(() => {
@@ -385,6 +402,22 @@ export default function EventsPage() {
     }
   }, []);
 
+  // Handle calendar month navigation
+  const handleMonthChange = useCallback((date: Date) => {
+    const monthStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+    setCurrentMonth(monthStr);
+    
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('month', monthStr);
+        window.history.pushState({}, '', url.toString());
+      } catch (error) {
+        console.error('Error updating month URL:', error);
+      }
+    }
+  }, []);
+
   // Function to export all events as ICS
   const exportAllEventsAsICS = useCallback(() => {
     if (calendarEvents.length === 0) return;
@@ -519,7 +552,9 @@ export default function EventsPage() {
           <div className="bg-card rounded-lg border shadow-sm overflow-hidden">
             <EventCalendar 
               events={calendarEvents}
-              onSelectEvent={handleEventClick}
+              onSelectEvent={handleCalendarEventClick}
+              initialDate={currentMonth}
+              onMonthChange={handleMonthChange}
             />
           </div>
         )}
