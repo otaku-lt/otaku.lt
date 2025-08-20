@@ -21,25 +21,22 @@ async function loadStaticEventsData(): Promise<Event[]> {
   try {
     // Auto-discover and import all YAML files in the monthly events directory
     // Using dynamic imports with a known pattern for static analysis
-    const importPromises = [
-      import('@/data/events/monthly/2025-08.yaml').catch(() => null),
-      import('@/data/events/monthly/2025-09.yaml').catch(() => null),
-      import('@/data/events/monthly/2025-10.yaml').catch(() => null),
-      import('@/data/events/monthly/2025-11.yaml').catch(() => null),
-      import('@/data/events/monthly/2025-12.yaml').catch(() => null),
-      import('@/data/events/monthly/2026-01.yaml').catch(() => null),
-      import('@/data/events/monthly/2026-02.yaml').catch(() => null),
-      import('@/data/events/monthly/2026-03.yaml').catch(() => null),
-      import('@/data/events/monthly/2026-04.yaml').catch(() => null),
-      import('@/data/events/monthly/2026-05.yaml').catch(() => null),
-      import('@/data/events/monthly/2026-06.yaml').catch(() => null),
-      import('@/data/events/monthly/2026-07.yaml').catch(() => null),
-      import('@/data/events/monthly/2026-08.yaml').catch(() => null),
-      import('@/data/events/monthly/2026-09.yaml').catch(() => null),
-      import('@/data/events/monthly/2026-10.yaml').catch(() => null),
-      import('@/data/events/monthly/2026-11.yaml').catch(() => null),
-      import('@/data/events/monthly/2026-12.yaml').catch(() => null)
-    ];
+    // Covers multiple years to future-proof the system
+    const importPromises = [];
+    
+    // Generate imports for years 2025-2030 to cover future events
+    for (let year = 2025; year <= 2030; year++) {
+      for (let month = 1; month <= 12; month++) {
+        // Skip months before 2025-08 (our starting point)
+        if (year === 2025 && month < 8) continue;
+        
+        const monthStr = String(month).padStart(2, '0');
+        const filename = `${year}-${monthStr}.yaml`;
+        importPromises.push(
+          import(`@/data/events/monthly/${filename}`).catch(() => null)
+        );
+      }
+    }
     
     const results = await Promise.all(importPromises);
     const validModules = results.filter(module => module !== null);
