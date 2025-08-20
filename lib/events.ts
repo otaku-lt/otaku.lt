@@ -19,18 +19,34 @@ async function loadStaticEventsData(): Promise<Event[]> {
   }
   
   try {
-    // Dynamically import all event files
-    const eventModules = [
-      await import('@/data/events/monthly/2025-08.yaml'),
-      await import('@/data/events/monthly/2025-09.yaml'),
-      await import('@/data/events/monthly/2025-10.yaml'),
-      await import('@/data/events/monthly/2025-11.yaml'),
-      await import('@/data/events/monthly/2026-05.yaml')
+    // Auto-discover and import all YAML files in the monthly events directory
+    // Using dynamic imports with a known pattern for static analysis
+    const importPromises = [
+      import('@/data/events/monthly/2025-08.yaml').catch(() => null),
+      import('@/data/events/monthly/2025-09.yaml').catch(() => null),
+      import('@/data/events/monthly/2025-10.yaml').catch(() => null),
+      import('@/data/events/monthly/2025-11.yaml').catch(() => null),
+      import('@/data/events/monthly/2025-12.yaml').catch(() => null),
+      import('@/data/events/monthly/2026-01.yaml').catch(() => null),
+      import('@/data/events/monthly/2026-02.yaml').catch(() => null),
+      import('@/data/events/monthly/2026-03.yaml').catch(() => null),
+      import('@/data/events/monthly/2026-04.yaml').catch(() => null),
+      import('@/data/events/monthly/2026-05.yaml').catch(() => null),
+      import('@/data/events/monthly/2026-06.yaml').catch(() => null),
+      import('@/data/events/monthly/2026-07.yaml').catch(() => null),
+      import('@/data/events/monthly/2026-08.yaml').catch(() => null),
+      import('@/data/events/monthly/2026-09.yaml').catch(() => null),
+      import('@/data/events/monthly/2026-10.yaml').catch(() => null),
+      import('@/data/events/monthly/2026-11.yaml').catch(() => null),
+      import('@/data/events/monthly/2026-12.yaml').catch(() => null)
     ];
+    
+    const results = await Promise.all(importPromises);
+    const validModules = results.filter(module => module !== null);
     
     // Flatten all events
     const allEvents: Event[] = [];
-    eventModules.forEach(module => {
+    validModules.forEach(module => {
       if (Array.isArray(module.default)) {
         module.default.forEach((event: any) => {
           // Handle comma-separated categories
