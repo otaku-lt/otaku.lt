@@ -23,6 +23,7 @@ async function loadStaticEventsData(): Promise<Event[]> {
     const eventModules = [
       await import('@/data/events/monthly/2025-08.yaml'),
       await import('@/data/events/monthly/2025-09.yaml'),
+      await import('@/data/events/monthly/2025-10.yaml'),
       await import('@/data/events/monthly/2025-11.yaml'),
       await import('@/data/events/monthly/2026-05.yaml')
     ];
