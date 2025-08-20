@@ -337,49 +337,53 @@ export default function EventsPage() {
   const handleEventClick = useCallback((event: Event) => {
     const eventId = event.id?.toString() || '';
     const eventSlug = generateEventSlug(event);
-    console.log('Event clicked:', event.title, 'ID:', eventId, 'Slug:', eventSlug);
     
     setSelectedEvent(event);
     setIsModalOpen(true);
     setCurrentEventId(eventId);
     
-    // Update URL with event slug for deep linking
     if (typeof window !== 'undefined') {
       try {
         const url = new URL(window.location.href);
         url.searchParams.set('event', eventSlug);
         window.history.pushState({}, '', url.toString());
-        console.log('URL updated to:', url.toString());
       } catch (error) {
         console.error('Error updating URL:', error);
       }
     }
   }, [generateEventSlug]);
 
+  const handleCalendarEventClick = useCallback((event: CalendarEvent) => {
+    // Find the matching event in our events array
+    const eventId = event.id?.toString() || '';
+    const matchedEvent = events.find(e => e.id?.toString() === eventId);
+    
+    if (matchedEvent) {
+      handleEventClick(matchedEvent);
+    } else {
+      // Fallback: try to match by title if ID matching fails
+      const titleMatch = events.find(e => e.title === event?.title);
+      if (titleMatch) {
+        handleEventClick(titleMatch);
+      }
+    }
+  }, [events, handleEventClick]);
+
   const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
     setSelectedEvent(null);
     setCurrentEventId(null);
     
-    // Remove event parameter from URL
     if (typeof window !== 'undefined') {
       try {
         const url = new URL(window.location.href);
         url.searchParams.delete('event');
         window.history.pushState({}, '', url.toString());
-        console.log('URL cleared, now:', url.toString());
       } catch (error) {
         console.error('Error clearing URL:', error);
       }
     }
   }, []);
-
-  // Debug: Log view mode and events
-  useEffect(() => {
-    console.log('Current view mode:', viewMode);
-    console.log('Filtered events count:', filteredEvents.length);
-    console.log('Calendar events count:', calendarEvents.length);
-  }, [viewMode, filteredEvents.length, calendarEvents.length]);
 
   // Function to export all events as ICS
   const exportAllEventsAsICS = useCallback(() => {
@@ -515,22 +519,7 @@ export default function EventsPage() {
           <div className="bg-card rounded-lg border shadow-sm overflow-hidden">
             <EventCalendar 
               events={calendarEvents}
-              onSelectEvent={(event) => {
-                console.log('Calendar event selected:', event);
-                
-                // The calendar now passes the originalEvent which should have Event structure
-                // Try to find the matching event in our events array by ID
-                const eventId = event?.id?.toString();
-                const matchedEvent = events.find(e => e.id?.toString() === eventId);
-                console.log('Matched event found:', matchedEvent);
-                
-                if (matchedEvent) {
-                  handleEventClick(matchedEvent);
-                } else {
-                  console.error('No matching event found for ID:', eventId);
-                  console.log('Available event IDs:', events.map(e => e.id));
-                }
-              }}
+              onSelectEvent={handleEventClick}
             />
           </div>
         )}

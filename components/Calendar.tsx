@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import type { CalendarApi, EventClickArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -100,6 +100,16 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  // Debug: Track when events prop changes
+  useEffect(() => {
+    console.log('Calendar: Events prop changed, count:', events.length);
+    const chainsawEvent = events.find(e => e.id === "10");
+    console.log('Calendar: Chainsaw Man event in events prop:', !!chainsawEvent);
+    if (chainsawEvent) {
+      console.log('Calendar: Chainsaw Man event details:', chainsawEvent);
+    }
+  }, [events]);
 
   // Generate Google Calendar URL
   const generateGoogleCalendarUrl = useCallback((event: CalendarEvent): string => {
@@ -248,28 +258,16 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
 
   // Handle event click
   const handleEventClick = useCallback((clickInfo: EventClickArg) => {
-    console.log('Calendar handleEventClick called');
-    console.log('clickInfo.event:', clickInfo.event);
-    console.log('extendedProps:', clickInfo.event.extendedProps);
+    const calendarEvent = clickInfo.event.extendedProps.originalEvent as CalendarEvent;
     
-    const calendarEvent = clickInfo.event.extendedProps.originalEvent;
-    console.log('calendarEvent (originalEvent):', calendarEvent);
-    
-    if (calendarEvent) {
-      // Call the parent's onSelectEvent callback if provided
-      if (onSelectEvent) {
-        // Pass the original event data from extendedProps
-        const originalEvent = clickInfo.event.extendedProps.originalEvent;
-        console.log('Calling onSelectEvent with originalEvent:', originalEvent);
-        onSelectEvent(originalEvent);
-      } else {
-        console.log('No onSelectEvent callback, using internal modal');
-        // Fallback to internal modal if no callback provided
-        setSelectedEvent(calendarEvent);
-        setIsModalOpen(true);
-      }
-    } else {
-      console.error('No calendarEvent found in extendedProps.originalEvent');
+    if (onSelectEvent && calendarEvent) {
+      // Prevent the default FullCalendar modal if we have a parent callback
+      clickInfo.jsEvent.preventDefault();
+      onSelectEvent(calendarEvent);
+    } else if (!onSelectEvent) {
+      // Only show internal modal if no parent callback
+      setSelectedEvent(calendarEvent);
+      setIsModalOpen(true);
     }
   }, [onSelectEvent]);
 
@@ -296,6 +294,7 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
   // Close the event details modal
   const handleModalClose = useCallback((): void => {
     setSelectedEvent(null);
+    setIsModalOpen(false);
   }, []);
 
   // Event content renderer - shows just the title
@@ -317,54 +316,47 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
   }, [onSelectSlot]);
 
   // Convert events to FullCalendar format and filter out invalid ones
-  const fullCalendarEvents = events
-    .map((event: CalendarEvent) => {
-      try {
-        const category = event.category || 'default';
-        const colors = getCategoryColor(category);
-        
-        // Format date and time with proper null checks
-        const startDate = event.start 
-          ? (event.start instanceof Date ? event.start : new Date(event.start))
-          : new Date();
+  const fullCalendarEvents = useMemo(() => {
+    const processed = events
+      .map((event: CalendarEvent) => {
+        try {
+          const category = event.category || 'default';
+          const colors = getCategoryColor(category);
+          const startDate = event.start ? (event.start instanceof Date ? event.start : new Date(event.start)) : new Date();
+          const endDate = event.end ? (event.end instanceof Date ? event.end : new Date(event.end)) : undefined;
           
-        const endDate = event.end 
-          ? (event.end instanceof Date ? event.end : new Date(event.end))
-          : undefined;
-        
-        // Skip invalid events
-        if (isNaN(startDate.getTime()) || (endDate && isNaN(endDate.getTime()))) {
-          console.error('Invalid date in event', event);
+          if (isNaN(startDate.getTime()) || (endDate && isNaN(endDate.getTime()))) {
+            console.error('Invalid date in event', event);
+            return null;
+          }
+          
+          return {
+            id: event.id?.toString() || Math.random().toString(36).substr(2, 9),
+            title: event.title || 'Untitled Event',
+            start: startDate,
+            end: endDate,
+            allDay: event.allDay || false,
+            backgroundColor: colors.bg,
+            borderColor: colors.border,
+            textColor: colors.text,
+            className: `fc-event-${category} cursor-pointer hover:opacity-90 transition-opacity`,
+            extendedProps: {
+              location: event.location || '',
+              category: category,
+              description: event.description || '',
+              originalEvent: event
+            }
+          };
+        } catch (error) {
+          console.error('Error processing event:', error, event);
           return null;
         }
-        
-        return {
-          id: event.id?.toString() || Math.random().toString(36).substr(2, 9),
-          title: event.title || 'Untitled Event',
-          start: startDate,
-          end: endDate,
-          allDay: event.allDay || false,
-          backgroundColor: colors.bg,
-          borderColor: colors.border,
-          textColor: colors.text,
-          className: `fc-event-${category} cursor-pointer hover:opacity-90 transition-opacity`,
-          extendedProps: {
-            location: event.location || '',
-            category: category,
-            description: event.description || '',
-            originalEvent: event
-          }
-        };
-      } catch (error) {
-        console.error('Error processing event:', error, event);
-        return null;
-      }
-    })
-    .filter((event): event is NonNullable<typeof event> => event !== null);
+      })
+      .filter((event): event is NonNullable<typeof event> => event !== null);
+    
+    return processed;
+  }, [events]);
   
-  // Add event content to show title and time
-  // Event content renderer - shows just the title (duplicate removed)
-  // Handle date select (duplicate removed)
 
   if (!isClient) {
     return (
@@ -426,6 +418,7 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
       <div className="otaku-fullcalendar bg-card/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-border/40 p-4">
         <FullCalendar
           ref={calendarRef}
+          key={`calendar-${fullCalendarEvents.length}`}
           plugins={[dayGridPlugin, listPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           headerToolbar={{
@@ -462,12 +455,14 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot }: E
         />
       </div>
 
-      {/* Event Details Modal */}
-      <EventModal 
-        event={selectedEvent?.extendedProps?.originalEvent || null} 
-        isOpen={isModalOpen && selectedEvent?.extendedProps?.originalEvent !== undefined} 
-        onClose={() => setIsModalOpen(false)} 
-      />
+      {/* Event Details Modal - Only show if no parent callback is provided */}
+      {!onSelectEvent && (
+        <EventModal 
+          event={selectedEvent?.extendedProps?.originalEvent || null} 
+          isOpen={isModalOpen && selectedEvent?.extendedProps?.originalEvent !== undefined} 
+          onClose={() => setIsModalOpen(false)} 
+        />
+      )}
     </div>
   );
 }
