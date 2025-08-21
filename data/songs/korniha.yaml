@@ -1,120 +1,117 @@
 - title: "Let me be With You"
   original: "Chobits"
   type: "ost"
-  languages: ["jp", "lt"]
-  featured: true
+  lang: ["jp", "lt"]
 
 - title: "Follow me"
   original: "Beck"
   type: "ost"
-  languages: ["en", "lt"]
-  featured: true
+  lang: ["en", "lt"]
 
 - title: "Bad Apple"
   original: "Touhou"
   type: "game"
-  languages: ["jp"]
-  featured: true
+  lang: ["jp"]
 
 - title: "Duvet"
   original: "Serial Experiment Lain"
   type: "ost"
-  languages: ["en", "lt"]
-  featured: true
+  lang: ["en", "lt"]
 
 - title: "Carrying You"
   original: "Castle in the Sky"
   type: "ost"
-  languages: ["jp"]
-  featured: true
+  lang: ["jp"]
 
 - title: "Dango Daikazoku"
   original: "Clannad"
   type: "ost"
-  languages: ["jp"]
-  featured: true
+  lang: ["jp"]
 
 - title: "Cruel Angel's Thesis"
   original: "Neon Genesis Evangelion"
   type: "ost"
-  languages: ["jp", "lt"]
-  featured: true
+  lang: ["jp", "lt"]
 
 - title: "Blue Bird"
   original: "Naruto"
   type: "ost"
-  languages: ["jp", "lt"]
-  featured: true
+  lang: ["jp", "lt"]
+
 
 - title: "Idol"
   original: "Oshi no Ko"
   type: "ost"
-  languages: ["lt"]
-  featured: true
+  lang: ["lt"]
+
 
 - title: "Suzume no Tojimari"
   original: "Suzume"
   type: "ost"
-  languages: ["jp", "lt"]
-  featured: true
+  lang: ["jp", "lt"]
+
 
 - title: "Gotta Catch 'Em All"
   original: "Pokémon"
   type: "ost"
-  languages: ["en", "lt"]
-  featured: true
+  lang: ["en", "lt"]
+
 
 - title: "Hare Hare Yukai"
   original: "The Melancholy of Haruhi Suzumiya"
   type: "ost"
-  languages: ["lt"]
-  featured: true
+  lang: ["lt"]
+
 
 - title: "Moonlight Densetsu"
   original: "Sailor Moon"
   type: "ost"
-  languages: ["lt"]
-  featured: true
+  lang: ["lt"]
+
 
 - title: "Toeto"
   original: "Vocaloid"
   type: "vocaloid"
-  languages: ["lt"]
-  featured: true
+  lang: ["lt"]
+
 
 - title: "Deja Vu"
   original: "Initial D"
   type: "ost"
-  languages: ["en"]
-  featured: true
+  lang: ["en"]
+
 
 - title: "Renai Circulation"
   original: "Monogatari Series"
   type: "ost"
-  languages: ["lt", "jp"]
-  featured: true
+  lang: ["lt", "jp"]
 
-- title: "Natsuiro Egao de 1, 2, Jump!"
+
+- title: "Kawaikute Gomen"
+  original: "HoneyWorks"
+  type: "character song"
+  lang: ["jp"]
+
+
+- title: "Vitamin Summer"
   original: "Love Live! School Idol Project"
   type: "ost"
-  languages: ["jp"]
-  featured: true
-  alt_title: "Vitamin Summer (Natsuiro Egao de 1, 2, Jump!)"
+  lang: ["jp"]
 
 - title: "I Can't Stop the Loneliness"
   artist: "Anri"
   type: "citypop"
-  languages: ["jp"]
-  featured: true
+  lang: ["jp"]
+
 
 - title: "PonPonPon"
   artist: "Kyary Pamyu Pamyu"
   type: "jpop"
-  languages: ["jp"]
-  featured: true
+  lang: ["jp"]
+
 
 - title: "Stay with Me"
   artist: "Miki Matsubara"
   type: "citypop"
-  languages: ["jp", "lt"]
-  featured: true
+  lang: ["jp", "lt"]
+

@@ -44,6 +44,10 @@ export function SongsSection({ songs, className = '' }: SongsSectionProps) {
       label: 'Vocaloid', 
       color: 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' 
     },
+    'character song': { 
+      label: 'Character Song', 
+      color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400' 
+    },
   };
 
   // Sort songs based on sortConfig
@@ -53,21 +57,11 @@ export function SongsSection({ songs, className = '' }: SongsSectionProps) {
     
     sortableItems.sort((a, b) => {
       // Special handling for language sorting
-      if (sortConfig.key === 'languages') {
-        const aLangs = a.languages;
-        const bLangs = b.languages;
-        
-        // If both have multiple languages, sort by number of languages (descending)
-        if (aLangs.length > 1 || bLangs.length > 1) {
-          if (aLangs.length !== bLangs.length) {
-            return sortConfig.direction === 'asc' 
-              ? bLangs.length - aLangs.length 
-              : aLangs.length - bLangs.length;
-          }
-          // If same number of languages, sort alphabetically by first language
-          return sortConfig.direction === 'asc'
-            ? aLangs[0].localeCompare(bLangs[0])
-            : bLangs[0].localeCompare(aLangs[0]);
+      if (sortConfig.key === 'lang') {
+        const aLangs = a.lang.join(', ');
+        const bLangs = b.lang.join(', ');
+        if (aLangs < bLangs) {
+          return sortConfig.direction === 'asc' ? -1 : 1;
         }
         
         // For single language, sort by language code
@@ -88,7 +82,7 @@ export function SongsSection({ songs, className = '' }: SongsSectionProps) {
     return sortableItems;
   }, [songs, sortConfig]);
 
-  const requestSort = (key: 'title' | 'type' | 'languages') => {
+  const requestSort = (key: 'title' | 'type' | 'lang') => {
     let direction: 'asc' | 'desc' = 'asc';
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc';
@@ -141,11 +135,11 @@ export function SongsSection({ songs, className = '' }: SongsSectionProps) {
                 </th>
                 <th 
                   className="pb-3 font-medium text-center cursor-pointer hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
-                  onClick={() => requestSort('languages')}
+                  onClick={() => requestSort('lang')}
                 >
                   <div className="flex items-center justify-center">
                     Languages
-                    {sortConfig.key === 'languages' && (
+                    {sortConfig.key === 'lang' && (
                       <span className="ml-1">
                         {sortConfig.direction === 'asc' ? '↑' : '↓'}
                       </span>
@@ -178,7 +172,7 @@ export function SongsSection({ songs, className = '' }: SongsSectionProps) {
                   </td>
                   <td className="py-3 px-4 text-center">
                     <div className="flex justify-center gap-1">
-                      {song.languages.map((lang) => (
+                      {song.lang.map((lang: string) => (
                         <span 
                           key={lang} 
                           title={languageFlags[lang]?.title} 
