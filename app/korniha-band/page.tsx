@@ -21,6 +21,32 @@ export default function KornihaBandPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [featuredEvent, setFeaturedEvent] = useState<Event | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Handle URL hash changes
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && ['about', 'members', 'songs', 'gigs'].includes(hash)) {
+        setActiveTab(hash);
+      }
+    };
+
+    // Set initial tab from URL hash
+    handleHashChange();
+    
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
+  // Update URL when tab changes
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId);
+    window.history.pushState(null, '', `#${tabId}`);
+  };
   
   // Filter events
   const now = new Date();
@@ -146,7 +172,7 @@ export default function KornihaBandPage() {
           ].map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => handleTabChange(tab.id)}
               className={`px-6 py-3 rounded-full text-sm font-medium transition-all ${
                 activeTab === tab.id
                   ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
