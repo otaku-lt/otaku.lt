@@ -55,6 +55,10 @@ export function FeaturedEvent({ event, className = '' }: FeaturedEventProps) {
                 <span className="inline-flex items-center px-2 py-0.5 rounded bg-white/20 text-xs">
                   {event.setlist}
                 </span>
+              ) : event.setlist.type ? (
+                <span className="inline-flex items-center px-2 py-0.5 rounded bg-white/20 text-xs">
+                  {event.setlist.type}
+                </span>
               ) : (
                 <span className="flex flex-wrap gap-1">
                   {event.setlist && 'days' in event.setlist && Array.isArray(event.setlist.days) && event.setlist.days.length > 0 ? (

@@ -1,17 +1,21 @@
 export type SetlistDay = {
   day?: number;
+  date?: string;
+  time?: string;
   type: 'Japanese' | 'Lithuanian';
-  songs: string[];
+  songs?: string[];
 };
 
 export type EventSetlist = {
-  days: SetlistDay[];
+  days?: SetlistDay[];
+  type?: string;
 };
 
 export type Event = {
   id: string;
   title: string;
   date: string;
+  time?: string;
   endDate?: string;
   location: string;
   description: string;

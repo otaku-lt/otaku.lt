@@ -36,7 +36,7 @@ export function GigsSection({ events, title = 'Upcoming Shows', className = '' }
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div className="flex-1">
                   <h4 className="font-bold text-lg">{event.title}</h4>
-                  <p className="text-gray-600 dark:text-gray-300">
+                  <p className="text-lg text-gray-600 dark:text-gray-300">
                     {new Date(event.date).toLocaleDateString('en-US', { 
                       year: 'numeric', 
                       month: 'long', 
@@ -46,6 +46,7 @@ export function GigsSection({ events, title = 'Upcoming Shows', className = '' }
                       month: 'long', 
                       day: 'numeric' 
                     })}`}
+                    {event.time && ` at ${event.time}`}
                   </p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">{event.location}</p>
                   {event.setlist && (
@@ -54,14 +55,17 @@ export function GigsSection({ events, title = 'Upcoming Shows', className = '' }
                         <Music2 className="mr-1 h-4 w-4" />
                         {typeof event.setlist === 'string' ? (
                           <span>Setlist: {event.setlist}</span>
-                        ) : (
+                        ) : event.setlist.type ? (
+                          <span>Setlist: {event.setlist.type}</span>
+                        ) : event.setlist.days && Array.isArray(event.setlist.days) ? (
                           event.setlist.days.map((day, i) => (
                             <span key={i} className="mr-2">
                               {i > 0 && ' • '}
                               {day.day ? `Day ${day.day}: ` : ''}{day.type}
+                              {day.time ? ` at ${day.time}` : ''}
                             </span>
                           ))
-                        )}
+                        ) : null}
                       </span>
                     </div>
                   )}

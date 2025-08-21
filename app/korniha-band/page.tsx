@@ -26,8 +26,7 @@ export default function KornihaBandPage() {
   const now = new Date();
   const upcomingEvents = events.filter(event => new Date(event.date) >= now);
   const pastEvents = events.filter(event => new Date(event.date) < now);
-  const featured = [...events]
-    .filter(event => event.featured)
+  const nextPerformance = upcomingEvents
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())[0] || null;
 
   useEffect(() => {
@@ -40,12 +39,13 @@ export default function KornihaBandPage() {
         if (eventsData && Array.isArray(eventsData)) {
           setEvents(eventsData);
           
-          // Find the first featured event
-          const featured = eventsData
-            .filter(event => event.featured)
+          // Find the next upcoming performance
+          const now = new Date();
+          const nextEvent = eventsData
+            .filter(event => new Date(event.date) >= now)
             .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())[0] || null;
           
-          setFeaturedEvent(featured);
+          setFeaturedEvent(nextEvent);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -134,7 +134,7 @@ export default function KornihaBandPage() {
         </div>
 
         {/* Hero Section - Next Performance */}
-        {featuredEvent && <FeaturedEvent event={featuredEvent} className="mb-8" />}
+        {nextPerformance && <FeaturedEvent event={nextPerformance} className="mb-8" />}
 
         {/* Tab Navigation */}
         <div className="flex flex-wrap gap-2 mb-8 justify-center">
