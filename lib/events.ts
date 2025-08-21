@@ -200,14 +200,32 @@ export async function getEventById(id: string): Promise<Event | null> {
 
 // Get events specifically for Korniha band
 export async function getKornihaEvents(): Promise<Event[]> {
-  const events = await getEvents();
-  return events.filter(event => {
-    const hasKornihaTag = Array.isArray(event.tags) && 
-                         event.tags.some(tag => tag.toLowerCase().includes('korniha'));
-    const isKornihaOrganizer = event.organizer && 
-                              event.organizer.toLowerCase().includes('korniha');
-    return hasKornihaTag || isKornihaOrganizer;
-  });
+  try {
+    // Load Korniha-specific events from their dedicated YAML file
+    const kornihaModule = await import('@/data/events/korniha.yaml');
+    
+    if (Array.isArray(kornihaModule.default)) {
+      return kornihaModule.default.map((event: any) => ({
+        id: event.id || '',
+        title: event.title || 'Untitled Event',
+        date: event.date || new Date().toISOString(),
+        time: event.time,
+        endDate: event.endDate,
+        location: event.location || 'Location not specified',
+        description: event.description || '',
+        featured: Boolean(event.featured),
+        status: event.status || 'upcoming',
+        link: event.link,
+        category: 'music',
+        setlist: event.setlist
+      }));
+    }
+    
+    return [];
+  } catch (error) {
+    console.error('Error loading Korniha events:', error);
+    return [];
+  }
 }
 
 // Get a featured event (currently returns the next upcoming event)

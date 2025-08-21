@@ -1,4 +1,14 @@
 - id: 1
+  title: "MZ Battleground"
+  date: "2025-08-23"
+  time: "6:30 PM"
+  location: "VU Aulą M. K. Čiurlionio g. 21, Vilnius"
+  description: "Korniha band will perform at MZ Battleground, presenting Yurucamp event and anime OSTs"
+  featured: true
+  setlist:
+    type: "Yurucamp Presentation"
+
+- id: 2
   title: "YuruCamp 2025"
   date: "2025-08-29"
   endDate: "2025-08-30"
@@ -8,6 +18,10 @@
   setlist:
     days:
       - day: 1
+        date: "2025-08-29"
+        time: "7:30 PM"
         type: "Japanese"
       - day: 2
+        date: "2025-08-30"
+        time: "7:00 PM"
         type: "Lithuanian"
