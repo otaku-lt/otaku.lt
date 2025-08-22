@@ -48,6 +48,20 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
     setIsMenuOpen(false);
   }, [pathname]);
 
+  // Close menu when clicking outside (Chrome fix)
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMenuOpen && !(event.target as Element).closest('header')) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('click', handleClickOutside);
+      return () => document.removeEventListener('click', handleClickOutside);
+    }
+  }, [isMenuOpen]);
+
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -118,9 +132,13 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
             
             <div className="md:hidden">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsMenuOpen(!isMenuOpen);
+              }}
               className="inline-flex items-center justify-center p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-foreground/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-foreground/20 transition-colors"
-              aria-expanded="false"
+              aria-expanded={isMenuOpen}
             >
               <span className="sr-only">Open main menu</span>
               {isMenuOpen ? (
@@ -137,8 +155,12 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
       {/* Mobile menu */}
       <div
         className={`md:hidden transition-all duration-300 ease-in-out ${
-          isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+          isMenuOpen ? "max-h-screen opacity-100 visible" : "max-h-0 opacity-0 overflow-hidden invisible"
         } bg-[#1e1e1e] backdrop-blur-lg border-t border-foreground/10`}
+        style={{
+          transform: isMenuOpen ? 'translateY(0)' : 'translateY(-10px)',
+          willChange: 'transform, opacity, max-height'
+        }}
       >
         <div className="px-2 pt-2 pb-6 space-y-1 sm:px-3 border-t border-border/50">
           {navLinks.map((link) => (
