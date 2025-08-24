@@ -19,6 +19,10 @@
           activity: "Just Dance & Fighting Games"
         - zone: "Fandom Area"
           activity: "Open - Drop by anytime (TBA)"
+    - time: "17:00"
+      events:
+        - zone: "Stage"
+          activity: "Speedweeb"
     - time: "19:30"
       events:
         - zone: "Stage"
@@ -70,11 +74,11 @@
     - time: "16:00"
       events:
         - zone: "Stage"
-          activity: "Wet Cosplay"
+          activity: "Cosplay"
     - time: "17:30"
       events:
         - zone: "Stage"
-          activity: "Cosplay Masquerade"
+          activity: "B.O.T: Bōsōzoku lecture by Oleg Lyčagin.
     - time: "19:00"
       events:
         - zone: "Stage"
