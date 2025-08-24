@@ -15,7 +15,7 @@
           activity: "Second Shuttle"
     - time: "16:00"
       events:
-        - zone: "Open Cinema"
+        - zone: "Stage"
           activity: "Just Dance & Fighting Games"
         - zone: "Fandom Area"
           activity: "Open - Drop by anytime (TBA)"
@@ -41,8 +41,8 @@
   timeslots:
     - time: "10:00"
       events:
-        - zone: "Open Cinema"
-          activity: "Just Dance"
+        - zone: "Stage"
+          activity: "Just Dance & Fighting Games"
         - zone: "Fandom Area"
           activity: "Fandom Meet-ups"
     - time: "11:00 - 12:00"
