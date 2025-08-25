@@ -47,26 +47,42 @@
       events:
         - zone: "Stage"
           activity: "Just Dance & Fighting Games"
+    - time: "11:00"
+      events:
         - zone: "Fandom Area"
-          activity: "Fandom Meet-ups"
+          activity: "Vocaloid Meetup"
     - time: "11:00 - 12:00"
       events:
         - zone: "Shuttle"
           activity: "First Shuttle"
-    - time: "14:00 - 14:30"
+    - time: "11:30"
       events:
-        - zone: "Shuttle"
-          activity: "Second Shuttle"
+        - zone: "Fandom Area"
+          activity: "JDM Meetup"
     - time: "12:00"
       events:
         - zone: "Kitchen"
           activity: "First Set"
+        - zone: "Fandom Area"
+          activity: "Vtubers Meetup"
+    - time: "12:30"
+      events:
+        - zone: "Fandom Area"
+          activity: "Touhou Meetup"
+    - time: "14:00 - 14:30"
+      events:
+        - zone: "Shuttle"
+          activity: "Second Shuttle"
     - time: "14:00"
       events:
         - zone: "Kitchen"
           activity: "Second Set"
         - zone: "Creative Hub"
           activity: "To Be Announced"
+    - time: "14:45"
+      events:
+        - zone: "Fandom Area"
+          activity: "Umamusume Meetup"
     - time: "15:00"
       events:
         - zone: "Stage"
@@ -90,11 +106,11 @@
     - time: "23:30"
       events:
         - zone: "Open Cinema"
-          activity: "Miku Concert"
-    - time: "00:30"
+          activity: "Umamusume Pretty Derby - Concert"
+    - time: "00:00"
       events:
         - zone: "Open Cinema"
-          activity: "VJ: Epic Anime Song Set"
+          activity: "Miku Concert"
 
 - day: "Sunday"
   date: "August 31"
