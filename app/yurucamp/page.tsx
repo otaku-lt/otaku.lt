@@ -11,6 +11,21 @@ import ScheduleSection from "./components/ScheduleSection";
 export default function YuruCampPage() {
   const [activeTab, setActiveTab] = useState("about");
 
+  // Handle URL hash to set active tab and scroll to schedule
+  React.useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'schedule' || hash === 'friday' || hash === 'saturday' || hash === 'sunday') {
+      setActiveTab('schedule');
+      // Scroll to schedule section after a short delay to ensure content is rendered
+      setTimeout(() => {
+        const scheduleElement = document.querySelector('[data-schedule-section]');
+        if (scheduleElement) {
+          scheduleElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, []);
+
   const campFeatures = [
     {
       icon: <Tent className="text-green-600" size={24} />,
@@ -134,7 +149,14 @@ export default function YuruCampPage() {
           ].map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => {
+                setActiveTab(tab.id);
+                if (tab.id === 'schedule') {
+                  window.location.hash = 'schedule';
+                } else {
+                  window.location.hash = '';
+                }
+              }}
               className={`px-6 py-3 rounded-full text-sm font-medium transition-all ${
                 activeTab === tab.id
                   ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white shadow-lg'
@@ -239,7 +261,7 @@ export default function YuruCampPage() {
             </div>
           )}
 
-          {activeTab === "schedule" && <ScheduleSection />}
+          {activeTab === "schedule" && <div data-schedule-section><ScheduleSection /></div>}
 
           {activeTab === "faq" && <FAQSection />}
 

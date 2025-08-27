@@ -238,7 +238,8 @@ export default function ScheduleSection() {
                 e.preventDefault();
                 setActiveDay(index);
                 const slug = day.day.toLowerCase().replace(/\s+/g, '-');
-                window.history.pushState({}, '', `#${slug}`);
+                // Update URL hash
+                window.location.hash = slug;
                 const element = document.getElementById(`day-${slug}`);
                 if (element) {
                   element.scrollIntoView({ behavior: 'smooth' });
