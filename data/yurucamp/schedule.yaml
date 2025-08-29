@@ -43,14 +43,6 @@
 - day: "Saturday"
   date: "August 30"
   timeslots:
-    - time: "10:00"
-      events:
-        - zone: "Stage"
-          activity: "Just Dance & Fighting Games"
-    - time: "11:00"
-      events:
-        - zone: "Fandom Area"
-          activity: "Vocaloid Meetup"
     - time: "11:00 - 12:00"
       events:
         - zone: "Shuttle"
