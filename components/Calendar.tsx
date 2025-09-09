@@ -302,9 +302,29 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot, ini
   // Event content renderer - shows just the title
   const eventContent = useCallback((arg: any) => {
     return (
-      <div className="p-1 w-full h-full">
-        <div className="font-bold text-xs leading-tight break-words whitespace-normal">
-          {arg.event.title}
+      <div className="fc-event-main-frame" style={{ height: '100%' }}>
+        <div className="fc-event-title-container" style={{ 
+          display: 'flex',
+          alignItems: 'center',
+          height: '100%',
+          padding: '2px 4px',
+          overflow: 'hidden'
+        }}>
+          <div className="fc-event-title fc-sticky" style={{
+            whiteSpace: 'normal',
+            wordBreak: 'break-word',
+            lineHeight: '1.2',
+            fontSize: '0.75rem',
+            fontWeight: 600,
+            width: '100%',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+          }}>
+            {arg.event.title}
+          </div>
         </div>
       </div>
     );
