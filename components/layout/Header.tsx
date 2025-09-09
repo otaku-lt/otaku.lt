@@ -19,19 +19,23 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
-  const navLinks = getVisibleRoutes().map(route => ({
-    name: route.label,
-    href: route.path,
-    icon: route.path === '/' ? (
-      <span className="inline-flex items-center justify-center w-4 h-4">🏠</span>
-    ) : route.path === '/events' ? (
-      <span className="inline-flex items-center justify-center w-4 h-4">📅</span>
-    ) : route.path === '/submit' ? (
-      <span className="inline-flex items-center justify-center w-4 h-4">➕</span>
-    ) : (
-      <span className="inline-flex items-center justify-center w-4 h-4">🔗</span>
-    ),
-  }));
+  const navLinks = getVisibleRoutes().map(route => {
+    let icon = <span className="inline-flex items-center justify-center w-4 h-4">🔗</span>;
+    
+    if (route.path === '/') {
+      icon = <span className="inline-flex items-center justify-center w-4 h-4">🏠</span>;
+    } else if (route.path === '/events' || route.path.startsWith('/events/')) {
+      icon = <span className="inline-flex items-center justify-center w-4 h-4">📅</span>;
+    } else if (route.path === '/submit') {
+      icon = <span className="inline-flex items-center justify-center w-4 h-4">➕</span>;
+    }
+    
+    return {
+      name: route.label,
+      href: route.path,
+      icon: icon,
+    };
+  });
 
   // Handle scroll effect for header
   useEffect(() => {
