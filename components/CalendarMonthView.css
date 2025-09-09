@@ -226,7 +226,7 @@
 }
 
 .otaku-fullcalendar .fc-event-main {
-  padding: 0 4px !important;
+  padding: 0 2px !important;  /* Reduced from 4px */
   width: 100%;
   box-sizing: border-box;
   display: flex;
@@ -240,7 +240,7 @@
   font-weight: 500;
   color: inherit;
   line-height: 1.2;
-  padding: 2px 4px;
+  padding: 0 2px;  /* Reduced horizontal padding from 4px to 2px, removed vertical padding */
   margin: 0;
   width: 100%;
   word-wrap: break-word;
@@ -257,7 +257,7 @@
 .otaku-fullcalendar .fc-event {
   border: none !important;
   border-radius: 12px !important;
-  padding: 6px 10px !important;
+  padding: 6px 6px !important;  /* Reduced horizontal padding from 10px to 6px */
   font-weight: 600 !important;
   font-size: 13px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
