@@ -483,7 +483,7 @@ export default function EventsPage() {
           Discover anime, Japanese culture, and otaku events in Lithuania and beyond
         </p>
 
-        {/* Event Tabs - Modified to remove view toggle */}
+        {/* Event Tabs */}
         <EventTabs
           categories={categories}
           selectedCategory={selectedCategory}
@@ -493,25 +493,39 @@ export default function EventsPage() {
           searchTerm={searchTerm}
           onSearchChange={handleSearchChange}
           showViewToggle={false}
-          showSubmitButton={true}
-          className="mb-8"
+          className="mb-6"
         />
 
-        {/* View Toggle - Matching Submit Form Style */}
-        <div className="flex justify-center mb-6">
+        {/* View Toggle and Export Button */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6">
+          {/* Export Button - Hidden on mobile */}
+          <button
+            onClick={exportAllEventsAsICS}
+            className="hidden sm:flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md bg-card border border-border text-foreground hover:bg-accent/10 transition-colors"
+            title="Export all events as ICS"
+          >
+            <Download size={16} />
+            <span>Export Calendar</span>
+          </button>
+
+          {/* View Toggle */}
           <div className="inline-flex rounded-lg border border-border bg-card p-1">
             <button
               type="button"
               onClick={() => setViewMode('calendar')}
-              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${viewMode === 'calendar' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${
+                viewMode === 'calendar' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'
+              }`}
             >
               <CalendarIcon size={16} />
-              Calendar View
+              Calendar
             </button>
             <button
               type="button"
               onClick={() => setViewMode('list')}
-              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${viewMode === 'list' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'}`}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${
+                viewMode === 'list' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'
+              }`}
             >
               <LayoutGrid size={16} />
               List View
