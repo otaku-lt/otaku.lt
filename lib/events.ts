@@ -67,7 +67,6 @@ async function loadStaticEventsData(): Promise<Event[]> {
             location: event.location || 'Location not specified',
             description: event.description || '',
             featured: Boolean(event.featured),
-            status: event.status || 'upcoming',
             link: event.link,
             category: categories[0] || event.category, // Primary category
             categories: categories.length > 1 ? categories : undefined, // Only set if multiple categories
@@ -144,10 +143,7 @@ export async function getEvents(): Promise<Event[]> {
 export async function getEventsByCategory(category: string): Promise<Event[]> {
   try {
     const events = await getEvents();
-    return events.filter(event => 
-      event.category === category && 
-      (!event.status || event.status !== 'cancelled')
-    );
+    return events.filter(event => event.category === category);
   } catch (error) {
     console.error(`Error getting events for category ${category}:`, error);
     return [];
@@ -162,8 +158,7 @@ export async function getEventsByMonth(year: number, month: number): Promise<Eve
       const eventDate = new Date(event.date);
       return (
         eventDate.getFullYear() === year &&
-        eventDate.getMonth() === month - 1 && // months are 0-indexed in JS
-        (!event.status || event.status !== 'cancelled')
+        eventDate.getMonth() === month - 1 // months are 0-indexed in JS
       );
     });
   } catch (error) {
@@ -181,8 +176,7 @@ export async function getFeaturedEvents(limit: number = 3): Promise<Event[]> {
     return events
       .filter(event => 
         event.featured && 
-        new Date(event.date) >= now &&
-        (!event.status || event.status !== 'cancelled')
+        new Date(event.date) >= now
       )
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
       .slice(0, limit);
@@ -205,20 +199,26 @@ export async function getKornihaEvents(): Promise<Event[]> {
     const kornihaModule = await import('@/data/events/korniha.yaml');
     
     if (Array.isArray(kornihaModule.default)) {
-      return kornihaModule.default.map((event: any) => ({
-        id: event.id || '',
-        title: event.title || 'Untitled Event',
-        date: event.date || new Date().toISOString(),
-        time: event.time,
-        endDate: event.endDate,
-        location: event.location || 'Location not specified',
-        description: event.description || '',
-        featured: Boolean(event.featured),
-        status: event.status || 'upcoming',
-        link: event.link,
-        category: 'music',
-        setlist: event.setlist
-      }));
+      return kornihaModule.default.map((event: any) => {
+        // Only include fields that are part of the Event type
+        const kornihaEvent: Event = {
+          id: event.id || '',
+          title: event.title || 'Untitled Event',
+          date: event.date || new Date().toISOString(),
+          time: event.time,
+          endDate: event.endDate,
+          location: event.location || 'Location not specified',
+          description: event.description || '',
+          featured: Boolean(event.featured),
+          link: event.link,
+          category: 'music'
+        };
+        
+        // Add optional fields if they exist
+        if (event.image) kornihaEvent.image = event.image;
+        
+        return kornihaEvent;
+      });
     }
     
     return [];
