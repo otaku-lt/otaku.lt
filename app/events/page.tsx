@@ -226,20 +226,25 @@ export default function EventsPage() {
             location: event.location || 'Location not specified',
             description: event.description || '',
             category: event.category || 'other',
-            featured: Boolean(event.featured),
-            status: event.status || 'upcoming'
+            featured: Boolean(event.featured)
           }
         },
         className: `event-category-${event.category || 'other'}`
       };
 
-      // Set end time if specified and not 'All day'
-      if (event.time && event.time !== 'All day') {
+      // Set end time if specified and in valid format (HH:MM or HH:MM:SS)
+      if (event.time && /^\d{1,2}:\d{2}(?::\d{2})?$/.test(event.time)) {
         const endDate = new Date(eventDate);
         const [hours, minutes] = event.time.split(':').map(Number);
         endDate.setHours(hours + 2, minutes || 0, 0, 0);
         calendarEvent.end = endDate;
         calendarEvent.allDay = false;
+      } else if (event.time === 'All day') {
+        // For all-day events, set end to the next day
+        const endDate = new Date(eventDate);
+        endDate.setDate(endDate.getDate() + 1);
+        calendarEvent.end = endDate;
+        calendarEvent.allDay = true;
       } else if (event.endDate) {
         // For events with endDate, use that as the end date
         const endDate = new Date(event.endDate);
