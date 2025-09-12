@@ -10,7 +10,6 @@ export interface Event {
   location: string;
   description: string;
   featured: boolean;
-  status?: EventStatus;
   link?: string;
   category?: string;
   categories?: string[];
