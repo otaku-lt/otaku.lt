@@ -15,6 +15,24 @@
   image: /images/events/2025/10/2025-10-lupin-iii-immortal-bloodline.jpg
   link: 'https://www.forumcinemas.lt/event/311035/lupin_the_iiird_the_movie_the_immortal_bloodline'
 
+- id: 15
+  title: 'Orų Mergaitė (Weathering with You) (2019)'
+  date: '2025-10-05'
+  time: 'See website for showtimes'
+  location: 'Apollo Kinas Akropolyje, Vilnius'
+  category: screening
+  description: |
+    Special screening of Makoto Shinkai's acclaimed anime film "Weathering with You" (2019) with Lithuanian subtitles.
+    
+    A high-school boy who has run away to Tokyo befriends a girl who appears to be able to manipulate the weather. As they navigate their growing feelings for each other, they discover the true cost of her mysterious power. From the director of "Your Name," this visually stunning film explores love, sacrifice, and the forces of nature.
+    
+    Rating: N7 (suitable for viewers aged 7 and older)
+    Original Release: 2019
+    Language: Japanese with Lithuanian subtitles
+
+  image: /images/events/2025/10/2025-10-weathering-with-you.jpg
+  link: 'https://www.apollokinas.lt/event/3862/or%C5%AB_mergait%C4%97?theatreAreaID=1019'
+
 - id: 11
   title: 'Chainsaw Man: The Movie - Reze Arc'
   date: '2025-10-29'
