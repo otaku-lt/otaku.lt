@@ -17,7 +17,8 @@ export interface Event {
   location: string;
   description: string;
   featured: boolean;
-  link?: string;
+  link?: string; // Single link (legacy support)
+  links?: Array<{ name: string; url: string }>; // Multiple links with names (e.g., different cinema booking links)
   category?: string;
   categories?: string[];
   image?: string;

@@ -173,20 +173,41 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
               </div>
             )}
             
-            {event.link && (
+            {((event.links && event.links.length > 0) || event.link) && (
               <div className="pt-4 mt-2 border-t border-border/40">
                 <p className="text-sm font-medium text-muted-foreground mb-2">More Information</p>
-                <a 
-                  href={event.link} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-primary hover:underline inline-flex items-center gap-1"
-                >
-                  View Event Details
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </a>
+                <div className="space-y-2">
+                  {/* Multiple links */}
+                  {event.links && event.links.length > 0 ? (
+                    event.links.map((link, index) => (
+                      <a
+                        key={index}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline inline-flex items-center gap-1 block"
+                      >
+                        {link.name}
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    ))
+                  ) : event.link ? (
+                    /* Single link fallback */
+                    <a 
+                      href={event.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline inline-flex items-center gap-1"
+                    >
+                      View Event Details
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  ) : null}
+                </div>
               </div>
             )}
           </div>

@@ -408,14 +408,21 @@ export default function EventsPage() {
                  || expandedEvents.find(e => String(e.id).split('-s')[0] === baseId);
       
       if (byId) {
-        // Create a new event object that includes the link from the best source
-        const eventWithLink = {
+        // Create a new event object that includes links from all sources
+        const eventWithLinks = {
           ...byId,
           // Use the link from the calendar event if available, otherwise use the one from the original event
-          link: event.link || original.link || byId.link
+          link: event.link || original.link || byId.link,
+          // Combine links from both sources, removing duplicates by URL
+          links: [
+            ...(byId.links || []),
+            ...(original.links || []),
+          ].filter((link, index, self) => 
+            index === self.findIndex(l => l.url === link.url)
+          )
         };
         
-        handleEventClick(eventWithLink);
+        handleEventClick(eventWithLinks);
         return;
       }
     }
@@ -426,13 +433,15 @@ export default function EventsPage() {
                       || expandedEvents.find(e => e.title === event?.title);
                       
     if (matchedEvent) {
-      // Create a new event object that includes the link from the calendar event
-      const eventWithLink = {
+      // Create a new event object that includes links from the calendar event
+      const eventWithLinks = {
         ...matchedEvent,
-        link: event.link || matchedEvent.link
+        link: event.link || matchedEvent.link,
+        // Preserve any existing links array
+        links: matchedEvent.links || []
       };
       
-      handleEventClick(eventWithLink);
+      handleEventClick(eventWithLinks);
     }
   }, [expandedEvents, handleEventClick]);
 
