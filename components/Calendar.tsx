@@ -11,6 +11,7 @@ import { CalendarHeader } from '@/components/calendar/CalendarHeader';
 import { EventContent } from '@/components/calendar/EventContent';
 import { useCalendarEvents } from '@/hooks/useCalendarEvents';
 import type { CalendarEvent, EventCalendarProps } from '@/types/calendar';
+import type { Event } from '@/types/event';
 import './Calendar.css';
 
 export default function Calendar({ events = [], onSelectEvent, onSelectSlot, initialDate, onMonthChange }: EventCalendarProps) {
@@ -117,7 +118,7 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot, ini
 
       {!onSelectEvent && (
         <EventModal 
-          event={selectedEvent?.extendedProps?.originalEvent || null} 
+          event={(selectedEvent?.extendedProps?.originalEvent as Event) || null} 
           isOpen={isModalOpen && selectedEvent?.extendedProps?.originalEvent !== undefined} 
           onClose={() => setIsModalOpen(false)} 
         />

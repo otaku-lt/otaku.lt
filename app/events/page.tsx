@@ -10,7 +10,7 @@ import { EventModal } from "@/components/events/EventModal";
 import { Calendar as CalendarIcon, Clock, LayoutGrid, MapPin, Loader2, ExternalLink, Download, Tag } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import { getEvents, getEventsByCategory } from "@/lib/events";
-import type { CalendarEvent } from '@/components/Calendar';
+import type { CalendarEvent } from '@/types/calendar';
 import type { Event, EventStatus } from '@/types/event'; // Import Event from types
 import { EVENT_CATEGORIES } from '@/config/event-categories';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -408,28 +408,14 @@ export default function EventsPage() {
                  || expandedEvents.find(e => String(e.id).split('-s')[0] === baseId);
       
       if (byId) {
-        // Create a new event object that includes the links from both sources
-        const eventWithLinks = {
+        // Create a new event object that includes the link from the best source
+        const eventWithLink = {
           ...byId,
           // Use the link from the calendar event if available, otherwise use the one from the original event
-          link: event.link || original.link || byId.link,
-          // Combine links from both sources, removing duplicates
-          links: [
-            ...(byId.links || []),
-            ...(original.links || []),
-            ...(event.link ? [{ name: 'Event Details', url: event.link }] : []),
-            ...(original.link ? [{ name: 'Event Details', url: original.link }] : [])
-          ].filter((link, index, self) => 
-            index === self.findIndex(l => l.url === link.url)
-          )
+          link: event.link || original.link || byId.link
         };
         
-        // Remove the link if it's already in links to avoid duplication
-        if (eventWithLinks.link && eventWithLinks.links.some(l => l.url === eventWithLinks.link)) {
-          delete eventWithLinks.link;
-        }
-        
-        handleEventClick(eventWithLinks);
+        handleEventClick(eventWithLink);
         return;
       }
     }
@@ -440,25 +426,13 @@ export default function EventsPage() {
                       || expandedEvents.find(e => e.title === event?.title);
                       
     if (matchedEvent) {
-      // Create a new event object that includes the links from the calendar event
-      const eventWithLinks = {
+      // Create a new event object that includes the link from the calendar event
+      const eventWithLink = {
         ...matchedEvent,
-        link: event.link || matchedEvent.link,
-        // Combine links from both sources, removing duplicates
-        links: [
-          ...(matchedEvent.links || []),
-          ...(event.link ? [{ name: 'Event Details', url: event.link }] : [])
-        ].filter((link, index, self) => 
-          index === self.findIndex(l => l.url === link.url)
-        )
+        link: event.link || matchedEvent.link
       };
       
-      // Remove the link if it's already in links to avoid duplication
-      if (eventWithLinks.link && eventWithLinks.links.some(l => l.url === eventWithLinks.link)) {
-        delete eventWithLinks.link;
-      }
-      
-      handleEventClick(eventWithLinks);
+      handleEventClick(eventWithLink);
     }
   }, [expandedEvents, handleEventClick]);
 
