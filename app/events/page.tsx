@@ -248,7 +248,9 @@ export default function EventsPage() {
             location: event.location || 'Location not specified',
             description: event.description || '',
             category: event.category || 'other',
-            featured: Boolean(event.featured)
+            featured: Boolean(event.featured),
+            link: event.link,
+            links: event.links // Include the links array!
           }
         },
         className: `event-category-${event.category || 'other'}`
