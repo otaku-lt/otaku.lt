@@ -279,10 +279,39 @@
 
 - id: 11
   title: 'Chainsaw Man: The Movie - Reze Arc'
-  date: '2025-10-29'
-  time: 'All day'
   category: screening
   screenings:
+    # Apollo Kinas Akropolyje
+    - date: '2025-10-29'
+      time: '18:40'
+      cinema: 'Apollo Kinas Akropolyje'
+    - date: '2025-10-30'
+      time: '18:40'
+      cinema: 'Apollo Kinas Akropolyje'
+    - date: '2025-10-31'
+      time: '18:40'
+      cinema: 'Apollo Kinas Akropolyje'
+    
+    # Apollo Kinas Panevėžys
+    - date: '2025-10-29'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2025-10-31'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    
+    # Apollo Kinas Vilnius Outlet
+    - date: '2025-10-29'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-30'
+      time: '18:30'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-31'
+      time: '18:30'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    
+    # Forum Cinemas Vingis
     - date: '2025-10-29'
       time: '18:00'
       cinema: 'Forum Cinemas Vingis'
@@ -298,7 +327,11 @@
     works at a coffee café, as Denji faces new challenges and intense battles.
 
   image: /images/events/2025/10/2025-10-chainsaw-man-reze.jpg
-  link: 'https://www.acmefilm.lt/filmai/anime-chainsaw-man-filmas-reze-arka'
+  links:
+    - name: 'Apollo Kinas'
+      url: 'https://www.apollokinas.lt/event/5155/chainsaw_man_filmas_reze_arka?theatreAreaID=1024'
+    - name: 'ACME Film'
+      url: 'https://www.acmefilm.lt/filmai/anime-chainsaw-man-filmas-reze-arka'
 
 - id: 16
   title: 'Suzume (2022)'
