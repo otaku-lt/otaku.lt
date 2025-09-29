@@ -11,7 +11,6 @@
     anime OSTs, and the Idol Stage karaoke! Artists will enjoy sketch meetups, live drawing sessions, 
     and collaborative art projects in our Creative Hub.
 
-  featured: true
   image: /images/events/2025/08/2025-08-yurucamp.png
   organizer: Otaku.lt 
   link: /yurucamp
@@ -28,7 +27,6 @@
     Experience the latest games, compete in tournaments, and connect with fellow gamers.
     Event runs from August 20 to September 8.
 
-  featured: false
   image: /images/events/2025/08/2025-08-ggvasara.jpg
   link: 'https://www.facebook.com/events/s/gg-vasara-kartu-su-baltics-gam/3062355387267895/'
 
@@ -44,7 +42,6 @@
     Join fellow fans for a weekend of anime, manga, cosplay, and Japanese culture.
     Event details will be updated soon.
 
-  featured: true
   image: /images/events/2025/08/2025-08-unicontrip.jpg
   link: 'https://www.facebook.com/events/712401125102206/'
 
@@ -59,22 +56,19 @@
     Born from passion, matured into an idea, and grown into a team.
     MZ BATTLEGROUND – the first event of the cycle is happening THIS AUGUST!
     Time to get off that chair and come to Vilnius – VU Aula on August 23rd.
-    What awaits you?
     🎮 A tournament with partner-sponsored prizes and a cash pool (Main tournament – Mortal Kombat 1)
     🎨 Creative workshops
     🎙️ Talks and lectures
     🎲 Board game zone
     🦸 Comic books & geeky goodies market
-    🛋️ Chill & leisure area
+    🛌️ Chill & leisure area
     And most importantly – it's FREE!
 
-  featured: true
   image: /images/events/2025/08/2025-08-mzbattleground.jpg
   link: 'https://www.facebook.com/events/1284257033151299'
 
 - id: 8
   title: 'Grave of the Fireflies (1988)'
-  date: '2025-08-29'
   time: 'All day'
   category: screening
   screenings:
@@ -91,7 +85,6 @@
     A powerful and emotional Studio Ghibli film about two siblings struggling to survive in post-World War II Japan. 
     This special cinema screening offers a chance to experience this acclaimed animated masterpiece on the big screen.
 
-  featured: false
   image: /images/events/2025/08/2025-08-graveoffireflies.jpg
   link: 'https://www.forumcinemas.lt/event/310974/grave_of_the_fireflies_1988?theatreAreaID=1011'
 
