@@ -422,3 +422,66 @@
 
   image: /images/events/2025/10/2025-10-graveoffireflies.jpg
   link: 'https://www.apollokinas.lt/event/5135/grave_of_the_fireflies?theatreAreaID=1024'
+
+- id: 17
+  title: 'Josee, the Tiger and the Fish (2020)'
+  date: '2025-10-01'
+  time: 'See screenings for showtimes'
+  category: screening
+  screenings:
+    # Apollo Kinas Akropolyje
+    - date: '2025-10-03'
+      time: '18:40'
+      cinema: 'Apollo Kinas Akropolyje'
+    - date: '2025-10-04'
+      time: '16:00'
+      cinema: 'Apollo Kinas Akropolyje'
+    - date: '2025-10-06'
+      time: '21:30'
+      cinema: 'Apollo Kinas Akropolyje'
+    - date: '2025-10-11'
+      time: '18:20'
+      cinema: 'Apollo Kinas Akropolyje'
+    - date: '2025-10-15'
+      time: '18:20'
+      cinema: 'Apollo Kinas Akropolyje'
+    
+    # Apollo Kinas Panevėžys
+    - date: '2025-10-02'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2025-10-12'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2025-10-27'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    
+    # Apollo Kinas Vilnius Outlet
+    - date: '2025-10-01'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-08'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-13'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-17'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-23'
+      time: '15:30'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+  description: |
+    Special screening of the touching romantic drama anime film "Josee, the Tiger and the Fish" (2020) with Lithuanian subtitles.
+    
+    Josee, a young woman with a physical disability who lives a sheltered life, meets Tsuneo, a university student working part-time to chase his dreams. Their encounter leads to an unlikely friendship that blossoms into something deeper as they inspire each other to pursue their dreams and face life's challenges.
+    
+    This beautifully animated film explores themes of love, disability, independence, and following your dreams. A heartwarming story that will stay with you long after the credits roll.
+    
+    Original Release: 2020
+    Language: Japanese with Lithuanian subtitles
+  
+  image: /images/events/2025/10/2025-10-josee-tiger-fish.jpg
+  link: 'https://www.apollokinas.lt/event/4073/%C5%BEose_tigras_ir_%C5%BEuvis?theatreAreaID=1024'
