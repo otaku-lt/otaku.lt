@@ -73,18 +73,33 @@ export default function EventsPage() {
   };
 
   // Expand events with screenings into separate instances for rendering
+  // Group screenings by date to avoid duplicate calendar entries
   const expandedEvents = useMemo(() => {
     const out: Event[] = [];
     for (const ev of events) {
       if (Array.isArray(ev.screenings) && ev.screenings.length > 0) {
-        ev.screenings.forEach((scr, idx) => {
+        // Group screenings by date
+        const screeningsByDate = new Map<string, typeof ev.screenings>();
+        ev.screenings.forEach(scr => {
+          const date = scr.date || ev.date;
+          if (!screeningsByDate.has(date)) {
+            screeningsByDate.set(date, []);
+          }
+          screeningsByDate.get(date)!.push(scr);
+        });
+        
+        // Create one event per unique date
+        let dateIdx = 0;
+        screeningsByDate.forEach((dateScreenings, date) => {
+          dateIdx++;
           out.push({
             ...ev,
-            // Make id unique per screening to render as separate items
-            id: `${ev.id}-s${idx + 1}`,
-            // Screening-specific overrides
-            date: scr.date || ev.date,
-            time: scr.time ?? ev.time,
+            // Make id unique per date
+            id: `${ev.id}-d${dateIdx}`,
+            // Use the date for this group
+            date: date,
+            // Keep all screenings for this date for the modal
+            screenings: dateScreenings,
             // Preserve links from parent event
             link: ev.link,
             links: ev.links,
