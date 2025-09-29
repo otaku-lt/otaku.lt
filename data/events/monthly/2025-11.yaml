@@ -20,19 +20,25 @@
 
 - id: 12
   title: 'Millennium Actress (2001) Special Screening'
-  date: '2025-11-15'
-  time: '7:00 PM'
   category: screening
   screenings:
-    - date: '2025-11-15'
+    # Forum Cinemas Vingis (Vilnius)
+    - date: '2025-11-24'
+      time: '18:30'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-11-24'
       time: '19:00'
       cinema: 'Forum Cinemas Vingis'
-    - date: '2025-11-16'
-      time: '16:00'
-      cinema: 'Forum Cinemas Vingis'
+    
+    # Forum Cinemas Kaunas
+    - date: '2025-11-24'
+      time: '18:30'
+      cinema: 'Forum Cinemas Kaunas'
   description: |
     Special screening of Satoshi Kon's masterpiece "Millennium Actress" (2001) in Japanese with Lithuanian subtitles.
-    A filmmaker sets out to interview former actress Chiyoko Fujiwara, who was a major star in the 1950s and 1960s. As Chiyoko recounts her life story, the line between reality and cinema becomes increasingly blurred.
+    
+    A filmmaker sets out to interview former actress Chiyoko Fujiwara, who was a major star in the 1950s and 1960s. As Chiyoko recounts her life story, the line between reality and cinema becomes increasingly blurred. This mind-bending exploration of memory, cinema, and love is one of Satoshi Kon's greatest achievements.
+    
     This special screening is part of the "See in Cinema" series, bringing classic films back to the big screen.
 
   image: /images/events/2025/11/2025-11-millennium-actress.jpg
