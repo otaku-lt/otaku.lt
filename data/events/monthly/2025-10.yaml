@@ -1,7 +1,5 @@
 - id: 14
   title: 'Lupin the IIIrd, The Movie: The Immortal Bloodline (2025)'
-  date: '2025-10-04'
-  time: 'See screenings for showtimes'
   category: screening
   screenings:
     # Apollo Kinas Akropolyje
@@ -304,8 +302,6 @@
 
 - id: 16
   title: 'Suzume (2022)'
-  date: '2025-10-01'
-  time: 'See screenings for showtimes'
   category: screening
   screenings:
     # Apollo Kinas Akropolyje
@@ -368,8 +364,6 @@
 
 - id: 8
   title: 'Grave of the Fireflies (1988)'
-  date: '2025-10-01'
-  time: 'See screenings for showtimes'
   category: screening
   screenings:
     # Apollo Kinas Akropolyje
@@ -425,8 +419,6 @@
 
 - id: 17
   title: 'Josee, the Tiger and the Fish (2020)'
-  date: '2025-10-01'
-  time: 'See screenings for showtimes'
   category: screening
   screenings:
     # Apollo Kinas Akropolyje
@@ -488,8 +480,6 @@
 
 - id: 18
   title: 'Akira (1988)'
-  date: '2025-10-02'
-  time: 'See screenings for showtimes'
   category: screening
   screenings:
     # Apollo Kinas Akropolyje
