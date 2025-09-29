@@ -36,12 +36,16 @@
   screenings:
     - date: '2025-10-05'
       time: '17:30'
+      cinema: 'Apollo Kinas Akropolyje'
     - date: '2025-10-10'
       time: '18:20'
+      cinema: 'Apollo Kinas Akropolyje'
     - date: '2025-10-14'
       time: '18:20'
+      cinema: 'Apollo Kinas Akropolyje'
     - date: '2025-10-19'
       time: '18:20'
+      cinema: 'Apollo Kinas Akropolyje'
 
 - id: 11
   title: 'Chainsaw Man: The Movie - Reze Arc'
