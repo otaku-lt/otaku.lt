@@ -135,6 +135,16 @@ export default function EventsPage() {
   const filteredEvents = useMemo(() => {
     let result = viewMode === 'list' ? [...events] : [...expandedEventsForCalendar];
     
+    // In list view, only show upcoming events (hide past events)
+    if (viewMode === 'list') {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      result = result.filter(event => {
+        const eventDate = event.endDate ? new Date(event.endDate) : new Date(event.date);
+        return eventDate >= today;
+      });
+    }
+    
     // Apply category filter
     if (selectedCategory !== 'all') {
       if (selectedCategory === 'upcoming') {
