@@ -85,6 +85,9 @@ export default function EventsPage() {
             // Screening-specific overrides
             date: scr.date || ev.date,
             time: scr.time ?? ev.time,
+            // Preserve links from parent event
+            link: ev.link,
+            links: ev.links,
           });
         });
       } else {
