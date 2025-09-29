@@ -128,7 +128,12 @@ export default function EventsPage() {
       );
     }
     
-    return result.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    return result.sort((a, b) => {
+      // For events with screenings but no date, use the first screening date
+      const dateA = a.date || (a.screenings && a.screenings[0]?.date) || '';
+      const dateB = b.date || (b.screenings && b.screenings[0]?.date) || '';
+      return new Date(dateA).getTime() - new Date(dateB).getTime();
+    });
   }, [events, expandedEventsForCalendar, searchTerm, viewMode]);
 
   // Filter events based on selected category and search term
@@ -182,7 +187,12 @@ export default function EventsPage() {
       );
     }
     
-    return result.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    return result.sort((a, b) => {
+      // For events with screenings but no date, use the first screening date
+      const dateA = a.date || (a.screenings && a.screenings[0]?.date) || '';
+      const dateB = b.date || (b.screenings && b.screenings[0]?.date) || '';
+      return new Date(dateA).getTime() - new Date(dateB).getTime();
+    });
   }, [events, expandedEventsForCalendar, selectedCategory, searchTerm, viewMode]);
 
   // Calculate category counts based on filtered events
