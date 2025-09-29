@@ -311,16 +311,6 @@
       time: '18:30'
       cinema: 'Apollo Kinas Vilnius Outlet'
     
-    # Forum Cinemas Vingis
-    - date: '2025-10-29'
-      time: '18:00'
-      cinema: 'Forum Cinemas Vingis'
-    - date: '2025-10-30'
-      time: '18:00'
-      cinema: 'Forum Cinemas Vingis'
-    - date: '2025-10-31'
-      time: '18:00'
-      cinema: 'Forum Cinemas Vingis'
   description: |
     For the first time, Chainsaw Man slashes his way onto the big screen in an epic, action-fueled adventure 
     that continues the hugely popular anime series. The movie introduces Reze, a new romantic interest who 
@@ -580,3 +570,64 @@
   
   image: /images/events/2025/10/2025-10-akira.jpg
   link: 'https://www.apollokinas.lt/event/5115/akira?theatreAreaID=1024'
+
+- id: 19
+  title: "Howl's Moving Castle (2004)"
+  category: screening
+  screenings:
+    # Forum Cinemas Vingis (Vilnius)
+    - date: '2025-10-13'
+      time: '18:30'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-10-13'
+      time: '18:50'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-10-13'
+      time: '19:00'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-10-13'
+      time: '21:15'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-10-13'
+      time: '21:35'
+      cinema: 'Forum Cinemas Vingis'
+    
+    # Forum Cinemas Kaunas
+    - date: '2025-10-13'
+      time: '18:30'
+      cinema: 'Forum Cinemas Kaunas'
+    - date: '2025-10-13'
+      time: '18:50'
+      cinema: 'Forum Cinemas Kaunas'
+    - date: '2025-10-13'
+      time: '19:00'
+      cinema: 'Forum Cinemas Kaunas'
+    - date: '2025-10-13'
+      time: '21:35'
+      cinema: 'Forum Cinemas Kaunas'
+    
+    # Forum Cinemas Klaipėda
+    - date: '2025-10-13'
+      time: '18:30'
+      cinema: 'Forum Cinemas Klaipėda'
+    - date: '2025-10-13'
+      time: '18:50'
+      cinema: 'Forum Cinemas Klaipėda'
+    
+    # Forum Cinemas Šiauliai
+    - date: '2025-10-13'
+      time: '18:30'
+      cinema: 'Forum Cinemas Šiauliai'
+  description: |
+    Special screening of Hayao Miyazaki's beloved masterpiece "Howl's Moving Castle" (2004) with Lithuanian subtitles.
+    
+    When an unconfident young woman is cursed with an old body by a spiteful witch, her only chance of breaking the spell lies with a self-indulgent yet insecure young wizard and his companions in his legged, walking castle.
+    
+    This Studio Ghibli classic is a visually stunning tale of magic, love, and transformation. Miyazaki's enchanting animation brings to life a world of flying castles, fire demons, and powerful magic. A heartwarming story that has captivated audiences worldwide.
+    
+    Original Release: 2004
+    Director: Hayao Miyazaki
+    Language: Japanese with Lithuanian subtitles
+  
+  image: /images/events/2025/11/2025-11-howls-castle.png
+  link: 'https://www.forumcinemas.lt/eng/event/311028/howls_moving_castle?theatreAreaID=1011'
