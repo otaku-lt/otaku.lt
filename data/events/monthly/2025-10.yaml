@@ -35,11 +35,13 @@
 
   screenings:
     - date: '2025-10-05'
-      time: '17:00'
-    - date: '2025-10-12'
-      time: '19:00'
+      time: '17:30'
+    - date: '2025-10-10'
+      time: '18:20'
+    - date: '2025-10-14'
+      time: '18:20'
     - date: '2025-10-19'
-      time: '16:00'
+      time: '18:20'
 
 - id: 11
   title: 'Chainsaw Man: The Movie - Reze Arc'
