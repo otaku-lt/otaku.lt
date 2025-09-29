@@ -72,9 +72,9 @@ export default function EventsPage() {
     return categoryConfig?.color || 'bg-gray-500/10 text-gray-400';
   };
 
-  // Expand events with screenings into separate instances for rendering
-  // Group screenings by date to avoid duplicate calendar entries
-  const expandedEvents = useMemo(() => {
+  // For list view: don't expand screenings, show as single card
+  // For calendar view: expand by date
+  const expandedEventsForCalendar = useMemo(() => {
     const out: Event[] = [];
     for (const ev of events) {
       if (Array.isArray(ev.screenings) && ev.screenings.length > 0) {
@@ -113,8 +113,9 @@ export default function EventsPage() {
   }, [events]);
 
   // Filter events only by search term (for category counts)
+  // Use original events for list view, expanded for calendar
   const searchFilteredEvents = useMemo(() => {
-    let result = [...expandedEvents];
+    let result = viewMode === 'list' ? [...events] : [...expandedEventsForCalendar];
     
     // Apply only search filter (not category filter)
     if (searchTerm) {
@@ -128,11 +129,11 @@ export default function EventsPage() {
     }
     
     return result.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-  }, [expandedEvents, searchTerm]);
+  }, [events, expandedEventsForCalendar, searchTerm, viewMode]);
 
   // Filter events based on selected category and search term
   const filteredEvents = useMemo(() => {
-    let result = [...expandedEvents];
+    let result = viewMode === 'list' ? [...events] : [...expandedEventsForCalendar];
     
     // Apply category filter
     if (selectedCategory !== 'all') {
@@ -172,7 +173,7 @@ export default function EventsPage() {
     }
     
     return result.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-  }, [expandedEvents, selectedCategory, searchTerm]);
+  }, [events, expandedEventsForCalendar, selectedCategory, searchTerm, viewMode]);
 
   // Calculate category counts based on filtered events
   const categories = useMemo(() => {
@@ -419,8 +420,8 @@ export default function EventsPage() {
     if (original && original.id) {
       // Attempt to find by base id (strip screening suffix if any)
       const baseId = String(original.id).split('-s')[0];
-      const byId = expandedEvents.find(e => String(e.id) === original.id) 
-                 || expandedEvents.find(e => String(e.id).split('-s')[0] === baseId);
+      const byId = events.find((e: Event) => String(e.id) === original.id) 
+                 || events.find((e: Event) => String(e.id).split('-s')[0] === baseId);
       
       if (byId) {
         // Create a new event object that includes links from all sources
@@ -444,8 +445,8 @@ export default function EventsPage() {
 
     // Fallback: attempt by exact id, then by title
     const eventId = event.id?.toString() || '';
-    const matchedEvent = expandedEvents.find(e => e.id?.toString() === eventId)
-                      || expandedEvents.find(e => e.title === event?.title);
+    const matchedEvent = events.find((e: Event) => e.id?.toString() === eventId)
+                      || events.find((e: Event) => e.title === event?.title);
                       
     if (matchedEvent) {
       // Create a new event object that includes links from the calendar event
@@ -458,7 +459,7 @@ export default function EventsPage() {
       
       handleEventClick(eventWithLinks);
     }
-  }, [expandedEvents, handleEventClick]);
+  }, [events, handleEventClick]);
 
   const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
