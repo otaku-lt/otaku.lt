@@ -49,26 +49,18 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
               </div>
             )}
           </div>
-          <p className="opacity-90 flex items-center gap-2 text-foreground/80">
-            <MapPin className="w-4 h-4 flex-shrink-0" />
-            <span>{event.location}</span>
-          </p>
+          {!event.screenings || event.screenings.length === 0 ? (
+            <p className="opacity-90 flex items-center gap-2 text-foreground/80">
+              <MapPin className="w-4 h-4 flex-shrink-0" />
+              <span>{event.location}</span>
+            </p>
+          ) : null}
         </div>
         
         <div className="p-6 space-y-4 mt-2">
           <div className="space-y-4">
             {event.screenings && event.screenings.length > 0 ? (
               <div className="space-y-4">
-                <div className="flex items-start">
-                  <MapPin className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
-                  <div className="w-full">
-                    <p className="text-sm font-medium text-muted-foreground">Location</p>
-                    <p className="text-foreground">
-                      {event.screenings[0]?.cinema || event.location || 'Location not specified'}
-                    </p>
-                  </div>
-                </div>
-
                 <div className="space-y-4">
                   <div className="flex items-center">
                     <CalendarIcon className="w-5 h-5 mr-3 flex-shrink-0 text-primary" />
