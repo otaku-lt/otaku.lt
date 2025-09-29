@@ -4,30 +4,61 @@
   time: 'See screenings for showtimes'
   category: screening
   screenings:
+    # Apollo Kinas Akropolyje
     - date: '2025-10-04'
-      time: '18:40'
-      cinema: 'Forum Cinemas Vingis'
+      time: '18:30'
+      cinema: 'Apollo Kinas Akropolyje'
     - date: '2025-10-08'
       time: '18:40'
-      cinema: 'Forum Cinemas Vingis'
+      cinema: 'Apollo Kinas Akropolyje'
     - date: '2025-10-13'
       time: '18:20'
-      cinema: 'Forum Cinemas Vingis'
-    - date: '2025-10-14'
+      cinema: 'Apollo Kinas Akropolyje'
+    - date: '2025-10-23'
       time: '18:40'
-      cinema: 'Forum Cinemas Vingis'
+      cinema: 'Apollo Kinas Akropolyje'
     - date: '2025-10-28'
       time: '18:20'
-      cinema: 'Forum Cinemas Vingis'
+      cinema: 'Apollo Kinas Akropolyje'
+    
+    # Apollo Kinas Panevėžys
+    - date: '2025-10-03'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2025-10-09'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2025-10-16'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2025-10-21'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    
+    # Apollo Kinas Vilnius Outlet
+    - date: '2025-10-07'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-18'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-24'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-30'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
   description: |
     Special screening of the latest Lupin III movie "The Immortal Bloodline" (2025) in Japanese with Lithuanian subtitles.
     
     The iconic gentleman thief Lupin III returns in this thrilling new adventure. When a mysterious artifact with the power of immortality surfaces, Lupin finds himself in a deadly race against time and rival thieves. Packed with high-octane action, clever heists, and the signature Lupin humor, this film continues the legacy of the beloved franchise.
-    
-    This special screening is part of the Anime Weekend event at Forum Cinemas.
-
+  
   image: /images/events/2025/10/2025-10-lupin-iii-immortal-bloodline.jpg
-  link: 'https://www.forumcinemas.lt/event/311035/lupin_the_iiird_the_movie_the_immortal_bloodline'
+  links:
+    - name: 'Forum Cinemas'
+      url: 'https://www.forumcinemas.lt/event/311035/lupin_the_iiird_the_movie_the_immortal_bloodline'
+    - name: 'Apollo Kinas'
+      url: 'https://www.apollokinas.lt/event/5187/lupin_the_iiird_the_movie_the_immortal_bloodline?theatreAreaID=1019'
 
 - id: 15
   title: 'Orų Mergaitė (Weathering with You) (2019)'

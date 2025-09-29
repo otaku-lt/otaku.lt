@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Calendar as CalendarIcon, MapPin, Tag } from 'lucide-react';
-import type { Event } from '@/types/event';
+import type { Event, Screening } from '@/types/event';
 import { EVENT_CATEGORIES } from '@/config/event-categories';
 
 interface EventModalProps {
@@ -57,40 +57,69 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
         
         <div className="p-6 space-y-4 mt-2">
           <div className="space-y-4">
-            {event.screenings?.length > 0 ? (
+            {event.screenings && event.screenings.length > 0 ? (
               <div className="space-y-4">
                 <div className="flex items-start">
                   <MapPin className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
                   <div className="w-full">
                     <p className="text-sm font-medium text-muted-foreground">Location</p>
-                    <p className="text-foreground">{event.screenings[0].cinema || event.location}</p>
+                    <p className="text-foreground">
+                      {event.screenings[0]?.cinema || event.location || 'Location not specified'}
+                    </p>
                   </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-4">
                   <div className="flex items-center">
                     <CalendarIcon className="w-5 h-5 mr-3 flex-shrink-0 text-primary" />
-                    <p className="text-sm font-medium text-muted-foreground">Screenings</p>
+                    <p className="text-sm font-medium text-muted-foreground">Screenings by Cinema</p>
                   </div>
-                  <div className="space-y-2 pl-8">
-                    {event.screenings.map((screening, index) => (
-                      <div key={index} className="flex justify-between items-center bg-muted/30 rounded-lg p-3">
-                        <div>
-                          <p className="font-medium text-foreground">
-                            {new Date(screening.date || event.date).toLocaleDateString('en-US', {
-                              weekday: 'short',
-                              month: 'short',
-                              day: 'numeric'
-                            })}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            {screening.time || event.time || 'Time TBA'}
-                            {screening.cinema && ` • ${screening.cinema}`}
-                          </p>
+                  
+                  {/* Group screenings by cinema */}
+                  {(() => {
+                    // Create a map to group screenings by cinema
+                    const screeningsByCinema = event.screenings.reduce<Record<string, Screening[]>>((acc, screening) => {
+                      const cinema = screening.cinema || 'Other';
+                      if (!acc[cinema]) {
+                        acc[cinema] = [];
+                      }
+                      acc[cinema].push(screening);
+                      return acc;
+                    }, {});
+                    
+                    const cinemaElements = Object.entries(screeningsByCinema).map(([cinema, cinemaScreenings]) => (
+                      <div key={cinema} className="space-y-2 pl-8">
+                        <h4 className="font-medium text-foreground flex items-center">
+                          <MapPin className="w-4 h-4 mr-2 text-primary" />
+                          {cinema}
+                        </h4>
+                        <div className="space-y-2">
+                          {cinemaScreenings
+                            .sort((a, b) => 
+                              new Date(a.date || event.date).getTime() - new Date(b.date || event.date).getTime()
+                            )
+                            .map((screening, index) => (
+                              <div key={index} className="flex justify-between items-center bg-muted/30 rounded-lg p-3">
+                                <div>
+                                  <p className="font-medium text-foreground">
+                                    {new Date(screening.date || event.date).toLocaleDateString('en-US', {
+                                      weekday: 'short',
+                                      month: 'short',
+                                      day: 'numeric'
+                                    })}
+                                  </p>
+                                  <p className="text-sm text-muted-foreground">
+                                    {screening.time || event.time || 'Time TBA'}
+                                  </p>
+                                </div>
+                              </div>
+                            ))}
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    ));
+                    
+                    return <>{cinemaElements}</>;
+                  })()}
                 </div>
               </div>
             ) : (
