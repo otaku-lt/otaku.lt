@@ -66,7 +66,9 @@ async function readEventsFromFile(filename: string): Promise<Event[]> {
         link: event.link,
         category: categories[0] || event.category, // Primary category
         categories: categories.length > 1 ? categories : undefined, // Only set if multiple categories
-        image: event.image
+        image: event.image,
+        // Pass through multiple screenings if provided
+        screenings: Array.isArray(event.screenings) ? event.screenings : undefined
       };
     });
   } catch (error) {

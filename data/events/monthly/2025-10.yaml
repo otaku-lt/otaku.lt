@@ -33,6 +33,14 @@
   image: /images/events/2025/10/2025-10-weathering-with-you.jpg
   link: 'https://www.apollokinas.lt/event/3862/or%C5%AB_mergait%C4%97?theatreAreaID=1019'
 
+  screenings:
+    - date: '2025-10-05'
+      time: '17:00'
+    - date: '2025-10-12'
+      time: '19:00'
+    - date: '2025-10-19'
+      time: '16:00'
+
 - id: 11
   title: 'Chainsaw Man: The Movie - Reze Arc'
   date: '2025-10-29'

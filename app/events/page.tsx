@@ -72,9 +72,31 @@ export default function EventsPage() {
     return categoryConfig?.color || 'bg-gray-500/10 text-gray-400';
   };
 
+  // Expand events with screenings into separate instances for rendering
+  const expandedEvents = useMemo(() => {
+    const out: Event[] = [];
+    for (const ev of events) {
+      if (Array.isArray(ev.screenings) && ev.screenings.length > 0) {
+        ev.screenings.forEach((scr, idx) => {
+          out.push({
+            ...ev,
+            // Make id unique per screening to render as separate items
+            id: `${ev.id}-s${idx + 1}`,
+            // Screening-specific overrides
+            date: scr.date || ev.date,
+            time: scr.time ?? ev.time,
+          });
+        });
+      } else {
+        out.push(ev);
+      }
+    }
+    return out;
+  }, [events]);
+
   // Filter events only by search term (for category counts)
   const searchFilteredEvents = useMemo(() => {
-    let result = [...events];
+    let result = [...expandedEvents];
     
     // Apply only search filter (not category filter)
     if (searchTerm) {
@@ -88,11 +110,11 @@ export default function EventsPage() {
     }
     
     return result.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-  }, [events, searchTerm]);
+  }, [expandedEvents, searchTerm]);
 
   // Filter events based on selected category and search term
   const filteredEvents = useMemo(() => {
-    let result = [...events];
+    let result = [...expandedEvents];
     
     // Apply category filter
     if (selectedCategory !== 'all') {
@@ -132,7 +154,7 @@ export default function EventsPage() {
     }
     
     return result.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-  }, [events, selectedCategory, searchTerm]);
+  }, [expandedEvents, selectedCategory, searchTerm]);
 
   // Calculate category counts based on filtered events
   const categories = useMemo(() => {
@@ -376,20 +398,27 @@ export default function EventsPage() {
   }, [generateEventSlug]);
 
   const handleCalendarEventClick = useCallback((event: CalendarEvent) => {
-    // Find the matching event in our events array
-    const eventId = event.id?.toString() || '';
-    const matchedEvent = events.find(e => e.id?.toString() === eventId);
-    
-    if (matchedEvent) {
-      handleEventClick(matchedEvent);
-    } else {
-      // Fallback: try to match by title if ID matching fails
-      const titleMatch = events.find(e => e.title === event?.title);
-      if (titleMatch) {
-        handleEventClick(titleMatch);
+    // Prefer the originalEvent passed from the calendar component
+    const original: any = event?.extendedProps && (event as any).extendedProps.originalEvent;
+    if (original && original.id) {
+      // Attempt to find by base id (strip screening suffix if any)
+      const baseId = String(original.id).split('-s')[0];
+      const byId = expandedEvents.find(e => String(e.id) === original.id) 
+                 || expandedEvents.find(e => String(e.id).split('-s')[0] === baseId);
+      if (byId) {
+        handleEventClick(byId);
+        return;
       }
     }
-  }, [events, handleEventClick]);
+
+    // Fallback: attempt by exact id, then by title
+    const eventId = event.id?.toString() || '';
+    const matchedEvent = expandedEvents.find(e => e.id?.toString() === eventId)
+                      || expandedEvents.find(e => e.title === event?.title);
+    if (matchedEvent) {
+      handleEventClick(matchedEvent);
+    }
+  }, [expandedEvents, handleEventClick]);
 
   const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
