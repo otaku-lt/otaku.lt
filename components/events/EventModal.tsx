@@ -12,11 +12,6 @@ interface EventModalProps {
 export function EventModal({ event, isOpen, onClose }: EventModalProps) {
   if (!event) return null;
 
-  // Debug: Log the event to see what we're receiving
-  console.log('EventModal received event:', event);
-  console.log('Event links:', event.links);
-  console.log('Event link:', event.link);
-
   return (
     <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${isOpen ? 'block' : 'hidden'}`}>
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
