@@ -303,3 +303,68 @@
   featured: true
   image: /images/events/2025/10/2025-10-chainsaw-man-reze.jpg
   link: 'https://www.acmefilm.lt/filmai/anime-chainsaw-man-filmas-reze-arka'
+
+- id: 16
+  title: 'Suzume (2022)'
+  date: '2025-10-01'
+  time: 'See screenings for showtimes'
+  category: screening
+  screenings:
+    # Apollo Kinas Akropolyje
+    - date: '2025-10-01'
+      time: '20:40'
+      cinema: 'Apollo Kinas Akropolyje'
+    - date: '2025-10-07'
+      time: '18:40'
+      cinema: 'Apollo Kinas Akropolyje'
+    - date: '2025-10-16'
+      time: '18:20'
+      cinema: 'Apollo Kinas Akropolyje'
+    - date: '2025-10-24'
+      time: '15:20'
+      cinema: 'Apollo Kinas Akropolyje'
+    - date: '2025-10-28'
+      time: '20:40'
+      cinema: 'Apollo Kinas Akropolyje'
+    
+    # Apollo Kinas Panevėžys
+    - date: '2025-10-06'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2025-10-15'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2025-10-25'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    
+    # Apollo Kinas Vilnius Outlet
+    - date: '2025-10-04'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-10'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-19'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-21'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-28'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+  description: |
+    Special screening of Makoto Shinkai's breathtaking anime film "Suzume" (2022) with Lithuanian subtitles.
+    
+    On her way to school, 17-year-old Suzume meets a young man looking for abandoned places. Following him, she finds an old door in the middle of ruins. As if drawn by supernatural forces, she reaches for the handle. Soon, mysterious doors begin opening all across Japan, unleashing chaos. Suzume must embark on a journey to close these portals before they bring disaster to the world.
+    
+    From the acclaimed director of "Your Name" and "Weathering with You," this visually stunning adventure explores themes of loss, healing, and the power of human connection. Winner of multiple international awards including Best Animated Feature at several film festivals.
+    
+    Rating: N7 (suitable for viewers aged 7 and older)
+    Original Release: 2022
+    Language: Japanese with Lithuanian subtitles
+  
+  featured: false
+  image: https://images.markus.live/mcswebsites.blob.core.windows.net/1050/Event_7786/landscape_billboard_wide/Suzume_Apollo_EWBllbrd_3840x750_LT.jpg?width=3360&height=640&format=jpg&quality=90
+  link: 'https://www.apollokinas.lt/event/4487/suzume?theatreAreaID=1024'
