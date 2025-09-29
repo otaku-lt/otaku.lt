@@ -622,6 +622,7 @@ export default function EventsPage() {
                 categories={event.categories}
                 description={event.description}
                 featured={event.featured}
+                screenings={event.screenings}
                 getCategoryEmoji={getCategoryEmoji}
                 getCategoryColors={getCategoryColors}
                 onClick={() => handleEventClick(event)}

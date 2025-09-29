@@ -18,6 +18,11 @@ type EventCardProps = {
   onClick?: () => void;
   getCategoryEmoji?: (category: string) => string;
   getCategoryColors?: (category: string) => string;
+  screenings?: Array<{
+    date?: string;
+    time?: string;
+    cinema?: string;
+  }>;
 };
 
 export function EventCard({
@@ -34,9 +39,15 @@ export function EventCard({
   className = '',
   href = `#`,
   onClick,
+  screenings = [],
   getCategoryEmoji = (cat: string = '') => '🎌',
   getCategoryColors = () => 'bg-primary/10 text-primary',
 }: EventCardProps) {
+  // Get the first screening if available
+  const firstScreening = screenings?.[0];
+  const displayTime = firstScreening?.time || time || 'Time TBA';
+  const displayLocation = firstScreening?.cinema || location || 'Location TBA';
+
   const cardContent = (
     <div className={`h-full flex flex-col bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all hover:scale-[1.01] border border-border/40 hover:border-primary/30 ${className}`}>
       {featured && (
@@ -57,15 +68,20 @@ export function EventCard({
       <div className="space-y-2 mb-4">
         <div className="flex items-center gap-2 text-muted-foreground">
           <Calendar className="w-4 h-4 flex-shrink-0" />
-          <span className="text-sm">{date}</span>
+          <span className="text-sm">{firstScreening?.date || date}</span>
         </div>
         <div className="flex items-center gap-2 text-muted-foreground">
           <Clock className="w-4 h-4 flex-shrink-0" />
-          <span className="text-sm">{time}</span>
+          <span className="text-sm">{displayTime}</span>
+          {screenings && screenings.length > 1 && (
+            <span className="text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded-full">
+              +{screenings.length - 1} more
+            </span>
+          )}
         </div>
         <div className="flex items-start gap-2 text-muted-foreground">
           <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
-          <span className="text-sm">{location}</span>
+          <span className="text-sm">{displayLocation}</span>
         </div>
       </div>
 

@@ -57,37 +57,77 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
         
         <div className="p-6 space-y-4 mt-2">
           <div className="space-y-4">
-            <div className="flex items-start">
-              <CalendarIcon className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">When</p>
-                <p className="text-foreground">
-                  {new Date(event.date).toLocaleDateString('en-US', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                  })}
-                  {event.time && event.time !== 'All day' && ` at ${event.time}`}
-                  {event.endDate && (
-                    ` - ${new Date(event.endDate).toLocaleDateString('en-US', { 
-                      weekday: 'long', 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
-                    })}`
-                  )}
-                </p>
+            {event.screenings?.length > 0 ? (
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <MapPin className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
+                  <div className="w-full">
+                    <p className="text-sm font-medium text-muted-foreground">Location</p>
+                    <p className="text-foreground">{event.screenings[0].cinema || event.location}</p>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <CalendarIcon className="w-5 h-5 mr-3 flex-shrink-0 text-primary" />
+                    <p className="text-sm font-medium text-muted-foreground">Screenings</p>
+                  </div>
+                  <div className="space-y-2 pl-8">
+                    {event.screenings.map((screening, index) => (
+                      <div key={index} className="flex justify-between items-center bg-muted/30 rounded-lg p-3">
+                        <div>
+                          <p className="font-medium text-foreground">
+                            {new Date(screening.date || event.date).toLocaleDateString('en-US', {
+                              weekday: 'short',
+                              month: 'short',
+                              day: 'numeric'
+                            })}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            {screening.time || event.time || 'Time TBA'}
+                            {screening.cinema && ` • ${screening.cinema}`}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
-            
-            <div className="flex items-start">
-              <MapPin className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Location</p>
-                <p className="text-foreground">{event.location}</p>
-              </div>
-            </div>
+            ) : (
+              <>
+                <div className="flex items-start">
+                  <CalendarIcon className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">When</p>
+                    <p className="text-foreground">
+                      {new Date(event.date).toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                      })}
+                      {event.time && event.time !== 'All day' && ` at ${event.time}`}
+                      {event.endDate && (
+                        ` - ${new Date(event.endDate).toLocaleDateString('en-US', { 
+                          weekday: 'long', 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })}`
+                      )}
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <MapPin className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">Location</p>
+                    <p className="text-foreground">{event.location || 'Location TBA'}</p>
+                  </div>
+                </div>
+              </>
+            )}
             
             {(event.category || (event.categories && event.categories.length > 0)) && (
               <div className="flex items-start">

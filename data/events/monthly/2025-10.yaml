@@ -1,15 +1,23 @@
 - id: 14
   title: 'Lupin the IIIrd, The Movie: The Immortal Bloodline (2025)'
-  date: '2025-10-03'
-  endDate: '2025-10-04'
-  time: '6:30 PM'
+  date: '2025-10-04'
+  time: 'See screenings for showtimes'
   category: screening
   screenings:
-    - date: '2025-10-03'
-      time: '18:30'
-      cinema: 'Forum Cinemas Vingis'
     - date: '2025-10-04'
-      time: '18:30'
+      time: '18:40'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-10-08'
+      time: '18:40'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-10-13'
+      time: '18:20'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-10-14'
+      time: '18:40'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-10-28'
+      time: '18:20'
       cinema: 'Forum Cinemas Vingis'
   description: |
     Special screening of the latest Lupin III movie "The Immortal Bloodline" (2025) in Japanese with Lithuanian subtitles.
