@@ -365,3 +365,60 @@
   
   image: /images/events/2025/10/2025-10-suzume.jpg
   link: 'https://www.apollokinas.lt/event/4487/suzume?theatreAreaID=1024'
+
+- id: 8
+  title: 'Grave of the Fireflies (1988)'
+  date: '2025-10-01'
+  time: 'See screenings for showtimes'
+  category: screening
+  screenings:
+    # Apollo Kinas Akropolyje
+    - date: '2025-10-08'
+      time: '21:00'
+      cinema: 'Apollo Kinas Akropolyje'
+    - date: '2025-10-12'
+      time: '18:20'
+      cinema: 'Apollo Kinas Akropolyje'
+    - date: '2025-10-17'
+      time: '18:20'
+      cinema: 'Apollo Kinas Akropolyje'
+    - date: '2025-10-21'
+      time: '18:20'
+      cinema: 'Apollo Kinas Akropolyje'
+    
+    # Apollo Kinas Panevėžys
+    - date: '2025-10-01'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2025-10-10'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2025-10-18'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2025-10-28'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    
+    # Apollo Kinas Vilnius Outlet
+    - date: '2025-10-05'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-09'
+      time: '21:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-12'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-14'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2025-10-26'
+      time: '18:00'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+  description: |
+    A powerful and emotional Studio Ghibli film about two siblings struggling to survive in post-World War II Japan. 
+    This special cinema screening offers a chance to experience this acclaimed animated masterpiece on the big screen.
+
+  image: /images/events/2025/08/2025-08-graveoffireflies.jpg
+  link: 'https://www.apollokinas.lt/event/4978/grave_of_the_fireflies?theatreAreaID=1024'
