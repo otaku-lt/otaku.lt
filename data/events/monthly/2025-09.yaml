@@ -2,8 +2,17 @@
   title: 'Demon Slayer: Kimetsu no Yaiba - The Infinity Castle'
   date: '2025-09-12'
   time: 'All day'
-  location: 'Across the country'
   category: screening
+  screenings:
+    - date: '2025-09-12'
+      time: '18:00'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-09-13'
+      time: '18:00'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-09-14'
+      time: '18:00'
+      cinema: 'Forum Cinemas Vingis'
   description: |
     Join Tanjiro and his allies as they embark on a new mission in the highly anticipated movie continuation of the Demon Slayer series.
     Experience the epic battle against the demons in this stunning animated film shown in theaters.

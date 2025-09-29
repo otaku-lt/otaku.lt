@@ -3,8 +3,14 @@
   date: '2025-10-03'
   endDate: '2025-10-04'
   time: '6:30 PM'
-  location: 'Forum Cinemas Vingis, Vilnius'
   category: screening
+  screenings:
+    - date: '2025-10-03'
+      time: '18:30'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-10-04'
+      time: '18:30'
+      cinema: 'Forum Cinemas Vingis'
   description: |
     Special screening of the latest Lupin III movie "The Immortal Bloodline" (2025) in Japanese with Lithuanian subtitles.
     
@@ -19,7 +25,6 @@
   title: 'Orų Mergaitė (Weathering with You) (2019)'
   date: '2025-10-05'
   time: 'See website for showtimes'
-  location: 'Apollo Kinas Akropolyje, Vilnius'
   category: screening
   description: |
     Special screening of Makoto Shinkai's acclaimed anime film "Weathering with You" (2019) with Lithuanian subtitles.
@@ -51,8 +56,17 @@
   title: 'Chainsaw Man: The Movie - Reze Arc'
   date: '2025-10-29'
   time: 'All day'
-  location: 'Across the country'
   category: screening
+  screenings:
+    - date: '2025-10-29'
+      time: '18:00'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-10-30'
+      time: '18:00'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-10-31'
+      time: '18:00'
+      cinema: 'Forum Cinemas Vingis'
   description: |
     For the first time, Chainsaw Man slashes his way onto the big screen in an epic, action-fueled adventure 
     that continues the hugely popular anime series. The movie introduces Reze, a new romantic interest who 

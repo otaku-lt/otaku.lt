@@ -23,8 +23,14 @@
   title: 'Millennium Actress (2001) Special Screening'
   date: '2025-11-15'
   time: '7:00 PM'
-  location: 'Forum Cinemas Vingis, Vilnius'
   category: screening
+  screenings:
+    - date: '2025-11-15'
+      time: '19:00'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-11-16'
+      time: '16:00'
+      cinema: 'Forum Cinemas Vingis'
   description: |
     Special screening of Satoshi Kon's masterpiece "Millennium Actress" (2001) in Japanese with Lithuanian subtitles.
     A filmmaker sets out to interview former actress Chiyoko Fujiwara, who was a major star in the 1950s and 1960s. As Chiyoko recounts her life story, the line between reality and cinema becomes increasingly blurred.
@@ -37,8 +43,14 @@
   title: "Howl's Moving Castle (2004) - English with Lithuanian Subtitles"
   date: '2025-11-22'
   time: '7:00 PM'
-  location: 'Forum Cinemas Vingis, Vilnius'
   category: screening
+  screenings:
+    - date: '2025-11-22'
+      time: '19:00'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-11-23'
+      time: '16:00'
+      cinema: 'Forum Cinemas Vingis'
   description: |
     Special screening of Hayao Miyazaki's masterpiece "Howl's Moving Castle" (2004) in English with Lithuanian subtitles.
     
