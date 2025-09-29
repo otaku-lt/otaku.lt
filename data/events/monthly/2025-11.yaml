@@ -43,26 +43,3 @@
 
   image: /images/events/2025/11/2025-11-millennium-actress.jpg
   link: 'https://www.forumcinemas.lt/event/311021/pamatyk_kine_millennium_actress_2001?theatreAreaID=1011'
-
-- id: 20
-  title: 'SPOT Entertainment Weekend'
-  date: '2025-10-17'
-  endDate: '2025-10-19'
-  time: 'All day'
-  location: 'Vilnius, Lithuania'
-  category: convention
-  description: |
-    SPOT Entertainment Weekend brings together Comic Con Baltics and Baltics Gaming Expo for an epic weekend celebration of geek culture!
-    
-    Join us for three days filled with:
-    - Comic Con Baltics - cosplay competitions, celebrity guests, artist alley, vendor marketplace
-    - Baltics Gaming Expo - latest games, esports tournaments, gaming demos
-    - Anime and manga content
-    - Pop culture panels and workshops
-    - Meet & greets with special guests
-    - Exclusive merchandise and collectibles
-    
-    Whether you're into comics, gaming, anime, or all things geek - this is THE event of the season! Don't miss this massive celebration of entertainment and pop culture.
-  
-  image: /images/events/2025/10/2025-10-spot-weekend.jpg
-  link: 'https://www.facebook.com/events/1115743007416129/'
