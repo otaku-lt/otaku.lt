@@ -64,6 +64,7 @@ async function readEventsFromFile(filename: string): Promise<Event[]> {
         featured: Boolean(event.featured),
         status: event.status || 'upcoming',
         link: event.link,
+        links: Array.isArray(event.links) ? event.links : undefined, // Multiple booking links
         category: categories[0] || event.category, // Primary category
         categories: categories.length > 1 ? categories : undefined, // Only set if multiple categories
         image: event.image,
