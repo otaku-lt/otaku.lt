@@ -160,7 +160,7 @@ export function SongsSection({ songs, className = '' }: SongsSectionProps) {
                     </div>
                     <div className="text-sm text-gray-600 dark:text-gray-400">
                       {song.original}
-                      {song.artist && <span className="text-gray-500">{song.artist}</span>}
+                      {song.artist && <span className="ml-2 text-gray-500">• {song.artist}</span>}
                     </div>
                   </td>
                   <td className="py-3 px-4 text-center">

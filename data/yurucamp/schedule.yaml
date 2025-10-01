@@ -107,18 +107,20 @@
 - day: "Sunday"
   date: "August 31"
   timeslots:
-    - time: "09:00 - 10:00"
+    - time: "11:00"
       events:
         - zone: "Kitchen"
           activity: "Farewell Breakfast"
-    - time: "10:00 - 11:00"
+    - time: "11:30"
       events:
         - zone: "Stage"
           activity: "Group Photo & Closing Ceremony"
-    - time: "11:00 - 12:00"
+    - time: "12:00"
       events:
         - zone: "All Areas"
           activity: "Pack Up & Clean Up"
+    - time: "13:00"
+      events:
         - zone: "Shuttle"
           activity: "First Shuttle"
     - time: "14:00 - 14:30"
