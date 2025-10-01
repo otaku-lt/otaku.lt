@@ -175,8 +175,8 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
             
             {((event.links && event.links.length > 0) || event.link) && (
               <div className="pt-4 mt-2 border-t border-border/40">
-                <p className="text-sm font-medium text-muted-foreground mb-2">More Information</p>
-                <div className="space-y-2">
+                <p className="text-sm font-medium text-muted-foreground mb-3">More Information</p>
+                <div className="flex flex-wrap gap-2">
                   {/* Multiple links */}
                   {event.links && event.links.length > 0 ? (
                     event.links.map((link, index) => (
@@ -185,7 +185,7 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-primary hover:underline inline-flex items-center gap-1 block"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors shadow-sm font-medium text-sm"
                       >
                         {link.name}
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -199,7 +199,7 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
                       href={event.link} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline inline-flex items-center gap-1"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors shadow-sm font-medium text-sm"
                     >
                       View Event Details
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
