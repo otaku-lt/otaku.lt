@@ -23,14 +23,14 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
         >
           <X className="w-5 h-5" />
         </button>
-        
+
         {/* Event Image */}
         {event.image && (
           <div className="relative h-80 bg-cover bg-center" style={{ backgroundImage: `url(${event.image})` }}>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
           </div>
         )}
-        
+
         <div className={`${event.image ? 'pt-4' : 'pt-2'} px-6`}>
           <div className="flex items-center gap-2 mb-2">
             {event.featured && (
@@ -56,7 +56,7 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
             </p>
           ) : null}
         </div>
-        
+
         <div className="p-6 space-y-4 mt-2">
           <div className="space-y-4">
             {event.screenings && event.screenings.length > 0 ? (
@@ -66,7 +66,7 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
                     <CalendarIcon className="w-5 h-5 mr-3 flex-shrink-0 text-primary" />
                     <p className="text-sm font-medium text-muted-foreground">Screenings by Cinema</p>
                   </div>
-                  
+
                   {/* Group screenings by cinema */}
                   {(() => {
                     // Create a map to group screenings by cinema
@@ -78,7 +78,7 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
                       acc[cinema].push(screening);
                       return acc;
                     }, {});
-                    
+
                     const cinemaElements = Object.entries(screeningsByCinema).map(([cinema, cinemaScreenings]) => (
                       <div key={cinema} className="space-y-2 pl-8">
                         <h4 className="font-medium text-foreground flex items-center">
@@ -87,7 +87,7 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
                         </h4>
                         <div className="space-y-2">
                           {cinemaScreenings
-                            .sort((a, b) => 
+                            .sort((a, b) =>
                               new Date(a.date || event.date).getTime() - new Date(b.date || event.date).getTime()
                             )
                             .map((screening, index) => (
@@ -109,7 +109,7 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
                         </div>
                       </div>
                     ));
-                    
+
                     return <>{cinemaElements}</>;
                   })()}
                 </div>
@@ -121,25 +121,25 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
                   <div>
                     <p className="text-sm font-medium text-muted-foreground">When</p>
                     <p className="text-foreground">
-                      {new Date(event.date).toLocaleDateString('en-US', { 
-                        weekday: 'long', 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
+                      {new Date(event.date).toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
                       })}
                       {event.time && event.time !== 'All day' && ` at ${event.time}`}
                       {event.endDate && (
-                        ` - ${new Date(event.endDate).toLocaleDateString('en-US', { 
-                          weekday: 'long', 
-                          year: 'numeric', 
-                          month: 'long', 
-                          day: 'numeric' 
+                        ` - ${new Date(event.endDate).toLocaleDateString('en-US', {
+                          weekday: 'long',
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
                         })}`
                       )}
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start">
                   <MapPin className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
                   <div>
@@ -149,7 +149,7 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
                 </div>
               </>
             )}
-            
+
             {(event.category || (event.categories && event.categories.length > 0)) && (
               <div className="flex items-start">
                 <Tag className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-primary" />
@@ -165,14 +165,14 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
                 </div>
               </div>
             )}
-            
+
             {event.description && (
               <div className="pt-4 mt-2 border-t border-border/40">
                 <p className="text-sm font-medium text-muted-foreground mb-2">Description</p>
                 <p className="text-foreground whitespace-pre-line">{event.description}</p>
               </div>
             )}
-            
+
             {((event.links && event.links.length > 0) || event.link) && (
               <div className="pt-4 mt-2 border-t border-border/40">
                 <p className="text-sm font-medium text-muted-foreground mb-3">More Information</p>
@@ -195,9 +195,9 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
                     ))
                   ) : event.link ? (
                     /* Single link fallback */
-                    <a 
-                      href={event.link} 
-                      target="_blank" 
+                    <a
+                      href={event.link}
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors shadow-sm font-medium text-sm"
                     >

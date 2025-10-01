@@ -87,7 +87,7 @@ export default function EventsPage() {
           }
           screeningsByDate.get(date)!.push(scr);
         });
-        
+
         // Create one event per unique date
         let dateIdx = 0;
         screeningsByDate.forEach((dateScreenings, date) => {
@@ -116,18 +116,18 @@ export default function EventsPage() {
   // Use original events for list view, expanded for calendar
   const searchFilteredEvents = useMemo(() => {
     let result = viewMode === 'list' ? [...events] : [...expandedEventsForCalendar];
-    
+
     // Apply only search filter (not category filter)
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
-      result = result.filter(event => 
+      result = result.filter(event =>
         event.title.toLowerCase().includes(term) ||
         event.description.toLowerCase().includes(term) ||
         event.location.toLowerCase().includes(term) ||
         (event.category && event.category.toLowerCase().includes(term))
       );
     }
-    
+
     return result.sort((a, b) => {
       // For events with screenings but no date, use the first screening date
       const dateA = a.date || (a.screenings && a.screenings[0]?.date) || '';
@@ -139,7 +139,7 @@ export default function EventsPage() {
   // Filter events based on selected category and search term
   const filteredEvents = useMemo(() => {
     let result = viewMode === 'list' ? [...events] : [...expandedEventsForCalendar];
-    
+
     // In list view, only show upcoming events (hide past events)
     if (viewMode === 'list') {
       const today = new Date();
@@ -149,7 +149,7 @@ export default function EventsPage() {
         return eventDate >= today;
       });
     }
-    
+
     // Apply category filter
     if (selectedCategory !== 'all') {
       if (selectedCategory === 'upcoming') {
@@ -161,7 +161,7 @@ export default function EventsPage() {
         result = result.filter(event => {
           // Get all categories for this event (primary + additional)
           const eventCategories = event.categories ? [...event.categories] : [event.category];
-          
+
           if (selectedCategory === 'music') {
             // Handle music category (formerly concert)
             return eventCategories.includes('concert') || eventCategories.includes('music');
@@ -175,18 +175,18 @@ export default function EventsPage() {
         });
       }
     }
-    
+
     // Apply search filter
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
-      result = result.filter(event => 
+      result = result.filter(event =>
         event.title.toLowerCase().includes(term) ||
         event.description.toLowerCase().includes(term) ||
         event.location.toLowerCase().includes(term) ||
         (event.category && event.category.toLowerCase().includes(term))
       );
     }
-    
+
     return result.sort((a, b) => {
       // For events with screenings but no date, use the first screening date
       const dateA = a.date || (a.screenings && a.screenings[0]?.date) || '';
@@ -199,18 +199,18 @@ export default function EventsPage() {
   const categories = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
     // Start with special categories
     const baseCategories = [
       { id: 'all', label: 'All Events', count: searchFilteredEvents.length },
-      { 
-        id: 'upcoming', 
-        label: 'Upcoming', 
+      {
+        id: 'upcoming',
+        label: 'Upcoming',
         count: searchFilteredEvents.filter(event => new Date(event.date) >= today).length,
         forceListView: true
       }
     ];
-    
+
     // Add event categories with counts
     const eventCategories = EVENT_CATEGORIES.map((category: { id: string; label: string }) => ({
       id: category.id,
@@ -219,7 +219,7 @@ export default function EventsPage() {
       count: searchFilteredEvents.filter(e => {
         // Get all categories for this event (primary + additional)
         const eventCategories = e.categories ? [...e.categories] : [e.category];
-        
+
         if (category.id === 'music') {
           // Handle music category (formerly concert)
           return eventCategories.includes('concert') || eventCategories.includes('music');
@@ -232,22 +232,22 @@ export default function EventsPage() {
         return eventCategories.includes(category.id);
       }).length
     }));
-    
+
     return [...baseCategories, ...eventCategories];
   }, [searchFilteredEvents]);
 
   // Group events by month for the calendar view
   const eventsByMonth = useMemo(() => {
     const months: Record<string, Event[]> = {};
-    
+
     filteredEvents.forEach(event => {
       const date = new Date(event.date);
       const monthYear = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-      
+
       if (!months[monthYear]) {
         months[monthYear] = [];
       }
-      
+
       months[monthYear].push({
         ...event,
         // Ensure all required fields have default values
@@ -259,7 +259,7 @@ export default function EventsPage() {
         featured: Boolean(event.featured)
       });
     });
-    
+
     return months;
   }, [filteredEvents]);
 
@@ -337,7 +337,7 @@ export default function EventsPage() {
       .split(/\s+/) // Split by whitespace
       .slice(0, 3) // Take first 3 words
       .join('-'); // Join with hyphens
-    
+
     return `${event.id}-${titleWords}`;
   }, []);
 
@@ -353,10 +353,10 @@ export default function EventsPage() {
   // Handle URL parameters for deep linking to events
   useEffect(() => {
     if (!isClient || !events.length) return;
-    
+
     const urlParams = new URLSearchParams(window.location.search);
     const eventParam = urlParams.get('event');
-    
+
     if (eventParam && eventParam !== currentEventId) {
       // Extract event ID from slug (handles both "5" and "5-event-title" formats)
       const eventId = extractEventId(eventParam);
@@ -376,11 +376,11 @@ export default function EventsPage() {
   // Handle browser back/forward navigation
   useEffect(() => {
     if (!isClient) return;
-    
+
     const handlePopState = () => {
       const urlParams = new URLSearchParams(window.location.search);
       const eventParam = urlParams.get('event');
-      
+
       if (eventParam && events.length) {
         // Extract event ID from slug (handles both "5" and "5-event-title" formats)
         const eventId = extractEventId(eventParam);
@@ -396,7 +396,7 @@ export default function EventsPage() {
         setCurrentEventId(null);
       }
     };
-    
+
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, [isClient, events, extractEventId]);
@@ -418,11 +418,11 @@ export default function EventsPage() {
   const handleEventClick = useCallback((event: Event) => {
     const eventId = event.id?.toString() || '';
     const eventSlug = generateEventSlug(event);
-    
+
     setSelectedEvent(event);
     setIsModalOpen(true);
     setCurrentEventId(eventId);
-    
+
     if (typeof window !== 'undefined') {
       try {
         const url = new URL(window.location.href);
@@ -437,13 +437,13 @@ export default function EventsPage() {
   const handleCalendarEventClick = useCallback((event: CalendarEvent) => {
     // Get the original event from extendedProps if available
     const original: any = event?.extendedProps?.originalEvent;
-    
+
     if (original && original.id) {
       // Attempt to find by base id (strip screening suffix if any)
       const baseId = String(original.id).split('-s')[0];
-      const byId = events.find((e: Event) => String(e.id) === original.id) 
-                 || events.find((e: Event) => String(e.id).split('-s')[0] === baseId);
-      
+      const byId = events.find((e: Event) => String(e.id) === original.id)
+        || events.find((e: Event) => String(e.id).split('-s')[0] === baseId);
+
       if (byId) {
         // Create a new event object that includes links from all sources
         const eventWithLinks = {
@@ -455,11 +455,11 @@ export default function EventsPage() {
             ...(byId.links || []),
             ...(original.links || []),
             ...(event.links || []),
-          ].filter((link, index, self) => 
+          ].filter((link, index, self) =>
             index === self.findIndex(l => l.url === link.url)
           )
         };
-        
+
         handleEventClick(eventWithLinks);
         return;
       }
@@ -468,8 +468,8 @@ export default function EventsPage() {
     // Fallback: attempt by exact id, then by title
     const eventId = event.id?.toString() || '';
     const matchedEvent = events.find((e: Event) => e.id?.toString() === eventId)
-                      || events.find((e: Event) => e.title === event?.title);
-                      
+      || events.find((e: Event) => e.title === event?.title);
+
     if (matchedEvent) {
       // Create a new event object that includes links from the calendar event
       const eventWithLinks = {
@@ -478,7 +478,7 @@ export default function EventsPage() {
         // Preserve any existing links array
         links: matchedEvent.links || []
       };
-      
+
       handleEventClick(eventWithLinks);
     }
   }, [events, handleEventClick]);
@@ -487,7 +487,7 @@ export default function EventsPage() {
     setIsModalOpen(false);
     setSelectedEvent(null);
     setCurrentEventId(null);
-    
+
     if (typeof window !== 'undefined') {
       try {
         const url = new URL(window.location.href);
@@ -503,7 +503,7 @@ export default function EventsPage() {
   const handleMonthChange = useCallback((date: Date) => {
     const monthStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
     setCurrentMonth(monthStr);
-    
+
     if (typeof window !== 'undefined') {
       try {
         const url = new URL(window.location.href);
@@ -518,7 +518,7 @@ export default function EventsPage() {
   // Function to export all events as ICS
   const exportAllEventsAsICS = useCallback(() => {
     if (calendarEvents.length === 0) return;
-    
+
     const icsContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
@@ -530,12 +530,12 @@ export default function EventsPage() {
       ...calendarEvents.map(event => {
         const start = event.start ? new Date(event.start) : new Date();
         const end = event.end ? new Date(event.end) : new Date(start.getTime() + 60 * 60 * 1000);
-        
+
         // Format dates for ICS (YYYYMMDDTHHMMSSZ)
         const formatDate = (date: Date): string => {
           return date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
         };
-        
+
         return [
           'BEGIN:VEVENT',
           `UID:${event.id}@otaku.lt`,
@@ -549,7 +549,7 @@ export default function EventsPage() {
       }).flat(),
       'END:VCALENDAR'
     ].join('\n');
-    
+
     const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -564,7 +564,7 @@ export default function EventsPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mb-8">
-        <ContentPageHeader 
+        <ContentPageHeader
           title={
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Otaku Event Calendar
@@ -610,9 +610,8 @@ export default function EventsPage() {
             <button
               type="button"
               onClick={() => setViewMode('calendar')}
-              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${
-                viewMode === 'calendar' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'
-              }`}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${viewMode === 'calendar' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'
+                }`}
             >
               <CalendarIcon size={16} />
               Calendar
@@ -620,9 +619,8 @@ export default function EventsPage() {
             <button
               type="button"
               onClick={() => setViewMode('list')}
-              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${
-                viewMode === 'list' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'
-              }`}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${viewMode === 'list' ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground hover:text-foreground'
+                }`}
             >
               <LayoutGrid size={16} />
               List View
@@ -651,7 +649,7 @@ export default function EventsPage() {
             <div className="text-6xl mb-4">📅</div>
             <h3 className="text-xl font-semibold mb-2">No events found</h3>
             <p className="text-muted-foreground">
-              {searchTerm || selectedCategory !== 'all' 
+              {searchTerm || selectedCategory !== 'all'
                 ? 'Try adjusting your search or filters'
                 : 'Check back later for upcoming events!'}
             </p>
@@ -661,7 +659,7 @@ export default function EventsPage() {
         {/* Calendar View */}
         {!isLoading && !error && viewMode === 'calendar' && filteredEvents.length > 0 && (
           <div className="bg-card rounded-lg border shadow-sm overflow-hidden">
-            <EventCalendar 
+            <EventCalendar
               events={calendarEvents}
               onSelectEvent={handleCalendarEventClick}
               initialDate={currentMonth}
@@ -694,12 +692,12 @@ export default function EventsPage() {
           </div>
         )}
       </div>
-      
+
       {/* Event Detail Modal - Matching Calendar Modal Styling */}
-      <EventModal 
-        event={selectedEvent} 
-        isOpen={isModalOpen && selectedEvent !== null} 
-        onClose={handleCloseModal} 
+      <EventModal
+        event={selectedEvent}
+        isOpen={isModalOpen && selectedEvent !== null}
+        onClose={handleCloseModal}
       />
     </div>
   );
