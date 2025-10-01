@@ -277,6 +277,7 @@ export default function EventsPage() {
         category: event.category,
         image: event.image,
         link: event.link,
+        links: event.links, // Add links to top level
         extendedProps: {
           originalEvent: {
             ...event,
@@ -449,10 +450,11 @@ export default function EventsPage() {
           ...byId,
           // Use the link from the calendar event if available, otherwise use the one from the original event
           link: event.link || original.link || byId.link,
-          // Combine links from both sources, removing duplicates by URL
+          // Combine links from all sources, removing duplicates by URL
           links: [
             ...(byId.links || []),
             ...(original.links || []),
+            ...(event.links || []),
           ].filter((link, index, self) => 
             index === self.findIndex(l => l.url === link.url)
           )
