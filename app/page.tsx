@@ -280,14 +280,14 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* YuruCamp 2025 Banner */}
+      {/* Featured Event Banner */}
       <div className="w-full bg-gradient-to-r from-pink-500/10 to-purple-500/10 border-b border-pink-500/20 py-6">
         <div className="max-w-6xl mx-auto px-4">
-          <Link href="/yurucamp" className="block w-full rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+          <Link href="/events?month=2025-10&event=11-chainsaw-man-the" className="block w-full rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
             <div className="w-full">
               <img 
-                src="/images/yurucamp/2025_cover.jpg" 
-                alt="YuruCamp 2025 - Weeb Camping Adventure - September 5-7, 2025" 
+                src="/otaku_lt_event.jpg" 
+                alt="October 2025 Events - Check out what's happening this month" 
                 className="w-full h-auto object-contain max-h-[70vh] mx-auto hover:opacity-95 transition-opacity"
                 style={{ maxWidth: '100%', height: 'auto' }}
               />

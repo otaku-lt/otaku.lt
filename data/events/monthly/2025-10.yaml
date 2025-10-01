@@ -318,6 +318,8 @@
 
   image: /images/events/2025/10/2025-10-chainsaw-man-reze.jpg
   links:
+    - name: 'Forum Cinemas'
+      url: 'https://www.forumcinemas.lt/eng/event/311039/chainsaw_man_-_the_movie_reze_arc?theatreAreaID=1011'
     - name: 'Apollo Kinas'
       url: 'https://www.apollokinas.lt/event/5155/chainsaw_man_filmas_reze_arka?theatreAreaID=1024'
     - name: 'ACME Film'
