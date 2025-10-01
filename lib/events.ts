@@ -68,6 +68,7 @@ async function loadStaticEventsData(): Promise<Event[]> {
             description: event.description || '',
             featured: Boolean(event.featured),
             link: event.link,
+            links: event.links, // Include links array!
             category: categories[0] || event.category, // Primary category
             categories: categories.length > 1 ? categories : undefined, // Only set if multiple categories
             image: event.image,
