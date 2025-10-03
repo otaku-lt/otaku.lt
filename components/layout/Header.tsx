@@ -84,6 +84,7 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
 
   return (
     <header 
+      data-visible-routes={JSON.stringify(visibleRoutes.map(r => r.path))}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
           ? "bg-[#1e1e1e]/95 backdrop-blur-md border-b border-border/30 shadow-lg" 
