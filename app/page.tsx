@@ -201,11 +201,11 @@ export default function HomePage() {
 
           {/* Mobile Navigation */}
           {mobileMenuOpen && (
-            <nav className="md:hidden mt-4 py-4 border-t border-pink-200">
+            <nav className="md:hidden mt-4 py-4 border-t border-border/40">
               <div className="flex flex-col space-y-3">
                 <Link
                   href="/"
-                  className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
+                  className="text-foreground/90 hover:text-pink-400 transition-colors py-2 flex items-center gap-2"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <span>🏠</span>
@@ -213,7 +213,7 @@ export default function HomePage() {
                 </Link>
                 <Link
                   href="/events"
-                  className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
+                  className="text-foreground/90 hover:text-pink-400 transition-colors py-2 flex items-center gap-2"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <span>🎌</span>
@@ -221,7 +221,7 @@ export default function HomePage() {
                 </Link>
                 <Link
                   href="/communities"
-                  className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
+                  className="text-foreground/90 hover:text-pink-400 transition-colors py-2 flex items-center gap-2"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <span>👥</span>
@@ -230,7 +230,7 @@ export default function HomePage() {
                 
                 {/* Otaku.lt Events Section */}
                 <div className="py-2">
-                  <div className="text-gray-500 text-sm font-medium mb-2 flex items-center gap-2">
+                  <div className="text-muted-foreground text-sm font-medium mb-2 flex items-center gap-2">
                     <span>🎭</span>
                     Otaku.lt Events
                   </div>
@@ -238,7 +238,7 @@ export default function HomePage() {
                     {isRouteVisible('/idol-stage') && (
                       <Link
                         href="/idol-stage"
-                        className="text-gray-700 hover:text-pink-600 transition-colors py-1 flex items-center gap-2 text-sm"
+                        className="text-foreground/80 hover:text-pink-400 transition-colors py-1 flex items-center gap-2 text-sm"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         <span>🎤</span>
@@ -247,7 +247,7 @@ export default function HomePage() {
                     )}
                     <Link
                       href="/yurucamp"
-                      className="text-gray-700 hover:text-pink-600 transition-colors py-1 flex items-center gap-2 text-sm"
+                      className="text-foreground/80 hover:text-pink-400 transition-colors py-1 flex items-center gap-2 text-sm"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <span>⛺</span>
@@ -255,7 +255,7 @@ export default function HomePage() {
                     </Link>
                     <Link
                       href="/korniha-band"
-                      className="text-gray-700 hover:text-pink-600 transition-colors py-1 flex items-center gap-2 text-sm"
+                      className="text-foreground/80 hover:text-pink-400 transition-colors py-1 flex items-center gap-2 text-sm"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <span>🎸</span>
@@ -266,7 +266,7 @@ export default function HomePage() {
                 
                 <Link
                   href="/contact"
-                  className="text-gray-700 hover:text-pink-600 transition-colors py-2 flex items-center gap-2"
+                  className="text-foreground/90 hover:text-pink-400 transition-colors py-2 flex items-center gap-2"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <span>📧</span>
