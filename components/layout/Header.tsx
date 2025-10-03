@@ -20,7 +20,9 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const pathname = usePathname();
-  const navLinks = getVisibleRoutes().map(route => {
+  const visibleRoutes = getVisibleRoutes();
+  console.log('Visible Routes in Header:', visibleRoutes.map(r => r.path));
+  const navLinks = visibleRoutes.map(route => {
     let icon = <span className="inline-flex items-center justify-center w-4 h-4">🔗</span>;
 
     if (route.path === '/') {
@@ -172,7 +174,7 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
           isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible h-0"
         }`}
       >
-        <div className="absolute inset-0 bg-[#1e1e1e] bg-opacity-95 backdrop-blur-lg">
+        <div className="absolute inset-0 bg-[#1e1e1e] bg-opacity-95 backdrop-blur-lg dark">
           <div className="px-4 pt-4 pb-6 space-y-2 sm:px-6 overflow-y-auto h-full">
             {navLinks.map((link) => (
               <Link
@@ -180,11 +182,11 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
                 href={link.href}
                 className={`flex items-center px-4 py-3 rounded-lg text-base font-medium transition-colors ${
                   pathname === link.href
-                    ? "text-foreground bg-foreground/10"
-                    : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
+                    ? "text-[#fafafa] bg-white/10"
+                    : "text-[#a3a3a3] hover:bg-white/5 hover:text-[#fafafa]"
                 }`}
               >
-                <span className="mr-3 text-foreground/80">{React.cloneElement(link.icon, { className: 'w-4 h-4' })}</span>
+                <span className="mr-3 text-[#d4d4d4]">{React.cloneElement(link.icon, { className: 'w-4 h-4' })}</span>
                 {link.name}
               </Link>
             ))}
