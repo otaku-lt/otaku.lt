@@ -151,49 +151,52 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
               </div>
             )}
             
-            <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-foreground/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-foreground/20 transition-colors"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-              {isMenuOpen ? (
-                <X className="block h-6 w-6" aria-hidden="true" />
-              ) : (
-                <Menu className="block h-6 w-6" aria-hidden="true" />
-              )}
-              </button>
-            </div>
+            {isHydrated && (
+              <div className="md:hidden">
+                <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="inline-flex items-center justify-center p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-foreground/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-foreground/20 transition-colors"
+                  aria-expanded="false"
+                >
+                  <span className="sr-only">Open main menu</span>
+                  {isMenuOpen ? (
+                    <X className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <Menu className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       {/* Mobile menu */}
-      <div
-        className={`md:hidden fixed inset-0 top-16 z-50 transition-all duration-300 ease-in-out ${
-          isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible h-0"
-        }`}
-      >
-        <div className="absolute inset-0 bg-[#1e1e1e] bg-opacity-95 backdrop-blur-lg dark">
-          <div className="px-4 pt-4 pb-6 space-y-2 sm:px-6 overflow-y-auto h-full">
+      {isHydrated && (
+        <div
+          className={`md:hidden transition-all duration-300 ease-in-out ${
+            isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+          } bg-[#1e1e1e] backdrop-blur-lg border-t border-foreground/10`}
+        >
+          <div className="px-2 pt-2 pb-6 space-y-1 sm:px-3 border-t border-border/50">
             {navLinks.map((link) => (
               <Link
                 key={`mobile-${link.name}`}
                 href={link.href}
                 className={`flex items-center px-4 py-3 rounded-lg text-base font-medium transition-colors ${
                   pathname === link.href
-                    ? "text-[#fafafa] bg-white/10"
-                    : "text-[#a3a3a3] hover:bg-white/5 hover:text-[#fafafa]"
+                    ? "text-foreground bg-foreground/10"
+                    : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
                 }`}
               >
-                <span className="mr-3 text-[#d4d4d4]">{React.cloneElement(link.icon, { className: 'w-4 h-4' })}</span>
+                <span className="mr-3 text-foreground/80">{React.cloneElement(link.icon, { className: 'w-4 h-4' })}</span>
                 {link.name}
               </Link>
             ))}
+            {/* Additional mobile-only links can be added here */}
           </div>
         </div>
-      </div>
+      )}
     </header>
   );
 };
