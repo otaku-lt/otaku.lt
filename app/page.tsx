@@ -315,14 +315,14 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <Link
                   href="/events"
-                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-full hover:from-pink-600 hover:to-pink-700 transition-all hover:scale-105 shadow-lg"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-full hover:from-pink-600 hover:to-pink-700 transition-all hover:scale-105 shadow-lg"
                 >
                   <Calendar className="mr-2" size={20} />
                   Explore Events
                 </Link>
                 <Link
                   href="/submit"
-                  className="inline-flex items-center px-8 py-4 border-2 border-pink-500 text-pink-600 rounded-full hover:bg-pink-50 transition-all hover:scale-105"
+                  className="inline-flex items-center justify-center px-8 py-4 border-2 border-pink-500 text-pink-600 rounded-full hover:bg-pink-50 transition-all hover:scale-105"
                 >
                   <Star className="mr-2" size={20} />
                   Submit Event
