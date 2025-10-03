@@ -18,10 +18,11 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
   const pathname = usePathname();
   const navLinks = getVisibleRoutes().map(route => {
     let icon = <span className="inline-flex items-center justify-center w-4 h-4">🔗</span>;
-    
+
     if (route.path === '/') {
       icon = <span className="inline-flex items-center justify-center w-4 h-4">🏠</span>;
     } else if (route.path === '/events' || route.path.startsWith('/events/')) {
@@ -29,13 +30,18 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
     } else if (route.path === '/submit') {
       icon = <span className="inline-flex items-center justify-center w-4 h-4">➕</span>;
     }
-    
+
     return {
       name: route.label,
       href: route.path,
       icon: icon,
     };
   });
+
+  // Ensure consistent rendering between server and client
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   // Handle scroll effect for header
   useEffect(() => {
@@ -47,10 +53,32 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [pathname]);
+  // Prevent hydration mismatch by not rendering mobile menu until hydrated
+  if (!isHydrated) {
+    return (
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#1e1e1e]/90 backdrop-blur-sm border-b border-transparent">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex-shrink-0 flex items-center">
+              <Link href="/" className="flex items-center space-x-2">
+                <Image
+                  src="/otaku_lt.png"
+                  alt="Otaku.lt Logo"
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 dark:invert"
+                  priority
+                />
+                <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  {title || 'otaku.lt'}
+                </span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header 
@@ -140,26 +168,27 @@ const Header: React.FC<HeaderProps> = ({ title, showBackButton = false, actions 
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden transition-all duration-300 ease-in-out ${
-          isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
-        } bg-[#1e1e1e] backdrop-blur-lg border-t border-foreground/10`}
+        className={`md:hidden fixed inset-0 top-16 z-50 transition-all duration-300 ease-in-out ${
+          isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible h-0"
+        }`}
       >
-        <div className="px-2 pt-2 pb-6 space-y-1 sm:px-3 border-t border-border/50">
-          {navLinks.map((link) => (
-            <Link
-              key={`mobile-${link.name}`}
-              href={link.href}
-              className={`flex items-center px-4 py-3 rounded-lg text-base font-medium transition-colors ${
-                pathname === link.href
-                  ? "text-foreground bg-foreground/10"
-                  : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
-              }`}
-            >
-              <span className="mr-3 text-foreground/80">{React.cloneElement(link.icon, { className: 'w-4 h-4' })}</span>
-              {link.name}
-            </Link>
-          ))}
-          {/* Additional mobile-only links can be added here */}
+        <div className="absolute inset-0 bg-[#1e1e1e] bg-opacity-95 backdrop-blur-lg">
+          <div className="px-4 pt-4 pb-6 space-y-2 sm:px-6 overflow-y-auto h-full">
+            {navLinks.map((link) => (
+              <Link
+                key={`mobile-${link.name}`}
+                href={link.href}
+                className={`flex items-center px-4 py-3 rounded-lg text-base font-medium transition-colors ${
+                  pathname === link.href
+                    ? "text-foreground bg-foreground/10"
+                    : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
+                }`}
+              >
+                <span className="mr-3 text-foreground/80">{React.cloneElement(link.icon, { className: 'w-4 h-4' })}</span>
+                {link.name}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </header>
