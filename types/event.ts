@@ -30,13 +30,21 @@ export interface Event {
   // Multiple screenings of the same event (e.g., a movie)
   screenings?: Screening[];
   // Setlist information for band performances
-  setlist?: Setlist | { type?: string; days?: SetlistDay[] };
+  setlist?: EventSetlist | string;
   // Add any other fields that might be used in your events
 }
 
 export interface SetlistDay {
   day?: number;
+  date?: string;
+  time?: string;
   type: 'Japanese' | 'Lithuanian';
+  songs?: string[];
+}
+
+export interface EventSetlist {
+  days?: SetlistDay[];
+  type?: string;
 }
 
 export type Setlist = 'Japanese' | 'Lithuanian' | SetlistDay[];
