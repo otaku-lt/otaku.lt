@@ -219,6 +219,7 @@ export async function getKornihaEvents(): Promise<Event[]> {
         
         // Add optional fields if they exist
         if (event.image) kornihaEvent.image = event.image;
+        if (event.setlist) kornihaEvent.setlist = event.setlist;
         
         return kornihaEvent;
       });

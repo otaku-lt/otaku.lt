@@ -29,6 +29,8 @@ export interface Event {
   price?: number | string;
   // Multiple screenings of the same event (e.g., a movie)
   screenings?: Screening[];
+  // Setlist information for band performances
+  setlist?: Setlist | { type?: string; days?: SetlistDay[] };
   // Add any other fields that might be used in your events
 }
 
