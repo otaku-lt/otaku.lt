@@ -163,18 +163,18 @@ export default function HomePage() {
                       </Link>
                     )}
                     <Link
-                      href="/yurucamp"
-                      className="flex items-center gap-3 px-4 py-2.5 text-gray-200 hover:bg-pink-600/30 hover:text-white transition-colors"
-                    >
-                      <span className="text-pink-400">⛺</span>
-                      YuruCamp
-                    </Link>
-                    <Link
                       href="/korniha-band"
                       className="flex items-center gap-3 px-4 py-2.5 text-gray-200 hover:bg-pink-600/30 hover:text-white transition-colors"
                     >
                       <span className="text-pink-400">🎸</span>
                       Korniha Band
+                    </Link>
+                    <Link
+                      href="/yurucamp"
+                      className="flex items-center gap-3 px-4 py-2.5 text-gray-200 hover:bg-pink-600/30 hover:text-white transition-colors"
+                    >
+                      <span className="text-pink-400">⛺</span>
+                      YuruCamp 2025
                     </Link>
                   </div>
                 </div>
@@ -246,20 +246,20 @@ export default function HomePage() {
                       </Link>
                     )}
                     <Link
-                      href="/yurucamp"
-                      className="text-foreground/80 hover:text-pink-400 transition-colors py-1 flex items-center gap-2 text-sm"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <span>⛺</span>
-                      YuruCamp
-                    </Link>
-                    <Link
                       href="/korniha-band"
                       className="text-foreground/80 hover:text-pink-400 transition-colors py-1 flex items-center gap-2 text-sm"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <span>🎸</span>
                       Korniha Band
+                    </Link>
+                    <Link
+                      href="/yurucamp"
+                      className="text-foreground/80 hover:text-pink-400 transition-colors py-1 flex items-center gap-2 text-sm"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <span>⛺</span>
+                      YuruCamp 2025
                     </Link>
                   </div>
                 </div>
