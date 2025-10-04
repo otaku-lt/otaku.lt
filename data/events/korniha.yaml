@@ -25,3 +25,14 @@
         date: "2025-08-30"
         time: "19:00"
         type: "Lithuanian"
+
+
+- id: 3
+  title: "AniMegaMeSs (Estonia, Tartu)"
+  date: "2025-10-11"
+  endDate: "2025-10-12"
+  location: "Karlova School in Tartu, Estonia"
+  description: "Animega Mess, an anime and Japanese pop culture event featuring cosplay, gaming tournaments (including a Yu-Gi-Oh! TCG tournament), and other fan-centric activities, happening on October 11th at the Karlova School in Tartu, Estonia"
+  link: "https://www.pandayama.ee/animega-mess/"
+  setlist:
+    type: "Japanese"
