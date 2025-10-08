@@ -43,3 +43,32 @@
 
   image: /images/events/2025/11/2025-11-millennium-actress.jpg
   link: 'https://www.forumcinemas.lt/event/311021/pamatyk_kine_millennium_actress_2001?theatreAreaID=1011'
+
+- id: 22
+  title: 'Nausicaä of the Valley of the Wind (1984)'
+  date: '2025-11-05'
+  time: 'All day'
+  category: screening
+  screenings:
+    - date: '2025-11-05'
+      time: '18:30'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-11-05'
+      time: '18:30'
+      cinema: 'Forum Cinemas Kaunas'
+    - date: '2025-11-05'
+      time: '18:30'
+      cinema: 'Forum Cinemas Klaipėda'
+  description: |
+    A masterpiece from legendary director Hayao Miyazaki and Studio Ghibli, Nausicaä of the Valley of the Wind is an epic post-apocalyptic adventure.
+    
+    Set in a future where humanity struggles to survive in a world devastated by war and pollution, the film follows Princess Nausicaä as she tries to prevent a war and protect both humanity and the toxic jungle that threatens to consume the world.
+    
+    This visually stunning animated film explores themes of environmentalism, pacifism, and the relationship between humans and nature. A must-see classic that helped establish Studio Ghibli's reputation for creating profound and beautiful animated films.
+    
+    Rating: Suitable for all ages
+    Original Release: 1984
+    Language: Japanese with Lithuanian subtitles
+  
+  image: /images/events/2025/11/2025-11-nausicaa.jpg
+  link: 'https://www.forumcinemas.lt/event/311129/nausicaä_of_the_valley_of_the_wind?theatreAreaID=1011'
