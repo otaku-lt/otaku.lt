@@ -36,3 +36,13 @@
   link: "https://www.pandayama.ee/animega-mess/"
   setlist:
     type: "Japanese"
+
+- id: 4
+  title: "J-TSOON: Burning Pumpkin Fest (Estonia, Tallinn)"
+  date: "2025-11-08"
+  endDate: "2025-11-09"
+  location: "Kultuurikatel & Energia Avastuskeskus, Tallinn, Estonia"
+  description: "J-TSOON: Burning Pumpkin Fest is a festival celebrating Asian and youth subcultures. It brings together fans of anime, manga, comics, board and video games, cosplay, K-pop, and more. Korniha band will perform at this unforgettable weekend event."
+  link: "https://j-tsoon.ee/"
+  setlist:
+    type: "Japanese"
