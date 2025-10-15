@@ -41,8 +41,9 @@
   background: var(--vscode-editor-background);
   color: var(--vscode-editor-foreground);
   border-radius: 8px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
   
   /* Calendar specific overrides */
   --fc-page-bg-color: var(--vscode-editor-background);
@@ -249,6 +250,7 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   max-height: 2.4em; /* line-height * number of lines */
 }
@@ -350,20 +352,45 @@
 
 /* Popover styling */
 .otaku-fullcalendar .fc-popover {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--vscode-sideBar-background) !important;
   backdrop-filter: blur(20px);
-  border: 2px solid rgba(236, 72, 153, 0.2);
+  border: 2px solid rgba(236, 72, 153, 0.3) !important;
   border-radius: 16px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+  z-index: 1000 !important;
+  color: var(--vscode-editor-foreground) !important;
+  position: absolute !important;
 }
 
 .otaku-fullcalendar .fc-popover-header {
-  background: linear-gradient(135deg, rgb(236 72 153) 0%, rgb(147 51 234) 100%);
-  color: white;
+  background: linear-gradient(135deg, rgb(236 72 153) 0%, rgb(147 51 234) 100%) !important;
+  color: white !important;
   padding: 12px 16px;
-  border-radius: 16px 16px 0 0;
+  border-radius: 14px 14px 0 0;
   font-weight: 700;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.otaku-fullcalendar .fc-popover-body {
+  background: var(--vscode-sideBar-background) !important;
+  color: var(--vscode-editor-foreground) !important;
+  padding: 8px;
+}
+
+.otaku-fullcalendar .fc-popover .fc-event {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+.otaku-fullcalendar .fc-popover-close {
+  color: white !important;
+  opacity: 0.8;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.otaku-fullcalendar .fc-popover-close:hover {
+  opacity: 1;
 }
 
 /* Remove borders and add subtle gradients */

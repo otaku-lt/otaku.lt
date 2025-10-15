@@ -658,7 +658,7 @@ export default function EventsPage() {
 
         {/* Calendar View */}
         {!isLoading && !error && viewMode === 'calendar' && filteredEvents.length > 0 && (
-          <div className="bg-card rounded-lg border shadow-sm overflow-hidden">
+          <div className="bg-card rounded-lg border shadow-sm">
             <EventCalendar
               events={calendarEvents}
               onSelectEvent={handleCalendarEventClick}

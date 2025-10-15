@@ -74,7 +74,7 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot, ini
     <div className="relative">
       <CalendarHeader events={events} />
 
-      <div className="otaku-fullcalendar bg-card/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden border border-border/40 p-4">
+      <div className="otaku-fullcalendar bg-card/80 backdrop-blur-sm rounded-2xl shadow-lg border border-border/40 p-4">
         <FullCalendar
           ref={calendarRef}
           key={`calendar-${fullCalendarEvents.length}`}
