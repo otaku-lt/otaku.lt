@@ -322,6 +322,20 @@
       time: '18:30'
       cinema: 'Apollo Kinas Vilnius Outlet'
     
+    # Forum Cinemas
+    - date: '2025-10-29'
+      time: '18:30'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-10-29'
+      time: '18:30'
+      cinema: 'Forum Cinemas Šiauliai'
+    - date: '2025-10-29'
+      time: '18:30'
+      cinema: 'Forum Cinemas Klaipėda'
+    - date: '2025-10-29'
+      time: '18:30'
+      cinema: 'Forum Cinemas Kaunas'
+    
   description: |
     For the first time, Chainsaw Man slashes his way onto the big screen in an epic, action-fueled adventure 
     that continues the hugely popular anime series. The movie introduces Reze, a new romantic interest who 
