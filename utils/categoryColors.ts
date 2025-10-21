@@ -32,6 +32,11 @@ export const getCategoryColor = (category: string): CategoryColors => {
       text: 'text-green-400',
       border: 'border-green-500/30',
     },
+    presentation: {
+      bg: 'bg-emerald-500/10',
+      text: 'text-emerald-400',
+      border: 'border-emerald-500/30',
+    },
   };
 
   return colors[category] || colors.default;
