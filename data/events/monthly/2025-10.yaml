@@ -683,3 +683,27 @@
   
   image: /images/events/2025/10/2025-10-spot-weekend.jpg
   link: 'https://www.facebook.com/events/1115743007416129/'
+
+- id: 23
+  title: 'Satoshi Kon - A Legendary Legacy'
+  date: '2025-10-24'
+  time: '17:00 - 20:00'
+  location: 'V. Putvinskio g. 23, Room 310'
+  venue: 'Hashi - VMU Japanese Culture Club'
+  category: presentation
+  description: |
+    On Friday (24th October), VMU Japanese Culture Club "Hashi" invites you to a presentation about the legendary anime film director Satoshi Kon. During the presentation, you will be introduced to the visionary behind beloved classics such as Perfect Blue and Paprika, as well as get one of his creations on the screen!
+    
+    🇯🇵 When?
+    October 24th, 17:00
+    
+    🇯🇵 Where?
+    Putvinskio st. 23, Room 310
+    
+    🇯🇵 What to bring?
+    Some snacks and a good mood~
+    
+    Join us to explore the groundbreaking work of one of anime's most influential directors. Satoshi Kon's unique storytelling and innovative visual techniques have left an indelible mark on animation and cinema as a whole.
+  
+  image: /images/events/2025/10/2025-10-satoshi-kon.png
+  organizer: 'Hashi - VMU Japanese Culture Club'
