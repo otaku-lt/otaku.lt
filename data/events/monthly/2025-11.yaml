@@ -64,6 +64,30 @@
   image: /images/events/2025/11/2025-11-millennium-actress.jpg
   link: 'https://www.forumcinemas.lt/event/311021/pamatyk_kine_millennium_actress_2001?theatreAreaID=1011'
 
+- id: 24
+  title: "Angel's Egg (1985)"
+  category: screening
+  screenings:
+    # Apollo Kinas screenings
+    - date: '2025-11-28'
+      time: 'See website for showtimes'
+      cinema: 'Apollo Kinas'
+  description: |
+    A visually stunning and enigmatic anime film directed by Mamoru Oshii, known for his work on Ghost in the Shell. Angel's Egg is a surreal and atmospheric journey through a dreamlike world.
+    
+    The film follows a young girl who protects a large egg in a desolate, flooded city. Her solitary existence is interrupted when she encounters a mysterious man carrying a cross-shaped object. As they wander through the decaying landscape, the film weaves a haunting tale of faith, existence, and the nature of reality.
+    
+    With minimal dialogue and breathtaking animation, Angel's Egg is a masterpiece of visual storytelling that has gained a cult following for its deep symbolism and unique artistic vision.
+    
+    Director: Mamoru Oshii
+    Runtime: 1h 11min
+    Language: Japanese with Lithuanian subtitles
+    
+    "A haunting, beautiful work of art that lingers long after the credits roll." - Anime News Network
+  
+  image: /images/events/2025/11/2025-11-angels-egg.jpg
+  link: 'https://www.apollokinas.lt/eng/event/5234/angels_egg'
+
 - id: 22
   title: 'Nausicaä of the Valley of the Wind (1984)'
   date: '2025-11-05'
