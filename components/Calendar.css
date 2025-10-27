@@ -231,12 +231,13 @@
 .otaku-fullcalendar .fc-daygrid-day {
   background: var(--vscode-editor-background);
   border-color: var(--vscode-widget-border) !important;
+  position: relative;
+  cursor: default !important;
 }
 
 /* Today's cell */
 .otaku-fullcalendar .fc-day-today {
   background: var(--vscode-editor-lineHighlightBackground) !important;
-  position: relative;
 }
 
 /* Today's indicator dot */
@@ -251,31 +252,15 @@
   border-radius: 2px;
 }
 
-/* Selected cell - match calendar background */
+/* Selected cell */
 .otaku-fullcalendar .fc-highlight,
 .otaku-fullcalendar .fc-highlight:hover {
   background: var(--vscode-editor-background) !important;
 }
 
-/* Consistent cell styling - no hover or today highlight */
-.otaku-fullcalendar .fc-daygrid-day,
-.otaku-fullcalendar .fc-day-today,
-.otaku-fullcalendar .fc-daygrid-day:hover,
-.otaku-fullcalendar .fc-day-today:hover {
-  background: var(--vscode-editor-background) !important;
-  cursor: default !important;
-  position: relative;
-}
-
-.otaku-fullcalendar .fc-day-today::after {
-  content: '';
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 4px;
-  height: 4px;
-  background: var(--vscode-button-background);
-  border-radius: 2px;
+/* Hover effect for days */
+.otaku-fullcalendar .fc-daygrid-day:hover {
+  background: var(--vscode-editor-lineHighlightBackground) !important;
 }
 
 .otaku-fullcalendar .fc-daygrid-day-number {
