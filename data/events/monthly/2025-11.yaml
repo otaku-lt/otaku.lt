@@ -1,3 +1,23 @@
+- id: 23
+  title: 'SPOT Entertainment Weekend (Extended)'
+  date: '2025-11-03'
+  endDate: '2025-11-09'
+  time: 'All day'
+  location: 'Vilnius, Lithuania'
+  category: convention
+  description: |
+    SPOT Entertainment Weekend brings together Comic Con Baltics and Baltics Gaming Expo for an epic week-long celebration of geek culture!
+    
+    Join us for seven days filled with:
+    - Comic Con Baltics - cosplay competitions, celebrity guests, artist alley, vendor marketplace
+    - Baltics Gaming Expo - latest games, esports tournaments, gaming demos
+    - Anime and manga content
+    - Pop culture panels and workshops
+    - Special extended programming and exclusive events
+  
+  image: /images/events/2025/10/2025-10-spot-entertainment.jpg
+  link: 'https://spotentertainment.lt/'
+
 - id: 4
   title: 'GameOn 2025'
   date: '2025-11-07'
