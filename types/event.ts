@@ -6,6 +6,7 @@ export interface Screening {
   date?: string; // If omitted, inherit parent event date
   time?: string; // If omitted, inherit parent event time
   cinema?: string; // Cinema or venue name for this specific screening
+  auditorium?: string; // Specific screening room or auditorium
 }
 
 export interface Event {

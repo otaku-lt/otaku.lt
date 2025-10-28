@@ -1,7 +1,8 @@
-import React from 'react';
-import { X, Calendar as CalendarIcon, MapPin, Tag } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { X, Calendar as CalendarIcon, MapPin, Tag, ChevronDown, ChevronUp } from 'lucide-react';
 import type { Event, Screening } from '@/types/event';
 import { EVENT_CATEGORIES } from '@/config/event-categories';
+import { cn } from '@/lib/utils';
 
 interface EventModalProps {
   event: Event | null;
@@ -26,8 +27,10 @@ export function EventModal({ event, isOpen, onClose, selectedScreeningDate }: Ev
     }
   };
 
+  const [expandedCinemas, setExpandedCinemas] = useState<Record<string, boolean>>({});
+
   // Get the selectedScreeningDate from props or from the event object
-  const actualSelectedScreeningDate = React.useMemo(() => {
+  const actualSelectedScreeningDate = useMemo(() => {
     // First try to get from props
     if (selectedScreeningDate) return selectedScreeningDate;
     
@@ -41,6 +44,66 @@ export function EventModal({ event, isOpen, onClose, selectedScreeningDate }: Ev
     
     return event.date;
   }, [selectedScreeningDate, event]);
+
+  // Group all cinemas and their screenings
+  const cinemasWithScreenings = useMemo(() => {
+    if (!event.screenings || event.screenings.length === 0) {
+      return {};
+    }
+
+    const selectedDateStr = formatDate(actualSelectedScreeningDate);
+    const cinemas: Record<string, { all: Screening[]; hasOnSelectedDate: boolean }> = {};
+    
+    // Group all screenings by cinema and check which have screenings on selected date
+    event.screenings.forEach(screening => {
+      const cinema = screening.cinema || 'Other';
+      if (!cinemas[cinema]) {
+        cinemas[cinema] = { 
+          all: [], 
+          hasOnSelectedDate: false 
+        };
+      }
+      
+      // Add to all screenings
+      cinemas[cinema].all.push(screening);
+      
+      // Check if this screening is for the selected date
+      const screeningDateStr = formatDate(screening.date || event.date);
+      if (screeningDateStr === selectedDateStr) {
+        cinemas[cinema].hasOnSelectedDate = true;
+      }
+    });
+    
+    // Sort screenings within each cinema by date
+    Object.values(cinemas).forEach(cinema => {
+      cinema.all.sort((a, b) => 
+        new Date(a.date || event.date).getTime() - new Date(b.date || event.date).getTime()
+      );
+    });
+    
+    return cinemas;
+  }, [event.screenings, actualSelectedScreeningDate, event.date]);
+
+  // Toggle cinema expansion
+  const toggleCinema = (cinema: string) => {
+    setExpandedCinemas(prev => ({
+      ...prev,
+      [cinema]: !prev[cinema]
+    }));
+  };
+
+  // Expand cinemas with screenings for the selected date by default
+  React.useEffect(() => {
+    const initialExpandedState = Object.entries(cinemasWithScreenings).reduce<Record<string, boolean>>(
+      (acc, [cinema, { hasOnSelectedDate }]) => {
+        // Only expand if there are screenings for the selected date
+        acc[cinema] = hasOnSelectedDate;
+        return acc;
+      },
+      {}
+    );
+    setExpandedCinemas(initialExpandedState);
+  }, [cinemasWithScreenings]);
 
   return (
     <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${isOpen ? 'block' : 'hidden'}`}>
@@ -94,67 +157,90 @@ export function EventModal({ event, isOpen, onClose, selectedScreeningDate }: Ev
                 <div className="space-y-4">
                   <div className="flex items-center">
                     <CalendarIcon className="w-5 h-5 mr-3 flex-shrink-0 text-primary" />
-                    <p className="text-sm font-medium text-muted-foreground">Screenings by Cinema</p>
+                    <p className="text-sm font-medium text-muted-foreground">
+                      Screenings on {new Date(actualSelectedScreeningDate).toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </p>
                   </div>
 
-                  {/* Group screenings by cinema */}
-                  {(() => {
-                    // Create a map to group screenings by cinema
-                    const screeningsByCinema = event.screenings.reduce<Record<string, Screening[]>>((acc, screening) => {
-                      const cinema = screening.cinema || 'Other';
-                      if (!acc[cinema]) {
-                        acc[cinema] = [];
-                      }
-                      acc[cinema].push(screening);
-                      return acc;
-                    }, {});
-
-                    const cinemaElements = Object.entries(screeningsByCinema).map(([cinema, cinemaScreenings]) => (
-                      <div key={cinema} className="space-y-2 pl-8">
-                        <h4 className="font-medium text-foreground flex items-center">
-                          <MapPin className="w-4 h-4 mr-2 text-primary" />
-                          {cinema}
-                        </h4>
-                        <div className="space-y-2">
-                          {cinemaScreenings
-                            .sort((a, b) =>
-                              new Date(a.date || event.date).getTime() - new Date(b.date || event.date).getTime()
-                            )
-                            .map((screening, index) => (
-                              <div 
-                                key={index} 
-                                className={`flex justify-between items-center rounded-lg p-3 ${
-                                  (() => {
-                                    const screeningDateStr = formatDate(screening.date || event.date);
-                                    const selectedDateStr = formatDate(actualSelectedScreeningDate);
-                                    const isSelected = screeningDateStr && selectedDateStr && 
-                                                     screeningDateStr === selectedDateStr;
-                                    return isSelected;
-                                  })()
-                                    ? 'bg-primary/20 ring-2 ring-primary/50' 
-                                    : 'bg-muted/30 hover:bg-muted/50'
-                                } transition-colors`}
-                              >
-                                <div>
-                                  <p className="font-medium text-foreground">
-                                    {new Date(screening.date || event.date).toLocaleDateString('en-US', {
-                                      weekday: 'short',
-                                      month: 'short',
-                                      day: 'numeric'
-                                    })}
-                                  </p>
-                                  <p className="text-sm text-muted-foreground">
-                                    {screening.time || event.time || 'Time TBA'}
-                                  </p>
-                                </div>
-                              </div>
-                            ))}
+                  {Object.keys(cinemasWithScreenings).length > 0 ? (
+                    <div className="space-y-2">
+                      {Object.entries(cinemasWithScreenings).map(([cinema, { all, hasOnSelectedDate }]) => (
+                        <div key={cinema} className="space-y-2">
+                          <button
+                            type="button"
+                            onClick={() => toggleCinema(cinema)}
+                            className="flex items-center w-full text-left p-2 rounded-lg hover:bg-muted/30 transition-colors"
+                          >
+                            <MapPin className="w-4 h-4 mr-2 text-primary flex-shrink-0" />
+                            <span className="font-medium text-foreground">{cinema}</span>
+                            <span className="ml-2 text-xs text-muted-foreground">
+                              {all.length} {all.length === 1 ? 'screening' : 'screenings'}
+                              {hasOnSelectedDate && (
+                                <span className="ml-1 text-primary">• {all.filter(s => formatDate(s.date || event.date) === formatDate(actualSelectedScreeningDate)).length} on this date</span>
+                              )}
+                            </span>
+                            <div className="ml-auto">
+                              {expandedCinemas[cinema] ? (
+                                <ChevronUp className="w-4 h-4 text-muted-foreground" />
+                              ) : (
+                                <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                              )}
+                            </div>
+                          </button>
+                          
+                          {expandedCinemas[cinema] !== false && (
+                            <div className="pl-6 space-y-2">
+                              {all.map((screening, index) => {
+                                const isSelectedDate = formatDate(screening.date || event.date) === formatDate(actualSelectedScreeningDate);
+                                return (
+                                  <div 
+                                    key={index} 
+                                    className={cn(
+                                      'flex justify-between items-center rounded-lg p-3',
+                                      isSelectedDate 
+                                        ? 'bg-primary/10 ring-1 ring-primary/20' 
+                                        : 'bg-muted/30 hover:bg-muted/50',
+                                      'transition-colors'
+                                    )}
+                                  >
+                                    <div>
+                                      <div className="flex items-center gap-2">
+                                        <p className="font-medium text-foreground">
+                                          {new Date(screening.date || event.date).toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric',
+                                            year: 'numeric'
+                                          })}
+                                        </p>
+                                        {isSelectedDate && (
+                                          <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full">
+                                            Selected date
+                                          </span>
+                                        )}
+                                      </div>
+                                      <p className="text-sm text-muted-foreground mt-1">
+                                        {screening.time || event.time || 'Time TBA'}
+                                        {screening.auditorium && ` • ${screening.auditorium}`}
+                                      </p>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
                         </div>
-                      </div>
-                    ));
-
-                    return <>{cinemaElements}</>;
-                  })()}
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-4 text-muted-foreground">
+                      No screenings available.
+                    </div>
+                  )}
                 </div>
               </div>
             ) : (
