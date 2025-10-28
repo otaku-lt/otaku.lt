@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Optimize font loading */
+@layer base {
+  html {
+    font-display: swap;
+  }
+}
+
 /* Import centralized theme system */
 @import '../styles/themes.css';
 
