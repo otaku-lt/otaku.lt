@@ -7,10 +7,40 @@ interface EventModalProps {
   event: Event | null;
   isOpen: boolean;
   onClose: () => void;
+  selectedScreeningDate?: string | null;
 }
 
-export function EventModal({ event, isOpen, onClose }: EventModalProps) {
+export function EventModal({ event, isOpen, onClose, selectedScreeningDate }: EventModalProps) {
   if (!event) return null;
+  
+  // Format date to YYYY-MM-DD for consistent comparison
+  const formatDate = (dateString: string | undefined) => {
+    if (!dateString) return '';
+    try {
+      // Handle both YYYY-MM-DD and full ISO strings
+      const date = new Date(dateString);
+      return date.toISOString().split('T')[0];
+    } catch (e) {
+      console.error('Error formatting date:', dateString, e);
+      return '';
+    }
+  };
+
+  // Get the selectedScreeningDate from props or from the event object
+  const actualSelectedScreeningDate = React.useMemo(() => {
+    // First try to get from props
+    if (selectedScreeningDate) return selectedScreeningDate;
+    
+    // Then try to get from event object
+    if ((event as any).selectedScreeningDate) return (event as any).selectedScreeningDate;
+    
+    // If no selected date, use the first screening date or event date
+    if (event.screenings && event.screenings.length > 0) {
+      return event.screenings[0].date || event.date;
+    }
+    
+    return event.date;
+  }, [selectedScreeningDate, event]);
 
   return (
     <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${isOpen ? 'block' : 'hidden'}`}>
@@ -91,7 +121,20 @@ export function EventModal({ event, isOpen, onClose }: EventModalProps) {
                               new Date(a.date || event.date).getTime() - new Date(b.date || event.date).getTime()
                             )
                             .map((screening, index) => (
-                              <div key={index} className="flex justify-between items-center bg-muted/30 rounded-lg p-3">
+                              <div 
+                                key={index} 
+                                className={`flex justify-between items-center rounded-lg p-3 ${
+                                  (() => {
+                                    const screeningDateStr = formatDate(screening.date || event.date);
+                                    const selectedDateStr = formatDate(actualSelectedScreeningDate);
+                                    const isSelected = screeningDateStr && selectedDateStr && 
+                                                     screeningDateStr === selectedDateStr;
+                                    return isSelected;
+                                  })()
+                                    ? 'bg-primary/20 ring-2 ring-primary/50' 
+                                    : 'bg-muted/30 hover:bg-muted/50'
+                                } transition-colors`}
+                              >
                                 <div>
                                   <p className="font-medium text-foreground">
                                     {new Date(screening.date || event.date).toLocaleDateString('en-US', {

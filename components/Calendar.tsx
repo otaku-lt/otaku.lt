@@ -16,7 +16,7 @@ import './Calendar.css';
 
 export default function Calendar({ events = [], onSelectEvent, onSelectSlot, initialDate, onMonthChange }: EventCalendarProps) {
   const [isClient, setIsClient] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const calendarRef = useRef<FullCalendar>(null);
 
@@ -30,13 +30,32 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot, ini
 
   // Handle event click
   const handleEventClick = useCallback((clickInfo: EventClickArg) => {
-    const calendarEvent = clickInfo.event.extendedProps.originalEvent as CalendarEvent;
+    const calendarEvent = clickInfo.event.extendedProps.originalEvent as Event;
     
-    if (onSelectEvent && calendarEvent) {
+    if (onSelectEvent) {
       clickInfo.jsEvent.preventDefault();
-      onSelectEvent(calendarEvent);
-    } else if (!onSelectEvent) {
-      setSelectedEvent(calendarEvent);
+      onSelectEvent(clickInfo.event as any);
+    } else {
+      // Get the clicked date in YYYY-MM-DD format
+      const clickedDate = clickInfo.event.start;
+      const clickedDateStr = clickedDate ? clickedDate.toISOString().split('T')[0] : null;
+      
+      console.log('Clicked date:', clickedDateStr);
+      console.log('Calendar event:', calendarEvent);
+      
+      // Create a new event object with the selectedScreeningDate
+      const eventWithScreeningDate = {
+        ...calendarEvent,
+        // Make sure to include all necessary properties from the original event
+        ...clickInfo.event.extendedProps.originalEvent,
+        // Override with the selected screening date
+        selectedScreeningDate: clickedDateStr || calendarEvent.date
+      };
+      
+      console.log('Event with screening date:', eventWithScreeningDate);
+      
+      // Set the selected event with the clicked date as the selectedScreeningDate
+      setSelectedEvent(eventWithScreeningDate);
       setIsModalOpen(true);
     }
   }, [onSelectEvent]);
@@ -116,11 +135,12 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot, ini
         />
       </div>
 
-      {!onSelectEvent && (
-        <EventModal 
-          event={(selectedEvent?.extendedProps?.originalEvent as Event) || null} 
-          isOpen={isModalOpen && selectedEvent?.extendedProps?.originalEvent !== undefined} 
-          onClose={() => setIsModalOpen(false)} 
+      {selectedEvent && (
+        <EventModal
+          event={selectedEvent}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          selectedScreeningDate={selectedEvent.selectedScreeningDate}
         />
       )}
     </div>

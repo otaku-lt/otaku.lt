@@ -31,6 +31,8 @@ export interface Event {
   screenings?: Screening[];
   // Setlist information for band performances
   setlist?: EventSetlist | string;
+  // Used to highlight a specific screening date in the modal
+  selectedScreeningDate?: string | null;
   // Add any other fields that might be used in your events
 }
 

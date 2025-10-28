@@ -35,7 +35,9 @@ export const useCalendarEvents = (events: CalendarEvent[]) => {
               location: event.location || '',
               category: category,
               description: event.description || '',
-              originalEvent: event
+              originalEvent: event,
+              // Include all screenings if this is a screening event
+              screenings: event.screenings || []
             }
           };
         } catch (error) {
