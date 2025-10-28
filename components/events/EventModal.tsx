@@ -193,7 +193,7 @@ export function EventModal({ event, isOpen, onClose, selectedScreeningDate }: Ev
                             </div>
                           </button>
                           
-                          {expandedCinemas[cinema] !== false && (
+                          {expandedCinemas[cinema] && (
                             <div className="pl-6 space-y-2">
                               {all.map((screening, index) => {
                                 const isSelectedDate = formatDate(screening.date || event.date) === formatDate(actualSelectedScreeningDate);
