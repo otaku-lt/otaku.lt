@@ -99,30 +99,39 @@ export default function YuruCampPage() {
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <a 
-                    href="https://www.facebook.com/events/1288618732795259" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="px-6 py-3 bg-[#1877F2] text-white rounded-full hover:bg-[#166FE5] transition-colors font-semibold text-center flex items-center justify-center gap-2"
-                  >
-                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                      <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.563V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
-                    </svg>
-                    Facebook Event
-                  </a>
-                  <a 
-                    href="https://forms.gle/F8vjGNG8LefEXeoi7"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative px-8 py-3.5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white rounded-full font-bold text-lg group overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-pink-500/30"
+                  <div className="flex gap-2">
+                    <a 
+                      href="https://www.facebook.com/events/1288618732795259" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="px-6 py-3 bg-[#1877F2] text-white rounded-full hover:bg-[#166FE5] transition-colors font-semibold text-center flex items-center justify-center gap-2"
+                    >
+                      <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.563V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+                      </svg>
+                      Facebook Event
+                    </a>
+                    <a 
+                      href="https://www.instagram.com/y.m.c.a.lt/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full hover:opacity-90 transition-opacity font-semibold text-center flex items-center justify-center gap-2"
+                      title="Follow us on Instagram"
+                    >
+                      <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                      </svg>
+                    </a>
+                  </div>
+                  <button 
+                    disabled
+                    className="relative px-8 py-3.5 bg-gradient-to-r from-gray-400 to-gray-500 text-white rounded-full font-bold text-lg group overflow-hidden transition-all duration-300 cursor-not-allowed opacity-70"
                   >
                     <span className="relative z-10 flex items-center gap-2">
-                      <span className="bg-white/20 backdrop-blur-sm px-2 py-0.5 rounded-full text-sm">✨</span>
-                      <span>Register for Cosplay</span>
-                      <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                      <span className="bg-white/20 backdrop-blur-sm px-2 py-0.5 rounded-full text-sm">🔒</span>
+                      <span>Registration Closed</span>
                     </span>
-                    <span className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></span>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
