@@ -96,10 +96,10 @@ export default function EventsPage() {
             ...ev,
             // Make id unique per date
             id: `${ev.id}-d${dateIdx}`,
-            // Use the date for this group
+            // Use the date for this group - this will be used as selectedScreeningDate
             date: date,
-            // Keep all screenings for this date for the modal
-            screenings: dateScreenings,
+            // Keep ALL screenings so the modal can show all dates
+            screenings: ev.screenings,
             // Preserve links from parent event
             link: ev.link,
             links: ev.links,
@@ -280,10 +280,11 @@ export default function EventsPage() {
         links: event.links, // Add links to top level
         extendedProps: {
           originalEvent: {
-            ...event,
+            ...event, // Spread first
+            // Then override with explicit values to ensure correct types
             id: event.id?.toString() || Math.random().toString(36).substr(2, 9),
             title: event.title || 'Untitled Event',
-            date: event.date,
+            date: event.date, // Keep the string date from expandedEventsForCalendar
             time: event.time || '',
             location: event.location || 'Location not specified',
             description: event.description || '',
@@ -360,10 +361,21 @@ export default function EventsPage() {
     if (eventParam && eventParam !== currentEventId) {
       // Extract event ID from slug (handles both "5" and "5-event-title" formats)
       const eventId = extractEventId(eventParam);
-      const event = events.find(e => e.id?.toString() === eventId);
-      if (event) {
-        setSelectedEvent(event);
-        setIsModalOpen(true);
+      
+      // Get base ID from selectedEvent (strip -d and -s suffixes)
+      const selectedEventBaseId = selectedEvent?.id?.toString().split('-d')[0].split('-s')[0];
+      
+      // Only update if the modal is not already open with this event
+      // This prevents overwriting the selectedScreeningDate set by handleCalendarEventClick
+      if (!isModalOpen || !selectedEvent || selectedEventBaseId !== eventId) {
+        const event = events.find(e => e.id?.toString() === eventId);
+        if (event) {
+          setSelectedEvent(event);
+          setIsModalOpen(true);
+          setCurrentEventId(eventId);
+        }
+      } else {
+        // Just update the currentEventId without touching selectedEvent
         setCurrentEventId(eventId);
       }
     } else if (!eventParam && currentEventId) {
@@ -371,7 +383,7 @@ export default function EventsPage() {
       setSelectedEvent(null);
       setCurrentEventId(null);
     }
-  }, [isClient, events, currentEventId, extractEventId]);
+  }, [isClient, events, currentEventId, extractEventId, isModalOpen, selectedEvent]);
 
   // Handle browser back/forward navigation
   useEffect(() => {
@@ -437,17 +449,28 @@ export default function EventsPage() {
   const handleCalendarEventClick = useCallback((event: CalendarEvent) => {
     // Get the original event from extendedProps if available
     const original: any = event?.extendedProps?.originalEvent;
+    
+    // Use the original event's date string to avoid timezone issues
+    // The original.date is already in YYYY-MM-DD format from expandedEventsForCalendar
+    const selectedScreeningDate = original?.date || null;
 
     if (original && original.id) {
       // Attempt to find by base id (strip screening suffix if any)
-      const baseId = String(original.id).split('-s')[0];
-      const byId = events.find((e: Event) => String(e.id) === original.id)
-        || events.find((e: Event) => String(e.id).split('-s')[0] === baseId);
+      const baseId = String(original.id).split('-d')[0].split('-s')[0];
+      
+      // First try to find in expandedEventsForCalendar to get the correct date format
+      const byIdExpanded = expandedEventsForCalendar.find((e: Event) => String(e.id) === original.id);
+      
+      // Fallback to original events array
+      const byId = byIdExpanded || events.find((e: Event) => String(e.id) === original.id)
+        || events.find((e: Event) => String(e.id).split('-d')[0].split('-s')[0] === baseId);
 
       if (byId) {
-        // Create a new event object that includes links from all sources
+        // Create a new event object that includes links from all sources and the selected date
         const eventWithLinks = {
           ...byId,
+          // Ensure date is a string in YYYY-MM-DD format
+          date: selectedScreeningDate || byId.date,
           // Use the link from the calendar event if available, otherwise use the one from the original event
           link: event.link || original.link || byId.link,
           // Combine links from all sources, removing duplicates by URL
@@ -457,7 +480,9 @@ export default function EventsPage() {
             ...(event.links || []),
           ].filter((link, index, self) =>
             index === self.findIndex(l => l.url === link.url)
-          )
+          ),
+          // Pass the selected screening date
+          selectedScreeningDate: selectedScreeningDate
         };
 
         handleEventClick(eventWithLinks);
@@ -467,21 +492,26 @@ export default function EventsPage() {
 
     // Fallback: attempt by exact id, then by title
     const eventId = event.id?.toString() || '';
-    const matchedEvent = events.find((e: Event) => e.id?.toString() === eventId)
+    const matchedEvent = expandedEventsForCalendar.find((e: Event) => e.id?.toString() === eventId)
+      || events.find((e: Event) => e.id?.toString() === eventId)
       || events.find((e: Event) => e.title === event?.title);
 
     if (matchedEvent) {
-      // Create a new event object that includes links from the calendar event
+      // Create a new event object that includes links from the calendar event and selected date
       const eventWithLinks = {
         ...matchedEvent,
+        // Ensure date is a string in YYYY-MM-DD format
+        date: selectedScreeningDate || matchedEvent.date,
         link: event.link || matchedEvent.link,
         // Preserve any existing links array
-        links: matchedEvent.links || []
+        links: matchedEvent.links || [],
+        // Pass the selected screening date
+        selectedScreeningDate: selectedScreeningDate
       };
 
       handleEventClick(eventWithLinks);
     }
-  }, [events, handleEventClick]);
+  }, [events, expandedEventsForCalendar, handleEventClick]);
 
   const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
@@ -698,6 +728,7 @@ export default function EventsPage() {
         event={selectedEvent}
         isOpen={isModalOpen && selectedEvent !== null}
         onClose={handleCloseModal}
+        selectedScreeningDate={selectedEvent?.selectedScreeningDate}
       />
     </div>
   );

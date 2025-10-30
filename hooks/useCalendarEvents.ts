@@ -35,7 +35,8 @@ export const useCalendarEvents = (events: CalendarEvent[]) => {
               location: event.location || '',
               category: category,
               description: event.description || '',
-              originalEvent: event,
+              // Use the originalEvent from extendedProps if it exists, otherwise use the event itself
+              originalEvent: event.extendedProps?.originalEvent || event,
               // Include all screenings if this is a screening event
               screenings: event.screenings || []
             }

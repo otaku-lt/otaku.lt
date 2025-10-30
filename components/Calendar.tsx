@@ -40,19 +40,26 @@ export default function Calendar({ events = [], onSelectEvent, onSelectSlot, ini
       const clickedDate = clickInfo.event.start;
       const clickedDateStr = clickedDate ? clickedDate.toISOString().split('T')[0] : null;
       
-      console.log('Clicked date:', clickedDateStr);
-      console.log('Calendar event:', calendarEvent);
+      // Format the event date to YYYY-MM-DD string
+      let selectedDate = clickedDateStr;
+      if (calendarEvent.date) {
+        const dateValue = calendarEvent.date as any;
+        // Check if it's a Date object or string
+        if (dateValue instanceof Date) {
+          selectedDate = dateValue.toISOString().split('T')[0];
+        } else if (typeof dateValue === 'string') {
+          // If it's already a string, extract just the date part
+          selectedDate = dateValue.split('T')[0];
+        }
+      }
       
-      // Create a new event object with the selectedScreeningDate
+      // The event already has the correct date from expandedEventsForCalendar
+      // We just need to pass it as selectedScreeningDate to the modal
       const eventWithScreeningDate = {
         ...calendarEvent,
-        // Make sure to include all necessary properties from the original event
-        ...clickInfo.event.extendedProps.originalEvent,
-        // Override with the selected screening date
-        selectedScreeningDate: clickedDateStr || calendarEvent.date
+        // Use the formatted date as the selectedScreeningDate
+        selectedScreeningDate: selectedDate
       };
-      
-      console.log('Event with screening date:', eventWithScreeningDate);
       
       // Set the selected event with the clicked date as the selectedScreeningDate
       setSelectedEvent(eventWithScreeningDate);
