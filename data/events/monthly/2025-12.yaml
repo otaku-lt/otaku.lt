@@ -1,0 +1,32 @@
+- id: 26
+  title: "Kiki's Delivery Service (1989)"
+  category: screening
+  screenings:
+    # Forum Cinemas Vingis (Vilnius)
+    - date: '2025-12-10'
+      time: '19:00'
+      cinema: 'Forum Cinemas Vingis'
+    
+    # Forum Cinemas Kaunas
+    - date: '2025-12-10'
+      time: '19:00'
+      cinema: 'Forum Cinemas Kaunas'
+    
+    # Forum Cinemas Klaipėda
+    - date: '2025-12-10'
+      time: '19:00'
+      cinema: 'Forum Cinemas Klaipėda'
+  description: |
+    Special screening of Hayao Miyazaki's beloved classic "Kiki's Delivery Service" (1989) in Japanese with Lithuanian subtitles.
+    
+    A young witch, on her mandatory year of independent life, finds fitting into a new community difficult while she supports herself by running an air courier service. This heartwarming coming-of-age story follows Kiki as she learns to navigate life's challenges with the help of her talking cat Jiji and newfound friends in the seaside town of Koriko.
+    
+    Director: Hayao Miyazaki
+    Studio: Studio Ghibli
+    Runtime: 1h 43min
+    Language: Japanese with Lithuanian subtitles
+    
+    "A magical, uplifting tale that reminds us of the power of self-belief and the importance of finding one's own way in the world." - Rotten Tomatoes
+  
+  image: /images/events/2025/12/2025-12-kikis-delivery-service.jpg
+  link: 'https://www.forumcinemas.lt/event/311254/kikis_delivery_service_1989'
