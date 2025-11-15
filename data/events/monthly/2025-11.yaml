@@ -116,3 +116,62 @@
   
   image: /images/events/2025/11/2025-11-nausicaa.jpg
   link: 'https://www.forumcinemas.lt/event/311129/nausicaä_of_the_valley_of_the_wind?theatreAreaID=1011'
+
+- id: 24
+  title: 'Jujutsu Kaisen 0: The Movie (2021)'
+  category: screening
+  screenings:
+    # Forum Cinemas Vingis (Vilnius)
+    - date: '2025-11-27'
+      time: '18:45'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2025-11-28'
+      time: '18:45'
+      cinema: 'Forum Cinemas Vingis'
+    
+    # Forum Cinemas Kaunas
+    - date: '2025-11-27'
+      time: '18:45'
+      cinema: 'Forum Cinemas Kaunas'
+    - date: '2025-11-28'
+      time: '18:45'
+      cinema: 'Forum Cinemas Kaunas'
+    - date: '2025-11-29'
+      time: '18:45'
+      cinema: 'Forum Cinemas Kaunas'
+    
+    # Forum Cinemas Klaipėda
+    - date: '2025-11-27'
+      time: '18:45'
+      cinema: 'Forum Cinemas Klaipėda'
+    - date: '2025-11-28'
+      time: '18:45'
+      cinema: 'Forum Cinemas Klaipėda'
+    - date: '2025-11-29'
+      time: '18:45'
+      cinema: 'Forum Cinemas Klaipėda'
+    
+    # Forum Cinemas Šiauliai
+    - date: '2025-11-27'
+      time: '18:45'
+      cinema: 'Forum Cinemas Šiauliai'
+    - date: '2025-11-28'
+      time: '18:45'
+      cinema: 'Forum Cinemas Šiauliai'
+    - date: '2025-11-29'
+      time: '18:45'
+      cinema: 'Forum Cinemas Šiauliai'
+  description: |
+    Special screening of "Jujutsu Kaisen 0: The Movie" (2021) in Japanese with English subtitles.
+    
+    Yuta Okkotsu is a nervous high school student who is suffering from a serious problem—his childhood friend Rika has turned into a cursed spirit and won't leave him alone. When Yuta is attacked by other cursed spirits, he is saved by Satoru Gojo, a teacher at Jujutsu High School, who offers to help him control Rika's power. Yuta enrolls in the school to learn how to become a jujutsu sorcerer and exorcise the cursed spirits that threaten humanity.
+    
+    Director: Seong-Hu Park
+    Studio: MAPPA
+    Runtime: 1h 45min
+    Language: Japanese with English subtitles
+    
+    "A must-watch for fans of the series and a great entry point for newcomers, Jujutsu Kaisen 0 delivers stunning animation and emotional depth." - IGN
+  
+  image: /images/events/2025/11/2025-11-jujutsu-kaisen-0.jpg
+  link: 'https://www.forumcinemas.lt/event/311262/jujutsu_kaisen_execution_specialusis_seansas_japonu_k_su_angliais_subtitrais'
