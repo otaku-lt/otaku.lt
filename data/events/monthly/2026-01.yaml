@@ -44,3 +44,26 @@
   organizer: 'Gekko Fest'
   link: 'https://www.instagram.com/gekkofest_lt/'
   image: '/images/events/2026/01/2026-01-gekko-fest.jpg'
+
+- id: 31
+  title: 'Spirited Away (2001) - Special Screening'
+  date: '2026-01-19'
+  time: '18:30 & 21:40'
+  location: 'Forum Cinemas Vingis, Vilnius'
+  category: 'screening'
+  description: |
+    Experience Hayao Miyazaki's masterpiece "Spirited Away" on the big screen! 
+    This special screening of the Academy Award-winning animated film follows 
+    Chihiro's journey into a world of gods, spirits, and monsters.
+    
+    When Chihiro's family stumbles upon a seemingly abandoned amusement park, 
+    her parents are transformed into pigs. To survive, she must work in a bathhouse 
+    for spirits and find a way to free herself and her parents.
+    
+    Language: Japanese with Lithuanian subtitles
+    Runtime: 125 minutes
+    Rating: Suitable for all ages
+  featured: true
+  organizer: 'Forum Cinemas'
+  link: 'https://forumcinemas.lt/event/308840/title/pamatyk_kine_spirited_away_2001/'
+  image: '/images/events/2026/01/2026-01-spirited-away.jpg'
