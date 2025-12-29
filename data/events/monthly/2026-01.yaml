@@ -73,3 +73,32 @@
   organizer: 'Forum Cinemas'
   link: 'https://forumcinemas.lt/lt/movie/spirited-away/'
   image: '/images/events/2026/01/2026-01-spirited-away.jpg'
+
+- id: 33
+  title: '🇱🇻 WinterCon X - The Last WinterCon'
+  date: '2026-01-10'
+  endDate: '2026-01-11'
+  time: 'All day'
+  location: 'Ķīpsala International Exhibition Centre, Riga, Latvia'
+  category: 'convention'
+  description: |
+    WinterCon X is Latvia's premier multigenre convention and this will be the final WinterCon event! 
+    Join fans from across the Baltic region for this celebration of geek culture.
+    
+    Event highlights:
+    - Cosplay competitions and showcases
+    - K-pop performances and dance contests
+    - eSports tournaments and gaming zone
+    - Artist alley and merchandise shops
+    - Special guest appearances including Doug Cockle (The Witcher voice actor)
+    - Tabletop RPG sessions
+    - Anime and manga showcases
+    
+    This is a unique opportunity to experience one of the Baltic region's largest geek culture events.
+    Located in Riga, just a few hours from Vilnius - perfect for a weekend trip!
+    
+    Note: This is an international event in Riga, Latvia. Travel and accommodation not included.
+  featured: true
+  organizer: 'UniCon Latvia'
+  link: 'https://www.unicon.lv/'
+  image: '/images/events/2026/01/2026-01-wintercon-x.jpg'
