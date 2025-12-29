@@ -1,0 +1,22 @@
+- id: 32
+  title: 'Porco Rosso (1992) - Special Screening'
+  date: '2026-04-13'
+  time: '18:30'
+  location: 'Forum Cinemas Vingis, Vilnius'
+  category: 'screening'
+  description: |
+    Experience Hayao Miyazaki's adventurous tale "Porco Rosso" on the big screen!
+    This special screening follows the story of a World War I flying ace who has been
+    cursed with the face of a pig.
+    
+    Set in the Adriatic Sea during the 1920s, Porco Rosso is a bounty hunter who
+    battles air pirates in his red seaplane. When his plane is shot down by an
+    American rival, he must rebuild it with the help of old friends and new allies.
+    
+    Language: Japanese with Lithuanian subtitles
+    Runtime: 93 minutes
+    Rating: Suitable for all ages
+  featured: true
+  organizer: 'Forum Cinemas'
+  link: 'https://forumcinemas.lt/lt/movie/porco-rosso/'
+  image: '/images/events/2026/04/2026-04-porco-rosso.jpg'
