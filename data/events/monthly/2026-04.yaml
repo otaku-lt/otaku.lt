@@ -20,3 +20,32 @@
   organizer: 'Forum Cinemas'
   link: 'https://forumcinemas.lt/lt/movie/porco-rosso/'
   image: '/images/events/2026/04/2026-04-porco-rosso.jpg'
+
+- id: 35
+  title: '🇪🇪 J-TSOON - Pop-culture Festival'
+  date: '2026-04-18'
+  endDate: '2026-04-19'
+  time: 'All day'
+  location: 'Kultuurikatel & Energia Avastuskeskus, Tallinn, Estonia'
+  category: 'convention'
+  description: |
+    J-TSOON is Estonia's premier pop-culture festival celebrating anime, cosplay, K-POP, gaming, and more!
+    This two-day event brings together fans from across the Baltic region and beyond.
+    
+    Event highlights:
+    - Cosplay competitions (Cosplay World Masters, Nordic Cosplay Championship qualifiers)
+    - K-POP dance competitions (Group and Solo Cover Dance)
+    - Gaming zone and tournaments
+    - Artist & Creator alley (A&C Alley)
+    - Photography contests and workshops
+    - Panel discussions and activities
+    - International guests and performers
+    
+    J-TSOON features major cosplay competitions including qualifiers for international championships,
+    making it a must-attend event for serious cosplayers and pop-culture enthusiasts.
+    
+    Note: This is an international event in Tallinn, Estonia. Travel and accommodation not included.
+  featured: true
+  organizer: 'J-TSOON Estonia'
+  link: 'https://j-tsoon.ee/'
+  image: '/images/events/2026/04/2026-04-j-tsoon.jpg'
