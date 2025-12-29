@@ -48,9 +48,15 @@
 - id: 31
   title: 'Spirited Away (2001) - Special Screening'
   date: '2026-01-19'
-  time: '18:30 & 21:40'
   location: 'Forum Cinemas Vingis, Vilnius'
   category: 'screening'
+  screenings:
+    - date: '2026-01-19'
+      time: '18:30'
+      cinema: 'Forum Cinemas Vingis'
+    - date: '2026-01-19'
+      time: '21:40'
+      cinema: 'Forum Cinemas Vingis'
   description: |
     Experience Hayao Miyazaki's masterpiece "Spirited Away" on the big screen! 
     This special screening of the Academy Award-winning animated film follows 
