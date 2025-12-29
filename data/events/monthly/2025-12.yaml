@@ -30,3 +30,25 @@
   
   image: /images/events/2025/12/2025-12-kikis-delivery-service.jpg
   link: 'https://www.forumcinemas.lt/event/311254/kikis_delivery_service_1989'
+
+- id: 27
+  title: 'Candlelight: Koncertas pagerbti Joe Hisaishi'
+  date: '2025-12-27'
+  time: '18:00'
+  location: 'VU Didžioji aula, M. K. Čiurlionio gatvė 21, Vilnius'
+  category: 'concert'
+  description: |
+    Candlelight koncertuose gyvai atliekamos muzikos magija atsiskleidžia kaip niekada anksčiau – 
+    įspūdingose miesto vietose, kurios sužavi ir stebina Vilniuje. Klausykitės Koncerto pagerbti 
+    Joe Hisaishi VU Didžiojoje auloje jaukioje žvakių šviesoje.
+    
+    Programa apims geriausius Joe Hisaishi kūrinius iš studijos Ghibli filmų, įskaitant:
+    - Nausicaa of the Valley of the Wind - "Kaze no Tani - Opening Theme"
+    - My Neighbour Totoro - "Tonari no Totoro - Main Theme"
+    - Spirited Away - "Inochi no Namae - Name of Life"
+    - Howl's Moving Castle - "Merry Go Round of Life"
+    - ir daugiau
+  featured: true
+  organizer: 'Candlelight Concerts'
+  link: 'https://feverup.com/m/466577'
+  image: '/images/events/2025/12/2025-12-joe-hisaishi.jpg'
