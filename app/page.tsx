@@ -284,8 +284,8 @@ export default function HomePage() {
           <Link href="/events?month=2026-01&event=29-gekko-fest-2026" className="block w-full rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
             <div className="w-full">
               <img 
-                src="/images/events/2026/01/2026-01-gekko-fest.jpg" 
-                alt="Gekko Fest 2026 - January 23, 2026 - SMK High School, Vilnius" 
+                src="/otaku_lt_banner.png" 
+                alt="Otaku.lt Banner" 
                 className="w-full h-auto object-contain max-h-[70vh] mx-auto hover:opacity-95 transition-opacity"
                 style={{ maxWidth: '100%', height: 'auto' }}
               />
