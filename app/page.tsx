@@ -278,22 +278,6 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Featured Event Banner */}
-      <div className="w-full bg-gradient-to-r from-pink-500/10 to-purple-500/10 border-b border-pink-500/20 py-6">
-        <div className="max-w-6xl mx-auto px-4">
-          <Link href="/events?month=2026-01&event=29-gekko-fest-2026" className="block w-full rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
-            <div className="w-full">
-              <img 
-                src="/otaku_lt_banner.png" 
-                alt="Otaku.lt Banner" 
-                className="w-full h-auto object-contain max-h-[70vh] mx-auto hover:opacity-95 transition-opacity"
-                style={{ maxWidth: '100%', height: 'auto' }}
-              />
-            </div>
-          </Link>
-        </div>
-      </div>
-
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 px-4 bg-background">
         <div className="max-w-6xl mx-auto">
