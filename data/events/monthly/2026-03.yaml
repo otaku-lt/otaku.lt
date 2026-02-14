@@ -1,4 +1,193 @@
-- id: 34
+- id: 40
+  title: "Howl's Moving Castle (2004) - Special Screening"
+  date: '2026-03-01'
+  location: 'Apollo Kinas'
+  category: 'screening'
+  screenings:
+    - date: '2026-03-01'
+      time: '18:30'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2026-03-04'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2026-03-05'
+      time: '18:00'
+      cinema: 'Apollo Kinas Akropolyje, Vilnius'
+  description: |
+    Step into the magical world of "Howl's Moving Castle", one of Studio Ghibli's most 
+    beloved films! When Sophie, a young hat maker, is cursed by a witch and transformed 
+    into an elderly woman, she seeks refuge in the moving castle of the mysterious wizard Howl.
+    
+    As Sophie navigates this whimsical world of magic, fire demons, and walking castles, 
+    she discovers her own strength and helps Howl find his heart. A breathtaking tale of 
+    love, courage, and the anti-war message that defines Miyazaki's masterpiece.
+    
+    Language: Japanese with Lithuanian subtitles
+    Runtime: 119 minutes
+    Rating: Suitable for ages 8+
+  featured: true
+  organizer: 'Apollo Kinas'
+  link: 'https://www.apollokinas.lt/event/5324/haulo_keliaujanti_pilis'
+  image: '/images/events/2026/02/2026-02-howls-moving-castle.jpg'
+
+- id: 41
+  title: 'Spirited Away (2001) - Special Screening'
+  date: '2026-03-01'
+  location: 'Apollo Kinas'
+  category: 'screening'
+  screenings:
+    - date: '2026-03-01'
+      time: '18:00'
+      cinema: 'Apollo Kinas Akropolyje, Vilnius'
+    - date: '2026-03-01'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2026-03-05'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2026-03-05'
+      time: '18:30'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+  description: |
+    Experience Hayao Miyazaki's Academy Award-winning masterpiece "Spirited Away" on the big screen! 
+    This enchanting adventure follows 10-year-old Chihiro as she stumbles upon a seemingly 
+    abandoned amusement park that reveals itself to be a bathhouse for spirits and gods.
+    
+    When Chihiro's parents are transformed into pigs, she must navigate this magical world 
+    and work in the bathhouse to find a way to free herself and her parents. Along the way, 
+    she encounters mysterious spirits, befriends the boy Haku, and discovers her own inner strength.
+    
+    A breathtaking journey of self-discovery, courage, and the power of friendship that 
+    has captivated audiences worldwide. This is Studio Ghibli at its absolute finest.
+    
+    Language: Japanese with Lithuanian subtitles
+    Runtime: 125 minutes
+    Rating: Suitable for all ages
+  featured: true
+  organizer: 'Apollo Kinas'
+  link: 'https://www.apollokinas.lt/event/5327/stebuklingi_%C5%A1ihiros_nuotykiai_dvasi%C5%B3_pasaulyje'
+  image: '/images/events/2026/02/2026-02-spirited-away.jpg'
+
+- id: 42
+  title: 'Ponyo (2008) - Special Screening'
+  date: '2026-03-02'
+  location: 'Apollo Kinas'
+  category: 'screening'
+  screenings:
+    - date: '2026-03-02'
+      time: '18:00'
+      cinema: 'Apollo Kinas Akropolyje, Vilnius'
+    - date: '2026-03-03'
+      time: '18:30'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+  description: |
+    Dive into the magical underwater world of "Ponyo", Hayao Miyazaki's enchanting tale 
+    of friendship and adventure! When a goldfish princess named Ponyo escapes from her 
+    ocean home, she befriends Sosuke, a five-year-old human boy.
+    
+    As Ponyo's magical powers threaten to disrupt the balance of nature, their innocent 
+    friendship becomes the key to restoring harmony between the human and underwater worlds. 
+    A visually stunning celebration of childhood wonder and the power of love.
+    
+    Language: Japanese with Lithuanian subtitles
+    Runtime: 101 minutes
+    Rating: Suitable for all ages
+  featured: true
+  organizer: 'Apollo Kinas'
+  link: 'https://www.apollokinas.lt/event/5325/ponjo_ant_uolos_prie_j%C5%ABros'
+  image: '/images/events/2026/02/2026-02-ponyo.jpg'
+
+- id: 43
+  title: "Kiki's Delivery Service (1989) - Special Screening"
+  date: '2026-03-02'
+  location: 'Apollo Kinas'
+  category: 'screening'
+  screenings:
+    - date: '2026-03-02'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2026-03-04'
+      time: '18:30'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+  description: |
+    Join Kiki, a young witch, on her magical coming-of-age adventure! 
+    When 13-year-old Kiki leaves home to start her training as a witch, 
+    she settles in a charming seaside town and starts a delivery service 
+    with her flying broomstick and talking cat Jiji.
+    
+    This heartwarming Studio Ghibli classic explores themes of independence, 
+    self-discovery, and finding your place in the world. A perfect film 
+    for the whole family that captures the wonder and challenges of growing up.
+    
+    Language: Japanese with Lithuanian subtitles
+    Runtime: 102 minutes
+    Rating: Suitable for all ages
+  featured: true
+  organizer: 'Apollo Kinas'
+  link: 'https://www.apollokinas.lt/event/5322/kik%C4%97s_siunt%C5%B3_tarnyba'
+  image: '/images/events/2026/02/2026-02-kiki-delivery-service.jpg'
+
+- id: 44
+  title: 'The Wind Rises (2013) - Special Screening'
+  date: '2026-03-02'
+  location: 'Apollo Kinas'
+  category: 'screening'
+  screenings:
+    - date: '2026-03-02'
+      time: '18:30'
+      cinema: 'Apollo Kinas Vilnius Outlet'
+    - date: '2026-03-03'
+      time: '18:00'
+      cinema: 'Apollo Kinas Panevėžys'
+    - date: '2026-03-04'
+      time: '18:00'
+      cinema: 'Apollo Kinas Akropolyje, Vilnius'
+  description: |
+    Experience Hayao Miyazaki's final masterpiece "The Wind Rises" on the big screen! 
+    This animated historical drama tells the story of Jiro Horikoshi, the engineer 
+    who designed Japanese fighter planes during World War II.
+    
+    The film explores Jiro's passion for aviation, his dreams, and his love story 
+    with Nahoko, set against the backdrop of Japan's turbulent pre-war years. 
+    A beautiful and poignant meditation on creativity, love, and the moral 
+    complexities of engineering.
+    
+    Language: Japanese with Lithuanian subtitles
+    Runtime: 126 minutes
+    Rating: Suitable for ages 12+
+  featured: true
+  organizer: 'Apollo Kinas'
+  link: 'https://www.apollokinas.lt/event/5326/v%C4%97jas_kyla'
+  image: '/images/events/2026/02/2026-02-wind-rises.jpg'
+
+- id: 45
+  title: 'Nausicaä of the Valley of the Wind (1984) - Special Screening'
+  date: '2026-03-03'
+  time: '18:00'
+  location: 'Apollo Kinas Akropolyje, Vilnius'
+  category: 'screening'
+  description: |
+    Experience Hayao Miyazaki's ecological masterpiece "Nausicaä of the Valley of the Wind"! 
+    Set in a post-apocalyptic world where toxic jungles threaten humanity's survival, 
+    Princess Nausicaä seeks to understand the delicate balance between nature and civilization.
+    
+    As war looms between kingdoms, Nausicaä discovers the secret of the toxic jungle 
+    and the giant insects within it, fighting to protect both humanity and the environment. 
+    A powerful environmental fable that explores themes of peace, understanding, and 
+    humanity's relationship with nature.
+    
+    Often considered the spiritual precursor to Studio Ghibli, this epic adventure 
+    showcases Miyazaki's visionary storytelling and environmental consciousness.
+    
+    Language: Japanese with Lithuanian subtitles
+    Runtime: 116 minutes
+    Rating: Suitable for ages 10+
+  featured: true
+  organizer: 'Apollo Kinas'
+  link: 'https://www.apollokinas.lt/event/5323/nausikaja_i%C5%A1_v%C4%97j%C5%B3_sl%C4%97nio'
+  image: '/images/events/2026/02/2026-02-nausicaa.jpg'
+
+- id: 46
   title: '🇱🇻 Otaku Fest - K-POP & COSPLAY FEST'
   date: '2026-03-14'
   time: 'All day'
