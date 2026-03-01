@@ -46,3 +46,12 @@
   link: "https://j-tsoon.ee/"
   setlist:
     type: "Japanese"
+
+- id: 5
+  title: "OtakuFest @ Latvia"
+  date: "2026-03-14"
+  location: "Latvia"
+  description: "K-POP & COSPLAY FEST"
+  link: "https://www.instagram.com/p/DVQk9VSCjqo/"
+  setlist:
+    type: "Japanese"
