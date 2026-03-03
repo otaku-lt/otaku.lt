@@ -264,7 +264,7 @@ export default function HomePage() {
             {/* Idol Party Banner */}
             <div className="flex justify-center mb-8">
               <div className="relative w-full max-w-4xl overflow-hidden rounded-lg shadow-lg bg-card">
-                <Link href="https://www.facebook.com/events/2088474658661641/" target="_blank" rel="noopener noreferrer">
+                <Link href="/events/47">
                   <img 
                     src="/images/events/2026/03/idol-party-banner.jpg" 
                     alt="Idol Party 2026: Spring Edition - March 29 at Kostmosas" 
