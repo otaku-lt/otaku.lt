@@ -32,3 +32,25 @@
   organizer: 'Pyrkon Foundation'
   link: 'https://pyrkon.pl/en/'
   image: '/images/events/2026/06/2026-06-pyrkon.jpg'
+
+- id: 49
+  title: 'KulVyksmas 2026: COMIC'
+  date: '2026-06-06'
+  time: 'All day'
+  location: 'Mažeikiai, Lithuania'
+  category: 'convention'
+  description: |
+    KUL VYKSMAS:COMIC is all about comics and visual culture in Mažeikiai.
+    
+    Event features:
+    - Comics and visual culture celebration
+    - Local and guest artists
+    - Comic exhibitions and showcases
+    - Workshops and creative activities
+    - Community gathering for comic enthusiasts
+    
+    Join the comics and visual culture event in Mažeikiai for a day of artistic inspiration and creative expression!
+  featured: true
+  organizer: 'KulVyksmas'
+  link: 'https://www.facebook.com/p/Kul-vyksmas-comic-100090974475036/'
+  image: '/images/events/2026/06/2026-06-kulvyksmas.jpg'
