@@ -251,16 +251,6 @@ export default function HomePage() {
       <section className="relative overflow-hidden py-20 px-4 bg-background">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <div className="flex justify-center mb-8">
-              <div className="relative w-full max-w-4xl overflow-hidden rounded-lg shadow-lg bg-card">
-                <img 
-                  src="/otaku_lt_banner.png" 
-                  alt="Otaku.lt Banner" 
-                  className="w-full h-auto hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-            </div>
-            
             {/* Idol Party Banner */}
             <div className="flex justify-center mb-8">
               <div className="relative w-full max-w-4xl overflow-hidden rounded-lg shadow-lg bg-card">
@@ -271,6 +261,16 @@ export default function HomePage() {
                     className="w-full h-auto hover:scale-105 transition-transform duration-300 cursor-pointer"
                   />
                 </Link>
+              </div>
+            </div>
+            
+            <div className="flex justify-center mb-8">
+              <div className="relative w-full max-w-4xl overflow-hidden rounded-lg shadow-lg bg-card">
+                <img 
+                  src="/otaku_lt_banner.png" 
+                  alt="Otaku.lt Banner" 
+                  className="w-full h-auto hover:scale-105 transition-transform duration-300"
+                />
               </div>
             </div>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
