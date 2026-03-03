@@ -49,3 +49,26 @@
   organizer: 'J-TSOON Estonia'
   link: 'https://j-tsoon.ee/'
   image: '/images/events/2026/04/2026-04-j-tsoon.jpg'
+
+- id: 48
+  title: 'Anime Nights 2026'
+  date: '2026-04-24'
+  endDate: '2026-04-26'
+  time: 'All day'
+  location: 'KTU Santakos slėnis (K. Baršausko g. 59)'
+  category: 'convention'
+  description: |
+    Anime Nights is the oldest yearly anime and Japanese culture event in Lithuania. Two nights of anime screenings and during the day time Cosplay, Artist alley and other activities.
+    
+    Event features:
+    - Anime screenings throughout both nights
+    - Cosplay competitions and showcases
+    - Artist alley with local creators
+    - Japanese cultural activities
+    - Community meetups and social events
+    
+    Join the longest-running anime tradition in Lithuania for an unforgettable weekend of Japanese pop culture celebration!
+  featured: true
+  organizer: 'Anime Nights Lithuania'
+  link: 'https://www.facebook.com/AnimeNights/'
+  image: '/images/events/2026/04/2026-04-anime-nights.jpg'
