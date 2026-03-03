@@ -31,38 +31,7 @@ export default function HomePage() {
     </svg>
   );
 
-  const upcomingEvents = [
-    {
-      id: 1,
-      title: "Idol Stage: Summer Edition",
-      date: "August 17, 2025",
-      time: "18:00",
-      location: "Vilnius, Compensa Concert Hall",
-      category: "concert",
-      description: "Our biggest summer concert featuring local and international performers",
-      featured: true
-    },
-    {
-      id: 2,
-      title: "YuruCamp: Weeb Camping Adventure",
-      date: "September 5-7, 2025",
-      time: "All day",
-      location: "Trakai National Park",
-      category: "camping",
-      description: "3-day camping experience with anime screenings, cosplay contests, and outdoor activities",
-      featured: true
-    },
-    {
-      id: 3,
-      title: "Anime Night: Studio Ghibli Marathon",
-      date: "July 20, 2025",
-      time: "19:00",
-      location: "Kaunas, Cinema Hall",
-      category: "screening",
-      description: "Marathon screening of beloved Studio Ghibli films"
-    }
-  ];
-
+  
   // Helper function to get category emoji
   const getCategoryEmoji = (category: string): string => {
     const emojiMap: { [key: string]: string } = {
@@ -324,27 +293,6 @@ export default function HomePage() {
                   <Star className="mr-2" size={20} />
                   Submit Event
                 </Link>
-              </div>
-            </FeatureFlag>
-            
-            <FeatureFlag name="upcomingEvents">
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {upcomingEvents.map((event) => (
-                  <EventCard
-                    key={event.id}
-                    id={event.id}
-                    title={event.title}
-                    date={event.date}
-                    time={event.time}
-                    location={event.location}
-                    category={event.category}
-                    description={event.description}
-                    featured={event.featured}
-                    getCategoryEmoji={getCategoryEmoji}
-                    getCategoryColors={getCategoryColors}
-                    href={`/events/${event.id}`}
-                  />
-                ))}
               </div>
             </FeatureFlag>
           </div>
