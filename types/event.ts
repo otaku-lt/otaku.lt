@@ -15,6 +15,7 @@ export interface Event {
   date: string;
   time?: string;
   endDate?: string;
+  startDate?: string; // For events that start from a certain date (e.g., cinema releases)
   location: string;
   description: string;
   featured: boolean;

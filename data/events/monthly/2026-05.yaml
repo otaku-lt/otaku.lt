@@ -14,3 +14,18 @@
   image: /images/events/2026/05/2026-05-comicconbaltics.jpg
   link: 'https://www.facebook.com/events/9929024507179969'
 
+- id: 11
+  title: 'All You Need Is Kill'
+  date: '2026-05-29'
+  startDate: '2026-05-29'
+  location: 'Apollo Kinas'
+  category: screening
+  description: |
+    After an unidentified plant from outer space invasion, Rita finds herself trapped in a time loop, forced to relive the same day over and over again. With each loop, she learns. She fights. Her memories and experiences sharpen her skills, turning her into a formidable warrior. Yet, the endless cycle of death and solitude begins to wear her down. Then, she meets Keiji. "I've been repeating this day too," he says. Two lost souls, trapped in an endless war. Could their meeting change fate?
+    
+    Based on the Japanese novel by Hiroshi Sakurazaka, this sci-fi action thriller explores themes of repetition, growth, and the human spirit's resilience in the face of impossible odds.
+
+  featured: true
+  organizer: 'Apollo Kinas'
+  image: '/images/events/2026/05/2026-05-all-you-need-is-kill.jpg'
+  link: 'https://www.apollokinas.lt/event/5378/all_you_need_is_kill'
