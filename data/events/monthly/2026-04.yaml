@@ -21,6 +21,38 @@
   link: 'https://forumcinemas.lt/lt/movie/porco-rosso/'
   image: '/images/events/2026/04/2026-04-porco-rosso.jpg'
 
+- id: 40
+  title: 'Anime Sympho-Show by 38 Samurai | Vilnius'
+  date: '2026-04-12'
+  time: '19:00'
+  location: 'COMPENSA koncertų salė, Vilnius'
+  category: concert
+  description: |
+    Orkestras „38 SAMURAI" kviečia pasinerti į išties unikalų muzikinį nuotykį pavadinimu „Anime Sympho-Show", kuris vyks 2025–2026 m. Europos turo metu.
+    
+    Experience an extraordinary musical journey with the "38 SAMURAI" orchestra as they present their "Anime Sympho-Show" during their 2025-2026 European tour. This concert features stunning orchestral arrangements of popular anime music, bringing the beloved soundtracks to life in a spectacular live performance.
+
+  featured: true
+  organizer: '38 SAMURAI'
+  image: '/images/events/2026/05/2026-05-anime-sympho-show.jpg'
+  link: 'https://www.bilietai.lt/lit/renginiai/koncertai/anime-sympho-show-by-38-samurai--vilnius-491326/'
+
+- id: 41
+  title: 'Anime Sympho-Show by 38 Samurai | Kaunas'
+  date: '2026-04-19'
+  time: '19:00'
+  location: 'VDU didžioji salė, Kaunas'
+  category: concert
+  description: |
+    Orkestras „38 SAMURAI" kviečia pasinerti į išties unikalų muzikinį nuotykį pavadinimu „Anime Sympho-Show", kuris vyks 2025–2026 m. Europos turo metu.
+    
+    Experience an extraordinary musical journey with the "38 SAMURAI" orchestra as they present their "Anime Sympho-Show" during their 2025-2026 European tour. This concert features stunning orchestral arrangements of popular anime music, bringing the beloved soundtracks to life in a spectacular live performance.
+
+  featured: true
+  organizer: '38 SAMURAI'
+  image: '/images/events/2026/05/2026-05-anime-sympho-show.jpg'
+  link: 'https://www.bilietai.lt/lit/renginiai/koncertai/anime-sympho-show-by-38-samurai--kaunas-490906/'
+
 - id: 35
   title: '🇪🇪 J-TSOON - Pop-culture Festival'
   date: '2026-04-18'
