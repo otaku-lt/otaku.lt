@@ -21,7 +21,7 @@
   link: 'https://forumcinemas.lt/lt/movie/porco-rosso/'
   image: '/images/events/2026/04/2026-04-porco-rosso.jpg'
 
-- id: 40
+- id: 50
   title: 'Anime Sympho-Show by 38 Samurai | Vilnius'
   date: '2026-04-12'
   time: '19:00'
@@ -37,7 +37,7 @@
   image: '/images/events/2026/05/2026-05-anime-sympho-show.jpg'
   link: 'https://www.bilietai.lt/lit/renginiai/koncertai/anime-sympho-show-by-38-samurai--vilnius-491326/'
 
-- id: 41
+- id: 51
   title: 'Anime Sympho-Show by 38 Samurai | Kaunas'
   date: '2026-04-19'
   time: '19:00'
