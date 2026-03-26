@@ -104,3 +104,24 @@
   organizer: 'Anime Nights Lithuania'
   link: 'https://www.facebook.com/AnimeNights/'
   image: '/images/events/2026/04/2026-04-anime-nights.jpg'
+
+- id: 49
+  title: 'SPOT pramogų renginys'
+  date: '2026-04-03'
+  endDate: '2026-04-12'
+  time: '10:00 AM - 9:00 PM'
+  location: 'OZAS, Vilnius'
+  category: gaming
+  description: |
+    Jau penktą kartą OZAS, Comic Con Baltics ir Baltics Gaming Expo suvienija jėgas ir kviečia visus į SPOT pramogų renginį! 🔥
+    Balandžio 3–12 dienomis PPC OZAS renginių aikštėje (I a.) laukia įvairiausios veiklos ir geros nuotaikos. 🤩 Tai puiki vieta užsukti su draugais ar šeima, jei norisi turiningai ir linksmai praleisti laiką. 💪
+    Renginyje galėsite išbandyti kompiuterinius, stalo ir retro žaidimus, stebėti ar dalyvauti esporto turnyruose, pasinerti į simuliatorių patirtis, dalyvauti maskarade ir atrasti dar daugybę kitų veiklų. ✨ Nuobodžiauti tikrai neteks, o geriausia žinia – visos pramogos yra NEMOKAMOS! 🥳
+    Susitinkame PPC OZAS renginių aikštėje (I aukštas), balandžio 3-12 dienomis, Vilniuje. ❤️
+    
+    Svarbi informacija: Balandžio 5 d. darysime šventinę pertrauką ir švęsime Šv. Velykas, todėl tądien prekybos centras nedirbs. 🐰 O jau balandžio 6-ąją sugrįžtame pilnu pajėgumu ir lauksime jūsų vėl! 🔥
+    📸 Renginys bus filmuojamas ir fotografuojamas. Dalyvaujantys asmenys supranta, kad jų atvaizdas gali būti užfiksuotas renginio nuotraukose ar vaizdo įrašuose, ir sutinka, jog šie įrašai gali būti viešai paskelbti socialiniuose tinkluose ar kitose žiniasklaidos priemonėse.
+
+  featured: true
+  organizer: 'SPOT, OZAS, Comic Con Baltics, Baltics Gaming Expo'
+  link: 'https://www.facebook.com/events/3042964249236673'
+  image: '/images/events/2026/04/2026-04-spot-pramogu-renginys.jpg'
