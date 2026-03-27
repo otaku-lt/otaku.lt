@@ -105,3 +105,27 @@
     type: "Japanese & Lithuanian"
   featured: true
   image: "/images/events/2026/03/2026-03-idol-party.jpg"
+
+- id: 7
+  title: "Comic Con Baltics 2026"
+  date: "2026-04-26"
+  endDate: "2026-04-27"
+  location: "Litexpo, Laisvės pr. 5, Vilnius"
+  description: |
+    Lithuania's biggest pop culture event is back! Comic Con Baltics brings together fans of comics, movies, TV series, games, anime, and cosplay from across the Baltic region.
+    
+    🎵 Korniha Band will be performing on the main stage, bringing anime music to life!
+    
+    Event features:
+    - Celebrity guests from movies and TV shows
+    - Cosplay contests with international participants
+    - Gaming tournaments and retro gaming zone
+    - Artist alley and merchandise marketplace
+    - Panel discussions and workshops
+    - Anime screenings and Japanese culture presentations
+    
+    Join thousands of fans for this unforgettable celebration of pop culture!
+  link: "https://www.comiccon.lt"
+  setlist:
+    type: "Japanese & Lithuanian"
+ 
