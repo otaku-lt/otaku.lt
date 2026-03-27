@@ -7,9 +7,10 @@ interface GigsSectionProps {
   events: Event[];
   title?: string;
   className?: string;
+  showFeatured?: boolean;
 }
 
-export function GigsSection({ events, title = 'Upcoming Shows', className = '' }: GigsSectionProps) {
+export function GigsSection({ events, title = 'Upcoming Shows', className = '', showFeatured = true }: GigsSectionProps) {
   if (!events || events.length === 0) {
     return (
       <div className={`bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl ${className}`}>
@@ -28,7 +29,7 @@ export function GigsSection({ events, title = 'Upcoming Shows', className = '' }
             <div 
               key={event.id} 
               className={`p-4 rounded-xl ${
-                event.featured 
+                showFeatured && event.featured 
                   ? 'bg-purple-50 dark:bg-gray-700/50' 
                   : 'bg-white/50 dark:bg-gray-800/30'
               }`}
@@ -76,7 +77,7 @@ export function GigsSection({ events, title = 'Upcoming Shows', className = '' }
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
-                      event.featured 
+                      showFeatured && event.featured 
                         ? 'bg-purple-600 text-white hover:bg-purple-700' 
                         : 'bg-purple-100 dark:bg-gray-700 text-purple-700 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-gray-600'
                     }`}
