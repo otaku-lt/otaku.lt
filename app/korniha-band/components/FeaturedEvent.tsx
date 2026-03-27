@@ -23,7 +23,25 @@ export function FeaturedEvent({ event, className = '' }: FeaturedEventProps) {
         <h3 className="text-xl md:text-2xl font-semibold text-white/95 text-center">{event.title}</h3>
       </div>
       
-      <p className="text-purple-100 mb-6 text-center text-sm md:text-base max-w-3xl mx-auto">{event.description}</p>
+      {/* Event Image */}
+      {event.image && (
+        <div className="mb-6 flex justify-center">
+          <img 
+            src={event.image} 
+            alt={event.title}
+            className="w-full max-w-md h-auto rounded-lg shadow-lg object-cover"
+          />
+        </div>
+      )}
+      
+      <div className="text-purple-100 mb-6 text-center text-sm md:text-base max-w-3xl mx-auto">
+        {event.description.split('\n').map((line, index) => (
+          <span key={index}>
+            {line}
+            {index < event.description.split('\n').length - 1 && <br />}
+          </span>
+        ))}
+      </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 max-w-5xl mx-auto">
         <div className="flex items-start space-x-2 bg-white/10 p-3 rounded-lg">
