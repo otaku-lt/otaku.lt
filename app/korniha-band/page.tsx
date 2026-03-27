@@ -101,6 +101,12 @@ export default function KornihaBandPage() {
       role: "Percussion",
       description: "The rhythm keeper who believes everything is a drum if you hit it right. His sticks are an extension of his arms, and his energy is as infectious as the beats he creates.",
       favorite: "Kokoro Pyon Pyon (Is the Order a Rabbit?)"
+    },
+    {
+      name: "Alan",
+      role: "Bass",
+      description: "A weeb who likes guitar more than bass, but was forced to play because the band already had a good guitarist. His deep grooves provide the foundation that keeps the band's anime sound grounded and powerful.",
+      favorite: "Duvet (Serial Experiments Lain)"
     }
   ]);
 

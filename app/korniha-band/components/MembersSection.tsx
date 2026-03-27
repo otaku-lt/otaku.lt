@@ -23,7 +23,7 @@ export function MembersSection({ members, className = '' }: MembersSectionProps)
         <div key={index} className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
           <div className="space-y-4">
             <div className="flex items-center gap-4">
-              {['Holms', 'Korniha'].includes(member.name) ? (
+              {['Holms', 'Korniha', 'Alan'].includes(member.name) ? (
                 <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-purple-400">
                   <Image 
                     src={`/images/band/${member.name.toLowerCase()}.${member.name === 'Holms' ? 'png' : 'jpg'}`}
