@@ -51,7 +51,7 @@ export function FeaturedEvent({ event, className = '' }: FeaturedEventProps) {
         {/* Toggle button */}
         <button
           onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-          className="mt-4 inline-flex items-center px-4 py-2 bg-white/20 hover:bg-white/30 text-white/90 hover:text-white rounded-full transition-all text-sm font-medium backdrop-blur-sm border border-white/30"
+          className="mt-4 mb-6 inline-flex items-center px-4 py-2 bg-white/20 hover:bg-white/30 text-white/90 hover:text-white rounded-full transition-all text-sm font-medium backdrop-blur-sm border border-white/30"
         >
           {isDescriptionExpanded ? (
             <>
