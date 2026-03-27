@@ -1,6 +1,7 @@
 'use client';
 
-import { Calendar, MapPin, Music2, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
+import { Calendar, MapPin, Music2, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 import type { Event } from '@/types/event';
 import { formatEventDate } from '@/app/korniha-band/types/featured-event';
 
@@ -10,6 +11,8 @@ interface FeaturedEventProps {
 }
 
 export function FeaturedEvent({ event, className = '' }: FeaturedEventProps) {
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  
   if (!event) return null;
 
   return (
@@ -34,13 +37,34 @@ export function FeaturedEvent({ event, className = '' }: FeaturedEventProps) {
         </div>
       )}
       
-      <div className="text-purple-100 mb-6 text-center text-sm md:text-base max-w-3xl mx-auto">
-        {event.description.split('\n').map((line: string, index: number) => (
-          <span key={index}>
-            {line}
-            {index < event.description.split('\n').length - 1 && <br />}
-          </span>
-        ))}
+      {/* Description with toggle */}
+      <div className="text-purple-100 text-center text-sm md:text-base max-w-3xl mx-auto">
+        <div className={`${isDescriptionExpanded ? '' : 'line-clamp-3'}`}>
+          {event.description.split('\n').map((line: string, index: number) => (
+            <span key={index}>
+              {line}
+              {index < event.description.split('\n').length - 1 && <br />}
+            </span>
+          ))}
+        </div>
+        
+        {/* Toggle button */}
+        <button
+          onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+          className="mt-2 inline-flex items-center text-white/80 hover:text-white transition-colors text-sm font-medium"
+        >
+          {isDescriptionExpanded ? (
+            <>
+              Show less
+              <ChevronUp className="ml-1 h-4 w-4" />
+            </>
+          ) : (
+            <>
+              Show more
+              <ChevronDown className="ml-1 h-4 w-4" />
+            </>
+          )}
+        </button>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 max-w-5xl mx-auto">
