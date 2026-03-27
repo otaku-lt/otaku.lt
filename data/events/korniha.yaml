@@ -48,10 +48,60 @@
     type: "Japanese"
 
 - id: 5
-  title: "OtakuFest @ Latvia"
+  title: "🇱🇻 Otaku Fest - K-POP & COSPLAY FEST"
   date: "2026-03-14"
-  location: "Latvia"
-  description: "K-POP & COSPLAY FEST"
-  link: "https://www.instagram.com/p/DVQk9VSCjqo/"
+  time: "All day"
+  location: "Spelet Concert Hall, Brīvības iela 96a, Centra rajons, Rīga, LV-1001, Latvia"
+  description: |
+    Otaku Fest brings you the ultimate K-POP and COSPLAY celebration in Riga, Latvia!
+    This festival combines the best of Korean pop music and cosplay culture for an unforgettable experience.
+    
+    Event features:
+    - K-POP performances and dance competitions
+    - Cosplay contests and showcases
+    - K-POP dance workshops
+    - Cosplay photography sessions
+    - Merchandise and artist alley
+    - Community meetups and social events
+    
+    🎵 Korniha Band performed at this international event, bringing anime music to the Baltic region!
+    
+    Join fellow K-POP fans and cosplayers from across the Baltic region for this exciting celebration
+    of Asian pop culture and creative expression.
+    
+    Note: This is an international event in Riga, Latvia. Travel and accommodation not included.
+  link: "https://www.instagram.com/otakufestlv/?hl=en"
   setlist:
     type: "Japanese"
+  featured: true
+  image: "/images/events/2026/03/2026-03-otaku-fest.jpg"
+
+- id: 6
+  title: "Idol Party 2026: Spring Edition"
+  date: "2026-03-29"
+  time: "16:00"
+  location: "Kostmosas, Vokiečių g. 4, Vilnius"
+  description: |
+    We're bringing the ultimate weeb vibes to town with a night packed full of anime fun! Here's what's waiting for you:
+    
+    🎵 Korniha Band - Performing your favorite anime soundtracks in Japanese and Lithuanian!
+    🧠 Anime OP Quiz - Test your knowledge of the most iconic anime openings. Think you can ace it? 👀
+    🎤 Anime Karaoke - Your chance to step into the spotlight and sing your heart out to your favorite anime tracks!
+    💃 Just Dance Room - Dance with your friends to your favorite songs with Just Dance game
+    🥽 Vtuber Workshop - Try on Vtuber's tracking suite!
+    
+    ✨ Glowstick Alert! ✨
+    Create an electrifying mood with your glowsticks! Bring your own or grab one at the event. Let's light up the night together and wave them to the rhythm of your favorite tunes – it's time to recreate that concert energy!
+    
+    ✨ Cosplayers Alert! ✨
+    As there's plenty of space in the venue cosplayers are heavily welcome at the party! Also as any glowing accessory, weeb t-shirts, nekomimi's, kigurumi's and anything you'd like to wear.
+    
+    💖 Don't miss out! See you at Kostmosas for the Idol Party! 🎶
+    
+    📍 Entry: Donate
+    🎭 Event is for 18+ adults only
+  link: "https://www.facebook.com/events/2088474658661641/"
+  setlist:
+    type: "Japanese & Lithuanian"
+  featured: true
+  image: "/images/events/2026/03/2026-03-idol-party.jpg"
