@@ -192,7 +192,17 @@ export default function KornihaBandPage() {
 
         {activeTab === "songs" && <SongsSection songs={songs} />}
 
-        {activeTab === "gigs" && <GigsSection events={upcomingEvents} />}
+        {activeTab === "gigs" && (
+          <div className="space-y-8">
+            <GigsSection events={upcomingEvents} />
+            {pastEvents.length > 0 && (
+              <GigsSection 
+                events={pastEvents.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())} 
+                title="Past Shows" 
+              />
+            )}
+          </div>
+        )}
 
         {/* Contact Section */}
         <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-8 text-white text-center mt-12 shadow-lg">
