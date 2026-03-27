@@ -1,7 +1,7 @@
 'use client';
 
 import { Calendar, MapPin, Music2, ExternalLink } from 'lucide-react';
-import type { Event } from '@/app/korniha-band/types/event';
+import type { Event } from '@/types/event';
 import { formatEventDate } from '@/app/korniha-band/types/featured-event';
 
 interface FeaturedEventProps {
@@ -35,7 +35,7 @@ export function FeaturedEvent({ event, className = '' }: FeaturedEventProps) {
       )}
       
       <div className="text-purple-100 mb-6 text-center text-sm md:text-base max-w-3xl mx-auto">
-        {event.description.split('\n').map((line, index) => (
+        {event.description.split('\n').map((line: string, index: number) => (
           <span key={index}>
             {line}
             {index < event.description.split('\n').length - 1 && <br />}

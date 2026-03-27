@@ -10,7 +10,7 @@ import { SongsSection } from "./components/SongsSection";
 import { MembersSection } from "./components/MembersSection";
 import { AboutSection } from "./components/AboutSection";
 import { FeaturedEvent } from "./components/FeaturedEvent";
-import type { Event, EventSetlist, SetlistDay } from "./types/event";
+import type { Event } from "@/types/event";
 import type { Song } from "./types/song";
 import type { BandMember } from "./types/member";
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { Music2, ExternalLink } from 'lucide-react';
-import { Event } from '../types/event';
+import type { Event } from '@/types/event';
 
 interface GigsSectionProps {
   events: Event[];
