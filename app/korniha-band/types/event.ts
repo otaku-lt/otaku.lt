@@ -22,4 +22,5 @@ export type Event = {
   featured: boolean;
   link?: string;
   setlist?: EventSetlist | string;
+  image?: string;
 };
