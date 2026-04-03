@@ -251,13 +251,13 @@ export default function HomePage() {
       <section className="relative overflow-hidden py-20 px-4 bg-background">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            {/* Idol Party Banner */}
+            {/* Anime Nights Banner */}
             <div className="flex justify-center mb-8">
               <div className="relative w-full max-w-4xl overflow-hidden rounded-lg shadow-lg bg-card">
-                <Link href="/events/47">
+                <Link href="/events?month=2026-04&event=48-anime-nights">
                   <img 
-                    src="/images/events/2026/03/idol-party-banner.jpg" 
-                    alt="Idol Party 2026: Spring Edition - March 29 at Kostmosas" 
+                    src="/images/events/2026/04/2026-04-anime-nights.jpg" 
+                    alt="Anime Nights 2026 - April 24-26 at KTU Santakos slėnis" 
                     className="w-full h-auto hover:scale-105 transition-transform duration-300 cursor-pointer"
                   />
                 </Link>
