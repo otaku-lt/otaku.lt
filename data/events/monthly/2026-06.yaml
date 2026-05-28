@@ -54,3 +54,21 @@
   organizer: 'KulVyksmas'
   link: 'https://www.facebook.com/p/Kul-vyksmas-comic-100090974475036/'
   image: '/images/events/2026/06/2026-06-kulvyksmas.jpg'
+
+- id: 58
+  title: 'Paprika'
+  date: '2026-06-06'
+  time: '18:00'
+  location: 'Cinema Pasaka'
+  category: screening
+  description: |
+    „Cinema Pasaka“ kviečia į anime filmo „Paprika“ peržiūrą MO muziejuje! 🌙✨
+
+    Pasinerkite į sapnų ir realybės pasaulį kartu su legendiniu režisieriaus Satoshi Kon kūriniu „Paprika“. Laukia įspūdinga vizualinė kelionė, nepamirštama atmosfera ir vakaras anime bei kino mėgėjams.
+
+    N-13; japonų kalba, lietuviški subtitrai; trukmė 98 min.
+
+  featured: true
+  organizer: 'Cinema Pasaka'
+  link: 'https://pasaka.lt/filmas/kpzjunior-26-paprika?date=2026-05-28'
+  image: '/images/events/2026/06/2026-06-paprika.jpg'
