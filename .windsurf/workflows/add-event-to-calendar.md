@@ -16,8 +16,16 @@ description: Add a new event to the otaku.lt events calendar
 
 ### 3. Get Unique Event ID
 - Search ALL monthly YAML files in `data/events/monthly/` for the highest existing ID
-- Use `grep` + `awk` to find max ID: `grep -r "^  id:" data/events/monthly/ | awk '{print $2}' | sort -n | tail -1`
+- Use `grep` + `awk` to find max ID:
+  ```bash
+  grep -r "^  id:" data/events/monthly/ | awk '{print $2}' | sort -n | tail -1
+  ```
 - New event ID = max ID + 1
+- **Verify uniqueness** before assigning:
+  ```bash
+  grep -r "id: <NEW_ID>" data/events/monthly/
+  ```
+- If result is empty, the ID is safe to use. If not, increment and check again.
 - **Critical**: IDs must be unique globally across all monthly files
 
 ### 4. Download Event Image

@@ -19,8 +19,16 @@ description: Add a new event to the Korniha band events page
 
 ### 3. Get Unique Event ID
 - Search `data/events/korniha.yaml` for the highest existing ID
-- Use: `grep "^  id:" data/events/korniha.yaml | awk '{print $2}' | sort -n | tail -1`
+- Use:
+  ```bash
+  grep "^  id:" data/events/korniha.yaml | awk '{print $2}' | sort -n | tail -1
+  ```
 - New event ID = max ID + 1
+- **Verify uniqueness** before assigning:
+  ```bash
+  grep "id: <NEW_ID>" data/events/korniha.yaml
+  ```
+- If result is empty, the ID is safe to use. If not, increment and check again.
 - IDs in korniha.yaml are separate from monthly event IDs (they have their own sequence)
 
 ### 4. Determine Setlist Type
