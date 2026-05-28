@@ -145,3 +145,27 @@
     type: "Lithuanian"
   featured: true
   image: "/images/events/2026/05/2026-05-gatves-muzikos-diena.jpg"
+
+- id: 9
+  title: "KulVyksmas 2026: COMIC"
+  date: "2026-06-06"
+  time: "All day"
+  location: "Mažeikių kultūros centras"
+  description: |
+    Korniha Band performs at KulVyksmas 2026: COMIC in Mažeikiai!
+    
+    KulVyksmas is all about comics and visual culture, and Korniha Band is bringing their unique anime music to this creative gathering.
+    
+    Event features:
+    - Comics and visual culture celebration
+    - Korniha Band live performance
+    - Comic exhibitions and showcases
+    - Workshops and creative activities
+    - Community gathering for comic enthusiasts
+    
+    Join the comics and visual culture event in Mažeikiai for a day of artistic inspiration and creative expression!
+  link: "https://www.facebook.com/p/Kul-vyksmas-comic-100090974475036/"
+  setlist:
+    type: "Japanese & Lithuanian"
+  featured: true
+  image: "/images/events/2026/06/2026-06-kulvyksmas.jpg"
