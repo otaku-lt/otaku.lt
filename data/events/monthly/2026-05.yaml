@@ -36,3 +36,21 @@
     - date: '2026-05-29'
       time: 'See website for showtimes'
       cinema: 'Forum Cinemas'
+
+- id: 57
+  title: 'Gatvės Muzikos Diena - Korniha Band'
+  date: '2026-05-16'
+  time: 'All day'
+  location: 'Katedros Aikštė, Vilnius'
+  category: concert
+  description: |
+    Korniha Band performs at Gatvės Muzikos Diena (Street Music Day) in the heart of Vilnius!
+    
+    Join us for a special outdoor performance at Cathedral Square as part of Lithuania's annual celebration of street music. Korniha Band brings their unique energy and Lithuanian set to this vibrant public event.
+    
+    Street Music Day is a beloved tradition in Lithuania, transforming city streets into stages for musicians of all genres. Come enjoy the atmosphere and support local music!
+
+  featured: true
+  organizer: 'Korniha Band'
+  image: '/images/events/2026/05/2026-05-gatves-muzikos-diena.jpg'
+  link: 'https://www.facebook.com/kornihaband/'

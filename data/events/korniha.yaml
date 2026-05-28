@@ -128,4 +128,20 @@
   link: "https://www.comiccon.lt"
   setlist:
     type: "Japanese & Lithuanian"
- 
+
+- id: 8
+  title: "Gatvės Muzikos Diena (Street Music Day)"
+  date: "2026-05-16"
+  time: "All day"
+  location: "Katedros Aikštė, Vilnius"
+  description: |
+    Korniha Band performs at Gatvės Muzikos Diena (Street Music Day) in the heart of Vilnius!
+    
+    Join us for a special outdoor performance at Cathedral Square as part of Lithuania's annual celebration of street music. Korniha Band brings their unique energy and Lithuanian set to this vibrant public event.
+    
+    Street Music Day is a beloved tradition in Lithuania, transforming city streets into stages for musicians of all genres. Come enjoy the atmosphere and support local music!
+  link: "https://www.facebook.com/kornihaband/"
+  setlist:
+    type: "Lithuanian"
+  featured: true
+  image: "/images/events/2026/05/2026-05-gatves-muzikos-diena.jpg"
