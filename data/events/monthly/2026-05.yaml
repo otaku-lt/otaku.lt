@@ -26,9 +26,13 @@
     Based on the Japanese novel by Hiroshi Sakurazaka, this sci-fi action thriller explores themes of repetition, growth, and the human spirit's resilience in the face of impossible odds.
 
   featured: true
-  organizer: 'Apollo Kinas, Forum Cinemas'
+  organizer: 'Apollo Kinas, Forum Cinemas, Pasaka'
   image: '/images/events/2026/05/2026-05-all-you-need-is-kill.jpg'
-  link: 'https://www.apollokinas.lt/event/5378/all_you_need_is_kill'
+  links:
+    - name: 'Apollo Kinas'
+      url: 'https://www.apollokinas.lt/event/5378/all_you_need_is_kill'
+    - name: 'Pasaka'
+      url: 'https://pasaka.lt/filmas/all-you-need-is-kill?date=2026-05-29'
   screenings:
     - date: '2026-05-29'
       time: 'See website for showtimes'
@@ -36,6 +40,12 @@
     - date: '2026-05-29'
       time: 'See website for showtimes'
       cinema: 'Forum Cinemas'
+    - date: '2026-05-29'
+      time: '18:00'
+      cinema: 'Pasaka'
+    - date: '2026-05-31'
+      time: '16:00'
+      cinema: 'Pasaka'
 
 - id: 57
   title: 'Gatvės Muzikos Diena - Korniha Band'
