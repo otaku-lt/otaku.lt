@@ -1,0 +1,25 @@
+- id: 60
+  title: 'UniCon 2026 - Latvian Comic Con'
+  date: '2026-08-14'
+  endDate: '2026-08-16'
+  time: 'All day'
+  location: 'Riga, Latvia'
+  category: convention
+  description: |
+    UniCon - Latvian Comic Con is Latvia's premier pop culture convention celebrating comics, anime, gaming, cosplay, and more!
+    
+    Join fans from across the Baltic region for three days of incredible experiences:
+    - Celebrity guests and panels
+    - Cosplay competitions
+    - Artist alley and vendor booths
+    - Gaming tournaments and showcases
+    - Anime screenings and Japanese culture events
+    - Workshops and creative activities
+    
+    Note: This is an international event in Riga, Latvia. Travel and accommodation not included.
+
+  featured: true
+  organizer: 'UniCon'
+  link: 'https://www.unicon.lv/'
+  image: '/images/events/2026/08/2026-08-unicon.jpg'
+
