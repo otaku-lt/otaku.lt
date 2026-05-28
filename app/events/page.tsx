@@ -112,10 +112,29 @@ export default function EventsPage() {
     return out;
   }, [events]);
 
-  // Filter events only by search term (for category counts)
-  // Use original events for list view, expanded for calendar
+  // Filter events for category counts (applies view-specific filters but NOT category filter)
+  // This ensures category counts match what's actually visible in the current view
   const searchFilteredEvents = useMemo(() => {
     let result = viewMode === 'list' ? [...events] : [...expandedEventsForCalendar];
+
+    // In list view, only show upcoming events (hide past events)
+    if (viewMode === 'list') {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      result = result.filter(event => {
+        const eventDate = event.endDate ? new Date(event.endDate) : new Date(event.date);
+        return eventDate >= today;
+      });
+    }
+
+    // In calendar view, filter to current month so counts match visible month
+    if (viewMode === 'calendar' && currentMonth) {
+      result = result.filter(event => {
+        const eventDate = new Date(event.date);
+        const eventMonth = `${eventDate.getFullYear()}-${String(eventDate.getMonth() + 1).padStart(2, '0')}`;
+        return eventMonth === currentMonth;
+      });
+    }
 
     // Apply only search filter (not category filter)
     if (searchTerm) {
@@ -134,7 +153,7 @@ export default function EventsPage() {
       const dateB = b.date || (b.screenings && b.screenings[0]?.date) || '';
       return new Date(dateA).getTime() - new Date(dateB).getTime();
     });
-  }, [events, expandedEventsForCalendar, searchTerm, viewMode]);
+  }, [events, expandedEventsForCalendar, searchTerm, viewMode, currentMonth]);
 
   // Filter events based on selected category and search term
   const filteredEvents = useMemo(() => {
