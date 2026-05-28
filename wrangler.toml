@@ -18,16 +18,3 @@ NEXT_TELEMETRY_DISABLED = "1"
 [env.preview.vars]
 NODE_ENV = "development"
 NEXT_TELEMETRY_DISABLED = "1"
-
-# Routes for custom domains (managed by Cloudflare zones)
-[[routes]]
-pattern = "otaku.lt/*"
-zone_name = "otaku.lt"
-
-[[routes]]
-pattern = "www.otaku.lt/*"
-zone_name = "otaku.lt"
-
-# Development routes for preview deployments
-[[env.preview.routes]]
-pattern = "*.otaku-lt.workers.dev/*"
