@@ -28,6 +28,20 @@ Same validation script covers Korniha events:
 ### Homepage Link
 - Homepage contains a link to `/korniha`
 
+## Running with Docker
+
+Uses `.devcontainer/docker-compose.test.yml`:
+
+```bash
+# Data validation (covers korniha.yaml too)
+npm run test:docker:data
+
+# E2E tests
+npm run test:docker:e2e
+```
+
+**Colima note**: Ensure Colima is running (`colima status` or `colima start`).
+
 ## Future additions (not bare minimum)
 - Setlist display verification
 - Featured event highlighting

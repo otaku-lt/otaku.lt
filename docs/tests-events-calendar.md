@@ -33,6 +33,20 @@ Run before every build/PR via CI. Validates all event YAML files:
 ### List View
 - Switching to List View renders events in a grid layout
 
+## Running with Docker
+
+Uses `.devcontainer/docker-compose.test.yml`:
+
+```bash
+# Data validation
+npm run test:docker:data
+
+# E2E tests
+npm run test:docker:e2e
+```
+
+**Colima note**: Ensure Colima is running (`colima status` or `colima start`).
+
 ## Future additions (not bare minimum)
 - Visual regression (screenshots)
 - Mobile viewport testing

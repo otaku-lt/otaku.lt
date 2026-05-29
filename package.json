@@ -13,7 +13,9 @@
     "wrangler:login": "wrangler auth login",
     "test:data": "tsx scripts/validate-events.ts",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "test:docker:data": "docker compose -f .devcontainer/docker-compose.test.yml --profile test run --rm test-data",
+    "test:docker:e2e": "docker compose -f .devcontainer/docker-compose.test.yml --profile e2e run --rm test-e2e sh -c 'npx playwright install chromium && npx playwright test'"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.18",
