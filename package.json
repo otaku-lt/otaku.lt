@@ -10,7 +10,10 @@
     "deploy": "npm run build && wrangler deploy",
     "deploy:preview": "npm run build && wrangler deploy --env preview",
     "wrangler:dev": "wrangler dev",
-    "wrangler:login": "wrangler auth login"
+    "wrangler:login": "wrangler auth login",
+    "test:data": "tsx scripts/validate-events.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.18",
@@ -81,6 +84,8 @@
     "zod": "^4.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "tsx": "^4.19.0",
     "wrangler": "^4.23.0",
     "yaml-loader": "^0.8.1"
   }
