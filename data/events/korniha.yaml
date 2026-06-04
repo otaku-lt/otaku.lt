@@ -169,3 +169,21 @@
     type: "Japanese & Lithuanian"
   featured: true
   image: "/images/events/2026/06/2026-06-kulvyksmas.jpg"
+
+- id: 10
+  title: "YuruCamp 2026"
+  date: "2026-07-24"
+  endDate: "2026-07-26"
+  location: "Bražuolės stovyklavietė, Lithuania"
+  description: "Weekend camping festival celebrating Japanese pop culture, anime, music, and cosplay fandom"
+  link: "https://otaku.lt/yurucamp"
+  setlist:
+    days:
+      - day: 1
+        date: "2026-07-24"
+        time: "19:30"
+        type: "Japanese"
+      - day: 2
+        date: "2026-07-25"
+        time: "19:00"
+        type: "Lithuanian"
