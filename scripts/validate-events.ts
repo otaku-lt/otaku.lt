@@ -23,7 +23,8 @@ const IMAGES_DIR = path.join(process.cwd(), 'public', 'images', 'events');
 
 const VALID_CATEGORIES = new Set([
   'gaming', 'music', 'screening', 'workshop', 'meetup',
-  'convention', 'camping', 'social', 'other', 'concert'
+  'convention', 'camping', 'social', 'other', 'concert',
+  'presentation', 'cosplay', 'party'
 ]);
 
 interface ValidationError {
@@ -46,6 +47,7 @@ function addWarning(file: string, eventIndex: number, message: string, eventTitl
 
 function validateEvent(event: any, file: string, index: number): string | undefined {
   const title = event.title || '(untitled)';
+  const hasScreenings = Array.isArray(event.screenings) && event.screenings.length > 0;
 
   // Required fields
   if (event.id === undefined || event.id === null || event.id === '') {
@@ -54,23 +56,48 @@ function validateEvent(event: any, file: string, index: number): string | undefi
   if (!event.title) {
     addError(file, index, 'Missing "title" field', title);
   }
-  if (!event.date) {
+
+  // Date: required at top level unless screenings array provides dates
+  if (!event.date && !hasScreenings) {
     addError(file, index, 'Missing "date" field', title);
-  } else {
+  } else if (event.date) {
     const d = new Date(event.date);
     if (isNaN(d.getTime())) {
       addError(file, index, `Invalid date format: "${event.date}"`, title);
     }
   }
-  if (!event.location) {
+
+  // Location: required at top level unless screenings array provides cinemas
+  if (!event.location && !hasScreenings) {
     addError(file, index, 'Missing "location" field', title);
   }
 
-  // Category validation
+  // Category validation (supports comma-separated)
   if (event.category) {
-    const cat = String(event.category).toLowerCase();
-    if (!VALID_CATEGORIES.has(cat)) {
-      addWarning(file, index, `Unknown category: "${event.category}"`, title);
+    const cats = String(event.category).toLowerCase().split(',').map(c => c.trim());
+    for (const cat of cats) {
+      if (!VALID_CATEGORIES.has(cat)) {
+        addWarning(file, index, `Unknown category: "${event.category}"`, title);
+        break;
+      }
+    }
+  }
+
+  // Screenings validation
+  if (hasScreenings) {
+    for (let j = 0; j < event.screenings.length; j++) {
+      const s = event.screenings[j];
+      if (!s.date) {
+        addError(file, index, `Screening #${j + 1} missing "date" field`, title);
+      } else {
+        const sd = new Date(s.date);
+        if (isNaN(sd.getTime())) {
+          addError(file, index, `Screening #${j + 1} invalid date: "${s.date}"`, title);
+        }
+      }
+      if (!s.cinema) {
+        addError(file, index, `Screening #${j + 1} missing "cinema" field`, title);
+      }
     }
   }
 

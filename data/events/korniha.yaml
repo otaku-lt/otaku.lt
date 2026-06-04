@@ -5,6 +5,7 @@
   location: "VU Aulą M. K. Čiurlionio g. 21, Vilnius"
   description: "Korniha band will perform at MZ Battleground, presenting Yurucamp event and anime OSTs"
   link: "https://www.facebook.com/events/1284257033151299"
+  image: "/images/events/2025/08/2025-08-mzbattleground.jpg"
   setlist:
     type: "Japanese & Lithuanian"
 
@@ -15,6 +16,7 @@
   location: "Bražuolės stovyklavietė, Lithuania"
   description: "Weekend camping festival celebrating Japanese pop culture, anime, music, and cosplay fandom"
   link: "https://otaku.lt/yurucamp"
+  image: "/images/events/2025/08/2025-08-yurucamp.png"
   setlist:
     days:
       - day: 1
@@ -126,6 +128,7 @@
     
     Join thousands of fans for this unforgettable celebration of pop culture!
   link: "https://www.comiccon.lt"
+  image: "/images/events/2026/05/2026-05-comicconbaltics.jpg"
   setlist:
     type: "Japanese & Lithuanian"
 
@@ -177,6 +180,7 @@
   location: "Bražuolės stovyklavietė, Lithuania"
   description: "Weekend camping festival celebrating Japanese pop culture, anime, music, and cosplay fandom"
   link: "https://otaku.lt/yurucamp"
+  image: "/images/events/2026/07/2026-07-yurucamp.jpg"
   setlist:
     days:
       - day: 1
