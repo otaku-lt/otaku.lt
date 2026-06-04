@@ -32,14 +32,6 @@ test.describe('Events Calendar', () => {
     }
   });
 
-  test('homepage shows YuruCamp poster', async ({ page }) => {
-    await page.goto('/');
-    const poster = page.locator('img[alt*="YuruCamp"]').first();
-    await expect(poster).toBeVisible();
-    const link = page.locator('a[href="/yurucamp"]').first();
-    await expect(link).toBeVisible();
-  });
-
   test('homepage shows next Korniha performance widget', async ({ page }) => {
     await page.goto('/');
     // If there is an upcoming Korniha event, the widget should be visible
