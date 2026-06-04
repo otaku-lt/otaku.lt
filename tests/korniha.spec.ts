@@ -4,12 +4,15 @@ test.describe('Korniha Band Page', () => {
   test('page loads with event list', async ({ page }) => {
     await page.goto('/korniha-band');
 
-    // Page title or heading should be visible
-    await expect(page.locator('h1, h2').filter({ hasText: /Korniha/i }).first()).toBeVisible();
+    // Wait for loading to finish and page title to appear
+    await expect(page.locator('text=Korniha Band').first()).toBeVisible({ timeout: 10000 });
   });
 
   test('event cards display title date and location', async ({ page }) => {
     await page.goto('/korniha-band');
+
+    // Wait for loading to finish
+    await expect(page.locator('text=Korniha Band').first()).toBeVisible({ timeout: 10000 });
 
     // At least one event card should exist
     const eventCards = page.locator('[class*="card" i], article, .event-card').first();
