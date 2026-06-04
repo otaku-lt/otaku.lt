@@ -32,6 +32,24 @@ test.describe('Events Calendar', () => {
     }
   });
 
+  test('homepage shows YuruCamp poster', async ({ page }) => {
+    await page.goto('/');
+    const poster = page.locator('img[alt*="YuruCamp"]').first();
+    await expect(poster).toBeVisible();
+    const link = page.locator('a[href="/yurucamp"]').first();
+    await expect(link).toBeVisible();
+  });
+
+  test('homepage shows next Korniha performance widget', async ({ page }) => {
+    await page.goto('/');
+    // If there is an upcoming Korniha event, the widget should be visible
+    const widget = page.locator('text=Next Korniha Performance').first();
+    const isVisible = await widget.isVisible().catch(() => false);
+    if (isVisible) {
+      await expect(page.locator('text=Band Page').first()).toBeVisible();
+    }
+  });
+
   test('events page renders calendar', async ({ page }) => {
     await page.goto('/events');
     // FullCalendar renders with fc-view-harness

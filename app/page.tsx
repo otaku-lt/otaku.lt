@@ -5,16 +5,17 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { isRouteVisible } from '@/config/routes';
-import { Calendar, MapPin, Users, Star, ArrowRight, Menu, X, ChevronDown, Mail, Facebook, Youtube, UserPlus, Clock } from "lucide-react";
+import { Calendar, MapPin, Users, Star, ArrowRight, Menu, X, ChevronDown, Mail, Facebook, Youtube, UserPlus, Clock, Music } from "lucide-react";
 import { FeatureFlag } from "@/lib/features";
 import { EventCard } from "@/components/events/EventCard";
-import { getEvents } from "@/lib/events";
+import { getEvents, getKornihaEvents } from "@/lib/events";
 import type { Event } from "@/lib/events";
 
 export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sakuraPetals, setSakuraPetals] = useState<Array<{left: string, top: string, delay: string, duration: string}>>([]);
   const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
+  const [nextKornihaEvent, setNextKornihaEvent] = useState<Event | null>(null);
 
   useEffect(() => {
     // Generate random positions for sakura petals on client side to avoid hydration mismatch
@@ -46,6 +47,13 @@ export default function HomePage() {
           .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
           .slice(0, 6);
         setUpcomingEvents(future);
+
+        // Load next Korniha performance
+        const kornihaEvents = await getKornihaEvents();
+        const nextKorniha = kornihaEvents
+          .filter(e => new Date(e.date) >= today)
+          .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())[0] || null;
+        setNextKornihaEvent(nextKorniha);
       } catch {
         // silently ignore
       }
@@ -276,6 +284,26 @@ export default function HomePage() {
         </div>
       </header>
 
+      {/* YuruCamp Poster */}
+      <section className="py-8 px-4 bg-background">
+        <div className="max-w-6xl mx-auto">
+          <Link href="/yurucamp" className="block relative w-full overflow-hidden rounded-2xl shadow-xl group">
+            <img
+              src="/images/events/2026/07/2026-07-yurucamp.jpg"
+              alt="YuruCamp 2026 - Weekend camping festival celebrating Japanese pop culture"
+              className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
+              <div className="text-white">
+                <span className="inline-block px-3 py-1 bg-green-600/90 rounded-full text-xs font-medium mb-2">Upcoming</span>
+                <h3 className="text-2xl font-bold">YuruCamp 2026</h3>
+                <p className="text-white/80 text-sm">July 24-26 &middot; Bražuolės stovyklavietė</p>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </section>
+
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 px-4 bg-background">
         <div className="max-w-6xl mx-auto">
@@ -332,6 +360,40 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* Next Korniha Performance */}
+      {nextKornihaEvent && (
+        <section className="py-8 px-4 bg-background">
+          <div className="max-w-6xl mx-auto">
+            <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-6 md:p-8 text-white shadow-lg flex flex-col md:flex-row items-center gap-6">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <Music className="w-5 h-5" />
+                  <span className="text-sm font-medium text-white/80 uppercase tracking-wide">Next Korniha Performance</span>
+                </div>
+                <h3 className="text-xl md:text-2xl font-bold mb-2">{nextKornihaEvent.title}</h3>
+                <div className="flex flex-wrap items-center gap-4 text-white/90 text-sm">
+                  <div className="flex items-center gap-1">
+                    <Calendar className="w-4 h-4" />
+                    <span>{new Date(nextKornihaEvent.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <MapPin className="w-4 h-4" />
+                    <span>{nextKornihaEvent.location}</span>
+                  </div>
+                </div>
+              </div>
+              <Link
+                href="/korniha-band"
+                className="inline-flex items-center px-6 py-3 bg-white text-purple-600 rounded-full font-medium hover:bg-purple-50 transition-all hover:scale-105 shadow-md whitespace-nowrap"
+              >
+                Band Page
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Upcoming Events */}
       <FeatureFlag name="eventCalendar">
