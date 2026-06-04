@@ -163,7 +163,7 @@ export default function HomePage() {
                       className="flex items-center gap-3 px-4 py-2.5 text-gray-200 hover:bg-pink-600/30 hover:text-white transition-colors"
                     >
                       <span className="text-pink-400">⛺</span>
-                      YuruCamp 2025
+                      Yurucamp
                     </Link>
                   </div>
                 </div>
@@ -248,7 +248,7 @@ export default function HomePage() {
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <span>⛺</span>
-                      YuruCamp 2025
+                      Yurucamp
                     </Link>
                   </div>
                 </div>
