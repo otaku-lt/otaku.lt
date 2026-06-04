@@ -980,3 +980,18 @@
   
   image: /images/events/2025/10/2025-10-satoshi-kon.png
   organizer: 'Hashi - VMU Japanese Culture Club'
+
+- id: 62
+  title: 'AniMegaMeSs (Estonia, Tartu)'
+  date: '2025-10-11'
+  endDate: '2025-10-12'
+  time: 'All day'
+  location: 'Karlova School in Tartu, Estonia'
+  category: convention
+  description: |
+    Animega Mess, an anime and Japanese pop culture event featuring cosplay, gaming tournaments
+    (including a Yu-Gi-Oh! TCG tournament), and other fan-centric activities.
+
+    Happening at the Karlova School in Tartu, Estonia.
+  image: /images/events/2025/10/2025-10-animegamess.jpg
+  link: 'https://www.facebook.com/events/salme-1a-tartu-50103-tartu-maakond-eesti/animega-mess-2025/1058412382764803/'

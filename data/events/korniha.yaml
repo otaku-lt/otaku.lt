@@ -36,6 +36,7 @@
   location: "Karlova School in Tartu, Estonia"
   description: "Animega Mess, an anime and Japanese pop culture event featuring cosplay, gaming tournaments (including a Yu-Gi-Oh! TCG tournament), and other fan-centric activities, happening on October 11th at the Karlova School in Tartu, Estonia"
   link: "https://www.pandayama.ee/animega-mess/"
+  image: "/images/events/2025/10/2025-10-animegamess.jpg"
   setlist:
     type: "Japanese"
 
@@ -45,7 +46,8 @@
   endDate: "2025-11-09"
   location: "Kultuurikatel & Energia Avastuskeskus, Tallinn, Estonia"
   description: "J-TSOON: Burning Pumpkin Fest is a festival celebrating Asian and youth subcultures. It brings together fans of anime, manga, comics, board and video games, cosplay, K-pop, and more. Korniha band will perform at this unforgettable weekend event."
-  link: "https://j-tsoon.ee/"
+  link: "https://www.facebook.com/JTSOON.EE"
+  image: "/images/events/2025/11/2025-11-j-tsoon.jpg"
   setlist:
     type: "Japanese"
 
