@@ -8,10 +8,13 @@ import { isRouteVisible } from '@/config/routes';
 import { Calendar, MapPin, Users, Star, ArrowRight, Menu, X, ChevronDown, Mail, Facebook, Youtube, UserPlus, Clock } from "lucide-react";
 import { FeatureFlag } from "@/lib/features";
 import { EventCard } from "@/components/events/EventCard";
+import { getEvents } from "@/lib/events";
+import type { Event } from "@/lib/events";
 
 export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sakuraPetals, setSakuraPetals] = useState<Array<{left: string, top: string, delay: string, duration: string}>>([]);
+  const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
 
   useEffect(() => {
     // Generate random positions for sakura petals on client side to avoid hydration mismatch
@@ -22,6 +25,23 @@ export default function HomePage() {
       duration: `${3 + Math.random() * 2}s`
     }));
     setSakuraPetals(petals);
+
+    // Load upcoming events
+    const loadEvents = async () => {
+      try {
+        const allEvents = await getEvents();
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const future = allEvents
+          .filter(e => new Date(e.date) >= today)
+          .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+          .slice(0, 6);
+        setUpcomingEvents(future);
+      } catch {
+        // silently ignore
+      }
+    };
+    loadEvents();
   }, []);
 
   // Discord icon component
@@ -303,6 +323,48 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* Upcoming Events */}
+      <FeatureFlag name="eventCalendar">
+        <section className="py-16 px-4 bg-background">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Upcoming Events
+            </h2>
+            {upcomingEvents.length > 0 ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {upcomingEvents.map(event => (
+                  <EventCard
+                    key={event.id}
+                    id={event.id}
+                    title={event.title}
+                    date={event.date}
+                    time={event.time}
+                    location={event.location}
+                    category={event.category}
+                    description={event.description}
+                    featured={event.featured}
+                    href={`/events?month=${event.date.slice(0, 7)}&event=${event.id}-${event.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`}
+                    getCategoryEmoji={getCategoryEmoji}
+                    getCategoryColors={getCategoryColors}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-muted-foreground">No upcoming events at the moment. Check back soon!</p>
+            )}
+            <div className="text-center mt-8">
+              <Link
+                href="/events"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-full hover:from-pink-600 hover:to-pink-700 transition-all hover:scale-105 shadow-lg"
+              >
+                <Calendar className="mr-2" size={18} />
+                View All Events
+              </Link>
+            </div>
+          </div>
+        </section>
+      </FeatureFlag>
 
       {/* Quick Actions */}
       <section className="py-16 px-4 bg-card">
