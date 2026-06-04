@@ -9,21 +9,17 @@ test.describe('Korniha Band Page', () => {
   });
 
   test('event cards display title date and location', async ({ page }) => {
-    await page.goto('/korniha-band');
+    await page.goto('/korniha-band#gigs');
 
     // Wait for loading to finish
     await expect(page.locator('text=Korniha Band').first()).toBeVisible({ timeout: 10000 });
 
-    // Click the Gigs tab to show events
-    const gigsTab = page.locator('button:has-text("Gigs")').first();
-    if (await gigsTab.isVisible().catch(() => false)) {
-      await gigsTab.click();
-      await page.waitForTimeout(500);
-    }
+    // Wait for the Gigs section heading to confirm the tab switched
+    await expect(page.locator('text=Upcoming Shows').first()).toBeVisible({ timeout: 10000 });
 
-    // At least one event card should exist
-    const eventCards = page.locator('[class*="card" i], article, .event-card').first();
-    await expect(eventCards).toBeVisible();
+    // At least one event row should exist within the gigs list
+    const eventRows = page.locator('h3:has-text("Upcoming Shows") + div div[class*="rounded-xl"]').first();
+    await expect(eventRows).toBeVisible();
 
     // Should contain event details with a date (human-readable format like "June 6, 2026")
     const pageContent = await page.content();
