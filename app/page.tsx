@@ -285,21 +285,14 @@ export default function HomePage() {
       </header>
 
       {/* YuruCamp Poster */}
-      <section className="py-8 px-4 bg-background">
-        <div className="max-w-6xl mx-auto">
-          <Link href="/yurucamp" className="block relative w-full overflow-hidden rounded-2xl shadow-xl group">
+      <section className="py-6 px-4 bg-background">
+        <div className="max-w-2xl mx-auto">
+          <Link href="/yurucamp" className="block overflow-hidden rounded-xl shadow-lg group">
             <img
               src="/images/events/2026/07/2026-07-yurucamp.jpg"
-              alt="YuruCamp 2026 - Weekend camping festival celebrating Japanese pop culture"
-              className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+              alt="YuruCamp 2026"
+              className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
-              <div className="text-white">
-                <span className="inline-block px-3 py-1 bg-green-600/90 rounded-full text-xs font-medium mb-2">Upcoming</span>
-                <h3 className="text-2xl font-bold">YuruCamp 2026</h3>
-                <p className="text-white/80 text-sm">July 24-26 &middot; Bražuolės stovyklavietė</p>
-              </div>
-            </div>
           </Link>
         </div>
       </section>
