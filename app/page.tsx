@@ -32,8 +32,17 @@ export default function HomePage() {
         const allEvents = await getEvents();
         const today = new Date();
         today.setHours(0, 0, 0, 0);
+
+        // Helper: check if any part of an event is upcoming
+        const isUpcoming = (e: Event) => {
+          if (new Date(e.date) >= today) return true;
+          if (e.endDate && new Date(e.endDate) >= today) return true;
+          if (e.screenings?.some(s => s.date && new Date(s.date) >= today)) return true;
+          return false;
+        };
+
         const future = allEvents
-          .filter(e => new Date(e.date) >= today)
+          .filter(isUpcoming)
           .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
           .slice(0, 6);
         setUpcomingEvents(future);

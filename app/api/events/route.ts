@@ -52,14 +52,27 @@ async function readEventsFromFile(filename: string): Promise<Event[]> {
           categories = [event.category];
         }
       }
-      
+
+      // Derive date from earliest screening if missing
+      let eventDate = event.date;
+      let eventLocation = event.location;
+      if (!eventDate && Array.isArray(event.screenings) && event.screenings.length > 0) {
+        const sortedScreenings = [...event.screenings].sort(
+          (a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        );
+        eventDate = sortedScreenings[0].date;
+        if (!eventLocation) {
+          eventLocation = sortedScreenings[0].cinema || sortedScreenings[0].location;
+        }
+      }
+
       return {
         id: event.id || '',
         title: event.title || 'Untitled Event',
-        date: event.date || new Date().toISOString(),
+        date: eventDate || new Date().toISOString(),
         time: event.time,
         endDate: event.endDate,
-        location: event.location || 'Location not specified',
+        location: eventLocation || 'Location not specified',
         description: event.description || '',
         featured: Boolean(event.featured),
         status: event.status || 'upcoming',

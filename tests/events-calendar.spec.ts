@@ -6,6 +6,32 @@ test.describe('Events Calendar', () => {
     await expect(page.locator('text=Upcoming Events').first()).toBeVisible();
   });
 
+  test('homepage upcoming events widget shows only future events', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('text=Upcoming Events').first()).toBeVisible();
+
+    // Past screening-only events (e.g. Grave of the Fireflies, Aug 2025) must not appear
+    await expect(page.locator('text=Grave of the Fireflies')).not.toBeVisible();
+
+    // If cards are rendered, verify each displayed date is today or later
+    const section = page.locator('section:has-text("Upcoming Events")');
+    const cards = section.locator('.grid > *');
+    const count = await cards.count();
+    if (count > 0) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      for (let i = 0; i < count; i++) {
+        const dateText = await cards.nth(i).locator('span.text-sm').first().textContent();
+        if (dateText) {
+          const cardDate = new Date(dateText.trim());
+          if (!isNaN(cardDate.getTime())) {
+            expect(cardDate.getTime()).toBeGreaterThanOrEqual(today.getTime());
+          }
+        }
+      }
+    }
+  });
+
   test('events page renders calendar', async ({ page }) => {
     await page.goto('/events');
     // FullCalendar renders with fc-view-harness
