@@ -2,14 +2,14 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Korniha Band Page', () => {
   test('page loads with event list', async ({ page }) => {
-    await page.goto('/korniha');
+    await page.goto('/korniha-band');
 
     // Page title or heading should be visible
     await expect(page.locator('h1, h2').filter({ hasText: /Korniha/i }).first()).toBeVisible();
   });
 
   test('event cards display title date and location', async ({ page }) => {
-    await page.goto('/korniha');
+    await page.goto('/korniha-band');
 
     // At least one event card should exist
     const eventCards = page.locator('[class*="card" i], article, .event-card').first();
@@ -21,7 +21,7 @@ test.describe('Korniha Band Page', () => {
   });
 
   test('clicking event card opens details', async ({ page }) => {
-    await page.goto('/korniha');
+    await page.goto('/korniha-band');
 
     // Try clicking the first event card or link
     const firstEvent = page.locator('article, [class*="card" i], a').first();
@@ -33,14 +33,19 @@ test.describe('Korniha Band Page', () => {
       const hasDialog = await page.locator('[role="dialog"]').isVisible().catch(() => false);
       const currentUrl = page.url();
 
-      expect(hasDialog || currentUrl.includes('/korniha/')).toBeTruthy();
+      expect(hasDialog || currentUrl.includes('/korniha-band')).toBeTruthy();
     }
   });
 
   test('featured events section visible on homepage', async ({ page }) => {
     await page.goto('/');
 
-    // Look for featured events or korniha mention
+    // Look for featured events or korniha mention (dropdown needs hover)
+    const dropdownTrigger = page.locator('button:has-text("Otaku.lt Events")').first();
+    if (await dropdownTrigger.isVisible().catch(() => false)) {
+      await dropdownTrigger.hover();
+      await page.waitForTimeout(300);
+    }
     const kornihaLink = page.locator('a[href*="korniha" i]').first();
     await expect(kornihaLink).toBeVisible();
   });
