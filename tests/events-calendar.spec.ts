@@ -136,4 +136,295 @@ test.describe('Events Calendar', () => {
     // Grid layout should have event cards
     await expect(page.locator('.grid').first()).toBeVisible();
   });
+
+  test('all events button resets filters and shows total events', async ({ page }) => {
+    await page.goto('/events');
+    await page.waitForSelector('.fc-event', { timeout: 10000 });
+
+    // Switch to list view
+    await page.locator('text=List View').click();
+    await page.waitForTimeout(500);
+
+    // Click Upcoming first to set a filter
+    await page.locator('button:has-text("Upcoming")').first().click();
+    await page.waitForTimeout(500);
+
+    // Click All Events to reset
+    const allEventsButton = page.locator('button:has-text("All Events")').first();
+    await allEventsButton.click();
+    await page.waitForTimeout(500);
+
+    // Extract expected count from button text
+    const buttonText = await allEventsButton.textContent();
+    const countMatch = buttonText?.match(/\((\d+)\)/);
+    const expectedCount = countMatch ? parseInt(countMatch[1], 10) : 0;
+
+    // Count visible event cards
+    const cardCount = await page.locator('.max-w-6xl .grid.gap-6 > div').count();
+    expect(cardCount).toBe(expectedCount);
+
+    if (expectedCount === 0) {
+      await expect(page.locator('text=No events found').first()).toBeVisible();
+    }
+
+    // All Events button should be highlighted
+    await expect(allEventsButton).toHaveClass(/bg-primary/);
+  });
+
+  test('upcoming button shows only upcoming events and count matches', async ({ page }) => {
+    await page.goto('/events');
+    await page.waitForSelector('.fc-event', { timeout: 10000 });
+
+    // Switch to list view
+    await page.locator('text=List View').click();
+    await page.waitForTimeout(500);
+
+    const upcomingButton = page.locator('button:has-text("Upcoming")').first();
+
+    // Extract expected count from button text
+    const buttonText = await upcomingButton.textContent();
+    const countMatch = buttonText?.match(/\((\d+)\)/);
+    const expectedCount = countMatch ? parseInt(countMatch[1], 10) : 0;
+
+    // Click Upcoming
+    await upcomingButton.click();
+    await page.waitForTimeout(500);
+
+    // Count visible event cards
+    const cardCount = await page.locator('.max-w-6xl .grid.gap-6 > div').count();
+    expect(cardCount).toBe(expectedCount);
+
+    if (expectedCount === 0) {
+      await expect(page.locator('text=No events found').first()).toBeVisible();
+    } else {
+      // Verify every visible card has a future date
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const cards = page.locator('.max-w-6xl .grid.gap-6 > div');
+      for (let i = 0; i < cardCount; i++) {
+        const dateText = await cards.nth(i).locator('span.text-sm').first().textContent();
+        if (dateText) {
+          const cardDate = new Date(dateText.trim());
+          if (!isNaN(cardDate.getTime())) {
+            expect(cardDate.getTime()).toBeGreaterThanOrEqual(today.getTime());
+          }
+        }
+      }
+    }
+
+    // Upcoming button should be highlighted
+    await expect(upcomingButton).toHaveClass(/bg-primary/);
+  });
+
+  test('upcoming button toggles on and off', async ({ page }) => {
+    await page.goto('/events');
+    await page.waitForSelector('.fc-event', { timeout: 10000 });
+
+    // Switch to list view
+    await page.locator('text=List View').click();
+    await page.waitForTimeout(500);
+
+    const allEventsButton = page.locator('button:has-text("All Events")').first();
+    const upcomingButton = page.locator('button:has-text("Upcoming")').first();
+
+    // Get total count
+    const allText = await allEventsButton.textContent();
+    const allMatch = allText?.match(/\((\d+)\)/);
+    const totalCount = allMatch ? parseInt(allMatch[1], 10) : 0;
+
+    // Click Upcoming
+    await upcomingButton.click();
+    await page.waitForTimeout(500);
+    await expect(upcomingButton).toHaveClass(/bg-primary/);
+
+    // Click Upcoming again to toggle off
+    await upcomingButton.click();
+    await page.waitForTimeout(500);
+
+    // Should be back to All Events
+    await expect(allEventsButton).toHaveClass(/bg-primary/);
+    const cardCount = await page.locator('.max-w-6xl .grid.gap-6 > div').count();
+    expect(cardCount).toBe(totalCount);
+  });
+
+  test('category button count matches displayed cards', async ({ page }) => {
+    await page.goto('/events');
+    await page.waitForSelector('.fc-event', { timeout: 10000 });
+
+    // Switch to list view
+    await page.locator('text=List View').click();
+    await page.waitForTimeout(500);
+
+    // Test each category that has events
+    const categories = ['Gaming', 'Music/Concerts', 'Movie Screenings', 'Workshops', 'Meetups', 'Conventions', 'Camping', 'Social Events', 'Other'];
+
+    for (const label of categories) {
+      const button = page.locator('button', { hasText: new RegExp(`^${label}`) }).first();
+      const isVisible = await button.isVisible().catch(() => false);
+      if (!isVisible) continue;
+
+      const buttonText = await button.textContent();
+      const countMatch = buttonText?.match(/\((\d+)\)/);
+      const expectedCount = countMatch ? parseInt(countMatch[1], 10) : 0;
+
+      if (expectedCount === 0) continue; // Skip empty categories
+
+      await button.click();
+      await page.waitForTimeout(500);
+
+      const cardCount = await page.locator('.max-w-6xl .grid.gap-6 > div').count();
+      expect(cardCount).toBe(expectedCount);
+
+      // Button should be highlighted
+      await expect(button).toHaveClass(/bg-primary/);
+
+      // Reset to all events before next category
+      const allEventsButton = page.locator('button:has-text("All Events")').first();
+      await allEventsButton.click();
+      await page.waitForTimeout(300);
+    }
+  });
+
+  test('stacked upcoming + category filter shows intersection', async ({ page }) => {
+    await page.goto('/events');
+    await page.waitForSelector('.fc-event', { timeout: 10000 });
+
+    // Switch to list view
+    await page.locator('text=List View').click();
+    await page.waitForTimeout(500);
+
+    // Click Upcoming first
+    const upcomingButton = page.locator('button:has-text("Upcoming")').first();
+    await upcomingButton.click();
+    await page.waitForTimeout(500);
+
+    // Find a category with upcoming events
+    const categories = ['Gaming', 'Music/Concerts', 'Movie Screenings', 'Workshops', 'Meetups', 'Conventions'];
+    for (const label of categories) {
+      const button = page.locator('button', { hasText: new RegExp(`^${label}`) }).first();
+      const isVisible = await button.isVisible().catch(() => false);
+      if (!isVisible) continue;
+
+      const buttonText = await button.textContent();
+      const countMatch = buttonText?.match(/\((\d+)\)/);
+      const count = countMatch ? parseInt(countMatch[1], 10) : 0;
+
+      if (count > 0) {
+        // Click the category
+        await button.click();
+        await page.waitForTimeout(500);
+
+        // Both Upcoming and category buttons should be highlighted
+        await expect(upcomingButton).toHaveClass(/bg-primary/);
+        await expect(button).toHaveClass(/bg-primary/);
+
+        // Card count should match the category button count (which reflects upcoming + category)
+        const cardCount = await page.locator('.max-w-6xl .grid.gap-6 > div').count();
+        expect(cardCount).toBe(count);
+
+        // All cards should still be upcoming
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const cards = page.locator('.max-w-6xl .grid.gap-6 > div');
+        for (let i = 0; i < cardCount; i++) {
+          const dateText = await cards.nth(i).locator('span.text-sm').first().textContent();
+          if (dateText) {
+            const cardDate = new Date(dateText.trim());
+            if (!isNaN(cardDate.getTime())) {
+              expect(cardDate.getTime()).toBeGreaterThanOrEqual(today.getTime());
+            }
+          }
+        }
+
+        break; // Only test one stacked category
+      }
+    }
+  });
+
+  test('category buttons replace each other (no multi-category)', async ({ page }) => {
+    await page.goto('/events');
+    await page.waitForSelector('.fc-event', { timeout: 10000 });
+
+    // Switch to list view
+    await page.locator('text=List View').click();
+    await page.waitForTimeout(500);
+
+    // Find two categories that have events
+    const gamingButton = page.locator('button:has-text("Gaming")').first();
+    const screeningsButton = page.locator('button:has-text("Movie Screenings")').first();
+
+    const gamingVisible = await gamingButton.isVisible().catch(() => false);
+    const screeningsVisible = await screeningsButton.isVisible().catch(() => false);
+
+    if (!gamingVisible || !screeningsVisible) {
+      test.skip();
+      return;
+    }
+
+    const gamingText = await gamingButton.textContent();
+    const gamingMatch = gamingText?.match(/\((\d+)\)/);
+    const gamingCount = gamingMatch ? parseInt(gamingMatch[1], 10) : 0;
+
+    const screeningsText = await screeningsButton.textContent();
+    const screeningsMatch = screeningsText?.match(/\((\d+)\)/);
+    const screeningsCount = screeningsMatch ? parseInt(screeningsMatch[1], 10) : 0;
+
+    if (gamingCount === 0 || screeningsCount === 0) {
+      test.skip();
+      return;
+    }
+
+    // Click Gaming
+    await gamingButton.click();
+    await page.waitForTimeout(500);
+    await expect(gamingButton).toHaveClass(/bg-primary/);
+
+    // Click Screenings - should replace Gaming
+    await screeningsButton.click();
+    await page.waitForTimeout(500);
+    await expect(screeningsButton).toHaveClass(/bg-primary/);
+
+    // Gaming should no longer be highlighted
+    await expect(gamingButton).not.toHaveClass(/bg-primary/);
+
+    // Should show screenings count
+    const cardCount = await page.locator('.max-w-6xl .grid.gap-6 > div').count();
+    expect(cardCount).toBe(screeningsCount);
+  });
+
+  test('clicking category from calendar view switches to list view', async ({ page }) => {
+    await page.goto('/events');
+    await page.waitForSelector('.fc-event', { timeout: 10000 });
+
+    // Verify we're in calendar view
+    await expect(page.locator('.fc')).toBeVisible();
+
+    // Find a category button with events
+    const gamingButton = page.locator('button:has-text("Gaming")').first();
+    const isVisible = await gamingButton.isVisible().catch(() => false);
+    if (!isVisible) {
+      test.skip();
+      return;
+    }
+
+    const buttonText = await gamingButton.textContent();
+    const countMatch = buttonText?.match(/\((\d+)\)/);
+    const count = countMatch ? parseInt(countMatch[1], 10) : 0;
+    if (count === 0) {
+      test.skip();
+      return;
+    }
+
+    // Click category
+    await gamingButton.click();
+    await page.waitForTimeout(800);
+
+    // List view should be active
+    const listButton = page.locator('button:has-text("List View")').first();
+    await expect(listButton).toHaveClass(/bg-primary/);
+
+    // Grid should be visible with correct count
+    const cardCount = await page.locator('.max-w-6xl .grid.gap-6 > div').count();
+    expect(cardCount).toBe(count);
+  });
 });
