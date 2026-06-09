@@ -9,14 +9,15 @@ import EventCalendar from "@/components/Calendar";
 import { EventModal } from "@/components/events/EventModal";
 import { Calendar as CalendarIcon, Clock, LayoutGrid, MapPin, Loader2, ExternalLink, Download, Tag } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
-import { getEvents, getEventsByCategory } from "@/lib/events";
+import { getEvents } from "@/lib/events";
 import type { CalendarEvent } from '@/types/calendar';
 import type { Event, EventStatus } from '@/types/event'; // Import Event from types
 import { EVENT_CATEGORIES } from '@/config/event-categories';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
 export default function EventsPage() {
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [dateFilter, setDateFilter] = useState<'all' | 'upcoming'>('all');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState("");
   const [viewMode, setViewMode] = useState<'calendar' | 'list'>('calendar');
   const [events, setEvents] = useState<Event[]>([]);
@@ -136,12 +137,12 @@ export default function EventsPage() {
     });
   }, [events, searchTerm]);
 
-  // Filter events based on selected category and search term
+  // Filter events based on date filter, category filter, and search term
   const filteredEvents = useMemo(() => {
     let result = viewMode === 'list' ? [...events] : [...expandedEventsForCalendar];
 
-    // In list view, only show upcoming events (hide past events)
-    if (viewMode === 'list') {
+    // Apply date filter
+    if (dateFilter === 'upcoming') {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       result = result.filter(event => {
@@ -152,28 +153,17 @@ export default function EventsPage() {
 
     // Apply category filter
     if (selectedCategory !== 'all') {
-      if (selectedCategory === 'upcoming') {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        result = result.filter(event => new Date(event.date) >= today);
-      } else {
-        // Special handling for categories that might have been renamed or merged
-        result = result.filter(event => {
-          // Get all categories for this event (primary + additional)
-          const eventCategories = event.categories ? [...event.categories] : [event.category];
+      result = result.filter(event => {
+        const eventCategories = event.categories ? [...event.categories] : [event.category];
 
-          if (selectedCategory === 'music') {
-            // Handle music category (formerly concert)
-            return eventCategories.includes('concert') || eventCategories.includes('music');
-          }
-          if (selectedCategory === 'screening') {
-            // Handle screening category
-            return eventCategories.includes('screening');
-          }
-          // Default case - check if any of the event's categories match
-          return eventCategories.includes(selectedCategory);
-        });
-      }
+        if (selectedCategory === 'music') {
+          return eventCategories.includes('concert') || eventCategories.includes('music');
+        }
+        if (selectedCategory === 'screening') {
+          return eventCategories.includes('screening');
+        }
+        return eventCategories.includes(selectedCategory);
+      });
     }
 
     // Apply search filter
@@ -188,17 +178,37 @@ export default function EventsPage() {
     }
 
     return result.sort((a, b) => {
-      // For events with screenings but no date, use the first screening date
       const dateA = a.date || (a.screenings && a.screenings[0]?.date) || '';
       const dateB = b.date || (b.screenings && b.screenings[0]?.date) || '';
       return new Date(dateA).getTime() - new Date(dateB).getTime();
     });
-  }, [events, expandedEventsForCalendar, selectedCategory, searchTerm, viewMode]);
+  }, [events, expandedEventsForCalendar, dateFilter, selectedCategory, searchTerm, viewMode]);
 
   // Calculate category counts based on filtered events
   const categories = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+
+    // Helper to check if an event matches a category
+    const matchesCategory = (event: Event, catId: string): boolean => {
+      const eventCategories = event.categories ? [...event.categories] : [event.category];
+      if (catId === 'music') {
+        return eventCategories.includes('concert') || eventCategories.includes('music');
+      }
+      if (catId === 'screening') {
+        return eventCategories.includes('screening');
+      }
+      return eventCategories.includes(catId);
+    };
+
+    // Base events for count computation = searchFilteredEvents, then apply date filter
+    let baseEvents = [...searchFilteredEvents];
+    if (dateFilter === 'upcoming') {
+      baseEvents = baseEvents.filter(event => {
+        const eventDate = event.endDate ? new Date(event.endDate) : new Date(event.date);
+        return eventDate >= today;
+      });
+    }
 
     // Start with special categories
     const baseCategories = [
@@ -206,7 +216,10 @@ export default function EventsPage() {
       {
         id: 'upcoming',
         label: 'Upcoming',
-        count: searchFilteredEvents.filter(event => new Date(event.date) >= today).length,
+        count: searchFilteredEvents.filter(event => {
+          const eventDate = event.endDate ? new Date(event.endDate) : new Date(event.date);
+          return eventDate >= today;
+        }).length,
         forceListView: true
       }
     ];
@@ -215,26 +228,11 @@ export default function EventsPage() {
     const eventCategories = EVENT_CATEGORIES.map((category: { id: string; label: string }) => ({
       id: category.id,
       label: category.label,
-      // Special handling for categories that might have been renamed or merged
-      count: searchFilteredEvents.filter(e => {
-        // Get all categories for this event (primary + additional)
-        const eventCategories = e.categories ? [...e.categories] : [e.category];
-
-        if (category.id === 'music') {
-          // Handle music category (formerly concert)
-          return eventCategories.includes('concert') || eventCategories.includes('music');
-        }
-        if (category.id === 'screening') {
-          // Handle screening category
-          return eventCategories.includes('screening');
-        }
-        // Default case - check if any of the event's categories match
-        return eventCategories.includes(category.id);
-      }).length
+      count: baseEvents.filter(e => matchesCategory(e, category.id)).length
     }));
 
     return [...baseCategories, ...eventCategories];
-  }, [searchFilteredEvents]);
+  }, [searchFilteredEvents, dateFilter]);
 
   // Group events by month for the calendar view
   const eventsByMonth = useMemo(() => {
@@ -414,8 +412,14 @@ export default function EventsPage() {
   }, [isClient, events, extractEventId]);
 
   const handleCategoryChange = useCallback((category: string) => {
-    setSelectedCategory(category);
-    // Always switch to list view when filtering by categories
+    if (category === 'all') {
+      setDateFilter('all');
+      setSelectedCategory('all');
+    } else if (category === 'upcoming') {
+      setDateFilter(prev => prev === 'upcoming' ? 'all' : 'upcoming');
+    } else {
+      setSelectedCategory(prev => prev === category ? 'all' : category);
+    }
     setViewMode('list');
   }, []);
 
@@ -613,6 +617,7 @@ export default function EventsPage() {
         {/* Event Tabs */}
         <EventTabs
           categories={categories}
+          dateFilter={dateFilter}
           selectedCategory={selectedCategory}
           onCategoryChange={handleCategoryChange}
           viewMode={viewMode}
@@ -679,7 +684,7 @@ export default function EventsPage() {
             <div className="text-6xl mb-4">📅</div>
             <h3 className="text-xl font-semibold mb-2">No events found</h3>
             <p className="text-muted-foreground">
-              {searchTerm || selectedCategory !== 'all'
+              {searchTerm || dateFilter === 'upcoming' || selectedCategory !== 'all'
                 ? 'Try adjusting your search or filters'
                 : 'Check back later for upcoming events!'}
             </p>
