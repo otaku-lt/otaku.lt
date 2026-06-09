@@ -219,7 +219,7 @@ export default function YuruCampPage() {
                         className="mt-4 px-6 py-2 bg-gray-500 text-white rounded-full cursor-not-allowed opacity-70 text-sm font-medium"
                         aria-disabled="true"
                       >
-                        Sold Out
+                        TBA
                       </button>
                     </div>
                     <div className="bg-gradient-to-br from-red-900/40 to-red-800/30 p-6 rounded-xl border border-red-500/30">
@@ -232,7 +232,7 @@ export default function YuruCampPage() {
                         className="mt-4 px-6 py-2 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-full cursor-not-allowed opacity-70 text-sm font-medium"
                         aria-disabled="true"
                       >
-                        Sold Out
+                        TBA
                       </button>
                       <p className="text-xs text-red-100/70 mt-4">
                         VIP tickets help support our new event and include a high-quality glowstick
