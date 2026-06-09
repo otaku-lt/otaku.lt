@@ -11,18 +11,20 @@ import ScheduleSection from "./components/ScheduleSection";
 export default function YuruCampPage() {
   const [activeTab, setActiveTab] = useState("about");
 
-  // Handle URL hash to set active tab and scroll to schedule
+  // Handle URL hash to set active tab
   React.useEffect(() => {
     const hash = window.location.hash.replace('#', '');
-    if (hash === 'schedule' || hash === 'friday' || hash === 'saturday' || hash === 'sunday') {
-      setActiveTab('schedule');
-      // Scroll to schedule section after a short delay to ensure content is rendered
-      setTimeout(() => {
-        const scheduleElement = document.querySelector('[data-schedule-section]');
-        if (scheduleElement) {
-          scheduleElement.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
+    const tabIds = ['about', 'schedule', 'faq', 'gallery'];
+    if (tabIds.includes(hash)) {
+      setActiveTab(hash);
+      if (hash === 'schedule') {
+        setTimeout(() => {
+          const scheduleElement = document.querySelector('[data-schedule-section]');
+          if (scheduleElement) {
+            scheduleElement.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
     }
   }, []);
 
@@ -171,11 +173,7 @@ export default function YuruCampPage() {
               key={tab.id}
               onClick={() => {
                 setActiveTab(tab.id);
-                if (tab.id === 'schedule') {
-                  window.location.hash = 'schedule';
-                } else {
-                  window.location.hash = '';
-                }
+                window.location.hash = tab.id;
               }}
               className={`px-6 py-3 rounded-full text-sm font-medium transition-all ${
                 activeTab === tab.id
